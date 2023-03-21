@@ -1,0 +1,26 @@
+#main-header {
+  position: fixed;
+  width: 70vw;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 36px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--font-main);
+}
+
+#main-header ul {
+  font-weight: 600;
+  color: var(--slate-gray);
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+#main-header li {
+  margin-left: 30px;
+}

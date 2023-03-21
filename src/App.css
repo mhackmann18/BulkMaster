@@ -30,29 +30,6 @@ body {
   width: 70vw;
 }
 
-#main-header {
-  position: fixed;
-  width: 70vw;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-h1 {
-  font-family: 'Oswald', sans-serif;
-  color: var(--font-main);
-}
-
-#main-header ul {
-  display: flex;
-  list-style: none;
-}
-
-#main-header li {
-  margin-left: 20px;  
-}
-
 main {
   height: 100vh;
   display: flex;
