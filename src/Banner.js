@@ -1,6 +1,6 @@
-import './Header.css'
+import './Banner.css'
 
-function Header() {
+function Banner() {
   return (
     <header id="main-header">
       <h1>BULKMASTER</h1>
@@ -13,4 +13,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Banner;

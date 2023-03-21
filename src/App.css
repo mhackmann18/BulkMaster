@@ -19,6 +19,7 @@
 body {
   background-color: var(--primary);
   font-family: 'Open Sans', sans-serif;
+  color: var(--onyx)
 }
 
 .App {
@@ -42,4 +43,9 @@ main div {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+main div p {
+  font-size: 22px;
+  margin-bottom: 20px;
 }
