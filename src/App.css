@@ -49,3 +49,7 @@ main div p {
   font-size: 22px;
   margin-bottom: 20px;
 }
+
+main div button {
+  margin-top: 16px;
+}

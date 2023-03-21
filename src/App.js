@@ -1,6 +1,6 @@
 import './App.css'
-import './Banner'
 import Banner from './Banner';
+import Button from './Button';
 import URLInput from './URLInput';
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
           <div>
             <p>Meal prepping on a bulk<br></br> just got easier.</p>
             <URLInput />
+            <Button text='Get Recipe' onClick={()=>{console.log('Get recipe')}}/>
           </div>
         </main>
       </div>
