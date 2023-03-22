@@ -1,7 +1,7 @@
 import './PopupWindow.css'
 import { useEffect } from 'react';
 
-function PopupWindow({ isOpening, setIsOpening}) {
+export default function PopupWindow({ isOpening, setIsOpening}) {
   
   useEffect(() => {
     if(isOpening){
@@ -31,5 +31,3 @@ function closePopup(e){
   // Fade out time should be the same as the transition duration in PopupWindow.css' #popup-container 
   setTimeout(() => e.target.style.display = 'none', 500);
 }
-
-export default PopupWindow;

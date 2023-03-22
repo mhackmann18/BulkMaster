@@ -1,30 +1,30 @@
 import './App.css'
 import Navbar from './Navbar';
 import PopupWindow from './PopupWindow';
-import URLInput from './URLInput';
+import TextInput from './TextInput';
 import ErrorMsg from './ErrorMsg';
 import Button from './Button';
 import { useState } from 'react';
 
-function App() {
+export default function App() {
   const [openingPopup, setOpeningPopup] = useState(false);
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
   
   function handleRecipeURLSubmit() {
-    setURLInputErr({ show: true, msg: 'Please paste a valid recipe URL' });
+    setURLInputErr({ isShowing: true, msg: 'Please paste a valid recipe URL' });
   }
 
   return (
     <div className="App">
       <div className="container">
         <Navbar />
-        <PopupWindow isOpening={openingPopup} setIsOpening={setOpeningPopup}/>
+        <PopupWindow isOpening={openingPopup} setIsOpening={setOpeningPopup} />
         <main>
           <div>
-            <p>Meal prepping on a bulk just got easier.</p>
-            <URLInput />
+            <p id='main-msg'>Meal prepping on a bulk just got easier.</p>
+            <TextInput />
             <ErrorMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
-            <Button text='Get Recipe' onClick={handleRecipeURLSubmit}/>
+            <Button text='Get Recipe' onClick={handleRecipeURLSubmit} />
           </div>
         </main>
       </div>
@@ -42,5 +42,3 @@ function isValidHttpUrl(string) {
   }
   return url.protocol === "http:" || url.protocol === "https:";
 }
-
-export default App;

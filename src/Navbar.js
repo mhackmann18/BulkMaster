@@ -1,6 +1,6 @@
 import './Navbar.css'
 
-function Navbar() {
+export default function Navbar() {
   return (
     <header id="main-header">
       <h1>BULKMASTER</h1>
@@ -12,5 +12,3 @@ function Navbar() {
     </header>
   );
 }
-
-export default Navbar;

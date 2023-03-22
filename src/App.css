@@ -34,22 +34,27 @@ body {
 main {
   height: 100vh;
   display: flex;
-  text-align: center;
+  /* text-align: center; */
   justify-content: center;
 }
 
 main div {
+  margin-top: 46vh;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 }
 
-main div p {
+#main-msg {
   font-size: 22px;
   margin-bottom: 20px;
 }
 
 main div button {
-  margin-top: 16px;
+  margin-top: 10px;
+}
+
+main div .err-msg {
+  margin-top: 8px;
 }
