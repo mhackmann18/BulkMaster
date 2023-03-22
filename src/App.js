@@ -1,32 +1,46 @@
 import './App.css'
-import Banner from './Banner';
-import Button from './Button';
-import URLInput from './URLInput';
+import Navbar from './Navbar';
 import PopupWindow from './PopupWindow';
+import URLInput from './URLInput';
+import ErrorMsg from './ErrorMsg';
+import Button from './Button';
 import { useState } from 'react';
 
 function App() {
-  const [openPopup, setOpenPopup] = useState(false);
-  function fdsdfasd() {
-    console.log('dsa');
-    setOpenPopup(true);
+  const [openingPopup, setOpeningPopup] = useState(false);
+  const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
+  
+  function handleRecipeURLSubmit() {
+    setURLInputErr({ show: true, msg: 'Please paste a valid recipe URL' });
   }
-  console.log(openPopup);
+
   return (
     <div className="App">
       <div className="container">
-        <Banner />
-        <PopupWindow isOpening={openPopup} setIsOpening={setOpenPopup}/>
+        <Navbar />
+        <PopupWindow isOpening={openingPopup} setIsOpening={setOpeningPopup}/>
         <main>
           <div>
-            <p>Meal prepping on a bulk<br></br> just got easier.</p>
+            <p>Meal prepping on a bulk just got easier.</p>
             <URLInput />
-            <Button text='Get Recipe' onClick={fdsdfasd}/>
+            <ErrorMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
+            <Button text='Get Recipe' onClick={handleRecipeURLSubmit}/>
           </div>
         </main>
       </div>
     </div>
   );
+}
+
+function isValidHttpUrl(string) {
+  // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+  let url;
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+  return url.protocol === "http:" || url.protocol === "https:";
 }
 
 export default App;

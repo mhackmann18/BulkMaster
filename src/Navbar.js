@@ -1,6 +1,6 @@
-import './Banner.css'
+import './Navbar.css'
 
-function Banner() {
+function Navbar() {
   return (
     <header id="main-header">
       <h1>BULKMASTER</h1>
@@ -13,4 +13,4 @@ function Banner() {
   );
 }
 
-export default Banner;
+export default Navbar;
