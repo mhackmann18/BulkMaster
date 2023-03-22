@@ -9,8 +9,7 @@ function PopupWindow({ isOpening, setIsOpening}) {
       setIsOpening(false);
       openPopup();
     }
-    console.log('Popup mounted');
-  }, []);
+  });
 
   return (
     <div id="popup-container" onClick={closePopup}>
@@ -23,7 +22,6 @@ function PopupWindow({ isOpening, setIsOpening}) {
 
 function openPopup() {
   let popupContainer = document.getElementById('popup-container');
-
   popupContainer.style.display = 'block';
 
   // fade in
@@ -32,10 +30,8 @@ function openPopup() {
 
 function closePopup(e){
   // fade out 
-   e.target.style.opacity = 0;
-   setTimeout(function () {
-     e.target.style.display = 'none'
-   }, 500);
+  e.target.style.opacity = 0;
+  setTimeout(() => e.target.style.display = 'none', 500);
 }
 
 export default PopupWindow;
