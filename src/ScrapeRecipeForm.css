@@ -1,0 +1,20 @@
+#srf-wrapper {
+  margin-top: 46vh;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+}
+
+#main-msg {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+#srf-wrapper button {
+  margin-top: 10px;
+}
+
+#srf-wrapper .err-msg {
+  margin-top: 8px;
+}
