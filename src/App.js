@@ -1,7 +1,7 @@
 import './App.css'
 import Navbar from './Navbar';
 import PopupWindow from './PopupWindow';
-import ScrapeRecipeForm from './ScrapeRecipeForm';
+import RecipeScrapingForm from './RecipeScrapingForm';
 import { useState } from 'react';
 
 export default function App() {
@@ -13,7 +13,10 @@ export default function App() {
         <Navbar />
         <PopupWindow isOpening={openingPopup} setIsOpening={setOpeningPopup} />
         <main>
-          <ScrapeRecipeForm />
+          <div id='rsf-wrapper'>
+            <p id='main-msg'>Meal prepping your favorite recipes just got easier.</p>
+            <RecipeScrapingForm />
+          </div>
         </main>
       </div>
     </div>

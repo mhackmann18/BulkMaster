@@ -1,4 +1,4 @@
-import './ScrapeRecipeForm.css';
+import './RecipeScrapingForm.css';
 import { useState } from "react";
 import TextInput from './TextInput';
 import ErrMsg from './ErrMsg';
@@ -26,13 +26,12 @@ export default function ScrapeRecipeForm() {
     }
   }
 
-  return (
-    <div id='srf-wrapper'>
-      <p id='main-msg'>Meal prepping your favorite recipes just got easier.</p>
+  return ( 
+    <form id='recipe-scraping-form' action='GET'>
       <TextInput processInputFlag={processInputFlag} setProcessInputFlag={setProcessInputFlag} processInput={getRecipeJSONFromURL} />
       <ErrMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
       <Button text='Get Recipe' onClick={setProcessInputFlag} />
-    </div>
+    </form>
   );
 }
 
