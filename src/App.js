@@ -9,9 +9,24 @@ import { useState } from 'react';
 export default function App() {
   const [openingPopup, setOpeningPopup] = useState(false);
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
-  
-  function handleRecipeURLSubmit() {
-    setURLInputErr({ isShowing: true, msg: 'Please paste a valid recipe URL' });
+  const [processInputFlag, setProcessInputFlag] = useState(false);
+
+  async function getRecipeJSONFromURL(string) {
+    if(!isValidHttpUrl(string)){
+      setURLInputErr({ isShowing: true, msg: 'Please paste a valid recipe URL' });
+      return false;
+    } 
+    
+    let res = await fetch(`http://localhost:8000/recipe-data?url=${string}`);
+    console.log(res);
+
+    if(res.status === 200){
+      setURLInputErr({ isShowing: false, msg: ' '});
+      let data = await res.json();
+      console.log(data);
+    } else {
+      setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
+    }
   }
 
   return (
@@ -21,10 +36,10 @@ export default function App() {
         <PopupWindow isOpening={openingPopup} setIsOpening={setOpeningPopup} />
         <main>
           <div>
-            <p id='main-msg'>Meal prepping on a bulk just got easier.</p>
-            <TextInput />
+            <p id='main-msg'>Meal prepping your favorite recipes just got easier.</p>
+            <TextInput processInputFlag={processInputFlag} setProcessInputFlag={setProcessInputFlag} processInput={getRecipeJSONFromURL} />
             <ErrorMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
-            <Button text='Get Recipe' onClick={handleRecipeURLSubmit} />
+            <Button text='Get Recipe' onClick={setProcessInputFlag} />
           </div>
         </main>
       </div>
