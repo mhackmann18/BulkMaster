@@ -3,6 +3,7 @@ import { useState } from "react";
 import TextInput from './TextInput';
 import ErrMsg from './ErrMsg';
 import Button from './Button';
+import formatRecipeData from './utils/formatScrapedRecipe';
 
 export default function ScrapeRecipeForm() {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
@@ -23,8 +24,7 @@ export default function ScrapeRecipeForm() {
       setURLInputErr({ isShowing: false, msg: ' '});
       let data = await res.json();
       // let recipe = formatRecipeData(data);
-      console.log(typeof(data.cook_time));
-      console.log(data);
+      console.log(formatRecipeData(data));
     } else {
       setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
     }
@@ -38,10 +38,6 @@ export default function ScrapeRecipeForm() {
     </form>
   );
 }
-
-// function formatRecipeData(data) {
-
-// }
 
 function isValidHttpUrl(string) {
   // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url

@@ -1,42 +1,53 @@
+import Measurement from "./Measurement";
+
 export default function formatRecipeData(data) {
   // console.log(data);
   let { canonical_url, cook_time, ingredients, instructions_list, nutrients, prep_time, title, yields } = data;
   // console.log(ingredients);
   // console.log(nutrients);
-  console.log(formatIngredientsArray(ingredients)); 
+
   let recipe = {
     title,
+    ingredients: ingredients.map(createIngredientObjFromStr)
   }
+
+  return recipe.ingredients;
 }
 
-function formatIngredientsArray(arr) {
-  let ingredients = [];
+function createIngredientObjFromStr(str) {
+  str = str.trim();
+  let tokens = str.split(' ');
 
-  for(let item of arr){
-    item = item.trim();
+  // Checks for int, decimal, or vulgar fractions
+  let intOrFractionRE = /^(?:[1-9][0-9]*|0)(?:\/[1-9][0-9]*)?$/;
 
-    // Regex from https://stackoverflow.com/questions/24113162/regexp-to-match-fraction
-    // Matches all integers or fractions followed by a space from the start of the string
-    let intOrFractionRE = /^((?:[1-9][0-9]*|0)(?:\/[1-9][0-9]*)?\s)+/g;  
-    
-    let fractionalQuantity = item.match(intOrFractionRE)[0];
-    fractionalQuantity = fractionalQuantity.trim();
+  let numericalQuantity = null;
+  console.log(tokens);
 
-    let fractionsArr = fractionalQuantity.split(" ");
-    let numericalQuantity = fractionsArr.reduce((acc, cur) => acc + eval(cur), 0);
-
-    item = item.replace(intOrFractionRE, "");
-
-    // Get units
-    let name = item.substr(item.indexOf(" ") + 1);
-
-    ingredients.push({
-      name,
-      fractionalQuantity,
-      numericalQuantity,
-      units: item.split(" ", 1).pop()
-    });
+  // Check for integers and fractional strings ('10', '1/2', '3\2', etc.)
+  while(tokens[0].match(intOrFractionRE)){
+    numericalQuantity += eval(tokens.shift());
   }
 
-  return ingredients;
+  // Check for fractional unicode characters
+  let unicodeFractions = [ '½', '⅓', '⅔', '¼', '¾', '⅕', '⅖', '⅗', '⅘', '⅙', '⅚', '⅐', '⅛', '⅜', '⅝', '⅞', '⅑', '⅒' ];
+  let unicodeFractionsNumericalConversions = [ .5, .333, .666, .25, .75, .2, .4, .6, .8, .167, .833, .143, .125, .375, .525, .875, .111, .1 ];
+                        
+  if(tokens[0].length === 1 && unicodeFractions.includes(tokens[0])){
+    numericalQuantity += unicodeFractionsNumericalConversions[unicodeFractions.indexOf(tokens[0])];
+    tokens.shift();
+  }
+  
+  // Get the units if any
+  let units;
+
+  if((units = new Measurement(tokens[0]).units) != null){
+    tokens.shift();
+  }
+
+  return {
+    name: tokens.join(' '),
+    quantity: numericalQuantity,
+    units
+  };
 }
