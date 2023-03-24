@@ -4,9 +4,14 @@ import PopupWindow from './PopupWindow';
 import RecipeScrapingForm from './RecipeScrapingForm';
 import { useState } from 'react';
 
+import formatRecipeData from './utils/formatScrapedRecipe';
+import data from './recipe.json';
+
 export default function App() {
   const [openingPopup, setOpeningPopup] = useState(false);
   
+  formatRecipeData(data);
+
   return (
     <div className="App">
       <div className="container">

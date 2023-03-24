@@ -6,20 +6,24 @@ import Button from './Button';
 
 export default function ScrapeRecipeForm() {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
-  const [processInputFlag, setProcessInputFlag] = useState(false);
 
-  async function getRecipeJSONFromURL(string) {
-    if(!isValidHttpUrl(string)){
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let inputString = e.target.querySelector('input').value;
+    
+    if(!isValidHttpUrl(inputString)){
       setURLInputErr({ isShowing: true, msg: 'Please paste a valid recipe URL' });
       return false;
     } 
     
-    let res = await fetch(`http://localhost:8000/recipe-data?url=${string}`);
+    let res = await fetch(`http://localhost:8000/recipe-data?url=${inputString}`);
     console.log(res);
 
     if(res.status === 200){
       setURLInputErr({ isShowing: false, msg: ' '});
       let data = await res.json();
+      // let recipe = formatRecipeData(data);
+      console.log(typeof(data.cook_time));
       console.log(data);
     } else {
       setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
@@ -27,13 +31,17 @@ export default function ScrapeRecipeForm() {
   }
 
   return ( 
-    <form id='recipe-scraping-form' action='GET'>
-      <TextInput processInputFlag={processInputFlag} setProcessInputFlag={setProcessInputFlag} processInput={getRecipeJSONFromURL} />
+    <form id='recipe-scraping-form' onSubmit={handleSubmit}>
+      <TextInput />
       <ErrMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
-      <Button text='Get Recipe' onClick={setProcessInputFlag} />
+      <Button text='Get Recipe' />
     </form>
   );
 }
+
+// function formatRecipeData(data) {
+
+// }
 
 function isValidHttpUrl(string) {
   // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
