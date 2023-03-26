@@ -4,7 +4,7 @@ import TextInput from './TextInput';
 import ErrMsg from './ErrMsg';
 import Button from './Button';
 import formatRecipeData from './utils/formatScrapedRecipe';
-import isValidHttpUrl from './utils/isValidHttpURL';
+import isValidHttpURL from './utils/isValidHttpURL';
 
 export default function ScrapeRecipeForm() {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
@@ -13,7 +13,7 @@ export default function ScrapeRecipeForm() {
     e.preventDefault();
     let inputString = e.target.querySelector('input').value;
     
-    if(!isValidHttpUrl(inputString)){
+    if(!isValidHttpURL(inputString)){
       setURLInputErr({ isShowing: true, msg: 'Please paste a valid recipe URL' });
       return false;
     } 
