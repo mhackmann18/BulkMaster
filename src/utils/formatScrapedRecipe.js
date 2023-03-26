@@ -17,7 +17,7 @@ export default function formatScrapedRecipe(data){
 }
 
 function formatNutrientObj(obj){
-  // Match decimals and ints from start
+  // Match numbers and vulgar fractions at start
   let numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;  
 
   for(let [key, val] of Object.entries(obj)){
@@ -31,7 +31,10 @@ function formatNutrientObj(obj){
       quantity[0] = fraction(quantity[0]);
     }
 
-    obj[key] = { quantity: quantity ? Number(quantity[0]) : null, unit: unit === '' ? null : unit }
+    obj[key] = { 
+      quantity: quantity ? Number(quantity[0]) : null, 
+      unit: unit === '' ? null : unit 
+    }
   }
 
   delete obj.servingSize;
@@ -43,7 +46,7 @@ function createIngredientObjFromStr(str){
   str = str.trim();
   let tokens = str.split(' ');
   
-  // Checks for numbers or vulgar fractions
+  // Match numbers and vulgar fractions
   let numOrFractionRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
   
   let quantities = [];
@@ -70,7 +73,8 @@ function createIngredientObjFromStr(str){
 }
 
 function getFracStrFromUniChar(str){
-  // Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction
+  /* Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction */
+
   let unicodeFractions = [ '½', '⅓', '⅔', '¼', '¾', '⅕', '⅖', '⅗', '⅘', '⅙', '⅚', '⅐', '⅛', '⅜', '⅝', '⅞', '⅑', '⅒' ];
   let unicodeFractionsConversions = 
   [ '1/2', '1/3', '2/3', '1/4', '3/4', '1/5', '2/5', '3/5', '4/5', '1/6', '5/6', '1/7', '1/8', '3/8', '5/8', '7/8', '1/9', '1/10' ];
