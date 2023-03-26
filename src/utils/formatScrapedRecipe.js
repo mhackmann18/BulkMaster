@@ -1,17 +1,15 @@
 import Measurement from "./Measurement";
 
 export default function formatRecipeData(data) {
-  // console.log(data);
   let { canonical_url, cook_time, ingredients, instructions_list, nutrients, prep_time, title, yields } = data;
-  // console.log(ingredients);
-  // console.log(nutrients);
 
   let recipe = {
     title,
-    ingredients: ingredients.map(createIngredientObjFromStr)
+    ingredients: ingredients.map(createIngredientObjFromStr),
+    nutrients
   }
 
-  return recipe.ingredients;
+  return recipe;
 }
 
 function createIngredientObjFromStr(str) {
@@ -19,12 +17,11 @@ function createIngredientObjFromStr(str) {
   let tokens = str.split(' ');
 
   // Checks for int, decimal, or vulgar fractions
-  let intOrFractionRE = /^(?:[1-9][0-9]*|0)(?:\/[1-9][0-9]*)?$/;
+  let intOrFractionRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?$/;
 
   let numericalQuantity = null;
-  console.log(tokens);
 
-  // Check for integers and fractional strings ('10', '1/2', '3\2', etc.)
+  // Check for integers, decimals and fractional strings ('10', '2.32', '1/2' etc.)
   while(tokens[0].match(intOrFractionRE)){
     numericalQuantity += eval(tokens.shift());
   }
