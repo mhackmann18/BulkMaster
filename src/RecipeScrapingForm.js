@@ -3,7 +3,7 @@ import { useState } from "react";
 import TextInput from './TextInput';
 import ErrMsg from './ErrMsg';
 import Button from './Button';
-import formatRecipeData from './utils/formatScrapedRecipe';
+import formatScrapedRecipe from './utils/formatScrapedRecipe';
 import isValidHttpURL from './utils/isValidHttpURL';
 
 export default function ScrapeRecipeForm() {
@@ -23,7 +23,7 @@ export default function ScrapeRecipeForm() {
     if(res.status === 200){
       setURLInputErr({ isShowing: false, msg: ' '});
       let data = await res.json();
-      console.log(formatRecipeData(data));
+      console.log(formatScrapedRecipe(data));
     } else {
       setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
     }

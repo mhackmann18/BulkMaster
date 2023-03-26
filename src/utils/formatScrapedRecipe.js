@@ -1,42 +1,61 @@
 import Measurement from "./Measurement";
 import { fraction } from "mathjs";
 
-export default function formatRecipeData(data) {
+export default function formatScrapedRecipe(data){
   let { canonical_url, cook_time, ingredients, instructions_list, nutrients, prep_time, title, yields } = data;
 
-  let recipe = {
-    title,
+  return {
+    url: canonical_url,
+    cookTime: cook_time,
     ingredients: ingredients.map(createIngredientObjFromStr),
-    nutrients
+    instructions: instructions_list,
+    nutrients: formatNutrientObj(nutrients),
+    prepTime: prep_time,
+    title,
+    servings: Number(yields.split(' ')[0]),
+  }
+}
+
+function formatNutrientObj(obj){
+  // Match decimals and ints from start
+  let numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;  
+
+  for(let [key, val] of Object.entries(obj)){
+    let quantity = val.match(numRE);
+
+    let unit = val.replace(numRE, '');
+
+    unit = unit.trim();
+
+    if(quantity[0].includes('/')){
+      quantity[0] = fraction(quantity[0]);
+    }
+
+    obj[key] = { quantity: quantity ? Number(quantity[0]) : null, unit: unit === '' ? null : unit }
   }
 
-  return recipe;
+  delete obj.servingSize;
+
+  return obj;
 }
 
-function createNutrientObjFromStr(str) {
-  str = str.trim();
-  let tokens = str.split();
-
-
-}
-
-function createIngredientObjFromStr(str) {
+function createIngredientObjFromStr(str){
   str = str.trim();
   let tokens = str.split(' ');
   
   // Checks for numbers or vulgar fractions
-  let numOrFractionRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?$/;
+  let numOrFractionRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
   
   let quantities = [];
   
   // Check for numegers, decimals and fractional strings ('10', '2.32', '1/2' etc.)
-  while(tokens[0].match(numOrFractionRE)){
+  while(tokens[0].match(numOrFractionRE) || getFracStrFromUniChar(tokens[0])){
     quantities.push(tokens.shift());
   }
   
   let quantity = quantities.reduce((acc, el) => acc + fraction(getFracStrFromUniChar(el) || el), 0);
-  quantity = fraction(quantity);
-    
+  quantity = quantity ? fraction(quantity) : null;
+
   let units;
   
   if((units = new Measurement(tokens[0]).units) != null){
@@ -46,7 +65,7 @@ function createIngredientObjFromStr(str) {
   return {
     name: tokens.join(' '),
     quantity,
-    units
+    unit: units
   };
 }
 
