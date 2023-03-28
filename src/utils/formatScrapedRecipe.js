@@ -3,7 +3,7 @@ import { fraction } from "mathjs";
 
 export default function formatScrapedRecipe(data){
   let { canonical_url, cook_time, ingredients, instructions_list, nutrients, prep_time, title, yields } = data;
-
+  
   return {
     url: canonical_url,
     cookTime: cook_time,
@@ -21,6 +21,8 @@ function formatNutrientObj(obj){
   let numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;  
 
   for(let [key, val] of Object.entries(obj)){
+    if(!val) continue;
+
     let quantity = val.match(numRE);
 
     let unit = val.replace(numRE, '');

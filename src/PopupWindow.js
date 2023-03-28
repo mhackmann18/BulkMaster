@@ -1,7 +1,7 @@
 import './PopupWindow.css'
 import { useEffect } from 'react';
 
-export default function PopupWindow({ isOpening, setIsOpening}) {
+export default function PopupWindow({ content, isOpening, setIsOpening}) {
   
   useEffect(() => {
     if(isOpening){
@@ -13,7 +13,7 @@ export default function PopupWindow({ isOpening, setIsOpening}) {
   return (
     <div id="popup-container" onClick={closePopup}>
       <div className="popup" onClick={e => e.stopPropagation()}>
-        <button>Send</button>
+        {content}
       </div>
     </div>
   );

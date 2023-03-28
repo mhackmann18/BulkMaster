@@ -5,7 +5,7 @@ import ButtonMain from './ButtonMain';
 import formatScrapedRecipe from './utils/formatScrapedRecipe';
 import isValidHttpURL from './utils/isValidHttpURL';
 
-export default function ScrapeRecipeForm() {
+export default function ScrapeRecipeForm({ handleResponse }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
 
   async function handleSubmit(e) {
@@ -17,12 +17,13 @@ export default function ScrapeRecipeForm() {
       return false;
     } 
     
+    // Add error handling here
     let res = await fetch(`http://localhost:8000/recipe-data?url=${inputString}`);
 
     if(res.status === 200){
       setURLInputErr({ isShowing: false, msg: ' '});
       let data = await res.json();
-      console.log(formatScrapedRecipe(data));
+      handleResponse(formatScrapedRecipe(data));
     } else {
       setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
     }
