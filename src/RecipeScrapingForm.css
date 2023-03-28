@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-input {
+#recipe-scraping-form input {
   width: 480px;
   padding: 8px;
   font-size: 18px;
@@ -14,7 +14,7 @@ input {
   border-radius: 10px;
 }
 
-input::placeholder {
+#recipe-scraping-form input::placeholder {
   opacity: 1;
   font-weight: 200;
   color: var(--french-gray);

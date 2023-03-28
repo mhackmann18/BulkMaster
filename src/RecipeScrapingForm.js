@@ -1,7 +1,7 @@
 import './RecipeScrapingForm.css';
 import { useState } from "react";
 import ErrMsg from './ErrMsg';
-import Button from './Button';
+import ButtonMain from './ButtonMain';
 import formatScrapedRecipe from './utils/formatScrapedRecipe';
 import isValidHttpURL from './utils/isValidHttpURL';
 
@@ -29,10 +29,10 @@ export default function ScrapeRecipeForm() {
   }
 
   return ( 
-    <form id='recipe-scraping-form' onSubmit={handleSubmit}>
+    <form id="recipe-scraping-form" onSubmit={handleSubmit}>
       <input type="text" id="url-input" placeholder="Paste a recipe's URL"/>
       <ErrMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
-      <Button text='Get Recipe' />
+      <ButtonMain text='Get Recipe' />
     </form>
   );
 }

@@ -13,8 +13,8 @@ export default function App() {
         <Navbar />
         <PopupWindow isOpening={openingPopup} setIsOpening={setOpeningPopup} />
         <main>
-          <div id='rsf-wrapper'>
-            <p id='main-msg'>Meal prepping your favorite recipes just got easier.</p>
+          <div id="rsf-wrapper">
+            <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
             <RecipeScrapingForm />
           </div>
         </main>

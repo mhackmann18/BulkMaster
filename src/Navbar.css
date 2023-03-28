@@ -1,4 +1,4 @@
-#main-header {
+#main-nav {
   position: fixed;
   width: 70vw;
   height: 80px;
@@ -7,13 +7,13 @@
   justify-content: space-between;
 }
 
-h1 {
+#main-nav h1 {
   font-size: 34px;
   font-family: 'Oswald', sans-serif;
   color: var(--font-main);
 }
 
-#main-header ul {
+#main-nav ul {
   font-weight: 600;
   color: var(--slate-gray);
   display: flex;
@@ -21,6 +21,6 @@ h1 {
   list-style: none;
 }
 
-#main-header li {
+#main-nav li {
   margin-left: 30px;
 }
