@@ -1,8 +1,7 @@
 import './App.css'
 import Navbar from './Navbar';
-import PopupWindow from './PopupWindow';
+import RecipePopup from './RecipePopup';
 import RecipeScrapingForm from './RecipeScrapingForm';
-import EditRecipe from './EditRecipe';
 import { useState } from 'react';
 
 export default function App() {
@@ -10,7 +9,6 @@ export default function App() {
   const [recipe, setRecipe] = useState(null);
 
   function openRecipePopup(res){
-    console.log(res);
     setRecipe(res);
     setOpeningPopup(true);
   }
@@ -19,8 +17,8 @@ export default function App() {
     <div className="App">
       <div className="container">
         <Navbar />
-        <PopupWindow 
-          content={<EditRecipe recipe={recipe}/>} 
+        <RecipePopup 
+          recipe={recipe}  
           isOpening={openingPopup} 
           setIsOpening={setOpeningPopup} 
         />
