@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import EditRecipeForm from './EditRecipeForm';
@@ -6,6 +6,9 @@ import Recipe from './Recipe';
 import './RecipePopup.css';
 
 export default function RecipePopup({ recipe, isOpening, setIsOpening}) {
+  const popupRef = useRef(null);
+
+  let popupStyle = popupRef.current && { top: `calc(50% - ${popupRef.current.offsetHeight/2}px)` };
 
   useEffect(() => {
     if(isOpening){
@@ -18,10 +21,12 @@ export default function RecipePopup({ recipe, isOpening, setIsOpening}) {
 
   return (
     <div id="popup-container" onClick={closePopup}>
-      <div className="popup" onClick={e => e.stopPropagation()}>
+      <div className="popup" ref={popupRef} onClick={e => e.stopPropagation()} style={popupStyle}>
         <FontAwesomeIcon icon={faXmark} size="xl" className="btn" onClick={closePopup}/>
         <Recipe recipe={recipe} />
-        <EditRecipeForm recipe={recipe} />        
+        <div class="form-wrapper">
+          <EditRecipeForm recipe={recipe} />        
+        </div>
       </div>
     </div>
   );

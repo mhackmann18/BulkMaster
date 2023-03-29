@@ -1,5 +1,20 @@
 #edit-recipe-form {
-  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#edit-recipe-form .left {
+  display: flex;
+}
+
+#edit-recipe-form .left * {
+  margin-right: 8px;
+}
+
+#edit-recipe-form label {
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 #edit-recipe-form .slider {
@@ -29,8 +44,14 @@
   cursor: pointer;
 }
 
-#edit-recipe-form button {
-
+#edit-recipe-form input[type=number] {
+  border: 1px solid var(--french-gray);
+  border-radius: 5px;
+  color: var(--onyx);
+  font-size: 16px;
+  padding: 4px;
+  width: 70px;
+  height: 30px;
 }
 
 #edit-recipe-form button {

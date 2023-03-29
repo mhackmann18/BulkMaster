@@ -18,10 +18,11 @@
   padding: 25px;
   background: var(--primary);
   position: relative;
-  /* left: calc(50% - 20vw); */
   left: 20vw;
-  top: 50px;
-  /* top: calc(50% - 150px); */
   font-size: 16px;
   text-align: left;
+}
+
+#popup-container .form-wrapper {
+  margin-top: 25px;
 }
