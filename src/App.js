@@ -13,6 +13,10 @@ export default function App() {
     setOpeningPopup(true);
   }
 
+  function onRecipePopupClose(){
+    setRecipe(null);
+  }
+
   return (
     <div className="App">
       <div className="container">
@@ -21,6 +25,7 @@ export default function App() {
           recipe={recipe}  
           isOpening={openingPopup} 
           setIsOpening={setOpeningPopup} 
+          onClose={onRecipePopupClose}
         />}
         <main>
           <div id="rsf-wrapper">

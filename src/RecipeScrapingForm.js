@@ -24,6 +24,7 @@ export default function ScrapeRecipeForm({ handleResponse }) {
       setURLInputErr({ isShowing: false, msg: ' '});
       let data = await res.json();
       handleResponse(formatScrapedRecipe(data));
+      e.target.querySelector('input').value = "";
     } else {
       setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
     }

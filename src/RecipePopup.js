@@ -5,12 +5,12 @@ import EditRecipeForm from './EditRecipeForm';
 import Recipe from './Recipe';
 import './RecipePopup.css';
 
-export default function RecipePopup({ recipe, isOpening, setIsOpening}) {
+export default function RecipePopup({ recipe, isOpening, setIsOpening, onClose}) {
   const [servingsInputValue, setServingsInputValue] = useState(recipe.servings);
   const [caloriesInputValue, setCaloriesInputValue] = useState(recipe.nutrients.calories.quantity);
   const popupRef = useRef(null);
 
-  let popupStyle = popupRef.current && { top: `calc(50% - ${popupRef.current.offsetHeight/2}px)` };
+  const popupStyle = popupRef.current && { top: `calc(50% - ${popupRef.current.offsetHeight/2}px)` };
 
   useEffect(() => {
     if(isOpening){
@@ -20,6 +20,16 @@ export default function RecipePopup({ recipe, isOpening, setIsOpening}) {
   });
 
   console.log(recipe);
+
+  function closePopup(){
+    let popupContainer = document.getElementById('popup-container');
+    popupContainer.style.opacity = 0;
+    // Fade out time should be the same as the transition duration in css file 
+    setTimeout(() => {
+      popupContainer.style.display = 'none';
+      onClose();
+    }, 500);
+  }
 
   return (
     <div id="popup-container" onClick={closePopup}>
@@ -44,11 +54,4 @@ function openPopup() {
   popupContainer.style.display = 'block';
 
   setTimeout(() => popupContainer.style.opacity = 1, 100);
-}
-
-function closePopup(){
-  let popupContainer = document.getElementById('popup-container');
-  popupContainer.style.opacity = 0;
-  // Fade out time should be the same as the transition duration in css file 
-  setTimeout(() => popupContainer.style.display = 'none', 500);
 }
