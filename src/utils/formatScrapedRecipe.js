@@ -19,7 +19,7 @@ export default function formatScrapedRecipe(data){
 function formatNutrientObj(obj){
   // Match numbers and vulgar fractions at start
   let numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;  
-
+  
   for(let [key, val] of Object.entries(obj)){
     if(!val) continue;
 

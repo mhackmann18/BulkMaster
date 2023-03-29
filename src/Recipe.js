@@ -6,15 +6,15 @@ export default function Recipe({ recipe }) {
   return (
     <div id="recipe">
       <h2>{title}</h2>
-      <p id="recipe-times">Prep Time: {prepTime} minutes | Cook Time: {cookTime} minutes</p>
+      <p id="recipe-times">Prep Time: {prepTime ? `${prepTime} minutes` : 'N/A'} | Cook Time: {cookTime ? `${cookTime} minutes` : 'N/A'}</p>
       <div className="two-col" id="recipe-content">
         <div id="ingredients-container">
           <h3>Ingredients</h3>
-          <ul>{ingredients.map(el => <li>{getIngredientStrFromObj(el)}</li>)}</ul>
+          <ul>{ingredients.map((el, i) => <li key={i}>{getIngredientStrFromObj(el)}</li>)}</ul>
         </div>
         <div id="instructions-container">
           <h3>Directions</h3>
-          <ol>{instructions.map(el => <li>{el}</li>)}</ol>
+          <ol>{instructions.map((el, i) => <li key={i}>{el}</li>)}</ol>
           <h3>Nutrition Facts</h3>
           {getNutrientStrArrFromNutrientsObj(nutrients).map(el => `${el}, `)}
         </div>
