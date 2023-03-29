@@ -1,5 +1,7 @@
 import './RecipePopup.css'
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function RecipePopup({ recipe, isOpening, setIsOpening}) {
   useEffect(() => {
@@ -31,9 +33,16 @@ export default function RecipePopup({ recipe, isOpening, setIsOpening}) {
     return (
       <div id="popup-container" onClick={closePopup}>
         <div className="popup" onClick={e => e.stopPropagation()}>
-          
-          <h2>{title}</h2>
-          <p id="recipe-times">Prep Time: {prepTime} minutes | Cook Time: {cookTime} minutes</p>
+          <div id="header" className="two-col">
+            <div>
+              <h2>{title}</h2>
+              <p id="recipe-times">Prep Time: {prepTime} minutes | Cook Time: {cookTime} minutes</p>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faXmark} />
+              <a href={url}>{url}</a>
+            </div>
+          </div>
           <div className="two-col">
             <div id="ingredients-container">
               <h3>Ingredients</h3>
