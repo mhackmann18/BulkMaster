@@ -17,11 +17,11 @@ export default function App() {
     <div className="App">
       <div className="container">
         <Navbar />
-        <RecipePopup 
+        {recipe && <RecipePopup 
           recipe={recipe}  
           isOpening={openingPopup} 
           setIsOpening={setOpeningPopup} 
-        />
+        />}
         <main>
           <div id="rsf-wrapper">
             <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
