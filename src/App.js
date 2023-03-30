@@ -22,7 +22,7 @@ export default function App() {
       <div className="container">
         <Navbar />
         {recipe && <RecipePopup 
-          recipe={recipe}  
+          recipe={recipe} 
           isOpening={openingPopup} 
           setIsOpening={setOpeningPopup} 
           onClose={onRecipePopupClose}

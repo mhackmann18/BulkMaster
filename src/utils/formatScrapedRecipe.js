@@ -59,7 +59,7 @@ function createIngredientObjFromStr(str){
   }
   
   let quantity = quantities.reduce((acc, el) => acc + fraction(getFracStrFromUniChar(el) || el), 0);
-  quantity = quantity ? fraction(quantity) : null;
+  quantity = quantity || null;
 
   let units;
   
