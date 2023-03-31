@@ -1,36 +1,27 @@
-import './App.css'
+import { useState } from 'react';
 import Navbar from './Navbar';
 import RecipePopup from './RecipePopup';
 import RecipeScrapingForm from './RecipeScrapingForm';
-import { useState } from 'react';
+import './App.css';
 
 export default function App() {
   const [openingPopup, setOpeningPopup] = useState(false);
   const [recipe, setRecipe] = useState(null);
 
-  function openRecipePopup(res){
-    setRecipe(res);
-    setOpeningPopup(true);
-  }
-
-  function onRecipePopupClose(){
-    setRecipe(null);
-  }
-
   return (
     <div className="App">
-      <div className="container">
+      <div className="content-width">
         <Navbar />
         {recipe && <RecipePopup 
           recipe={recipe} 
           isOpening={openingPopup} 
           setIsOpening={setOpeningPopup} 
-          onClose={onRecipePopupClose}
+          onClose={() => setRecipe(null)}
         />}
         <main>
           <div id="rsf-wrapper">
             <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
-            <RecipeScrapingForm handleResponse={openRecipePopup} />
+            <RecipeScrapingForm handleResponse={res => { setRecipe(res); setOpeningPopup(true)}} />
           </div>
         </main>
       </div>

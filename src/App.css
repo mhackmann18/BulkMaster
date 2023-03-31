@@ -1,5 +1,5 @@
 :root {
-  --primary: #f8f9faff;
+  --seasalt: #f8f9faff;
   --antiflash-white: #e9ecefff;
   --platinum: #dee2e6ff;
   --french-gray: #ced4daff;
@@ -7,7 +7,7 @@
   --slate-gray: #6c757dff;
   --outer-space: #495057ff;
   --onyx: #343a40ff;
-  --font-main: #212529ff;
+  --eerie-black: #212529ff;
 }
 
 * {
@@ -17,9 +17,9 @@
 }
 
 body {
-  background-color: var(--primary);
+  background-color: var(--seasalt);
   font-family: 'Open Sans', sans-serif;
-  color: var(--onyx)
+  color: var(--onyx);
 }
 
 .App {
@@ -27,7 +27,7 @@ body {
   justify-content: center;
 }
 
-.container {
+.content-width {
   width: 70vw;
 }
 
@@ -40,7 +40,6 @@ main {
 #rsf-wrapper {
   margin-top: 46vh;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 }

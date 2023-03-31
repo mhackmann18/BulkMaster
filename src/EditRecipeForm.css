@@ -55,7 +55,7 @@
 }
 
 #edit-recipe-form button {
-  background-color: var(--font-main);
+  background-color: var(--eerie-black);
   color: var(--antiflash-white);
   font-weight: 500;
   border: none;

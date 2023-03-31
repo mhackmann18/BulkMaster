@@ -19,35 +19,39 @@ export default function Recipe({ recipe }) {
           <h3>Directions</h3>
           <ol>{instructions.map((el, i) => <li key={i}>{el}</li>)}</ol>
           <h3>Nutrition Facts</h3>
-          {getNutrientStrArrFromNutrientsObj(nutrients, nutrientsMultiplier).map(el => `${el}, `)}
+          {getNutrientStrArrFromNutrientsObj(nutrients, nutrientsMultiplier).map((el, i) => 
+          i + 1 !== Object.keys(nutrients).length ? `${el}, ` : `${el}`)}
         </div>
       </div>
     </div>
   );
 }
 
-function getNutrientStrArrFromNutrientsObj(obj, mult){
+function getNutrientStrArrFromNutrientsObj(obj, mult=1){
   if(!obj) return null;
 
   let nutrientArr = [];
 
   for(let [key, val] of Object.entries(obj)){
-
-    console.log(key, val, mult);
-    val && nutrientArr.push(`${key}: ${formatAmount(val.quantity * (mult || 1), 0)} ${val.unit || ""}`);
+    let name = key.replace('Content', '');
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    name = name.match(/[A-Z][a-z]+/g);
+    let nameStr = name.reduce((acc, el, i) => i + 1 !== name.length ? acc + el + " " : acc + el, "");
+    if(nameStr === 'Carbohydrate') nameStr += 's';
+    val && nutrientArr.push(`${nameStr}: ${formatAmount(val.quantity * mult, 0)} ${val.unit || ""}`);
   }
 
   return nutrientArr;
 }
 
-function getIngredientStrFromObj(obj, mult){
+function getIngredientStrFromObj(obj, mult=1){
   if(!obj || !obj.name) return "";
   
   let { quantity, unit, name } = obj;
   
   let str = "";
 
-  if(quantity) str += `${formatAmount(quantity * (mult || 1), 2)} `;
+  if(quantity) str += `${formatAmount(quantity * mult, 2)} `;
 
   if(unit) str += `${unit} `;
 

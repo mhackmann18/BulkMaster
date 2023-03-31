@@ -5,8 +5,15 @@ export default function EditRecipeForm({
   servingsInputValue, 
   setServingsInputValue, 
   caloriesDefaultValue, 
+  caloriesInputValue,
   setCaloriesInputValue 
 }) {
+
+  let classNameStr = 'btn-secondary';
+
+  if(servingsDefaultValue !== servingsInputValue || caloriesDefaultValue !== caloriesInputValue){
+    classNameStr += ' active';
+  }
 
   return (
     <form id="edit-recipe-form">
@@ -21,9 +28,9 @@ export default function EditRecipeForm({
           <input type="number" 
           onChange={e => setCaloriesInputValue(Number(e.target.value))} defaultValue={caloriesDefaultValue}/>
         </div>
-          <button className="btn-secondary">Reset</button>
+        <button className="btn-secondary">Reset</button>
       </div>
-        <button className="btn-primary">Save Recipe</button>
+      <button className="btn-seasalt">Save Recipe</button>
     </form>
   );
 }
