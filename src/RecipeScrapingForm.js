@@ -17,17 +17,20 @@ export default function ScrapeRecipeForm({ handleResponse }) {
       return false;
     } 
     
-    let res = await fetch(`http://localhost:8000/recipe-data?url=${inputString}`);
-    console.log(res);
+    try {
+      let res = await fetch(`http://localhost:8000/recipe-data?url=${inputString}`);
 
-    if(res.status === 200){
-      setURLInputErr({ isShowing: false, msg: ''});
-      let data = await res.json();
-      handleResponse(formatScrapedRecipe(data));
-      e.target.querySelector('input').value = "";
-    } else {
-      let errText = await res.text();
-      setURLInputErr({ isShowing: true, msg: errText });
+      if(res.status === 200){
+        setURLInputErr({ isShowing: false, msg: ''});
+        let data = await res.json();
+        handleResponse(formatScrapedRecipe(data));
+        e.target.querySelector('input').value = "";
+      } else {
+        let errText = await res.text();
+        setURLInputErr({ isShowing: true, msg: errText });
+      }
+    } catch {
+      setURLInputErr({ isShowing: true, msg: 'Connection error from recipe API. Please try again later'});
     }
   }
 
