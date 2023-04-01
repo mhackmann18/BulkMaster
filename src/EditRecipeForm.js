@@ -26,7 +26,7 @@ export default function EditRecipeForm({
         <div className="col">
           <label htmlFor="">Calories per serving</label>
           <input type="number" 
-          onChange={e => setCaloriesInputValue(Number(e.target.value))} defaultValue={caloriesDefaultValue}/>
+          onChange={e => setCaloriesInputValue(Number(e.target.value || caloriesDefaultValue))} defaultValue={caloriesDefaultValue}/>
         </div>
         <button className="btn-secondary">Reset</button>
       </div>

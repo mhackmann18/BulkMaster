@@ -17,16 +17,17 @@ export default function ScrapeRecipeForm({ handleResponse }) {
       return false;
     } 
     
-    // Add error handling here
     let res = await fetch(`http://localhost:8000/recipe-data?url=${inputString}`);
+    console.log(res);
 
     if(res.status === 200){
-      setURLInputErr({ isShowing: false, msg: ' '});
+      setURLInputErr({ isShowing: false, msg: ''});
       let data = await res.json();
       handleResponse(formatScrapedRecipe(data));
       e.target.querySelector('input').value = "";
     } else {
-      setURLInputErr({ isShowing: true, msg: 'Something went wrong. Please try a different url' });
+      let errText = await res.text();
+      setURLInputErr({ isShowing: true, msg: errText });
     }
   }
 

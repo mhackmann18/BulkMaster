@@ -12,7 +12,7 @@ export default function formatScrapedRecipe(data){
     nutrients: formatNutrientObj(nutrients),
     prepTime: prep_time,
     title,
-    servings: Number(yields.split(' ')[0]),
+    servings: yields && Number(yields.split(' ')[0]),
   }
 }
 
