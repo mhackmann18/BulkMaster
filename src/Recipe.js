@@ -3,26 +3,31 @@ import EditRecipeForm from './EditRecipeForm';
 import './Recipe.css';
 
 export default function Recipe({ recipe }) { 
-  const [servingsInputValue, setServingsInputValue] = useState(recipe.servings);
-  const [caloriesInputValue, setCaloriesInputValue] = useState(recipe.nutrients.calories.quantity);
+  const { cookTime, ingredients, instructions, nutrients, prepTime, title, servings } = recipe;
+  const caloriesInitialValue = nutrients && nutrients.calories && nutrients.calories.quantity;
+
+  // The following recipe properties must be non-false values: title, instructions, servings, and ingredients
+  const [servingsInputValue, setServingsInputValue] = useState(servings);
+  const [caloriesInputValue, setCaloriesInputValue] = useState(caloriesInitialValue);
   
-  const newRecipe = {...recipe, userInput: { calories: caloriesInputValue, servings: servingsInputValue}};
-  const { cookTime, ingredients, instructions, nutrients, prepTime, title, userInput } = newRecipe;
-  
-  const ingredientsMultiplier = getQuantityMultiplier(recipe, userInput.servings, userInput.calories);
-  const nutrientsMultiplier = userInput.calories / recipe.nutrients.calories.quantity;
+  const ingredientsMultiplier = getQuantityMultiplier(recipe, servingsInputValue, caloriesInputValue);
+  const nutrientsMultiplier = caloriesInputValue / caloriesInitialValue;
 
   return (
     <div id="recipe">
       <div id="recipe-header">
         <h2>{title}</h2>
-        <p id="recipe-times">Prep Time: {prepTime ? `${prepTime} minutes` : 'N/A'} | Cook Time: {cookTime ? `${cookTime} minutes` : 'N/A'}</p>
+        {(prepTime || cookTime) && <p id="recipe-times">
+          {prepTime && `Prep Time: ${prepTime} minutes`} 
+          {(prepTime && cookTime) && ' | '} 
+          {cookTime && `Cook Time: ${cookTime} minutes`}
+        </p>}
         <div className="form-wrapper">
           <EditRecipeForm 
-          servingsDefaultValue={recipe.servings} 
+          servingsDefaultValue={servings} 
           servingsInputValue={servingsInputValue}
           setServingsInputValue={setServingsInputValue}
-          caloriesDefaultValue={recipe.nutrients.calories.quantity}
+          caloriesDefaultValue={caloriesInitialValue}
           caloriesInputValue={caloriesInputValue}
           setCaloriesInputValue={setCaloriesInputValue} />        
         </div>
@@ -35,9 +40,11 @@ export default function Recipe({ recipe }) {
         <div id="instructions-container">
           <h3>Directions</h3>
           <ol>{instructions.map((el, i) => <li key={i}>{el}</li>)}</ol>
+          {nutrients && <>
           <h3>Nutrition Facts</h3>
           {getNutrientStringsFromObj(nutrients, nutrientsMultiplier).map((el, i) => 
           i + 1 !== Object.keys(nutrients).length ? `${el}, ` : `${el}`)}
+          </>}
         </div>
       </div>
     </div>
@@ -76,9 +83,11 @@ function getIngredientStrFromObj(obj, mult=1){
 }
 
 function getQuantityMultiplier(recipe, newServingsCount, newCaloriesCount){
-  if(!recipe || !newServingsCount || !newCaloriesCount) return null;
-  
+  if(!recipe || !newServingsCount) return null;
+
   let oldServingsCount = recipe.servings;
+
+  if(!newCaloriesCount) return newServingsCount / oldServingsCount;
   
   if(!oldServingsCount) return null;
   

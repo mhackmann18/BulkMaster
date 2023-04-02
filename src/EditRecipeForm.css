@@ -53,10 +53,6 @@
   background-color: var(--outer-space);
 }
 
-#edit-recipe-form .btn-secondary {
-  background-color: var(--outer-space);
-}
-
 /* #edit-recipe-form .slider {
   -webkit-appearance: none;
   width: 150px;

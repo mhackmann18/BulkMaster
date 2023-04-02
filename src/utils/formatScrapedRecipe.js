@@ -11,10 +11,10 @@ export default function formatScrapedRecipe(data){
     cookTime: cook_time,
     ingredients: ingredients.map(createIngredientObjFromStr),
     instructions: instructions_list,
-    nutrients: formatNutrientObj(nutrients),
+    nutrients: nutrients && formatNutrientObj(nutrients),
     prepTime: prep_time,
     title,
-    servings: yields && Number(yields.split(' ')[0]),
+    servings: yields ? Number(yields.split(' ')[0]) : 1,
   }
 }
 

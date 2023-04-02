@@ -14,7 +14,7 @@ export default function EditRecipeForm({
   function handleResetBtnClick(e){
     e.preventDefault();
     setServingsInputValue(servingsDefaultValue);
-    setCaloriesInputValue(caloriesDefaultValue);
+    caloriesDefaultValue && setCaloriesInputValue(caloriesDefaultValue);
   }
 
   return (
@@ -25,9 +25,11 @@ export default function EditRecipeForm({
         onChange={e => setServingsInputValue(Number(e.target.value))}/>
         {/* <input type="range" min="1" max="30" className="slider" 
         onChange={e => setServingsInputValue(Number(e.target.value))} defaultValue={servingsDefaultValue}/> */}
-        <label htmlFor="">Calories per serving</label>
-        <input id="erf-calories-input" type="number" min="1" max="9999"
-        onChange={e => setCaloriesInputValue(Number(e.target.value || caloriesDefaultValue))} value={caloriesInputValue}/>
+        {caloriesDefaultValue && <>
+          <label htmlFor="">Calories per serving</label>
+          <input id="erf-calories-input" type="number" min="1" max="9999" value={caloriesInputValue}
+          onChange={e => setCaloriesInputValue(Number(e.target.value || caloriesDefaultValue))}/>
+        </>}
         {resetBtnActive && <button onClick={handleResetBtnClick}>Reset</button>}
       </div>
       <div>
