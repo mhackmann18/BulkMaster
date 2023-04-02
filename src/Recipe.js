@@ -1,16 +1,33 @@
+import { useState } from 'react';
+import EditRecipeForm from './EditRecipeForm';
 import './Recipe.css';
 
 export default function Recipe({ recipe }) { 
-  const { cookTime, ingredients, instructions, nutrients, prepTime, title, userInput } = recipe;
-
+  const [servingsInputValue, setServingsInputValue] = useState(recipe.servings);
+  const [caloriesInputValue, setCaloriesInputValue] = useState(recipe.nutrients.calories.quantity);
+  
+  const newRecipe = {...recipe, userInput: { calories: caloriesInputValue, servings: servingsInputValue}};
+  const { cookTime, ingredients, instructions, nutrients, prepTime, title, userInput } = newRecipe;
+  
   const ingredientsMultiplier = getQuantityMultiplier(recipe, userInput.servings, userInput.calories);
   const nutrientsMultiplier = userInput.calories / recipe.nutrients.calories.quantity;
 
   return (
     <div id="recipe">
-      <h2>{title}</h2>
-      <p id="recipe-times">Prep Time: {prepTime ? `${prepTime} minutes` : 'N/A'} | Cook Time: {cookTime ? `${cookTime} minutes` : 'N/A'}</p>
-      <div className="two-col" id="recipe-content">
+      <div id="recipe-header">
+        <h2>{title}</h2>
+        <p id="recipe-times">Prep Time: {prepTime ? `${prepTime} minutes` : 'N/A'} | Cook Time: {cookTime ? `${cookTime} minutes` : 'N/A'}</p>
+        <div className="form-wrapper">
+          <EditRecipeForm 
+          servingsDefaultValue={recipe.servings} 
+          servingsInputValue={servingsInputValue}
+          setServingsInputValue={setServingsInputValue}
+          caloriesDefaultValue={recipe.nutrients.calories.quantity}
+          caloriesInputValue={caloriesInputValue}
+          setCaloriesInputValue={setCaloriesInputValue} />        
+        </div>
+      </div>
+      <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
           <h3>Ingredients</h3>
           <ul>{ingredients.map((el, i) => <li key={i}>{getIngredientStrFromObj(el, ingredientsMultiplier)}</li>)}</ul>

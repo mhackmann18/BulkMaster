@@ -4,8 +4,9 @@
   justify-content: space-between;
 }
 
-#edit-recipe-form .left {
+#edit-recipe-form > div {
   display: flex;
+  align-items: center;
 }
 
 #edit-recipe-form .left * {
@@ -13,11 +14,50 @@
 }
 
 #edit-recipe-form label {
-  margin-bottom: 10px;
   font-weight: 600;
 }
 
-#edit-recipe-form .slider {
+#edit-recipe-form input[type=number] {
+  background-color: var(--seasalt);
+  border-style: none;
+  border-radius: 3px;
+  color: var(--eerie-black);
+  font-size: 16px;
+  padding: 3px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+#erf-calories-input::-webkit-outer-spin-button,
+#erf-calories-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#erf-calories-input {
+  -moz-appearance: textfield;
+}
+
+#edit-recipe-form button {
+  background-color: var(--onyx);
+  color: var(--antiflash-white);
+  font-weight: 500;
+  border: none;
+  font-size: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+#edit-recipe-form button:hover {
+  background-color: var(--outer-space);
+}
+
+#edit-recipe-form .btn-secondary {
+  background-color: var(--outer-space);
+}
+
+/* #edit-recipe-form .slider {
   -webkit-appearance: none;
   width: 150px;
   height: 15px;
@@ -42,33 +82,4 @@
   border-radius: 50%;
   background: var(--onyx);
   cursor: pointer;
-}
-
-#edit-recipe-form input[type=number] {
-  border: 1px solid var(--french-gray);
-  border-radius: 5px;
-  color: var(--onyx);
-  font-size: 16px;
-  padding: 4px;
-  width: 70px;
-  height: 30px;
-}
-
-#edit-recipe-form button {
-  background-color: var(--eerie-black);
-  color: var(--antiflash-white);
-  font-weight: 500;
-  border: none;
-  font-size: 16px;
-  padding: 16px 18px;
-  border-radius: 12px;
-}
-
-#edit-recipe-form button:hover {
-  cursor: pointer;
-  background-color: var(--outer-space);
-}
-
-#edit-recipe-form .btn-secondary {
-  background-color: var(--outer-space);
-}
+} */

@@ -1,9 +1,19 @@
+#recipe-header { 
+  padding: 10px;
+}
+
+#recipe-content {
+  background-color: var(--seasalt);
+  padding: 15px;
+  border-radius: 10px;
+}
+
 #recipe h2 {
   text-align: left;
 }
 
 p#recipe-times {
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   color: var(--slate-gray);
 }
 
@@ -11,13 +21,6 @@ p#recipe-times {
   color: var(--outer-space);
   text-align: left;
   margin-bottom: 6px;
-}
-
-.btn {
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  top: 20px;
 }
 
 .two-col {

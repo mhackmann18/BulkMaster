@@ -22,6 +22,14 @@ body {
   color: var(--onyx);
 }
 
+button {
+  font-family: 'Open Sans', sans-serif;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 .App {
   display: flex;
   justify-content: center;

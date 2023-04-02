@@ -9,28 +9,31 @@ export default function EditRecipeForm({
   setCaloriesInputValue 
 }) {
 
-  let classNameStr = 'btn-secondary';
+  const resetBtnActive = servingsDefaultValue !== servingsInputValue || caloriesDefaultValue !== caloriesInputValue;
 
-  if(servingsDefaultValue !== servingsInputValue || caloriesDefaultValue !== caloriesInputValue){
-    classNameStr += ' active';
+  function handleResetBtnClick(e){
+    e.preventDefault();
+    setServingsInputValue(servingsDefaultValue);
+    setCaloriesInputValue(caloriesDefaultValue);
   }
 
   return (
     <form id="edit-recipe-form">
       <div className="left">
-        <div className="col">
-          <label htmlFor="">Servings: {servingsInputValue}</label>
-          <input type="range" min="1" max="30" className="slider" 
-          onChange={e => setServingsInputValue(Number(e.target.value))} defaultValue={servingsDefaultValue}/>
-        </div>
-        <div className="col">
-          <label htmlFor="">Calories per serving</label>
-          <input type="number" 
-          onChange={e => setCaloriesInputValue(Number(e.target.value || caloriesDefaultValue))} defaultValue={caloriesDefaultValue}/>
-        </div>
-        <button className="btn-secondary">Reset</button>
+        <label htmlFor="">Servings</label>
+        <input id="erf-servings-input" type="number"  value={servingsInputValue} min="1" max="99"
+        onChange={e => setServingsInputValue(Number(e.target.value))}/>
+        {/* <input type="range" min="1" max="30" className="slider" 
+        onChange={e => setServingsInputValue(Number(e.target.value))} defaultValue={servingsDefaultValue}/> */}
+        <label htmlFor="">Calories per serving</label>
+        <input id="erf-calories-input" type="number" min="1" max="9999"
+        onChange={e => setCaloriesInputValue(Number(e.target.value || caloriesDefaultValue))} value={caloriesInputValue}/>
+        {resetBtnActive && <button onClick={handleResetBtnClick}>Reset</button>}
       </div>
-      <button className="btn-seasalt">Save Recipe</button>
+      <div>
+        <button onClick={e => e.preventDefault()}>Print</button>
+        <button onClick={e => e.preventDefault()}>Save</button>
+      </div>
     </form>
   );
 }

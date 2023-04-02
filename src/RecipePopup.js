@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Recipe from './Recipe';
-import EditRecipeForm from './EditRecipeForm';
 import './RecipePopup.css';
 
 export default function RecipePopup({ recipe, isOpening, setIsOpening, onClose}) {
-  const [servingsInputValue, setServingsInputValue] = useState(recipe.servings);
-  const [caloriesInputValue, setCaloriesInputValue] = useState(recipe.nutrients.calories.quantity);
-  const newRecipe = {...recipe, userInput: { calories:caloriesInputValue, servings: servingsInputValue}};
+  
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -25,16 +22,7 @@ export default function RecipePopup({ recipe, isOpening, setIsOpening, onClose})
       <div className="popup" ref={popupRef} onClick={e => e.stopPropagation()} 
       style={popupRef.current && { top: `calc(50% - ${popupRef.current.offsetHeight/2}px)` }}>
         <FontAwesomeIcon icon={faXmark} size="xl" className="btn" onClick={() => closePopup(onClose)}/>
-        <Recipe recipe={newRecipe} />
-        <div className="form-wrapper">
-          <EditRecipeForm 
-          servingsDefaultValue={recipe.servings} 
-          servingsInputValue={servingsInputValue}
-          setServingsInputValue={setServingsInputValue}
-          caloriesDefaultValue={recipe.nutrients.calories.quantity}
-          caloriesInputValue={caloriesInputValue}
-          setCaloriesInputValue={setCaloriesInputValue} />        
-        </div>
+        <Recipe recipe={recipe} />
       </div>
     </div>
   );
