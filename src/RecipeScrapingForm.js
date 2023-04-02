@@ -1,7 +1,7 @@
 import './RecipeScrapingForm.css';
 import { useState } from "react";
 import ErrBubble from './common/ErrBubble';
-import ButtonMain from './ButtonMain';
+import ButtonMain from './common/ButtonMain';
 import formatScrapedRecipe from './utils/formatScrapedRecipe';
 import isValidHttpURL from './utils/isValidHttpURL';
 
@@ -11,6 +11,7 @@ export default function ScrapeRecipeForm({ handleResponse }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    document.activeElement.blur();
     let inputString = e.target.querySelector('input').value;
     
     if(!isValidHttpURL(inputString)){
@@ -26,7 +27,6 @@ export default function ScrapeRecipeForm({ handleResponse }) {
         setURLInputErr({ isShowing: false, msg: ''});
         let data = await res.json();
         handleResponse(formatScrapedRecipe(data));
-        e.target.querySelector('input').value = "";
       } else {
         let errText = await res.text();
         setURLInputErr({ isShowing: true, msg: errText });
@@ -39,14 +39,14 @@ export default function ScrapeRecipeForm({ handleResponse }) {
   }
 
   return ( 
-    <form id="recipe-scraping-form" onSubmit={handleSubmit}>
+    <form id="recipe-scraping-form" onSubmit={handleSubmit} /*autoComplete="off"*/>
       <div id="rsf-input-wrapper">
         <input type="text" id="url-input" placeholder="Paste a recipe's URL"
         onFocus={() => setURLInputErr({ isShowing: false, msg: ''})} />
         {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
       </div>
       <ButtonMain text='Get Recipe' />
-      {isLoading && <img id="rsf-spinner" src="loading-gif.gif" alt="safs" />}
+      {isLoading && <img id="rsf-spinner" src="loading-gif.gif" alt="spinner-gif" />}
     </form>
   );
 }
