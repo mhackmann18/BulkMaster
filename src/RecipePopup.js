@@ -24,7 +24,7 @@ export default function RecipePopup({ recipe, isOpening, setIsOpening, onClose})
     <div id="popup-container" onClick={() => closePopup(onClose)}>
       <div className="popup" ref={popupRef} onClick={e => e.stopPropagation()} 
       style={popupRef.current && { top: `calc(50% - ${popupRef.current.offsetHeight/2}px)` }}>
-        <FontAwesomeIcon icon={faXmark} size="xl" className="btn" onClick={closePopup}/>
+        <FontAwesomeIcon icon={faXmark} size="xl" className="btn" onClick={() => closePopup(onClose)}/>
         <Recipe recipe={newRecipe} />
         <div className="form-wrapper">
           <EditRecipeForm 

@@ -1,0 +1,33 @@
+:root {
+  --err-color: #cc0000;
+}
+
+.err-bubble-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.err-bubble {
+  color: var(--err-color);
+  position: absolute;
+  top: 9px;
+  left: 0px;
+  max-width: 100%;
+  padding: 7px;
+  border: 3px solid var(--err-color);
+  border-radius: 5px;
+  background-color: rgb(255, 191, 191);
+}
+
+.err-bubble-triangle {
+  position: absolute;
+  top: -6px;
+  left: 20px;
+  width: 0px;
+  height: 0px;
+  border: 8px solid;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: var(--err-color);
+}

@@ -1,12 +1,13 @@
 import './RecipeScrapingForm.css';
 import { useState } from "react";
-import ErrMsg from './ErrMsg';
+import ErrBubble from './common/ErrBubble';
 import ButtonMain from './ButtonMain';
 import formatScrapedRecipe from './utils/formatScrapedRecipe';
 import isValidHttpURL from './utils/isValidHttpURL';
 
 export default function ScrapeRecipeForm({ handleResponse }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +19,7 @@ export default function ScrapeRecipeForm({ handleResponse }) {
     } 
     
     try {
+      setIsLoading(true);
       let res = await fetch(`http://localhost:8000/recipe-data?url=${inputString}`);
 
       if(res.status === 200){
@@ -30,15 +32,21 @@ export default function ScrapeRecipeForm({ handleResponse }) {
         setURLInputErr({ isShowing: true, msg: errText });
       }
     } catch {
-      setURLInputErr({ isShowing: true, msg: 'Connection error from recipe API. Please try again later'});
+      setURLInputErr({ isShowing: true, msg: 'Failed to connect to recipe API. Please try again later'});
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return ( 
     <form id="recipe-scraping-form" onSubmit={handleSubmit}>
-      <input type="text" id="url-input" placeholder="Paste a recipe's URL"/>
-      <ErrMsg isShowing={urlInputErr.isShowing} msg={urlInputErr.msg} />
+      <div id="rsf-input-wrapper">
+        <input type="text" id="url-input" placeholder="Paste a recipe's URL"
+        onFocus={() => setURLInputErr({ isShowing: false, msg: ''})} />
+        {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
+      </div>
       <ButtonMain text='Get Recipe' />
+      {isLoading && <img id="rsf-spinner" src="loading-gif.gif" alt="safs" />}
     </form>
   );
 }
