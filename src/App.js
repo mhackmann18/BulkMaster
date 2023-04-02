@@ -21,7 +21,7 @@ export default function App() {
         <main>
           <div id="rsf-wrapper">
             <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
-            <RecipeScrapingForm handleResponse={res => { setRecipe(res); setOpeningPopup(true)}} />
+            <RecipeScrapingForm handleResponse={res => { setRecipe(res); setOpeningPopup(true); }} />
           </div>
         </main>
       </div>

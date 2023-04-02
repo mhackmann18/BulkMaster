@@ -3,6 +3,8 @@ import { fraction } from "mathjs";
 
 export default function formatScrapedRecipe(data){
   let { canonical_url, cook_time, ingredients, instructions_list, nutrients, prep_time, title, yields } = data;
+
+  if(!ingredients || !instructions_list || !title) return null;
   
   return {
     url: canonical_url,
@@ -17,6 +19,8 @@ export default function formatScrapedRecipe(data){
 }
 
 function formatNutrientObj(obj){
+  if(!obj || !Object.keys(obj).length) return null;
+
   // Match numbers and vulgar fractions at start
   let numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;  
   
@@ -27,7 +31,7 @@ function formatNutrientObj(obj){
 
     let unit = val.replace(numRE, '');
 
-    unit = unit.trim();
+    unit = unit.trim() || null;
 
     if(quantity[0].includes('/')){
       quantity[0] = fraction(quantity[0]);
@@ -35,7 +39,7 @@ function formatNutrientObj(obj){
 
     obj[key] = { 
       quantity: quantity ? Number(quantity[0]) : null, 
-      unit: unit === '' ? null : unit 
+      unit
     }
   }
 
