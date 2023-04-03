@@ -3,6 +3,7 @@ import EditRecipeForm from './EditRecipeForm';
 import './Recipe.css';
 
 export default function Recipe({ recipe }) { 
+  console.log(recipe);
   // The following recipe properties must be non-false values: title, instructions, servings, and ingredients
   const { cookTime, ingredients, instructions, nutrients, prepTime, title, servings } = recipe;
   const caloriesInitialValue = nutrients && nutrients.calories && nutrients.calories.quantity;
@@ -43,8 +44,7 @@ export default function Recipe({ recipe }) {
           <ol>{instructions.map((el, i) => <li key={i}>{el}</li>)}</ol>
           {nutrients && <>
           <h3>Nutrition Facts</h3>
-          {getNutrientStringsFromObj(nutrients, nutrientsMultiplier).map((el, i) => 
-          i + 1 !== Object.keys(nutrients).length ? `${el}, ` : `${el}`)}
+          {getNutrientsStr(nutrients, nutrientsMultiplier)}
           </>}
         </div>
       </div>
@@ -52,8 +52,14 @@ export default function Recipe({ recipe }) {
   );
 }
 
+function getNutrientsStr(nutrients, mult=1){
+  let nutrientStrings = getNutrientStringsFromObj(nutrients, mult);
+
+  return nutrientStrings.reduce((acc, el, i) => (i === nutrientStrings.length - 1) ? acc + `${el}` : acc + `${el}, `, "");
+}
+
 function getNutrientStringsFromObj(obj, mult=1){
-  if(!obj || mult <= 0) return null;
+  if(!obj || mult < 0) return null;
 
   let nutrientArr = [];
 
@@ -84,7 +90,7 @@ function getIngredientStrFromObj(obj, mult=1){
 }
 
 function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount){
-  if(!recipe || !newServingsCount) return null;
+  if(!recipe || !newServingsCount) return 1;
 
   let oldServingsCount = recipe.servings;
 
