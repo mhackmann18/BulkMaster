@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import disableInputScroll from './utils/disableInputScroll';
 import Navbar from './Navbar';
 import RecipePopup from './RecipePopup';
 import RecipeScrapingForm from './RecipeScrapingForm';
@@ -7,6 +8,8 @@ import './App.css';
 export default function App() {
   const [openingPopup, setOpeningPopup] = useState(false);
   const [recipe, setRecipe] = useState(null);
+
+  disableInputScroll();
 
   return (
     <div className="App">

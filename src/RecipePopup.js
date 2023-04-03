@@ -15,12 +15,9 @@ export default function RecipePopup({ recipe, isOpening, setIsOpening, onClose})
     }
   });
 
-  console.log(recipe);
-
   return (
     <div id="popup-container" onClick={() => closePopup(onClose)}>
-      <div className="popup" ref={popupRef} onClick={e => e.stopPropagation()} 
-      style={popupRef.current && { top: `calc(50% - ${popupRef.current.offsetHeight/2}px)` }}>
+      <div className="popup" ref={popupRef} onClick={e => e.stopPropagation()} style={getPopupMargins(popupRef)}>
         <FontAwesomeIcon icon={faXmark} size="xl" className="btn" onClick={() => closePopup(onClose)}/>
         <Recipe recipe={recipe} />
       </div>
@@ -43,4 +40,18 @@ function closePopup(onClose){
     popupContainer.style.display = 'none';
     onClose && onClose();
   }, 500);
+}
+
+function getPopupMargins(popupRef){
+  if(!popupRef.current){
+    return {};
+  }
+
+  let popupHeight = popupRef.current.offsetHeight;
+  let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+  let marginTop = (popupHeight > viewportHeight - 40) ? 20 : ((viewportHeight - popupHeight) / 2);
+  let marginBottom = (popupHeight > viewportHeight - 40) ? 20 : 0;
+
+  return { marginTop, marginBottom };
 }

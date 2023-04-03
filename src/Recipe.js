@@ -3,21 +3,22 @@ import EditRecipeForm from './EditRecipeForm';
 import './Recipe.css';
 
 export default function Recipe({ recipe }) { 
+  // The following recipe properties must be non-false values: title, instructions, servings, and ingredients
   const { cookTime, ingredients, instructions, nutrients, prepTime, title, servings } = recipe;
   const caloriesInitialValue = nutrients && nutrients.calories && nutrients.calories.quantity;
 
-  // The following recipe properties must be non-false values: title, instructions, servings, and ingredients
   const [servingsInputValue, setServingsInputValue] = useState(servings);
   const [caloriesInputValue, setCaloriesInputValue] = useState(caloriesInitialValue);
   
-  const ingredientsMultiplier = getQuantityMultiplier(recipe, servingsInputValue, caloriesInputValue);
+  const ingredientsMultiplier = getIngredientsMultiplier(recipe, servingsInputValue, caloriesInputValue);
   const nutrientsMultiplier = caloriesInputValue / caloriesInitialValue;
 
   return (
     <div id="recipe">
       <div id="recipe-header">
         <h2>{title}</h2>
-        {(prepTime || cookTime) && <p id="recipe-times">
+        {(prepTime || cookTime) && 
+        <p id="recipe-times">
           {prepTime && `Prep Time: ${prepTime} minutes`} 
           {(prepTime && cookTime) && ' | '} 
           {cookTime && `Cook Time: ${cookTime} minutes`}
@@ -82,7 +83,7 @@ function getIngredientStrFromObj(obj, mult=1){
   return `${str}${name}`;
 }
 
-function getQuantityMultiplier(recipe, newServingsCount, newCaloriesCount){
+function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount){
   if(!recipe || !newServingsCount) return null;
 
   let oldServingsCount = recipe.servings;
