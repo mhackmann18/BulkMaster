@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import disableInputScroll from './utils/disableInputScroll';
-import Navbar from './Navbar';
-import RecipePopup from './RecipePopup';
-import RecipeScrapingForm from './RecipeScrapingForm';
-import './App.css';
+import { useState } from "react";
+import disableInputScroll from "./utils/disableInputScroll";
+import Navbar from "./Navbar";
+import RecipePopup from "./RecipePopup";
+import RecipeScrapingForm from "./RecipeScrapingForm";
+import "./App.css";
 
 export default function App() {
   const [openingPopup, setOpeningPopup] = useState(false);
@@ -15,16 +15,25 @@ export default function App() {
     <div className="App">
       <div className="content-width">
         <Navbar />
-        {recipe && <RecipePopup 
-          recipe={recipe} 
-          isOpening={openingPopup} 
-          setIsOpening={setOpeningPopup} 
-          onClose={() => setRecipe(null)}
-        />}
+        {recipe && (
+          <RecipePopup
+            recipe={recipe}
+            isOpening={openingPopup}
+            setIsOpening={setOpeningPopup}
+            onClose={() => setRecipe(null)}
+          />
+        )}
         <main>
           <div id="rsf-wrapper">
-            <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
-            <RecipeScrapingForm handleResponse={res => { setRecipe(res); setOpeningPopup(true); }} />
+            <p id="main-msg">
+              Meal prepping your favorite recipes just got easier.
+            </p>
+            <RecipeScrapingForm
+              handleResponse={(res) => {
+                setRecipe(res);
+                setOpeningPopup(true);
+              }}
+            />
           </div>
         </main>
       </div>
