@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   background-color: var(--seasalt);
   font-family: 'Open Sans', sans-serif;
@@ -36,7 +40,7 @@ button:hover {
 }
 
 .content-width {
-  width: 70vw;
+  width: 70%;
 }
 
 main {

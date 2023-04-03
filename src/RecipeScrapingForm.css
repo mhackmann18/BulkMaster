@@ -21,10 +21,7 @@
 }
 
 #recipe-scraping-form input:focus {
-  outline: 2px solid var(--slate-gray);
-}
-
-#recipe-scraping-form input:focus {
+  outline: 1px solid var(--slate-gray);
   border: 2px solid var(--slate-gray);
 }
 

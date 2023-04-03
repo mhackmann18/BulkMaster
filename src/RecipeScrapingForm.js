@@ -1,16 +1,19 @@
 import './RecipeScrapingForm.css';
 import { useState } from "react";
 import ErrBubble from './common/ErrBubble';
+import ErrMsg from './common/ErrMsg';
 import ButtonMain from './common/ButtonMain';
 import formatScrapedRecipe from './utils/formatScrapedRecipe';
 import isValidHttpURL from './utils/isValidHttpURL';
 
 export default function ScrapeRecipeForm({ handleResponse }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: '' });
+  const [urlSubmitErr, setUrlSubmitErr] = useState({ isShowing: false, msg: '' });
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setUrlSubmitErr({ isShowing: false, msg: '' });
     document.activeElement.blur();
     let inputString = e.target.querySelector('input').value;
     
@@ -27,17 +30,20 @@ export default function ScrapeRecipeForm({ handleResponse }) {
         let data = await res.json();
         let formattedData = formatScrapedRecipe(data);
         if(!formattedData){
-          setURLInputErr({ isShowing: true, msg: 'The site did not provide the required recipe data. Please paste a different URL' });
+          setUrlSubmitErr({ isShowing: true, msg: 'The site did not provide the required recipe data. Please paste a different URL' });
           return false;
         } else {
           handleResponse(formattedData);
         }
-      } else {
+      } else if(res.status ===  400){
         let errText = await res.text();
         setURLInputErr({ isShowing: true, msg: errText });
+      } else {
+        let errText = await res.text();
+        setUrlSubmitErr({ isShowing: true, msg: errText });
       }
     } catch {
-      setURLInputErr({ isShowing: true, msg: 'Failed to connect to recipe API. Please try again later'});
+      setUrlSubmitErr({ isShowing: true, msg: 'Failed to connect to recipe API. Please try again later'});
     } finally {
       setIsLoading(false);
     }
@@ -47,11 +53,16 @@ export default function ScrapeRecipeForm({ handleResponse }) {
     <form id="recipe-scraping-form" onSubmit={handleSubmit}>
       <div id="rsf-input-wrapper">
         <input type="text" id="url-input" placeholder="Paste a recipe's URL"
-        onFocus={() => setURLInputErr({ isShowing: false, msg: ''})} />
+          onFocus={() => {
+            setURLInputErr({ isShowing: false, msg: ''});
+            setUrlSubmitErr({ isShowing: false, msg: '' });
+          }}
+        />
         {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
       </div>
       <ButtonMain text='Get Recipe' />
       {isLoading && <img id="rsf-spinner" src="loading-gif.gif" alt="spinner-gif" />}
+      <ErrMsg isShowing={urlSubmitErr.isShowing} msg={urlSubmitErr.msg} />
     </form>
   );
 }
