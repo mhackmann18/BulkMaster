@@ -26,12 +26,13 @@ export default function Recipe({ recipe }) {
         </p>}
         <div className="form-wrapper">
           <EditRecipeForm 
-          servingsDefaultValue={servings} 
-          servingsInputValue={servingsInputValue}
-          setServingsInputValue={setServingsInputValue}
-          caloriesDefaultValue={caloriesInitialValue}
-          caloriesInputValue={caloriesInputValue}
-          setCaloriesInputValue={setCaloriesInputValue} />        
+            servingsDefaultValue={servings} 
+            servingsInputValue={servingsInputValue}
+            setServingsInputValue={setServingsInputValue}
+            caloriesDefaultValue={caloriesInitialValue}
+            caloriesInputValue={caloriesInputValue}
+            setCaloriesInputValue={setCaloriesInputValue} 
+          />        
         </div>
       </div>
       <div id="recipe-content" className="two-col">

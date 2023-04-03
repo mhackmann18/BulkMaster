@@ -27,14 +27,14 @@
 }
 
 /* Chrome, Safari, Edge, Opera */
-#erf-calories-input::-webkit-outer-spin-button,
-#erf-calories-input::-webkit-inner-spin-button {
+input.no-spinner::-webkit-outer-spin-button,
+input.no-spinner::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-#erf-calories-input {
+input.no-spinner {
   -moz-appearance: textfield;
 }
 
@@ -52,30 +52,3 @@
 #edit-recipe-form button:hover {
   background-color: var(--outer-space);
 }
-
-/* #edit-recipe-form .slider {
-  -webkit-appearance: none;
-  width: 150px;
-  height: 15px;
-  border-radius: 3px;  
-  background: var(--french-gray);
-  outline: none;
-}
-
-#edit-recipe-form .slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%; 
-  background: var(--onyx);
-  cursor: pointer;
-}
-
-#edit-recipe-form .slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--onyx);
-  cursor: pointer;
-} */
