@@ -12,6 +12,7 @@
   color: var(--onyx);
   border: 2px solid var(--french-gray-2);
   border-radius: 10px;
+  background-color: var(--seasalt);
 }
 
 #recipe-scraping-form input::placeholder {

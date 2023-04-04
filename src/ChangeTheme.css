@@ -30,6 +30,6 @@ button#toggle-theme:hover {
   --eerie-black: #f8f9faff;
 }
 
-body, div {
+body, div, button, input {
   transition: background-color 0.5s ease;
 }
