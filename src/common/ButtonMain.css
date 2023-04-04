@@ -11,4 +11,5 @@
 .btn-main:hover {
   cursor: pointer;
   background-color: var(--onyx);
+  transition: background-color 0.2s ease;
 }

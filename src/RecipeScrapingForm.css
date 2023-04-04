@@ -15,6 +15,11 @@
   background-color: var(--seasalt);
 }
 
+#recipe-scraping-form input:hover {
+  outline: 1px solid var(--slate-gray);
+  border: 2px solid var(--slate-gray);
+}
+
 #recipe-scraping-form input::placeholder {
   opacity: 1;
   font-weight: 200;

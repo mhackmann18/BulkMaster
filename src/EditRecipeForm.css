@@ -51,4 +51,5 @@ input.no-spinner {
 
 #edit-recipe-form button:hover {
   background-color: var(--outer-space);
+  transition: background-color 0.2s ease;
 }
