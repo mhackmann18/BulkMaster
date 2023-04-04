@@ -1,7 +1,8 @@
 import { useState } from "react";
 import disableInputScroll from "./utils/disableInputScroll";
 import Navbar from "./Navbar";
-import RecipePopup from "./RecipePopup";
+import Recipe from "./Recipe";
+import PopupWindow from "./common/PopupWindow";
 import RecipeScrapingForm from "./RecipeScrapingForm";
 import "./App.css";
 
@@ -16,12 +17,13 @@ export default function App() {
       <div className="content-width">
         <Navbar />
         {recipe && (
-          <RecipePopup
-            recipe={recipe}
+          <PopupWindow
             isOpening={openingPopup}
             setIsOpening={setOpeningPopup}
             onClose={() => setRecipe(null)}
-          />
+          >
+            <Recipe recipe={recipe} />
+          </PopupWindow>
         )}
         <main>
           <div id="rsf-wrapper">

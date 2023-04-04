@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Recipe from "./Recipe";
-import "./RecipePopup.css";
+import "./PopupWindow.css";
 
-export default function RecipePopup({
-  recipe,
+export default function PopupWindow({
   isOpening,
   setIsOpening,
   onClose,
+  children,
 }) {
   const popupRef = useRef(null);
 
@@ -33,7 +32,7 @@ export default function RecipePopup({
           className="btn"
           onClick={() => closePopup(onClose)}
         />
-        <Recipe recipe={recipe} />
+        {children}
       </div>
     </div>
   );
