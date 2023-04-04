@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Recipe from "./Recipe";
 import PopupWindow from "./common/PopupWindow";
 import RecipeScrapingForm from "./RecipeScrapingForm";
+import ChangeTheme from "./ChangeTheme";
 import "./App.css";
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
             />
           </div>
         </main>
+        <ChangeTheme />
       </div>
     </div>
   );

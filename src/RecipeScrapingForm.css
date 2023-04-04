@@ -34,3 +34,7 @@
   height: 50px;
   margin-top: 20px;
 }
+
+#recipe-scraping-form .err-msg {
+  margin-top: 25px;
+}
