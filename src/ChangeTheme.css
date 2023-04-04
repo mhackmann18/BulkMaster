@@ -9,6 +9,10 @@ button#toggle-theme {
   border-radius: 50%;
 }
 
+button#toggle-theme:hover {
+  background-color: var(--onyx);
+}
+
 #moon-icon, #sun-icon {
   height: 25px;
   color: var(--antiflash-white);

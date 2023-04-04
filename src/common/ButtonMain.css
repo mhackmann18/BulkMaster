@@ -10,5 +10,5 @@
 
 .btn-main:hover {
   cursor: pointer;
-  background-color: var(--outer-space);
+  background-color: var(--onyx);
 }
