@@ -1,4 +1,4 @@
-import Measurement from "./Measurement";
+import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
 import { fraction } from "mathjs";
 
 export default function formatScrapedRecipe(data) {
@@ -18,13 +18,72 @@ export default function formatScrapedRecipe(data) {
   return {
     url: canonical_url,
     cookTime: cook_time,
-    ingredients: ingredients.map(createIngredientObjFromStr),
+    ingredients: ingredients.map((el) => getNewIngredient(el)),
     instructions: instructions_list,
     nutrients: nutrients && formatNutrientObj(nutrients),
     prepTime: prep_time,
     title,
     servings: yields ? Number(yields.split(" ")[0]) : 1,
   };
+}
+
+export function getNewIngredient(str, mult = 1) {
+  str = str.trim();
+  let tokens = str.split(" ");
+
+  // Match integers, decimals, and vulgar fractions
+  let numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
+
+  // These values will be used to build the final ingredients string
+  let normalizedTokens = [];
+
+  for (let i = 0; i < tokens.length; i++) {
+    let current = tokens[i];
+    let match = current.match(numericalRE);
+    let num = (match && match[0]) || getFracStrFromUniChar(current);
+
+    // Handle number tokens
+    if (num) {
+      // If the token from the last iteration was a number, add this one to it
+      if (normalizedTokens && typeof normalizedTokens.at(-1) === "number") {
+        normalizedTokens[normalizedTokens.length - 1] +=
+          Number(fraction(num)) * mult;
+      } else {
+        normalizedTokens.push(Number(fraction(num)) * mult);
+      }
+      // Handle cooking unit tokens
+    } else if (isCookingUnit(current)) {
+      let unit = normalizeCookingUnit(current);
+
+      // Unit should be plural if the number before it was greater than 1
+      if (
+        typeof normalizedTokens.at(-1) === "number" &&
+        normalizedTokens.at(-1) > 1
+      ) {
+        normalizedTokens.push(unit + "s");
+      } else {
+        normalizedTokens.push(unit);
+      }
+      // Handle unintersting tokens
+    } else {
+      // Edge case: Undo multiplication operation of any number token that was
+      // not was not followed by a unit, or was not the first in the string
+      if (
+        normalizedTokens.length > 1 &&
+        typeof normalizedTokens.at(-1) === "number"
+      ) {
+        normalizedTokens[normalizedTokens.length - 1] /= mult;
+      }
+      normalizedTokens.push(current);
+    }
+
+    if (typeof normalizedTokens.at(-1) === "number") {
+      normalizedTokens[normalizedTokens.length - 1] =
+        Math.round(normalizedTokens[normalizedTokens.length - 1] * 100) / 100;
+    }
+  }
+
+  return normalizedTokens.join(" ");
 }
 
 function formatNutrientObj(obj) {
@@ -55,39 +114,6 @@ function formatNutrientObj(obj) {
   delete obj.servingSize;
 
   return obj;
-}
-
-function createIngredientObjFromStr(str) {
-  str = str.trim();
-  let tokens = str.split(" ");
-
-  // Match numbers and vulgar fractions
-  let numOrFractionRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
-
-  let quantities = [];
-
-  // Check for numegers, decimals and fractional strings ('10', '2.32', '1/2' etc.)
-  while (tokens[0].match(numOrFractionRE) || getFracStrFromUniChar(tokens[0])) {
-    quantities.push(tokens.shift());
-  }
-
-  let quantity = quantities.reduce(
-    (acc, el) => acc + fraction(getFracStrFromUniChar(el) || el),
-    0
-  );
-  quantity = quantity || null;
-
-  let units;
-
-  if ((units = new Measurement(tokens[0]).units) != null) {
-    tokens.shift();
-  }
-
-  return {
-    name: tokens.join(" "),
-    quantity,
-    unit: units,
-  };
 }
 
 function getFracStrFromUniChar(str) {

@@ -28,39 +28,42 @@ export default function ScrapeRecipeForm({ handleResponse }) {
       return false;
     }
 
-    try {
-      setIsLoading(true);
-      let res = await fetch(
-        `http://localhost:8000/recipe-data?url=${inputString}`
-      );
+    // try {
+    setIsLoading(true);
+    let res = await fetch(
+      `http://localhost:8000/recipe-data?url=${inputString}`
+    );
 
-      if (res.status === 200) {
-        let data = await res.json();
-        let formattedData = formatScrapedRecipe(data);
-        if (!formattedData) {
-          setUrlSubmitErr({
-            isShowing: true,
-            msg: "The site did not provide the required recipe data. Please paste a different URL",
-          });
-          return false;
-        } else {
-          handleResponse(formattedData);
-        }
-      } else if (res.status === 400) {
-        let errText = await res.text();
-        setURLInputErr({ isShowing: true, msg: errText });
+    if (res.status === 200) {
+      let data = await res.json();
+      console.log(data);
+      let formattedData = formatScrapedRecipe(data);
+      console.log(formattedData);
+      if (!formattedData) {
+        setUrlSubmitErr({
+          isShowing: true,
+          msg: "The site did not provide the required recipe data. Please paste a different URL",
+        });
       } else {
-        let errText = await res.text();
-        setUrlSubmitErr({ isShowing: true, msg: errText });
+        handleResponse(formattedData);
       }
-    } catch {
-      setUrlSubmitErr({
-        isShowing: true,
-        msg: "Failed to connect to recipe API. Please try again later",
-      });
-    } finally {
-      setIsLoading(false);
+    } else if (res.status === 400) {
+      let errText = await res.text();
+      setURLInputErr({ isShowing: true, msg: errText });
+    } else {
+      let errText = await res.text();
+      setUrlSubmitErr({ isShowing: true, msg: errText });
     }
+    setIsLoading(false);
+
+    // } catch {
+    //   setUrlSubmitErr({
+    //     isShowing: true,
+    //     msg: "Failed to connect to recipe API. Please try again later",
+    //   });
+    // } finally {
+    //   setIsLoading(false);
+    // }
   }
 
   return (

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import EditRecipeForm from "./EditRecipeForm";
+import { getNewIngredient } from "./utils/formatScrapedRecipe";
 import "./Recipe.css";
 
 export default function Recipe({ recipe }) {
-  console.log(recipe);
   // The following recipe properties must be non-false values: title, instructions, servings, and ingredients
   const {
     cookTime,
@@ -55,9 +55,7 @@ export default function Recipe({ recipe }) {
           <h3>Ingredients</h3>
           <ul>
             {ingredients.map((el, i) => (
-              <li key={i}>
-                {getIngredientStrFromObj(el, ingredientsMultiplier)}
-              </li>
+              <li key={i}>{getNewIngredient(el, ingredientsMultiplier)}</li>
             ))}
           </ul>
         </div>
@@ -113,20 +111,6 @@ function getNutrientStringsFromObj(obj, mult = 1) {
   }
 
   return nutrientArr;
-}
-
-function getIngredientStrFromObj(obj, mult = 1) {
-  if (!obj || !obj.name) return "";
-
-  let { quantity, unit, name } = obj;
-
-  let str = "";
-
-  if (quantity) str += `${formatAmount(quantity * mult, 2)} `;
-
-  if (unit) str += `${unit} `;
-
-  return `${str}${name}`;
 }
 
 function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
