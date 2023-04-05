@@ -1,6 +1,9 @@
 import { useState } from "react";
 import EditRecipeForm from "./EditRecipeForm";
-import { getNewIngredientString } from "./utils/formatScrapedRecipe";
+import {
+  getNewIngredientString,
+  getNutrientStringsFromObj,
+} from "./utils/formatScrapedRecipe";
 import "./Recipe.css";
 
 export default function Recipe({ recipe }) {
@@ -90,31 +93,6 @@ function getNutrientsStr(nutrients, mult = 1) {
   );
 }
 
-function getNutrientStringsFromObj(obj, mult = 1) {
-  if (!obj || mult < 0) return null;
-
-  let nutrientArr = [];
-
-  for (let [key, val] of Object.entries(obj)) {
-    let name = key.replace("Content", "");
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    let nameWords = name.match(/[A-Z][a-z]+/g);
-    let nameStr = nameWords.reduce(
-      (acc, el, i) => (i + 1 !== nameWords.length ? acc + el + " " : acc + el),
-      ""
-    );
-    if (nameStr === "Carbohydrate") nameStr += "s";
-    val &&
-      nutrientArr.push(
-        `${nameStr}: ${formatAmount(val.quantity * mult, 0)}${
-          val.unit ? " " + val.unit : ""
-        }`
-      );
-  }
-
-  return nutrientArr;
-}
-
 function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
   if (!recipe || !newServingsCount) return 1;
 
@@ -131,10 +109,4 @@ function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
   return (
     ((newCaloriesCount / oldCalorieCount) * newServingsCount) / oldServingsCount
   );
-}
-
-function formatAmount(num, precision) {
-  let multiplier = precision * 10;
-  if (!precision || precision < 0) multiplier = 1;
-  return `${Math.round(num * multiplier) / multiplier}`;
 }

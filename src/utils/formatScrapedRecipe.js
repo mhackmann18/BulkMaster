@@ -15,6 +15,8 @@ export default function formatScrapedRecipe(data) {
 
   if (!ingredients || !instructions_list || !title) return null;
 
+  // ingredients.map((el) => createIngredientObjFromStr(el, 1));
+
   return {
     url: canonical_url,
     cookTime: cook_time,
@@ -28,8 +30,12 @@ export default function formatScrapedRecipe(data) {
 }
 
 export function getNewIngredientString(str, mult = 1) {
-  str = str.trim();
-  let tokens = str.split(" ");
+  return getArrayFromIngredient(str, mult).join(" ");
+}
+
+function getArrayFromIngredient(str, mult = 1) {
+  let strCopy = str.trim();
+  let tokens = strCopy.split(" ");
 
   // Match integers, decimals, and vulgar fractions
   let numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
@@ -83,8 +89,14 @@ export function getNewIngredientString(str, mult = 1) {
     }
   }
 
-  return normalizedTokens.join(" ");
+  return normalizedTokens;
 }
+
+// function createIngredientObjFromStr(str, mult = 1) {
+//   let ingredientArr = getArrayFromIngredient(str, mult);
+
+//   console.log(ingredientArr);
+// }
 
 function formatNutrientObj(obj) {
   if (!obj || !Object.keys(obj).length) return null;
@@ -163,4 +175,35 @@ function getFracStrFromUniChar(str) {
   return unicodeFractions.includes(str)
     ? unicodeFractionsConversions[unicodeFractions.indexOf(str)]
     : null;
+}
+
+export function getNutrientStringsFromObj(obj, mult = 1) {
+  if (!obj || mult < 0) return null;
+
+  let nutrientArr = [];
+
+  for (let [key, val] of Object.entries(obj)) {
+    let name = key.replace("Content", "");
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    let nameWords = name.match(/[A-Z][a-z]+/g);
+    let nameStr = nameWords.reduce(
+      (acc, el, i) => (i + 1 !== nameWords.length ? acc + el + " " : acc + el),
+      ""
+    );
+    if (nameStr === "Carbohydrate") nameStr += "s";
+    val &&
+      nutrientArr.push(
+        `${nameStr}: ${formatAmount(val.quantity * mult, 0)}${
+          val.unit ? " " + val.unit : ""
+        }`
+      );
+  }
+
+  return nutrientArr;
+}
+
+function formatAmount(num, precision) {
+  let multiplier = precision * 10;
+  if (!precision || precision < 0) multiplier = 1;
+  return `${Math.round(num * multiplier) / multiplier}`;
 }
