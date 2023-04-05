@@ -50,7 +50,7 @@ export default function EditRecipeForm({
         {resetBtnActive && <button onClick={handleResetBtnClick}>Reset</button>}
       </div>
       <div className="right">
-        <button onClick={(e) => e.preventDefault()}>Print</button>
+        <button onClick={(e) => e.preventDefault()}>Edit</button>
         <button onClick={(e) => e.preventDefault()}>Save</button>
       </div>
     </form>

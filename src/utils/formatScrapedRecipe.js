@@ -18,7 +18,7 @@ export default function formatScrapedRecipe(data) {
   return {
     url: canonical_url,
     cookTime: cook_time,
-    ingredients: ingredients.map((el) => getNewIngredient(el)),
+    ingredients: ingredients.map((el) => getNewIngredientString(el)),
     instructions: instructions_list,
     nutrients: nutrients && formatNutrientObj(nutrients),
     prepTime: prep_time,
@@ -27,7 +27,7 @@ export default function formatScrapedRecipe(data) {
   };
 }
 
-export function getNewIngredient(str, mult = 1) {
+export function getNewIngredientString(str, mult = 1) {
   str = str.trim();
   let tokens = str.split(" ");
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EditRecipeForm from "./EditRecipeForm";
-import { getNewIngredient } from "./utils/formatScrapedRecipe";
+import { getNewIngredientString } from "./utils/formatScrapedRecipe";
 import "./Recipe.css";
 
 export default function Recipe({ recipe }) {
@@ -55,7 +55,9 @@ export default function Recipe({ recipe }) {
           <h3>Ingredients</h3>
           <ul>
             {ingredients.map((el, i) => (
-              <li key={i}>{getNewIngredient(el, ingredientsMultiplier)}</li>
+              <li key={i}>
+                {getNewIngredientString(el, ingredientsMultiplier)}
+              </li>
             ))}
           </ul>
         </div>
