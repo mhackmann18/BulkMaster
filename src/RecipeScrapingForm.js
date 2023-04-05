@@ -28,7 +28,6 @@ export default function ScrapeRecipeForm({ handleResponse }) {
       return false;
     }
 
-    // try {
     setIsLoading(true);
     let res = await fetch(
       `http://localhost:8000/recipe-data?url=${inputString}`
@@ -36,13 +35,11 @@ export default function ScrapeRecipeForm({ handleResponse }) {
 
     if (res.status === 200) {
       let data = await res.json();
-      console.log(data);
       let formattedData = formatScrapedRecipe(data);
-      console.log(formattedData);
       if (!formattedData) {
         setUrlSubmitErr({
           isShowing: true,
-          msg: "The site did not provide the required recipe data. Please paste a different URL",
+          msg: "Unable to obtain recipe data from the provided URL. Please paste a different URL",
         });
       } else {
         handleResponse(formattedData);
@@ -55,15 +52,6 @@ export default function ScrapeRecipeForm({ handleResponse }) {
       setUrlSubmitErr({ isShowing: true, msg: errText });
     }
     setIsLoading(false);
-
-    // } catch {
-    //   setUrlSubmitErr({
-    //     isShowing: true,
-    //     msg: "Failed to connect to recipe API. Please try again later",
-    //   });
-    // } finally {
-    //   setIsLoading(false);
-    // }
   }
 
   return (
