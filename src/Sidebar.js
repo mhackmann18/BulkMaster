@@ -10,29 +10,38 @@ import "./Sidebar.css";
 export default function Sidebar() {
   return (
     <div id="sidebar">
-      <h1>
-        PREP<span className="slate-gray">MASTER</span>
-      </h1>
-      <ul>
-        <li>
-          <a href="">
-            <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />
-            Import Recipe
-          </a>
-        </li>
-        <li>
-          <FontAwesomeIcon className="sidebar-icon" icon={faPlus} />
-          <a href="">Create Recipe</a>
-        </li>
-        <li>
-          <FontAwesomeIcon className="sidebar-icon" icon={faBook} />
-          <a href="">Recipe Library</a>
-        </li>
-        <li>
-          <FontAwesomeIcon className="sidebar-icon" icon={faGear} />
-          <a href="">Settings</a>
-        </li>
-      </ul>
+      <div className="upper">
+        <h1>
+          PREP<span className="slate-gray">MASTER</span>
+        </h1>
+        <ul>
+          <li>
+            <a href="" className="btn">
+              <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />{" "}
+              Import Recipe
+            </a>
+          </li>
+          <li>
+            <a href="" className="btn">
+              <FontAwesomeIcon className="sidebar-icon" icon={faPlus} /> Create
+              Recipe
+            </a>
+          </li>
+          <li>
+            <a href="" className="btn active">
+              <FontAwesomeIcon className="sidebar-icon" icon={faBook} /> Recipe
+              Library
+            </a>
+          </li>
+          <li>
+            <a href="" className="btn">
+              <FontAwesomeIcon className="sidebar-icon" icon={faGear} />{" "}
+              Settings
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="lower"></div>
     </div>
   );
 }
