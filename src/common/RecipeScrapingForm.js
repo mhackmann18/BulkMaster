@@ -1,11 +1,11 @@
 import "./RecipeScrapingForm.css";
 import { useState } from "react";
-import ErrBubble from "./common/ErrBubble";
-import ErrMsg from "./common/ErrMsg";
-import ButtonMain from "./common/ButtonMain";
-import formatScrapedRecipe from "./utils/formatScrapedRecipe";
-import isValidHttpURL from "./utils/isValidHttpURL";
-import spinner from "../src/assets/loading-gif.gif";
+import ErrBubble from "./ErrBubble";
+import ErrMsg from "./ErrMsg";
+import ButtonMain from "./ButtonMain";
+import formatScrapedRecipe from "../utils/formatScrapedRecipe";
+import isValidHttpURL from "../utils/isValidHttpURL";
+import spinner from "../assets/loading-gif.gif";
 
 export default function RecipeScrapingForm({ handleResponse }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: "" });

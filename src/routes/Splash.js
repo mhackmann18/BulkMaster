@@ -1,10 +1,9 @@
 import { useState } from "react";
-import disableInputScroll from "./utils/disableInputScroll";
+import disableInputScroll from "../utils/disableInputScroll";
 import Navbar from "./Navbar";
-import Recipe from "./Recipe";
-import PopupWindow from "./common/PopupWindow";
-import RecipeScrapingForm from "./RecipeScrapingForm";
-import ChangeTheme from "./ChangeTheme";
+import Recipe from "../common/Recipe";
+import PopupWindow from "../common/PopupWindow";
+import RecipeScrapingForm from "../common/RecipeScrapingForm";
 import "./Splash.css";
 
 export default function Splash() {
@@ -39,7 +38,6 @@ export default function Splash() {
             />
           </div>
         </main>
-        <ChangeTheme />
       </div>
     </div>
   );

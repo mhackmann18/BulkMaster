@@ -26,3 +26,9 @@
 #popup-container .form-wrapper {
   margin-top: 16px;
 }
+
+#close-popup-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}

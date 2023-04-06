@@ -30,6 +30,7 @@ export default function PopupWindow({
           icon={faXmark}
           size="xl"
           className="btn"
+          id="close-popup-btn"
           onClick={() => closePopup(onClose)}
         />
         {children}

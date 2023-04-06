@@ -1,4 +1,4 @@
-import NumberInput from "./common/NumberInput";
+import NumberInput from "./NumberInput";
 import "./EditRecipeForm.css";
 
 export default function EditRecipeForm({

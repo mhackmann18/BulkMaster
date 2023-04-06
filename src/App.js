@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import Splash from "./Splash";
-import Dashboard from "./Dashboard";
-import RecipeScrapingForm from "./RecipeScrapingForm";
+import Splash from "./routes/Splash";
+import Dashboard from "./routes/Dashboard";
+import RecipeScrapingForm from "./common/RecipeScrapingForm";
 import "./App.css";
 
 export default function App() {

@@ -3,7 +3,7 @@ import EditRecipeForm from "./EditRecipeForm";
 import {
   getNewIngredientString,
   getNutrientStringsFromObj,
-} from "./utils/formatScrapedRecipe";
+} from "../utils/formatScrapedRecipe";
 import "./Recipe.css";
 
 export default function Recipe({ recipe }) {
