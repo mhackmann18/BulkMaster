@@ -5,6 +5,7 @@ import ErrMsg from "./common/ErrMsg";
 import ButtonMain from "./common/ButtonMain";
 import formatScrapedRecipe from "./utils/formatScrapedRecipe";
 import isValidHttpURL from "./utils/isValidHttpURL";
+import spinner from "../src/assets/loading-gif.gif";
 
 export default function ScrapeRecipeForm({ handleResponse }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: "" });
@@ -69,9 +70,7 @@ export default function ScrapeRecipeForm({ handleResponse }) {
         {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
       </div>
       <ButtonMain text="Get Recipe" />
-      {isLoading && (
-        <img id="rsf-spinner" src="loading-gif.gif" alt="spinner-gif" />
-      )}
+      {isLoading && <img id="rsf-spinner" src={spinner} alt="spinner-gif" />}
       <ErrMsg isShowing={urlSubmitErr.isShowing} msg={urlSubmitErr.msg} />
     </form>
   );
