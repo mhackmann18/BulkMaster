@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Splash from "./Splash";
-import Import from "./Import";
+import Dashboard from "./Dashboard";
+import RecipeScrapingForm from "./RecipeScrapingForm";
 import "./App.css";
 
 export default function App() {
@@ -8,7 +9,9 @@ export default function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Splash />} />
-        <Route path="/import" element={<Import />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard/" element={<RecipeScrapingForm />} />
+        </Route>
       </Routes>
     </div>
   );

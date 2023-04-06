@@ -7,7 +7,7 @@ import formatScrapedRecipe from "./utils/formatScrapedRecipe";
 import isValidHttpURL from "./utils/isValidHttpURL";
 import spinner from "../src/assets/loading-gif.gif";
 
-export default function ScrapeRecipeForm({ handleResponse }) {
+export default function RecipeScrapingForm({ handleResponse }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: "" });
   const [urlSubmitErr, setUrlSubmitErr] = useState({
     isShowing: false,
