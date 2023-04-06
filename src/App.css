@@ -1,4 +1,5 @@
 :root {
+  --white: white;
   --seasalt: #f8f9faff;
   --antiflash-white: #e9ecefff;
   --platinum: #dee2e6ff;
@@ -21,7 +22,7 @@ html {
 }
 
 body {
-  background-color: var(--seasalt);
+  background-color: var(--white);
   font-family: 'Open Sans', sans-serif;
   color: var(--onyx);
 }

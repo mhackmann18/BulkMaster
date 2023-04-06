@@ -20,15 +20,16 @@ button#toggle-theme:hover {
 }
 
 .dark-mode {
-  --seasalt: #212529ff;
-  --antiflash-white: #343a40ff;
-  --platinum: #495057ff;
-  --french-gray: #6c757dff;
-  --french-gray-2: #adb5bdff;
-  --slate-gray: #ced4daff;
-  --outer-space: #dee2e6ff;
-  --onyx: #e9ecefff;
-  --eerie-black: #f8f9faff;
+  --white: #212529ff;
+  --seasalt: #343a40ff;
+  --antiflash-white: #495057ff;
+  --platinum: #6c757dff;
+  --french-gray: #adb5bdff;
+  --french-gray-2: #ced4daff;
+  --slate-gray: #dee2e6ff;
+  --outer-space: #e9ecefff;
+  --onyx: #f8f9faff;
+  --eerie-black: white;
 }
 
 body, div, button, input {

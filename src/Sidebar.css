@@ -1,11 +1,12 @@
 #sidebar {
   padding: 0 14px;
-  border-right: 2px solid var(--french-gray);
+  border-right: 1px solid var(--french-gray);
   width: 260px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: var(--seasalt);
 }
 
 #sidebar h1 {
@@ -16,6 +17,7 @@
   font-family: 'Oswald', sans-serif;
   color: var(--eerie-black);
   margin-left: 10px;
+  border-bottom: 1px solid var(--french-gray);
 }
 
 #sidebar .btn {
