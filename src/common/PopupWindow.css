@@ -1,6 +1,6 @@
 /* Popup css from https://codepen.io/Dr_rakcha/pen/eyyqbg */
 
-#popup-container {
+.popup-container {
   display: none; 
   background: rgba(0, 0, 0, 0.6);
   position: absolute;
@@ -10,20 +10,21 @@
   right: 0;
   opacity: 0;
   transition: opacity .5s; 
+  overflow-y: auto;
 }
 
-#popup-container .popup {
-  width: 60vw;
+.popup-container .popup {
+  max-width: 60vw;
   border-radius: 10px;
   padding: 15px;
   background: var(--antiflash-white);
-  position: relative;
-  left: 20vw;
+  position: absolute;
+  left: calc(50% - 30vw);
   font-size: 16px;
   text-align: left;
 }
 
-#popup-container .form-wrapper {
+.popup-container .form-wrapper {
   margin-top: 16px;
 }
 

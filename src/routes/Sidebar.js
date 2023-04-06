@@ -10,14 +10,14 @@ import {
 import ToggleTheme from "../common/ToggleTheme";
 import "./Sidebar.css";
 
-export default function Sidebar() {
+export default function Sidebar({ username }) {
   return (
     <div id="sidebar">
       <div className="upper">
         <h1>PREPMASTER</h1>
         <ul>
           <li>
-            <Link to="" className="btn">
+            <Link to="import" className="btn">
               <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />{" "}
               Import Recipe
             </Link>
@@ -45,7 +45,7 @@ export default function Sidebar() {
       <div className="lower">
         <ToggleTheme />
         <div className="logout-container">
-          Signed in as johndoe18{" "}
+          Signed in as {username}{" "}
           <Link to="" title="logout">
             <FontAwesomeIcon className="icon" icon={faArrowRightFromBracket} />
           </Link>

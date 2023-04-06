@@ -19,7 +19,7 @@ export default function PopupWindow({
   });
 
   return (
-    <div id="popup-container" onClick={() => closePopup(onClose)}>
+    <div className="popup-container" onClick={() => closePopup(onClose)}>
       <div
         className="popup"
         ref={popupRef}
@@ -40,14 +40,14 @@ export default function PopupWindow({
 }
 
 function openPopup() {
-  let popupContainer = document.getElementById("popup-container");
+  let popupContainer = document.querySelector(".popup-container");
   popupContainer.style.display = "block";
 
   setTimeout(() => (popupContainer.style.opacity = 1), 100);
 }
 
 function closePopup(onClose) {
-  let popupContainer = document.getElementById("popup-container");
+  let popupContainer = document.querySelector(".popup-container");
   popupContainer.style.opacity = 0;
   // Fade out time should be the same as the transition duration in css file
   setTimeout(() => {
