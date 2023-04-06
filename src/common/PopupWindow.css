@@ -26,11 +26,3 @@
 #popup-container .form-wrapper {
   margin-top: 16px;
 }
-
-.btn {
-  cursor: pointer;
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  color: var(--onyx);
-}
