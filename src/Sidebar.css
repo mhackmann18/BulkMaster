@@ -17,7 +17,6 @@
   font-family: 'Oswald', sans-serif;
   color: var(--eerie-black);
   margin-left: 10px;
-  border-bottom: 1px solid var(--french-gray);
 }
 
 #sidebar .btn {
