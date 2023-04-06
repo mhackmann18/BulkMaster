@@ -34,29 +34,10 @@ button:hover {
   cursor: pointer;
 }
 
-.App {
-  display: flex;
-  justify-content: center;
+ul {
+  list-style: none;
 }
 
-.content-width {
-  width: 70%;
-}
-
-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-}
-
-#rsf-wrapper {
-  margin-top: 46vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-#main-msg {
-  font-size: 22px;
-  margin-bottom: 20px;
+a {
+  text-decoration: none;
 }

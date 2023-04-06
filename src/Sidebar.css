@@ -1,0 +1,31 @@
+#sidebar {
+  padding-left: 20px;
+  border-right: 2px solid var(--french-gray);
+  width: 250px;
+  height: 100vh;
+  background-color: var(--antiflash-white);
+}
+
+#sidebar h1 {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  font-size: 34px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--eerie-black);
+}
+
+#sidebar li {
+  margin-top: 20px;
+}
+
+#sidebar ul a {
+  font-size: 18px;
+  color: var(--slate-gray);
+  font-weight: 600;
+}
+
+.sidebar-icon {
+  color: var(--slate-gray);
+  margin-right: 14px;
+}
