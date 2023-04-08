@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import NumberInput from "./NumberInput";
+import NumberInput from "../common/NumberInput";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
   return (

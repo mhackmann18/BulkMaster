@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RecipeScrapingForm from "../common/RecipeScrapingForm";
 import PopupWindow from "../common/PopupWindow";
-import Recipe from "../common/Recipe";
+import Recipe from "../Recipe";
 import "./Import.css";
 
 export default function Import() {
@@ -22,7 +22,7 @@ export default function Import() {
           setIsOpening={setOpeningPopup}
           onClose={() => setRecipe(null)}
         >
-          <Recipe recipe={recipe} isNewRecipe={true} />
+          <Recipe recipe={recipe} />
         </PopupWindow>
       )}
     </div>

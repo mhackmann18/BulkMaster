@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import NumberInput from "./NumberInput";
-import "./EditRecipeForm.css";
+import NumberInput from "../common/NumberInput";
+import "./Form.css";
 
 export default function EditRecipeForm({
   servingsDefaultValue,

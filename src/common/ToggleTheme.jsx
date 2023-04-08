@@ -34,7 +34,7 @@ export default function ToggleTheme() {
         <div
           className="round-slider"
           style={colorScheme === "light" ? style1 : style2}
-        ></div>
+        />
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
       </div>
     </div>

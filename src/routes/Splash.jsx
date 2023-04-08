@@ -1,7 +1,7 @@
 import { useState } from "react";
 import disableInputScroll from "../utils/disableInputScroll";
 import Navbar from "./Navbar";
-import Recipe from "../common/Recipe";
+import Recipe from "../Recipe";
 import PopupWindow from "../common/PopupWindow";
 import RecipeScrapingForm from "../common/RecipeScrapingForm";
 import "./Splash.css";

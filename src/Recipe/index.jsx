@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import RecipeNameInput from "./RecipeNameInput";
-import RecipeTimesInputs from "./RecipeTimesInputs";
-import RecipeTimesDisplay from "./RecipeTimesDisplay";
-import EditRecipeForm from "./EditRecipeForm";
+import NameInput from "./NameInput";
+import TimesInputs from "./TimesInputs";
+import TimesDisplays from "./TimesDisplay";
+import Form from "./Form";
 import {
   getNewIngredientString,
   getNutrientStringsFromObj,
@@ -40,14 +40,14 @@ export default function Recipe({ recipe }) {
   return (
     <div id="recipe">
       <div id="recipe-header">
-        {editing ? <RecipeNameInput value={title} /> : <h2>{title}</h2>}
+        {editing ? <NameInput value={title} /> : <h2>{title}</h2>}
         {editing ? (
-          <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
+          <TimesInputs prepTime={prepTime} cookTime={cookTime} />
         ) : (
-          <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
+          <TimesDisplays prepTime={prepTime} cookTime={cookTime} />
         )}
         <div className="form-wrapper">
-          <EditRecipeForm
+          <Form
             servingsDefaultValue={servings}
             servingsInputValue={servingsInputValue}
             setServingsInputValue={setServingsInputValue}
