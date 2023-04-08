@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function RecipeTimesDisplay({ prepTime, cookTime }) {
   if (!prepTime && !cookTime) {
     return false;
@@ -11,3 +13,8 @@ export default function RecipeTimesDisplay({ prepTime, cookTime }) {
     );
   }
 }
+
+RecipeTimesDisplay.propTypes = {
+  prepTime: PropTypes.number,
+  cookTime: PropTypes.number,
+};

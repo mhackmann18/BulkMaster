@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./ButtonMain.css";
 
 export default function ButtonMain({ text, onClick }) {
@@ -7,3 +8,8 @@ export default function ButtonMain({ text, onClick }) {
     </button>
   );
 }
+
+ButtonMain.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+};

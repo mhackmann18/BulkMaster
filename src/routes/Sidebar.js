@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -54,3 +55,7 @@ export default function Sidebar({ username }) {
     </div>
   );
 }
+
+Sidebar.propTypes = {
+  username: PropTypes.string.isRequired,
+};

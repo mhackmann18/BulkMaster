@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import RecipeNameInput from "./RecipeNameInput";
 import RecipeTimesInputs from "./RecipeTimesInputs";
 import RecipeTimesDisplay from "./RecipeTimesDisplay";
@@ -34,7 +35,7 @@ export default function Recipe({ recipe }) {
   );
   const nutrientsMultiplier = caloriesInputValue / caloriesInitialValue;
 
-  const editing = true;
+  const editing = false;
 
   return (
     <div id="recipe">
@@ -113,3 +114,15 @@ function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
     ((newCaloriesCount / oldCalorieCount) * newServingsCount) / oldServingsCount
   );
 }
+
+Recipe.propTypes = {
+  recipe: PropTypes.shape({
+    cookTime: PropTypes.number,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    nutrients: PropTypes.object,
+    prepTime: PropTypes.number,
+    title: PropTypes.string.isRequired,
+    servings: PropTypes.number,
+  }),
+};

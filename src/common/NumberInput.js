@@ -1,21 +1,21 @@
+import PropTypes from "prop-types";
+
 export default function NumberInput({
   value,
   setValue,
   maxValue,
   minValue,
-  className = "",
+  variant,
 }) {
-  function handleChange(e, maxValue, callbackfn) {
-    if (e.target.value === "") {
-      callbackfn("");
-    } else if (validateNumberInput(e.target.value, maxValue, minValue)) {
-      callbackfn(Number(e.target.value));
+  function handleChange(e) {
+    if (validateNumberInput(e.target.value, maxValue, minValue)) {
+      setValue(e.target.value === "" ? "" : Number(e.target.value));
     }
   }
 
   function handleKeydown(e) {
     // Only allows the backspace key and number keys from the number row and number pad
-    // https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values
+    // Credit to: https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values
     if (
       !(
         (e.keyCode > 95 && e.keyCode < 106) ||
@@ -27,11 +27,10 @@ export default function NumberInput({
     }
   }
 
-  function handlePaste(e, maxValue, minValue = 0) {
-    // https://stackoverflow.com/questions/2176861/javascript-get-clipboard-data-on-paste-event-cross-browser
-    let clipboardData, pastedData;
-    clipboardData = e.clipboardData || window.clipboardData;
-    pastedData = clipboardData.getData("Text");
+  function handlePaste(e) {
+    // Credit to https://stackoverflow.com/questions/2176861/javascript-get-clipboard-data-on-paste-event-cross-browser
+    let clipboardData = e.clipboardData || window.clipboardData;
+    let pastedData = clipboardData.getData("Text");
 
     if (!validateNumberInput(pastedData, maxValue, minValue)) {
       e.stopPropagation();
@@ -45,10 +44,10 @@ export default function NumberInput({
       value={value}
       min={minValue}
       max={maxValue}
-      className={className}
-      onChange={(e) => handleChange(e, maxValue, setValue)}
+      className={variant}
+      onChange={handleChange}
       onKeyDown={handleKeydown}
-      onPaste={(e) => handlePaste(e, maxValue, minValue)}
+      onPaste={handlePaste}
     />
   );
 }
@@ -66,3 +65,16 @@ function validateNumberInput(input, maxValue = Infinity, minValue = 0) {
     return false;
   }
 }
+
+NumberInput.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])])
+    .isRequired,
+  setValue: PropTypes.func.isRequired,
+  minValue: PropTypes.number,
+  maxValue: PropTypes.number,
+  variant: PropTypes.string,
+};
+
+NumberInput.defaultProps = {
+  minValue: 0,
+};

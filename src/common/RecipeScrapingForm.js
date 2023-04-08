@@ -1,5 +1,6 @@
 import "./RecipeScrapingForm.css";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import ErrBubble from "./ErrBubble";
 import ErrMsg from "./ErrMsg";
 import ButtonMain from "./ButtonMain";
@@ -71,7 +72,11 @@ export default function RecipeScrapingForm({ handleResponse }) {
       </div>
       <ButtonMain text="Get Recipe" />
       {isLoading && <img id="rsf-spinner" src={spinner} alt="spinner-gif" />}
-      <ErrMsg isShowing={urlSubmitErr.isShowing} msg={urlSubmitErr.msg} />
+      {urlSubmitErr.isShowing && <ErrMsg msg={urlSubmitErr.msg} />}
     </form>
   );
 }
+
+RecipeScrapingForm.propTypes = {
+  handleResponse: PropTypes.func.isRequired,
+};

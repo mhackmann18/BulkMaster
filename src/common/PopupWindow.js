@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "./PopupWindow.css";
@@ -73,3 +74,10 @@ function getPopupMargins(popupRef) {
 
   return { marginTop, marginBottom };
 }
+
+PopupWindow.propTypes = {
+  isOpening: PropTypes.bool.isRequired,
+  setIsOpening: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
+  children: PropTypes.node.isRequired,
+};

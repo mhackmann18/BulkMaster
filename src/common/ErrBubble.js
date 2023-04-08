@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./ErrBubble.css";
 
 export default function ErrBubble({ msg }) {
@@ -8,3 +9,7 @@ export default function ErrBubble({ msg }) {
     </div>
   );
 }
+
+ErrBubble.propTypes = {
+  msg: PropTypes.string.isRequired,
+};

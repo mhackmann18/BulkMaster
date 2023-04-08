@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function RecipeNameInput({ value }) {
   return (
     <input
@@ -7,3 +9,7 @@ export default function RecipeNameInput({ value }) {
     />
   );
 }
+
+RecipeNameInput.propTypes = {
+  value: PropTypes.string,
+};

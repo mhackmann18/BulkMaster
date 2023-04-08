@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import NumberInput from "./NumberInput";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
@@ -18,3 +19,8 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
     </div>
   );
 }
+
+RecipeTimesInputs.propTypes = {
+  prepTime: PropTypes.number,
+  cookTime: PropTypes.number,
+};

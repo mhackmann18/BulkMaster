@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import NumberInput from "./NumberInput";
 import "./EditRecipeForm.css";
 
@@ -43,7 +44,7 @@ export default function EditRecipeForm({
               setValue={setCaloriesInputValue}
               maxValue={caloriesInputMaxValue}
               minValue={caloriesInputMinValue}
-              className="no-spinner"
+              variant="no-spinner-wheel"
             />
           </>
         )}
@@ -56,3 +57,12 @@ export default function EditRecipeForm({
     </form>
   );
 }
+
+EditRecipeForm.propTypes = {
+  servingsDefaultValue: PropTypes.number.isRequired,
+  servingsInputValue: PropTypes.number.isRequired,
+  setServingsInputValue: PropTypes.func.isRequired,
+  caloriesDefaultValue: PropTypes.number.isRequired,
+  caloriesInputValue: PropTypes.number.isRequired,
+  setCaloriesInputValue: PropTypes.func.isRequired,
+};
