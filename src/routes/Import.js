@@ -22,7 +22,7 @@ export default function Import() {
           setIsOpening={setOpeningPopup}
           onClose={() => setRecipe(null)}
         >
-          <Recipe recipe={recipe} />
+          <Recipe recipe={recipe} isNewRecipe={true} />
         </PopupWindow>
       )}
     </div>

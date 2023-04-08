@@ -9,6 +9,7 @@
   --outer-space: #495057ff;
   --onyx: #343a40ff;
   --eerie-black: #212529ff;
+  --font-color-default: var(--onyx);
 }
 
 * {
@@ -45,4 +46,8 @@ a {
 
 .btn:hover {
   cursor: pointer;
+}
+
+input {
+  font-family: 'Open Sans', sans-serif;
 }

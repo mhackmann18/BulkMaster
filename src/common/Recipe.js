@@ -1,4 +1,7 @@
 import { useState } from "react";
+import RecipeNameInput from "./RecipeNameInput";
+import RecipeTimesInputs from "./RecipeTimesInputs";
+import RecipeTimesDisplay from "./RecipeTimesDisplay";
 import EditRecipeForm from "./EditRecipeForm";
 import {
   getNewIngredientString,
@@ -31,16 +34,16 @@ export default function Recipe({ recipe }) {
   );
   const nutrientsMultiplier = caloriesInputValue / caloriesInitialValue;
 
+  const editing = true;
+
   return (
     <div id="recipe">
       <div id="recipe-header">
-        <h2>{title}</h2>
-        {(prepTime || cookTime) && (
-          <p id="recipe-times">
-            {prepTime && `Prep Time: ${prepTime} minutes`}
-            {prepTime && cookTime && " | "}
-            {cookTime && `Cook Time: ${cookTime} minutes`}
-          </p>
+        {editing ? <RecipeNameInput value={title} /> : <h2>{title}</h2>}
+        {editing ? (
+          <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
+        ) : (
+          <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
         )}
         <div className="form-wrapper">
           <EditRecipeForm
