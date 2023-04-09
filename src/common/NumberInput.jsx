@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { isValidNumberInput } from "../utils/validation";
 
 export default function NumberInput({
   value,
@@ -8,7 +9,7 @@ export default function NumberInput({
   variant,
 }) {
   function handleChange(e) {
-    if (validateNumberInput(e.target.value, maxValue, minValue)) {
+    if (isValidNumberInput(e.target.value, maxValue, minValue)) {
       setValue(e.target.value === "" ? "" : Number(e.target.value));
     }
   }
@@ -29,10 +30,10 @@ export default function NumberInput({
 
   function handlePaste(e) {
     // Credit to https://stackoverflow.com/questions/2176861/javascript-get-clipboard-data-on-paste-event-cross-browser
-    let clipboardData = e.clipboardData || window.clipboardData;
-    let pastedData = clipboardData.getData("Text");
+    const clipboardData = e.clipboardData || window.clipboardData;
+    const pastedData = clipboardData.getData("Text");
 
-    if (!validateNumberInput(pastedData, maxValue, minValue)) {
+    if (!isValidNumberInput(pastedData, maxValue, minValue)) {
       e.stopPropagation();
       e.preventDefault();
     }
@@ -52,20 +53,6 @@ export default function NumberInput({
   );
 }
 
-function validateNumberInput(input, maxValue = Infinity, minValue = 0) {
-  if (input === "") {
-    return true;
-  } else if (
-    /^[0-9]+$/.test(input) &&
-    Number(input) <= maxValue &&
-    Number(input) >= minValue
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 NumberInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])])
     .isRequired,
@@ -77,4 +64,6 @@ NumberInput.propTypes = {
 
 NumberInput.defaultProps = {
   minValue: 0,
+  maxValue: Infinity,
+  variant: "",
 };

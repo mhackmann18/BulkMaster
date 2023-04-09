@@ -7,7 +7,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <Sidebar username={username}></Sidebar>
+      <Sidebar username={username} />
       <main id="dashboard-content">
         <Outlet />
       </main>

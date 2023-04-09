@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import NumberInput from "../common/NumberInput";
 import "./Form.css";
 
-export default function EditRecipeForm({
+export default function Form({
   servingsDefaultValue,
   servingsInputValue,
   setServingsInputValue,
@@ -23,13 +23,15 @@ export default function EditRecipeForm({
   function handleResetBtnClick(e) {
     e.preventDefault();
     setServingsInputValue(servingsDefaultValue);
-    caloriesDefaultValue && setCaloriesInputValue(caloriesDefaultValue);
+    if (caloriesDefaultValue) {
+      setCaloriesInputValue(caloriesDefaultValue);
+    }
   }
 
   return (
     <form id="edit-recipe-form">
       <div className="left">
-        <label htmlFor="">Servings</label>
+        <label htmlFor="servings">Servings</label>
         <NumberInput
           value={servingsInputValue}
           setValue={setServingsInputValue}
@@ -48,21 +50,35 @@ export default function EditRecipeForm({
             />
           </>
         )}
-        {resetBtnActive && <button onClick={handleResetBtnClick}>Reset</button>}
+        {resetBtnActive && (
+          <button onClick={handleResetBtnClick} type="button">
+            Reset
+          </button>
+        )}
       </div>
       <div className="right">
-        <button onClick={(e) => e.preventDefault()}>Edit</button>
-        <button onClick={(e) => e.preventDefault()}>Save</button>
+        <button type="button" onClick={(e) => e.preventDefault()}>
+          Edit
+        </button>
+        <button type="submit" onClick={(e) => e.preventDefault()}>
+          Save
+        </button>
       </div>
     </form>
   );
 }
 
-EditRecipeForm.propTypes = {
+Form.propTypes = {
   servingsDefaultValue: PropTypes.number.isRequired,
-  servingsInputValue: PropTypes.number.isRequired,
+  servingsInputValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.oneOf([""]),
+  ]).isRequired,
   setServingsInputValue: PropTypes.func.isRequired,
   caloriesDefaultValue: PropTypes.number.isRequired,
-  caloriesInputValue: PropTypes.number.isRequired,
+  caloriesInputValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.oneOf([""]),
+  ]).isRequired,
   setCaloriesInputValue: PropTypes.func.isRequired,
 };

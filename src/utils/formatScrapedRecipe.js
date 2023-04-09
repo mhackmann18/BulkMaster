@@ -1,8 +1,157 @@
-import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
+/* eslint-disable camelcase */
 import { fraction } from "mathjs";
+import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
+
+function getFracStrFromUniChar(str) {
+  /* Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction */
+
+  const unicodeFractions = [
+    "½",
+    "⅓",
+    "⅔",
+    "¼",
+    "¾",
+    "⅕",
+    "⅖",
+    "⅗",
+    "⅘",
+    "⅙",
+    "⅚",
+    "⅐",
+    "⅛",
+    "⅜",
+    "⅝",
+    "⅞",
+    "⅑",
+    "⅒",
+  ];
+  const unicodeFractionsConversions = [
+    "1/2",
+    "1/3",
+    "2/3",
+    "1/4",
+    "3/4",
+    "1/5",
+    "2/5",
+    "3/5",
+    "4/5",
+    "1/6",
+    "5/6",
+    "1/7",
+    "1/8",
+    "3/8",
+    "5/8",
+    "7/8",
+    "1/9",
+    "1/10",
+  ];
+
+  return unicodeFractions.includes(str)
+    ? unicodeFractionsConversions[unicodeFractions.indexOf(str)]
+    : null;
+}
+
+function getArrayFromIngredient(str, mult = 1) {
+  const strCopy = str.trim();
+  const tokens = strCopy.split(" ");
+
+  // Match integers, decimals, and vulgar fractions
+  const numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
+
+  // These values will be used to build the final ingredients string
+  const normalizedTokens = [];
+
+  for (let i = 0; i < tokens.length; i += 1) {
+    const current = tokens[i];
+    const match = current.match(numericalRE);
+    const num = (match && match[0]) || getFracStrFromUniChar(current);
+
+    // Handle number tokens
+    if (num) {
+      // If the token from the last iteration was a number, add this one to it
+      if (normalizedTokens && typeof normalizedTokens.at(-1) === "number") {
+        normalizedTokens[normalizedTokens.length - 1] +=
+          Number(fraction(num)) * mult;
+      } else {
+        normalizedTokens.push(Number(fraction(num)) * mult);
+      }
+      // Handle cooking unit tokens
+    } else if (isCookingUnit(current)) {
+      const unit = normalizeCookingUnit(current);
+
+      // Unit should be plural if the number before it was greater than 1
+      if (
+        typeof normalizedTokens.at(-1) === "number" &&
+        normalizedTokens.at(-1) > 1
+      ) {
+        normalizedTokens.push(`${unit}s`);
+      } else {
+        normalizedTokens.push(unit);
+      }
+      // Handle unintersting tokens
+    } else {
+      // Edge case: Undo multiplication operation of any number token that was
+      // not was not followed by a unit, or was not the first in the string
+      if (
+        normalizedTokens.length > 1 &&
+        typeof normalizedTokens.at(-1) === "number"
+      ) {
+        normalizedTokens[normalizedTokens.length - 1] /= mult;
+      }
+      normalizedTokens.push(current);
+    }
+
+    if (typeof normalizedTokens.at(-1) === "number") {
+      normalizedTokens[normalizedTokens.length - 1] =
+        Math.round(normalizedTokens[normalizedTokens.length - 1] * 100) / 100;
+    }
+  }
+
+  return normalizedTokens;
+}
+
+export function getNewIngredientString(str, mult = 1) {
+  return getArrayFromIngredient(str, mult).join(" ");
+}
+
+// function createIngredientObjFromStr(str, mult = 1) {
+//   let ingredientArr = getArrayFromIngredient(str, mult);
+
+//   console.log(ingredientArr);
+// }
+
+function formatNutrientObj(obj) {
+  if (!obj || !Object.keys(obj).length) return null;
+
+  const formattedObj = {};
+
+  // Match numbers and vulgar fractions at start
+  const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
+
+  for (const [key, val] of Object.entries(obj)) {
+    if (!val) continue;
+
+    const quantity = val.match(numRE);
+
+    let unit = val.replace(numRE, "");
+
+    unit = unit.trim() || null;
+
+    if (quantity[0].includes("/")) {
+      quantity[0] = fraction(quantity[0]);
+    }
+
+    formattedObj[key] = {
+      quantity: quantity ? Number(quantity[0]) : null,
+      unit,
+    };
+  }
+
+  return formattedObj;
+}
 
 export default function formatScrapedRecipe(data) {
-  let {
+  const {
     canonical_url,
     cook_time,
     ingredients,
@@ -29,181 +178,67 @@ export default function formatScrapedRecipe(data) {
   };
 }
 
-export function getNewIngredientString(str, mult = 1) {
-  return getArrayFromIngredient(str, mult).join(" ");
-}
-
-function getArrayFromIngredient(str, mult = 1) {
-  let strCopy = str.trim();
-  let tokens = strCopy.split(" ");
-
-  // Match integers, decimals, and vulgar fractions
-  let numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
-
-  // These values will be used to build the final ingredients string
-  let normalizedTokens = [];
-
-  for (let i = 0; i < tokens.length; i++) {
-    let current = tokens[i];
-    let match = current.match(numericalRE);
-    let num = (match && match[0]) || getFracStrFromUniChar(current);
-
-    // Handle number tokens
-    if (num) {
-      // If the token from the last iteration was a number, add this one to it
-      if (normalizedTokens && typeof normalizedTokens.at(-1) === "number") {
-        normalizedTokens[normalizedTokens.length - 1] +=
-          Number(fraction(num)) * mult;
-      } else {
-        normalizedTokens.push(Number(fraction(num)) * mult);
-      }
-      // Handle cooking unit tokens
-    } else if (isCookingUnit(current)) {
-      let unit = normalizeCookingUnit(current);
-
-      // Unit should be plural if the number before it was greater than 1
-      if (
-        typeof normalizedTokens.at(-1) === "number" &&
-        normalizedTokens.at(-1) > 1
-      ) {
-        normalizedTokens.push(unit + "s");
-      } else {
-        normalizedTokens.push(unit);
-      }
-      // Handle unintersting tokens
-    } else {
-      // Edge case: Undo multiplication operation of any number token that was
-      // not was not followed by a unit, or was not the first in the string
-      if (
-        normalizedTokens.length > 1 &&
-        typeof normalizedTokens.at(-1) === "number"
-      ) {
-        normalizedTokens[normalizedTokens.length - 1] /= mult;
-      }
-      normalizedTokens.push(current);
-    }
-
-    if (typeof normalizedTokens.at(-1) === "number") {
-      normalizedTokens[normalizedTokens.length - 1] =
-        Math.round(normalizedTokens[normalizedTokens.length - 1] * 100) / 100;
-    }
-  }
-
-  return normalizedTokens;
-}
-
-// function createIngredientObjFromStr(str, mult = 1) {
-//   let ingredientArr = getArrayFromIngredient(str, mult);
-
-//   console.log(ingredientArr);
-// }
-
-function formatNutrientObj(obj) {
-  if (!obj || !Object.keys(obj).length) return null;
-
-  // Match numbers and vulgar fractions at start
-  let numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
-
-  for (let [key, val] of Object.entries(obj)) {
-    if (!val) continue;
-
-    let quantity = val.match(numRE);
-
-    let unit = val.replace(numRE, "");
-
-    unit = unit.trim() || null;
-
-    if (quantity[0].includes("/")) {
-      quantity[0] = fraction(quantity[0]);
-    }
-
-    obj[key] = {
-      quantity: quantity ? Number(quantity[0]) : null,
-      unit,
-    };
-  }
-
-  delete obj.servingSize;
-
-  return obj;
-}
-
-function getFracStrFromUniChar(str) {
-  /* Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction */
-
-  let unicodeFractions = [
-    "½",
-    "⅓",
-    "⅔",
-    "¼",
-    "¾",
-    "⅕",
-    "⅖",
-    "⅗",
-    "⅘",
-    "⅙",
-    "⅚",
-    "⅐",
-    "⅛",
-    "⅜",
-    "⅝",
-    "⅞",
-    "⅑",
-    "⅒",
-  ];
-  let unicodeFractionsConversions = [
-    "1/2",
-    "1/3",
-    "2/3",
-    "1/4",
-    "3/4",
-    "1/5",
-    "2/5",
-    "3/5",
-    "4/5",
-    "1/6",
-    "5/6",
-    "1/7",
-    "1/8",
-    "3/8",
-    "5/8",
-    "7/8",
-    "1/9",
-    "1/10",
-  ];
-
-  return unicodeFractions.includes(str)
-    ? unicodeFractionsConversions[unicodeFractions.indexOf(str)]
-    : null;
+function formatAmount(num, precision) {
+  let multiplier = precision * 10;
+  if (!precision || precision < 0) multiplier = 1;
+  return `${Math.round(num * multiplier) / multiplier}`;
 }
 
 export function getNutrientStringsFromObj(obj, mult = 1) {
   if (!obj || mult < 0) return null;
 
-  let nutrientArr = [];
+  const nutrientArr = [];
 
-  for (let [key, val] of Object.entries(obj)) {
+  for (const [key, val] of Object.entries(obj)) {
     let name = key.replace("Content", "");
     name = name.charAt(0).toUpperCase() + name.slice(1);
-    let nameWords = name.match(/[A-Z][a-z]+/g);
+    const nameWords = name.match(/[A-Z][a-z]+/g);
     let nameStr = nameWords.reduce(
-      (acc, el, i) => (i + 1 !== nameWords.length ? acc + el + " " : acc + el),
+      (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
       ""
     );
     if (nameStr === "Carbohydrate") nameStr += "s";
-    val &&
+    if (val) {
       nutrientArr.push(
         `${nameStr}: ${formatAmount(val.quantity * mult, 0)}${
-          val.unit ? " " + val.unit : ""
+          val.unit ? ` ${val.unit}` : ""
         }`
       );
+    }
   }
 
   return nutrientArr;
 }
 
-function formatAmount(num, precision) {
-  let multiplier = precision * 10;
-  if (!precision || precision < 0) multiplier = 1;
-  return `${Math.round(num * multiplier) / multiplier}`;
+export function getIngredientsMultiplier(
+  recipe,
+  newServingsCount,
+  newCaloriesCount
+) {
+  if (!recipe || !newServingsCount) return 1;
+
+  const oldServingsCount = recipe.servings;
+
+  if (!newCaloriesCount) return newServingsCount / oldServingsCount;
+
+  if (!oldServingsCount) return null;
+
+  const oldCalorieCount =
+    recipe.nutrients && recipe.nutrients.calories.quantity;
+
+  if (!oldCalorieCount) return newServingsCount / oldServingsCount;
+
+  return (
+    ((newCaloriesCount / oldCalorieCount) * newServingsCount) / oldServingsCount
+  );
+}
+
+export function getNutrientsStr(nutrients, mult = 1) {
+  const nutrientStrings = getNutrientStringsFromObj(nutrients, mult);
+
+  return nutrientStrings.reduce(
+    (acc, el, i) =>
+      i === nutrientStrings.length - 1 ? `${acc}${el}` : `${acc}${el}, `,
+    ""
+  );
 }

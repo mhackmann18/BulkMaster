@@ -5,7 +5,7 @@ import ErrBubble from "./ErrBubble";
 import ErrMsg from "./ErrMsg";
 import ButtonMain from "./ButtonMain";
 import formatScrapedRecipe from "../utils/formatScrapedRecipe";
-import isValidHttpURL from "../utils/isValidHttpURL";
+import { isValidHttpURL } from "../utils/validation";
 import spinner from "../assets/loading-gif.gif";
 
 export default function RecipeScrapingForm({ handleResponse }) {
@@ -20,7 +20,7 @@ export default function RecipeScrapingForm({ handleResponse }) {
     e.preventDefault();
     setUrlSubmitErr({ isShowing: false, msg: "" });
     document.activeElement.blur();
-    let inputString = e.target.querySelector("input").value;
+    const inputString = e.target.querySelector("input").value;
 
     if (!isValidHttpURL(inputString)) {
       setURLInputErr({
@@ -31,13 +31,13 @@ export default function RecipeScrapingForm({ handleResponse }) {
     }
 
     setIsLoading(true);
-    let res = await fetch(
+    const res = await fetch(
       `http://localhost:8000/recipe-data?url=${inputString}`
     );
 
     if (res.status === 200) {
-      let data = await res.json();
-      let formattedData = formatScrapedRecipe(data);
+      const data = await res.json();
+      const formattedData = formatScrapedRecipe(data);
       if (!formattedData) {
         setUrlSubmitErr({
           isShowing: true,
@@ -47,10 +47,10 @@ export default function RecipeScrapingForm({ handleResponse }) {
         handleResponse(formattedData);
       }
     } else if (res.status === 400) {
-      let errText = await res.text();
+      const errText = await res.text();
       setURLInputErr({ isShowing: true, msg: errText });
     } else {
-      let errText = await res.text();
+      const errText = await res.text();
       setUrlSubmitErr({ isShowing: true, msg: errText });
     }
     setIsLoading(false);

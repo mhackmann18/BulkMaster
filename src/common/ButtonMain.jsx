@@ -3,7 +3,7 @@ import "./ButtonMain.css";
 
 export default function ButtonMain({ text, onClick }) {
   return (
-    <button onClick={onClick} className="btn-main">
+    <button onClick={onClick} className="btn-main" type="submit">
       {text}
     </button>
   );
@@ -12,4 +12,8 @@ export default function ButtonMain({ text, onClick }) {
 ButtonMain.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+};
+
+ButtonMain.defaultProps = {
+  onClick: () => {},
 };

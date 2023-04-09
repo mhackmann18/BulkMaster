@@ -24,3 +24,8 @@ RecipeTimesInputs.propTypes = {
   prepTime: PropTypes.number,
   cookTime: PropTypes.number,
 };
+
+RecipeTimesInputs.defaultProps = {
+  prepTime: 0,
+  cookTime: 0,
+};

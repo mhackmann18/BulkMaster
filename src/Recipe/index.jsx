@@ -6,7 +6,8 @@ import TimesDisplays from "./TimesDisplay";
 import Form from "./Form";
 import {
   getNewIngredientString,
-  getNutrientStringsFromObj,
+  getIngredientsMultiplier,
+  getNutrientsStr,
 } from "../utils/formatScrapedRecipe";
 import "./Recipe.css";
 
@@ -61,8 +62,8 @@ export default function Recipe({ recipe }) {
         <div id="ingredients-container">
           <h3>Ingredients</h3>
           <ul>
-            {ingredients.map((el, i) => (
-              <li key={i}>
+            {ingredients.map((el) => (
+              <li key={el}>
                 {getNewIngredientString(el, ingredientsMultiplier)}
               </li>
             ))}
@@ -71,8 +72,8 @@ export default function Recipe({ recipe }) {
         <div id="instructions-container">
           <h3>Directions</h3>
           <ol>
-            {instructions.map((el, i) => (
-              <li key={i}>{el}</li>
+            {instructions.map((el) => (
+              <li key={el}>{el}</li>
             ))}
           </ol>
           {nutrients && (
@@ -87,34 +88,6 @@ export default function Recipe({ recipe }) {
   );
 }
 
-function getNutrientsStr(nutrients, mult = 1) {
-  let nutrientStrings = getNutrientStringsFromObj(nutrients, mult);
-
-  return nutrientStrings.reduce(
-    (acc, el, i) =>
-      i === nutrientStrings.length - 1 ? acc + `${el}` : acc + `${el}, `,
-    ""
-  );
-}
-
-function getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
-  if (!recipe || !newServingsCount) return 1;
-
-  let oldServingsCount = recipe.servings;
-
-  if (!newCaloriesCount) return newServingsCount / oldServingsCount;
-
-  if (!oldServingsCount) return null;
-
-  let oldCalorieCount = recipe.nutrients && recipe.nutrients.calories.quantity;
-
-  if (!oldCalorieCount) return newServingsCount / oldServingsCount;
-
-  return (
-    ((newCaloriesCount / oldCalorieCount) * newServingsCount) / oldServingsCount
-  );
-}
-
 Recipe.propTypes = {
   recipe: PropTypes.shape({
     cookTime: PropTypes.number,
@@ -124,5 +97,5 @@ Recipe.propTypes = {
     prepTime: PropTypes.number,
     title: PropTypes.string.isRequired,
     servings: PropTypes.number,
-  }),
+  }).isRequired,
 };

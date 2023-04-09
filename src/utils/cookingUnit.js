@@ -37,20 +37,20 @@ const nonStandardFormUnits = [
 ];
 
 export function isCookingUnit(str) {
-  str = str.toLowerCase();
+  const unitStr = str.toLowerCase();
 
-  for (let unit of standardFormUnits) {
-    if (str === unit || str === unit + "s") {
+  for (const unit of standardFormUnits) {
+    if (unitStr === unit || unitStr === `${unit}s`) {
       return true;
     }
   }
 
-  for (let unit of nonStandardFormUnits) {
+  for (const unit of nonStandardFormUnits) {
     if (
-      str === unit ||
-      str === unit + "s" ||
-      str === unit + "." ||
-      str === unit + "s."
+      unitStr === unit ||
+      unitStr === `${unit}s` ||
+      unitStr === `${unit}.` ||
+      unitStr === `${unit}s.`
     ) {
       return true;
     }
@@ -60,20 +60,20 @@ export function isCookingUnit(str) {
 }
 
 export function normalizeCookingUnit(str) {
-  str = str.toLowerCase();
+  const unitStr = str.toLowerCase();
 
-  for (let unit of standardFormUnits) {
-    if (str === unit || str === unit + "s") {
+  for (const unit of standardFormUnits) {
+    if (unitStr === unit || unitStr === `${unit}s`) {
       return unit;
     }
   }
 
-  for (let unit of nonStandardFormUnits) {
+  for (const unit of nonStandardFormUnits) {
     if (
-      str === unit ||
-      str === unit + "s" ||
-      str === unit + "." ||
-      str === unit + "s."
+      unitStr === unit ||
+      unitStr === `${unit}s` ||
+      unitStr === `${unit}.` ||
+      unitStr === `${unit}s.`
     ) {
       return standardFormUnits[nonStandardFormUnits.indexOf(unit)];
     }

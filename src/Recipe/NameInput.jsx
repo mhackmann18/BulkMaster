@@ -4,7 +4,7 @@ export default function RecipeNameInput({ value }) {
   return (
     <input
       id="recipe-name-input"
-      placeholder={"Enter recipe name"}
+      placeholder="Enter recipe name"
       value={value}
     />
   );
@@ -12,4 +12,8 @@ export default function RecipeNameInput({ value }) {
 
 RecipeNameInput.propTypes = {
   value: PropTypes.string,
+};
+
+RecipeNameInput.defaultProps = {
+  value: "",
 };
