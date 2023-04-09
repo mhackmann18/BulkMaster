@@ -1,6 +1,12 @@
 #import-page-content {
   height: 100%;
   width: 100%;
-  padding-top: 45vh;
+  padding: 3vh 3vw 0 3vw;
   position: relative;
+  min-width: 400px;
+  overflow-y: auto;
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; */
 }

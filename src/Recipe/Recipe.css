@@ -13,13 +13,12 @@
   text-align: left;
 }
 
-#recipe input {
-  font-size: 1.1rem;
+/* #recipe input {
   border: none;
   border-radius: 8px;
   padding: 4px 8px;
   color: var(--font-color-default);
-}
+} */
 
 /* Recipe Name Input */
 
@@ -71,6 +70,11 @@ p#recipe-times {
 #ingredients-container ul li:last-child {
   border: none;
 }
+
+/* Form */
+/* #ingredients-container input {
+  width: 100%;
+} */
 
 #instructions-container {
   width: 60%;

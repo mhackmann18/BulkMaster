@@ -6,9 +6,9 @@ import ErrMsg from "./ErrMsg";
 import ButtonMain from "./ButtonMain";
 import formatScrapedRecipe from "../utils/formatScrapedRecipe";
 import { isValidHttpURL } from "../utils/validation";
-import spinner from "../assets/loading-gif.gif";
+import Spinner from "./Spinner";
 
-export default function RecipeScrapingForm({ handleResponse }) {
+export default function RecipeScrapingForm({ handleResponse, variant }) {
   const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: "" });
   const [urlSubmitErr, setUrlSubmitErr] = useState({
     isShowing: false,
@@ -57,7 +57,7 @@ export default function RecipeScrapingForm({ handleResponse }) {
   }
 
   return (
-    <form id="recipe-scraping-form" onSubmit={handleSubmit}>
+    <form id="recipe-scraping-form" className={variant} onSubmit={handleSubmit}>
       <div id="rsf-input-wrapper">
         <input
           type="text"
@@ -71,7 +71,7 @@ export default function RecipeScrapingForm({ handleResponse }) {
         {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
       </div>
       <ButtonMain text="Get Recipe" />
-      {isLoading && <img id="rsf-spinner" src={spinner} alt="spinner-gif" />}
+      {isLoading && <Spinner />}
       {urlSubmitErr.isShowing && <ErrMsg msg={urlSubmitErr.msg} />}
     </form>
   );
@@ -79,4 +79,9 @@ export default function RecipeScrapingForm({ handleResponse }) {
 
 RecipeScrapingForm.propTypes = {
   handleResponse: PropTypes.func.isRequired,
+  variant: PropTypes.string,
+};
+
+RecipeScrapingForm.defaultProps = {
+  variant: "",
 };

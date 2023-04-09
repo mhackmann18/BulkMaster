@@ -2,7 +2,7 @@
 import { fraction } from "mathjs";
 import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
 
-function getFracStrFromUniChar(str) {
+export function getFracStrFromUniChar(str) {
   /* Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction */
 
   const unicodeFractions = [
@@ -113,12 +113,6 @@ function getArrayFromIngredient(str, mult = 1) {
 export function getNewIngredientString(str, mult = 1) {
   return getArrayFromIngredient(str, mult).join(" ");
 }
-
-// function createIngredientObjFromStr(str, mult = 1) {
-//   let ingredientArr = getArrayFromIngredient(str, mult);
-
-//   console.log(ingredientArr);
-// }
 
 function formatNutrientObj(obj) {
   if (!obj || !Object.keys(obj).length) return null;

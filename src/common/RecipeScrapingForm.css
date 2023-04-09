@@ -44,3 +44,13 @@
 #recipe-scraping-form .err-msg {
   margin-top: 25px;
 }
+
+#recipe-scraping-form.inline {
+  flex-direction: row;
+}
+
+#recipe-scraping-form.inline button  {
+  margin-top: 0px;
+  margin-left: 10px;
+  
+}

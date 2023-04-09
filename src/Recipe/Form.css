@@ -17,26 +17,13 @@
   font-weight: 600;
 }
 
-#edit-recipe-form input[type=number] {
+/* #edit-recipe-form input[type=number] {
   background-color: var(--seasalt);
   border-style: none;
   border-radius: 3px;
   color: var(--eerie-black);
-  font-size: 16px;
   padding: 3px;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input.no-spinner-wheel::-webkit-outer-spin-button,
-input.no-spinner-wheel::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input.no-spinner-wheel {
-  -moz-appearance: textfield;
-}
+} */
 
 #edit-recipe-form button {
   background-color: var(--onyx);

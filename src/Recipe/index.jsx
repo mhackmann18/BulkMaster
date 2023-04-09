@@ -1,7 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import NameInput from "./NameInput";
-import TimesInputs from "./TimesInputs";
 import TimesDisplays from "./TimesDisplay";
 import Form from "./Form";
 import {
@@ -36,17 +34,11 @@ export default function Recipe({ recipe }) {
   );
   const nutrientsMultiplier = caloriesInputValue / caloriesInitialValue;
 
-  const editing = false;
-
   return (
     <div id="recipe">
       <div id="recipe-header">
-        {editing ? <NameInput value={title} /> : <h2>{title}</h2>}
-        {editing ? (
-          <TimesInputs prepTime={prepTime} cookTime={cookTime} />
-        ) : (
-          <TimesDisplays prepTime={prepTime} cookTime={cookTime} />
-        )}
+        <h2>{title}</h2>
+        <TimesDisplays prepTime={prepTime} cookTime={cookTime} />
         <div className="form-wrapper">
           <Form
             servingsDefaultValue={servings}

@@ -19,7 +19,7 @@ html {
   height: 80px;
   display: flex;
   align-items: center;
-  font-size: 34px;
+  font-size: 1.9rem;
   font-family: 'Oswald', sans-serif;
   color: var(--eerie-black);
   margin-left: 10px;

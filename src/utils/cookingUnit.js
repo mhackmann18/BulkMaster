@@ -1,5 +1,5 @@
 // May have an 's'
-const standardFormUnits = [
+export const standardFormUnits = [
   // Volume
   "milliliter",
   "teaspoon",
@@ -16,6 +16,10 @@ const standardFormUnits = [
   "kilogram",
   "pound",
 ];
+
+export const standardFormUnitsPlural = standardFormUnits.map(
+  (unit) => `${unit}s`
+);
 
 // May have an 's', an '.', or 's.'
 const nonStandardFormUnits = [

@@ -5,13 +5,23 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
   return (
     <div>
       <label htmlFor="prep-time">Prep Time: </label>
-      <NumberInput value={prepTime} minValue={0} maxValue={999} />
+      <NumberInput
+        value={prepTime}
+        setValue={() => {}}
+        minValue={0}
+        maxValue={999}
+      />
       <select name="time-units" id="">
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>
       </select>
       <label htmlFor="">Cook Time: </label>
-      <NumberInput value={cookTime} minValue={0} maxValue={999} />
+      <NumberInput
+        value={cookTime}
+        setValue={() => {}}
+        minValue={0}
+        maxValue={999}
+      />
       <select name="time-units" id="">
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>

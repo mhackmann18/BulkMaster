@@ -5,7 +5,7 @@ export default function RecipeNameInput({ value }) {
     <input
       id="recipe-name-input"
       placeholder="Enter recipe name"
-      value={value}
+      defaultValue={value}
     />
   );
 }

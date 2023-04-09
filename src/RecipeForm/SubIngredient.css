@@ -1,0 +1,25 @@
+.sub-ingredient {
+  display: flex;
+  align-items: center;
+}
+
+.sub-ingredient .remove.btn {
+  margin-right: 6px;
+  color: var(--onyx);
+}
+
+.sub-ingredient .remove.btn:hover {
+  color: var(--outer-space);
+}
+
+.sub-ingredient .inputs {
+  display: flex;
+}
+
+.sub-ingredient .inputs * {
+  margin-left: 4px;
+}
+
+form#recipe .sub-ingredient input[type="number"] {
+  width: 50px;
+}

@@ -47,6 +47,7 @@
   --outer-space: #e9ecefff;
   --onyx: #f8f9faff;
   --eerie-black: white;
+  --font-color-default: var(--onyx);
 }
 
 body, div, button, input {
