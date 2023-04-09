@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
+import CookingUnitSelect from "./CookingUnitSelect";
 import {
   standardFormUnits,
   standardFormUnitsPlural,
@@ -10,6 +10,7 @@ import "./SubIngredient.css";
 
 export default function SubIngredient({ subIngredient }) {
   const { quantity, unit, str } = subIngredient;
+
   return (
     <div className="sub-ingredient">
       <FontAwesomeIcon
@@ -23,22 +24,18 @@ export default function SubIngredient({ subIngredient }) {
           type="number"
           className="no-spinner-wheel"
           defaultValue={quantity}
+          min="0"
           max="999"
+          name="ingredient-quantity"
+          title="quantity"
         />
-        <select name="unit" defaultValue={unit}>
-          {standardFormUnits.includes(unit)
-            ? standardFormUnits.map((el) => (
-                <option value={el} key={uuidv4()}>
-                  {el}
-                </option>
-              ))
-            : standardFormUnitsPlural.map((el) => (
-                <option value={el} key={uuidv4()}>
-                  {el}
-                </option>
-              ))}
-        </select>
-        <input type="text" defaultValue={str} />
+        <CookingUnitSelect unit={unit || ""} />
+        <input
+          name="ingredient-name"
+          title="Name"
+          type="text"
+          defaultValue={str}
+        />
       </div>
     </div>
   );

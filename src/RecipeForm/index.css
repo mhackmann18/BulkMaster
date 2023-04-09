@@ -5,6 +5,6 @@ form#recipe {
 form#recipe input, form#recipe select {
   border: 1px solid var(--french-gray);
   border-radius: 3px;
-  font-size: 1rem;
+  font-size: 16px;
   padding: 3px;
 }
