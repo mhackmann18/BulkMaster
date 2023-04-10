@@ -1,15 +1,12 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
-import NameInput from "./RecipeNameInput";
+import NameInput from "./NameInput";
+import NumberInput from "./NumberInput";
 import TimesInputs from "./TimesInputs";
 import InstructionsList from "./InstructionsList";
-import {
-  getNewIngredientString,
-  getNutrientsStr,
-} from "../utils/formatScrapedRecipe";
+import { getNutrientsStr } from "../utils/formatScrapedRecipe";
 import "../Recipe/Recipe.css";
 import "./index.css";
-import IngredientListItem from "./IngredientListItem";
+import IngredientsList from "./IngredientsList";
 
 export default function RecipeForm({ recipe }) {
   const {
@@ -22,41 +19,45 @@ export default function RecipeForm({ recipe }) {
     servings,
   } = recipe;
 
-  const [servingsInputValue, setServingsInputValue] = useState(servings);
-
   return (
     <form id="recipe">
-      <div id="recipe-header">
-        <NameInput value={title} />
-        <TimesInputs prepTime={prepTime} cookTime={cookTime} />
-      </div>
-      <p>
-        <input
-          type="number"
-          value={servingsInputValue}
-          onChange={setServingsInputValue}
-        />
-      </p>
+      <header id="recipe-header">
+        <div className="left">
+          <NameInput value={title} />
+          <div className="row">
+            <label htmlFor="servings">Servings: </label>
+            <NumberInput
+              startingValue={servings}
+              maxValue={99}
+              minValue={1}
+              variant="no-spinner-wheel"
+              title="Number of Servings"
+              name="servings"
+              id="servings"
+            />
+            <TimesInputs prepTime={prepTime} cookTime={cookTime} />
+          </div>
+        </div>
+        <div className="right">
+          <button id="recipe-cancel-btn" className="btn-onyx" type="button">
+            Cancel
+          </button>
+          <button id="recipe-save-btn" className="btn-onyx" type="submit">
+            Save
+          </button>
+        </div>
+      </header>
       <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
           <h3>Ingredients</h3>
-          <ul>
-            {ingredients.map((el) => (
-              <li key={el}>
-                <IngredientListItem ingredient={getNewIngredientString(el)} />
-              </li>
-            ))}
-          </ul>
+          <IngredientsList ingredients={ingredients} />
         </div>
         <div id="instructions-container">
           <h3>Directions</h3>
           <InstructionsList instructions={instructions} />
-          {nutrients && (
-            <>
-              <h3>Nutrition Facts</h3>
-              {getNutrientsStr(nutrients)}
-            </>
-          )}
+
+          <h3>Nutrition Facts</h3>
+          {getNutrientsStr(nutrients)}
         </div>
       </div>
     </form>

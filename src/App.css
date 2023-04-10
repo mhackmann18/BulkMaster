@@ -63,3 +63,17 @@ input.no-spinner-wheel::-webkit-inner-spin-button {
 input.no-spinner-wheel {
   -moz-appearance: textfield;
 }
+
+.btn-onyx {
+  background-color: var(--onyx);
+  font-size: 1rem;
+  color: var(--antiflash-white);
+  padding: 10px 12px;
+  border-style: none;
+  border-radius: 8px;
+}
+
+.btn-onyx:hover {
+  background-color: var(--outer-space);
+  transition: background-color .1s ease;
+}

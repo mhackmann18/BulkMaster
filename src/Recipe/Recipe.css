@@ -22,14 +22,6 @@
 
 /* Recipe Name Input */
 
-#recipe-name-input {
-  width: 50%;
-}
-
-#recipe-name-input::placeholder {
-  color: var(--french-gray);
-}
-
 p#recipe-times {
   /* margin-bottom: 12px; */
   color: var(--slate-gray);

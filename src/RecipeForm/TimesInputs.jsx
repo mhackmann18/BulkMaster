@@ -3,13 +3,14 @@ import NumberInput from "../common/NumberInput";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
   return (
-    <div>
+    <>
       <label htmlFor="prep-time">Prep Time: </label>
       <NumberInput
         value={prepTime}
         setValue={() => {}}
         minValue={0}
         maxValue={999}
+        variant="no-spinner-wheel"
       />
       <select name="time-units" id="">
         <option value="minutes">Minutes</option>
@@ -26,7 +27,7 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>
       </select>
-    </div>
+    </>
   );
 }
 

@@ -7,9 +7,9 @@ import {
   standardFormUnits,
   standardFormUnitsPlural,
 } from "../utils/cookingUnit";
-import "./SubIngredient.css";
+import "./IngredientsListItemRow.css";
 
-export default function SubIngredient({ subIngredient }) {
+export default function IngredientsListItemRow({ subIngredient }) {
   const { quantity, unit, str } = subIngredient;
 
   return (
@@ -41,7 +41,7 @@ export default function SubIngredient({ subIngredient }) {
   );
 }
 
-SubIngredient.propTypes = {
+IngredientsListItemRow.propTypes = {
   subIngredient: PropTypes.shape({
     quantity: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
     unit: PropTypes.oneOf([

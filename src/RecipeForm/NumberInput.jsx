@@ -8,6 +8,7 @@ export default function NumberInput({
   variant,
   title,
   name,
+  id,
 }) {
   function handleChange(e) {
     // console.log(e.target.value);
@@ -51,6 +52,7 @@ export default function NumberInput({
       className={variant}
       title={title}
       name={name}
+      id={id}
       onChange={handleChange}
       onKeyDown={handleKeydown}
       onPaste={handlePaste}
@@ -65,6 +67,7 @@ NumberInput.propTypes = {
   variant: PropTypes.string,
   name: PropTypes.string,
   title: PropTypes.string,
+  id: PropTypes.string,
 };
 
 NumberInput.defaultProps = {
@@ -74,4 +77,5 @@ NumberInput.defaultProps = {
   variant: "",
   name: "",
   title: "",
+  id: "",
 };

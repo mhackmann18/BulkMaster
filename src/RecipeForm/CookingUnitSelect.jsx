@@ -14,17 +14,11 @@ export default function CookingUnitSelect({ unit }) {
       title="Unit"
       defaultValue={unit}
     >
-      {standardFormUnits.includes(unit)
-        ? ["", ...standardFormUnits].map((el) => (
-            <option value={el} key={uuidv4()}>
-              {el}
-            </option>
-          ))
-        : ["", ...standardFormUnitsPlural].map((el) => (
-            <option value={el} key={uuidv4()}>
-              {el}
-            </option>
-          ))}
+      {["", ...standardFormUnits].map((el) => (
+        <option value={el} key={uuidv4()}>
+          {el}
+        </option>
+      ))}
     </select>
   );
 }

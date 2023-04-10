@@ -85,3 +85,16 @@ export function normalizeCookingUnit(str) {
 
   return false;
 }
+
+export function getSingularCookingUnit(str) {
+  const unit = normalizeCookingUnit(str);
+
+  if (!unit) {
+    return false;
+  }
+
+  if (standardFormUnits.includes(unit)) {
+    return unit;
+  }
+  return standardFormUnitsPlural[standardFormUnits.indexOf(unit)];
+}

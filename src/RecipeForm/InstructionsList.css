@@ -1,3 +1,18 @@
+form#recipe .instructions-list {
+  list-style: none;
+}
+
+form#recipe .instructions-list li {
+  position: relative;
+}
+
+form#recipe .instructions-list .btn.remove {
+  position: absolute;
+  left: -30px;
+  top: 5px;
+}
+
 form#recipe .instructions-list textarea {
   width: 100%;
+  padding-left: 5px;
 }

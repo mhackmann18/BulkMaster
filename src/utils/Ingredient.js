@@ -1,8 +1,10 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import { fraction } from "mathjs";
 import { getFracStrFromUniChar } from "./formatScrapedRecipe";
-import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
+import {
+  isCookingUnit,
+  normalizeCookingUnit,
+  getSingularCookingUnit,
+} from "./cookingUnit";
 
 export default class Ingredient {
   constructor(str) {
@@ -30,7 +32,7 @@ export default class Ingredient {
           ingredientObject.quantity = token;
         }
       } else if (isCookingUnit(token)) {
-        ingredientObject.unit = token;
+        ingredientObject.unit = getSingularCookingUnit(token);
       } else {
         ingredientObject.str += `${token} `;
       }
@@ -43,7 +45,6 @@ export default class Ingredient {
   static getArrayFromIngredient(str, mult = 1) {
     const strCopy = str.trim();
     const tokens = strCopy.split(" ");
-    const ingredientObject = {};
 
     // Match integers, decimals, and vulgar fractions
     const numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
