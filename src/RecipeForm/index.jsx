@@ -1,7 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import NameInput from "./NameInput";
+import NameInput from "./RecipeNameInput";
 import TimesInputs from "./TimesInputs";
+import InstructionsList from "./InstructionsList";
 import {
   getNewIngredientString,
   getNutrientsStr,
@@ -49,13 +50,7 @@ export default function RecipeForm({ recipe }) {
         </div>
         <div id="instructions-container">
           <h3>Directions</h3>
-          <ol>
-            {instructions.map((el) => (
-              <li key={el}>
-                <input type="text" defaultValue={el} />
-              </li>
-            ))}
-          </ol>
+          <InstructionsList instructions={instructions} />
           {nutrients && (
             <>
               <h3>Nutrition Facts</h3>

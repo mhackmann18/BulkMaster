@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
+import NumberInput from "./NumberInput";
 import CookingUnitSelect from "./CookingUnitSelect";
 import {
   standardFormUnits,
@@ -20,14 +21,13 @@ export default function SubIngredient({ subIngredient }) {
         title="Remove Ingredient"
       />
       <div className="inputs">
-        <input
-          type="number"
-          className="no-spinner-wheel"
-          defaultValue={quantity}
-          min="0"
-          max="999"
+        <NumberInput
+          startingValue={quantity}
+          minValue={0}
+          maxValue={999}
+          variant="no-spinner-wheel"
+          title="Quantity"
           name="ingredient-quantity"
-          title="quantity"
         />
         <CookingUnitSelect unit={unit || ""} />
         <input

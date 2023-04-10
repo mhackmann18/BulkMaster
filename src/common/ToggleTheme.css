@@ -50,6 +50,6 @@
   --font-color-default: var(--onyx);
 }
 
-body, div, button, input {
+body, div, button, input, select {
   transition: background-color 0.5s ease;
 }

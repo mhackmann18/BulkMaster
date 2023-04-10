@@ -22,10 +22,10 @@
   overflow-y: scroll;
 } */
 
-body {
+body, input, select, textarea {
   background-color: var(--white);
   font-family: 'Open Sans', sans-serif;
-  color: var(--onyx);
+  color: var(--font-color-default);
 }
 
 button {
@@ -44,20 +44,12 @@ a {
   text-decoration: none;
 }
 
+textarea {
+  resize: none;
+}
+
 .btn:hover {
   cursor: pointer;
-}
-
-input {
-  font-family: 'Open Sans', sans-serif;
-  color: var(--font-color-default);
-  background-color: var(--white);
-}
-
-select {
-  font-family: 'Open Sans', sans-serif;
-  color: var(--font-color-default);
-  background-color: var(--white);
 }
 
 /* Chrome, Safari, Edge, Opera */

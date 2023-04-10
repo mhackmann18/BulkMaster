@@ -23,3 +23,7 @@
 form#recipe .sub-ingredient input[type="number"] {
   width: 50px;
 }
+
+form#recipe .sub-ingredient input[type="text"] {
+  width: 240px;
+}
