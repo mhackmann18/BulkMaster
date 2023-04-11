@@ -187,11 +187,10 @@ export function getNutrientStringsFromObj(obj, mult = 1) {
     let name = key.replace("Content", "");
     name = name.charAt(0).toUpperCase() + name.slice(1);
     const nameWords = name.match(/[A-Z][a-z]+/g);
-    let nameStr = nameWords.reduce(
+    const nameStr = nameWords.reduce(
       (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
       ""
     );
-    if (nameStr === "Carbohydrate") nameStr += "s";
     if (val) {
       nutrientArr.push(
         `${nameStr}: ${formatAmount(val.quantity * mult, 0)}${
@@ -235,4 +234,39 @@ export function getNutrientsStr(nutrients, mult = 1) {
       i === nutrientStrings.length - 1 ? `${acc}${el}` : `${acc}${el}, `,
     ""
   );
+}
+
+export function getNutrientsArrayFromObject(obj) {
+  if (!obj) return null;
+
+  const nutrientArr = [];
+
+  for (const [key, val] of Object.entries(obj)) {
+    let name = key.replace("Content", "");
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    const nameWords = name.match(/[A-Z][a-z]+/g);
+    const nameStr = nameWords.reduce(
+      (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
+      ""
+    );
+    if (val) {
+      nutrientArr.push({
+        name: nameStr,
+        quantity: val.quantity,
+        unit: val.unit,
+      });
+    }
+  }
+
+  return nutrientArr;
+}
+
+export function getArrFromNutrientsObject(obj) {
+  const nutrientsArr = [];
+
+  for (const [key, value] of Object.entries(obj)) {
+    nutrientsArr.push({ [key]: value });
+  }
+
+  return nutrientsArr;
 }

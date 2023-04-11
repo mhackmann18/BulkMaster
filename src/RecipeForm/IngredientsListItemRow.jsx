@@ -3,10 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 import NumberInput from "./NumberInput";
 import CookingUnitSelect from "./CookingUnitSelect";
-import {
-  standardFormUnits,
-  standardFormUnitsPlural,
-} from "../utils/cookingUnit";
+import { standardFormUnits } from "../utils/cookingUnit";
 import "./IngredientsListItemRow.css";
 
 export default function IngredientsListItemRow({ subIngredient }) {
@@ -44,11 +41,7 @@ export default function IngredientsListItemRow({ subIngredient }) {
 IngredientsListItemRow.propTypes = {
   subIngredient: PropTypes.shape({
     quantity: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
-    unit: PropTypes.oneOf([
-      ...standardFormUnits,
-      ...standardFormUnitsPlural,
-      null,
-    ]),
+    unit: PropTypes.oneOf([...standardFormUnits, null]),
     str: PropTypes.string.isRequired,
   }).isRequired,
 };

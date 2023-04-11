@@ -13,7 +13,7 @@ export default function InstructionsList({ instructions }) {
             icon={faCircleMinus}
             size="lg"
             className="btn remove"
-            title="Remove Step"
+            title="Remove Item"
           />
           <textarea type="text" defaultValue={el} />
         </li>

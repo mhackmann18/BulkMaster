@@ -3,7 +3,7 @@ import NameInput from "./NameInput";
 import NumberInput from "./NumberInput";
 import TimesInputs from "./TimesInputs";
 import InstructionsList from "./InstructionsList";
-import { getNutrientsStr } from "../utils/formatScrapedRecipe";
+import NutrientsList from "./NutrientsList";
 import "../Recipe/Recipe.css";
 import "./index.css";
 import IngredientsList from "./IngredientsList";
@@ -53,11 +53,11 @@ export default function RecipeForm({ recipe }) {
           <IngredientsList ingredients={ingredients} />
         </div>
         <div id="instructions-container">
-          <h3>Directions</h3>
+          <h3>Instructions</h3>
           <InstructionsList instructions={instructions} />
 
           <h3>Nutrition Facts</h3>
-          {getNutrientsStr(nutrients)}
+          <NutrientsList nutrients={nutrients} />
         </div>
       </div>
     </form>
