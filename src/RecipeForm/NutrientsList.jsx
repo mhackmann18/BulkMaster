@@ -6,25 +6,21 @@ import validNutrients from "../utils/validNutrients";
 import "./NutrientsList.css";
 
 export default function NutrientsList({ nutrients }) {
-  console.log(nutrients);
-  const servingSizeObject = { name: "Serving Size", unit: "" };
   const nutrientsArray = getNutrientsArrayFromObject(nutrients);
 
   return (
     <ul className="nutrients-list">
-      {[servingSizeObject, ...validNutrients].map((el) => {
-        const nutrientListItemObject = { ...el, quantity: 0 };
-
-        for (const recipeNutrientObject of nutrientsArray) {
-          if (el.name === recipeNutrientObject.name) {
-            nutrientListItemObject.quantity = recipeNutrientObject.quantity;
+      {nutrientsArray.map((el) => {
+        for (const validNutrient of validNutrients) {
+          if (el.name === validNutrient.name) {
+            return (
+              <li key={uuidv4()}>
+                <NutrientInput nutrient={el} />
+              </li>
+            );
           }
         }
-        return (
-          <li key={uuidv4()}>
-            <NutrientInput nutrient={nutrientListItemObject} />
-          </li>
-        );
+        return false;
       })}
     </ul>
   );

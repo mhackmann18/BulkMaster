@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import NameInput from "./NameInput";
-import NumberInput from "./NumberInput";
 import TimesInputs from "./TimesInputs";
 import InstructionsList from "./InstructionsList";
+import ServingInputs from "./ServingInputs";
 import NutrientsList from "./NutrientsList";
 import "../Recipe/Recipe.css";
 import "./index.css";
 import IngredientsList from "./IngredientsList";
+import AddButton from "./AddButton";
 
 export default function RecipeForm({ recipe }) {
   const {
@@ -25,16 +26,6 @@ export default function RecipeForm({ recipe }) {
         <div className="left">
           <NameInput value={title} />
           <div className="row">
-            <label htmlFor="servings">Servings: </label>
-            <NumberInput
-              startingValue={servings}
-              maxValue={99}
-              minValue={1}
-              variant="no-spinner-wheel"
-              title="Number of Servings"
-              name="servings"
-              id="servings"
-            />
             <TimesInputs prepTime={prepTime} cookTime={cookTime} />
           </div>
         </div>
@@ -49,14 +40,26 @@ export default function RecipeForm({ recipe }) {
       </header>
       <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
-          <h3>Ingredients</h3>
+          <h3>
+            Ingredients <AddButton text="Add Ingredient" />
+          </h3>
           <IngredientsList ingredients={ingredients} />
         </div>
         <div id="instructions-container">
-          <h3>Instructions</h3>
+          <h3 id="instructions-header">
+            Instructions <AddButton text="Add Step" />
+          </h3>
           <InstructionsList instructions={instructions} />
 
-          <h3>Nutrition Facts</h3>
+          <h3 id="nutrition-facts-header">
+            Nutrition Facts <AddButton text="Add Nutrient" />
+          </h3>
+
+          <ServingInputs
+            servingSize={nutrients.servingSize}
+            servings={servings}
+          />
+
           <NutrientsList nutrients={nutrients} />
         </div>
       </div>

@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import NumberInput from "./NumberInput";
 
 export default function NutrientInput({ nutrient }) {
@@ -6,7 +8,7 @@ export default function NutrientInput({ nutrient }) {
 
   return (
     <>
-      {name}
+      <label htmlFor={name.toLowerCase()}>{name}: </label>
       <NumberInput
         startingValue={quantity}
         maxValue={9999}
@@ -17,6 +19,12 @@ export default function NutrientInput({ nutrient }) {
         id={name.toLowerCase()}
       />{" "}
       {unit}
+      <FontAwesomeIcon
+        icon={faXmark}
+        size="lg"
+        className="btn"
+        title="Remove Nutrient"
+      />
     </>
   );
 }

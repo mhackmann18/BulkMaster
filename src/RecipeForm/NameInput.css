@@ -5,8 +5,8 @@
 }
 
 #recipe-name-input {
-  width: 400px;
   margin-left: 4px;
+  flex-grow: 1;
 }
 
 #recipe-name-input::placeholder {

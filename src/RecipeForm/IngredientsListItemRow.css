@@ -1,22 +1,57 @@
-.sub-ingredient {
+form#recipe {
+  --sub-ingredient-hover-border-radius: 10px; 
+  --sub-ingredient-hover-background-color: var(--antiflash-white); 
+  --sub-ingredient-hover-transition-duration: .1s; 
+}
+
+form#recipe .sub-ingredient {
   display: flex;
   align-items: center;
+  position: relative;
+  transition: none;
+  transition: background-color var(--sub-ingredient-hover-transition-duration) ease-in;
+  padding: 10px 0;
 }
 
-.sub-ingredient .remove.btn {
-  margin-right: 6px;
-  color: var(--onyx);
+form#recipe #ingredients-list .sub-ingredient:hover {
+  background-color: var(--sub-ingredient-hover-background-color);
+  border-radius: 0 var(--sub-ingredient-hover-border-radius) var(--sub-ingredient-hover-border-radius) 0;
+  padding: 10px 10px 10px 0;
+  width: calc(100% + 10px);
 }
 
-.sub-ingredient .remove.btn:hover {
+form#recipe #ingredients-list .sub-ingredient:hover .buttons-container {
+  opacity: 100%;
+}
+
+form#recipe .sub-ingredient .buttons-container {
+  position: absolute;
+  background-color: var(--sub-ingredient-hover-background-color);
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  left: -61px;
+  height: 100%;
+  padding: 10px 0px 10px 10px;
+  border-radius: var(--sub-ingredient-hover-border-radius) 0 0 var(--sub-ingredient-hover-border-radius);
+  transition: opacity var(--sub-ingredient-hover-transition-duration) ease-in;
+}
+
+form#recipe .sub-ingredient .btn {
+  margin-right: 10px;
   color: var(--outer-space);
 }
 
-.sub-ingredient .inputs {
-  display: flex;
+form#recipe .sub-ingredient .btn:hover {
+  color: var(--slate-gray);
 }
 
-.sub-ingredient .inputs * {
+form#recipe .sub-ingredient .inputs {
+  display: flex;
+  width: 100%;
+}
+
+form#recipe .sub-ingredient .inputs * {
   margin-left: 4px;
 }
 
@@ -25,5 +60,6 @@ form#recipe .sub-ingredient input[type="number"] {
 }
 
 form#recipe .sub-ingredient input[type="text"] {
-  width: 240px;
+  display: inline-block;
+  flex-grow: 1;
 }

@@ -5,7 +5,7 @@ import IngredientsListItem from "./IngredientsListItem";
 
 export default function IngredientsList({ ingredients }) {
   return (
-    <ul>
+    <ul id="ingredients-list">
       {ingredients.map((el) => (
         <IngredientsListItem
           key={uuidv4()}

@@ -1,0 +1,7 @@
+form#recipe #serving-size-inputs {
+  margin-bottom: 10px;
+}
+
+form#recipe #serving-size-inputs input {
+  margin-right: 4px;
+}

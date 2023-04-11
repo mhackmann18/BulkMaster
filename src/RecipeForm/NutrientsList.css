@@ -1,8 +1,24 @@
 form#recipe .nutrients-list li {
-  margin-bottom: 6px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  display:  inline-block;
+  background-color: var(--platinum);
+  padding: 8px 10px;
+  border-radius: 15px;
 }
 
 form#recipe .nutrients-list li label {
   display: inline-block;
-  width: 140px;
+  /* width: 130px; */
+  margin-right: 5px;
+}
+
+form#recipe .nutrients-list li .btn {
+  color: var(--outer-space);
+  margin-left: 10px;
+}
+
+form#recipe .nutrients-list li .btn:hover {
+  color: var(--slate-gray);
+  margin-left: 10px;
 }
