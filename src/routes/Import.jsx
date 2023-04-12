@@ -1,7 +1,6 @@
 import { useState } from "react";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
-import Recipe from "../components/Recipe/RecipeDisplay";
-// import RecipeForm from "../RecipeForm";
+import Recipe from "../components/Recipe";
 import "./Import.css";
 
 export default function Import() {

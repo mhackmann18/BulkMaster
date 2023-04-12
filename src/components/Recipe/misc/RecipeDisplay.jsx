@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import TimesDisplays from "./TimesDisplay";
+import TimesDisplays from "../TimesDisplay";
 import {
   getNewIngredientString,
   getIngredientsMultiplier,
   getNutrientsStr,
-} from "../../utils/formatScrapedRecipe";
-import "./RecipeDisplay.css";
+} from "../../../utils/formatScrapedRecipe";
+import "../index.css";
 
 export default function Recipe({ recipe }) {
   // The following recipe properties must be non-false values: title, instructions, servings, and ingredients
