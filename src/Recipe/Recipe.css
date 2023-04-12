@@ -52,7 +52,7 @@ p#recipe-times {
   /* line-height: 2.5em; */
 }
 
-div#recipe {
+div#recipe #ingredients-container ul li {
   padding: 10px 0;
 }
 

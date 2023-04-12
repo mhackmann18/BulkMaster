@@ -1,7 +1,5 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import TimesDisplays from "./TimesDisplay";
-import Form from "./Form";
 import {
   getNewIngredientString,
   getIngredientsMultiplier,
@@ -23,9 +21,11 @@ export default function Recipe({ recipe }) {
   const caloriesInitialValue =
     nutrients && nutrients.calories && nutrients.calories.quantity;
 
-  const [servingsInputValue, setServingsInputValue] = useState(servings);
-  const [caloriesInputValue, setCaloriesInputValue] =
-    useState(caloriesInitialValue);
+  const servingsInputValue = servings;
+  const caloriesInputValue = caloriesInitialValue;
+  // const [servingsInputValue, setServingsInputValue] = useState(servings);
+  // const [caloriesInputValue, setCaloriesInputValue] =
+  //   useState(caloriesInitialValue);
 
   const ingredientsMultiplier = getIngredientsMultiplier(
     recipe,
@@ -36,20 +36,30 @@ export default function Recipe({ recipe }) {
 
   return (
     <div id="recipe">
-      <div id="recipe-header">
-        <h2>{title}</h2>
-        <TimesDisplays prepTime={prepTime} cookTime={cookTime} />
-        <div className="form-wrapper">
-          <Form
-            servingsDefaultValue={servings}
-            servingsInputValue={servingsInputValue}
-            setServingsInputValue={setServingsInputValue}
-            caloriesDefaultValue={caloriesInitialValue}
-            caloriesInputValue={caloriesInputValue}
-            setCaloriesInputValue={setCaloriesInputValue}
-          />
+      <header id="recipe-header">
+        <div className="left">
+          <h2>{title}</h2>
+          <div className="row">
+            <TimesDisplays prepTime={prepTime} cookTime={cookTime} />
+          </div>
         </div>
-      </div>
+        <div className="right">
+          <button
+            type="button"
+            className="btn-onyx"
+            onClick={(e) => e.preventDefault()}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className="btn-onyx"
+            onClick={(e) => e.preventDefault()}
+          >
+            Save
+          </button>
+        </div>
+      </header>
       <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
           <h3>Ingredients</h3>
@@ -62,12 +72,13 @@ export default function Recipe({ recipe }) {
           </ul>
         </div>
         <div id="instructions-container">
-          <h3>Directions</h3>
+          <h3>Instructions</h3>
           <ol>
             {instructions.map((el) => (
               <li key={el}>{el}</li>
             ))}
           </ol>
+
           {nutrients && (
             <>
               <h3>Nutrition Facts</h3>
