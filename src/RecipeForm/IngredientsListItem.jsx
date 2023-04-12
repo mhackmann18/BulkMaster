@@ -9,9 +9,10 @@ export default function IngredientsListItem({ ingredient }) {
 
   return (
     <li>
-      {ingredientObjects.map((el) => (
-        <IngredientsListItemRow key={uuidv4()} subIngredient={el} />
-      ))}
+      {ingredientObjects.length &&
+        ingredientObjects.map((el) => (
+          <IngredientsListItemRow key={uuidv4()} subIngredient={el} />
+        ))}
     </li>
   );
 }

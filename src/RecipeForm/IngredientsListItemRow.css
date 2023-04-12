@@ -4,6 +4,24 @@ form#recipe {
   --sub-ingredient-hover-transition-duration: .1s; 
 }
 
+#ingredients-list .labels {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#ingredients-list .labels * {
+  display: inline-block;
+}
+
+#ingredients-list .quantity-label {
+  margin-left: 4px;
+  width: 54px;
+}
+
+#ingredients-list .unit-label {
+  width: 124px;
+}
+
 form#recipe .sub-ingredient {
   display: flex;
   align-items: center;

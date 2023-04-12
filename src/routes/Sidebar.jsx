@@ -24,7 +24,7 @@ export default function Sidebar({ username }) {
             </Link>
           </li>
           <li>
-            <Link to="" className="btn">
+            <Link to="create" className="btn">
               <FontAwesomeIcon className="sidebar-icon" icon={faPlus} /> Create
               Recipe
             </Link>

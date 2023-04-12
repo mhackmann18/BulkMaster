@@ -5,6 +5,7 @@ form#recipe {
 #recipe-header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 #recipe-header .left .row {

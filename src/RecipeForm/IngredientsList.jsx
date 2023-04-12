@@ -6,12 +6,21 @@ import IngredientsListItem from "./IngredientsListItem";
 export default function IngredientsList({ ingredients }) {
   return (
     <ul id="ingredients-list">
-      {ingredients.map((el) => (
-        <IngredientsListItem
-          key={uuidv4()}
-          ingredient={getNewIngredientString(el)}
-        />
-      ))}
+      {/* <span className="labels">
+        <label className="quantity-label">Count</label>
+        <label className="unit-label">Unit</label>
+        <label>Name</label>
+      </span> */}
+      {ingredients.length ? (
+        ingredients.map((el) => (
+          <IngredientsListItem
+            key={uuidv4()}
+            ingredient={getNewIngredientString(el)}
+          />
+        ))
+      ) : (
+        <IngredientsListItem ingredient="" />
+      )}
     </ul>
   );
 }

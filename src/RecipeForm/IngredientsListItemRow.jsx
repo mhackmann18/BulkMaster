@@ -34,6 +34,7 @@ export default function IngredientsListItemRow({ subIngredient }) {
           variant="no-spinner-wheel"
           title="Quantity"
           name="ingredient-quantity"
+          placeholder="Count"
         />
         <CookingUnitSelect unit={unit || ""} />
         <input
@@ -54,3 +55,11 @@ IngredientsListItemRow.propTypes = {
     str: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+// IngredientsListItemRow.defaultProps = {
+//   subIngredient: {
+//     quantity: null,
+//     unit: null,
+//     str: "",
+//   },
+// };

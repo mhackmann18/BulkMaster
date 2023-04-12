@@ -56,7 +56,7 @@ export default function RecipeForm({ recipe }) {
           </h3>
 
           <ServingInputs
-            servingSize={nutrients.servingSize}
+            servingSize={nutrients && nutrients.servingSize}
             servings={servings}
           />
 
@@ -83,7 +83,7 @@ RecipeForm.defaultProps = {
   recipe: {
     cookTime: 0,
     ingredients: [],
-    instructions: [],
+    instructions: [""],
     nutrients: {},
     prepTime: 0,
     title: "",

@@ -8,7 +8,7 @@ export default function RecipeNameInput({ value }) {
       <input
         id="recipe-name-input"
         name="recipe-name"
-        placeholder="Enter recipe name"
+        placeholder="Ex. Teriyaki Chicken and Rice"
         defaultValue={value}
       />
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RecipeScrapingForm from "../common/RecipeScrapingForm";
-// import Recipe from "../Recipe";
-import RecipeForm from "../RecipeForm";
+import Recipe from "../Recipe";
+// import RecipeForm from "../RecipeForm";
 import "./Import.css";
 
 export default function Import() {
@@ -10,7 +10,7 @@ export default function Import() {
   return (
     <div id="import-page-content">
       {recipe ? (
-        <RecipeForm recipe={recipe} />
+        <Recipe recipe={recipe} />
       ) : (
         <RecipeScrapingForm
           variant={recipe && "inline"}
