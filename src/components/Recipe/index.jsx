@@ -4,7 +4,7 @@ import TimesInputs from "./TimesInputs";
 import InstructionsList from "./InstructionsList";
 import ServingInputs from "./ServingInputs";
 import NutrientsList from "./NutrientsList";
-import "../Recipe/Recipe.css";
+import "./RecipeDisplay.css";
 import "./index.css";
 import IngredientsList from "./IngredientsList";
 import AddButton from "./AddButton";

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import NumberInput from "../common/NumberInput";
+import NumberInput from "../../common/NumberInput";
 import "./Form.css";
 
 export default function Form({

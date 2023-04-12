@@ -1,9 +1,9 @@
 import { useState } from "react";
 import disableInputScroll from "../utils/disableInputScroll";
-import Navbar from "./Navbar";
-import Recipe from "../Recipe";
-import PopupWindow from "../common/PopupWindow";
-import RecipeScrapingForm from "../common/RecipeScrapingForm";
+import Navbar from "../components/Navbar";
+import Recipe from "../components/Recipe";
+import PopupWindow from "../components/common/PopupWindow";
+import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
 import "./Splash.css";
 
 export default function Splash() {

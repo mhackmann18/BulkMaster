@@ -4,7 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import NumberInput from "./NumberInput";
 import CookingUnitSelect from "./CookingUnitSelect";
-import { standardFormUnits } from "../utils/cookingUnit";
+import { standardFormUnits } from "../../utils/cookingUnit";
 import "./IngredientsListItemRow.css";
 
 export default function IngredientsListItemRow({ subIngredient }) {

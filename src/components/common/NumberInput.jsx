@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { isValidNumberInput } from "../utils/validation";
+import { isValidNumberInput } from "../../utils/validation";
 
 export default function NumberInput({
   value,

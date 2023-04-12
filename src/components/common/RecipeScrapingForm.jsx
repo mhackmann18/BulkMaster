@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import ErrBubble from "./ErrBubble";
 import ErrMsg from "./ErrMsg";
 import ButtonMain from "./ButtonMain";
-import formatScrapedRecipe from "../utils/formatScrapedRecipe";
-import { isValidHttpURL } from "../utils/validation";
+import formatScrapedRecipe from "../../utils/formatScrapedRecipe";
+import { isValidHttpURL } from "../../utils/validation";
 import Spinner from "./Spinner";
 
 export default function RecipeScrapingForm({ handleResponse, variant }) {

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import RecipeScrapingForm from "../common/RecipeScrapingForm";
-import Recipe from "../Recipe";
+import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
+import Recipe from "../components/Recipe/RecipeDisplay";
 // import RecipeForm from "../RecipeForm";
 import "./Import.css";
 

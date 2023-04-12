@@ -4,8 +4,8 @@ import {
   getNewIngredientString,
   getIngredientsMultiplier,
   getNutrientsStr,
-} from "../utils/formatScrapedRecipe";
-import "./Recipe.css";
+} from "../../utils/formatScrapedRecipe";
+import "./RecipeDisplay.css";
 
 export default function Recipe({ recipe }) {
   // The following recipe properties must be non-false values: title, instructions, servings, and ingredients

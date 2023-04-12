@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   standardFormUnits,
   standardFormUnitsPlural,
-} from "../utils/cookingUnit";
+} from "../../utils/cookingUnit";
 import "./CookingUnitSelect.css";
 
 export default function CookingUnitSelect({ unit }) {

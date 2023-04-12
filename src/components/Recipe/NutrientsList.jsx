@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import NutrientInput from "./NutrientInput";
-import { getNutrientsArrayFromObject } from "../utils/formatScrapedRecipe";
-import validNutrients from "../utils/validNutrients";
+import { getNutrientsArrayFromObject } from "../../utils/formatScrapedRecipe";
+import validNutrients from "../../utils/validNutrients";
 import "./NutrientsList.css";
 
 export default function NutrientsList({ nutrients }) {

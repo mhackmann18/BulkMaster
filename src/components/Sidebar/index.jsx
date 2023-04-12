@@ -9,7 +9,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import ToggleTheme from "../common/ToggleTheme";
-import "./Sidebar.css";
+import "./index.css";
 
 export default function Sidebar({ username }) {
   return (

@@ -11,6 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="" element={<Import />} />
           <Route path="import" element={<Import />} />
           <Route path="create" element={<Create />} />
         </Route>

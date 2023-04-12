@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import nutrientNames from "../utils/validNutrients";
+import nutrientNames from "../../utils/validNutrients";
 
 export default function NutrientSelect({ nutrientName }) {
   return (
