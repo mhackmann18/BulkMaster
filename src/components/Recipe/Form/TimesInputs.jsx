@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
-import NumberInput from "../common/NumberInput";
+import NumberInput from "../../common/NumberInput";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
   return (
     <>
-      <label htmlFor="prep-time">Prep Time: </label>
+      <label className="slate-gray" htmlFor="prep-time">
+        Prep Time:{" "}
+      </label>
       <NumberInput
         value={prepTime}
         setValue={() => {}}
@@ -16,7 +18,9 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>
       </select>
-      <label htmlFor="">Cook Time: </label>
+      <label className="slate-gray" htmlFor="">
+        Cook Time:{" "}
+      </label>
       <NumberInput
         value={cookTime}
         setValue={() => {}}

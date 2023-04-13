@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import "./InstructionsList.css";
+import "./index.css";
 
 export default function InstructionsList({ instructions }) {
   return (
-    <ol className="instructions-list">
-      {instructions.map((el) => (
+    <ul id="instructions-list">
+      {instructions.map((el, index) => (
         <li key={uuidv4()}>
           <FontAwesomeIcon
             icon={faTrashCan}
@@ -15,10 +15,11 @@ export default function InstructionsList({ instructions }) {
             className="btn remove"
             title="Remove Step"
           />
+          <span className="instruction-number">{index + 1}. </span>
           <textarea type="text" defaultValue={el} />
         </li>
       ))}
-    </ol>
+    </ul>
   );
 }
 

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import NumberInput from "../NumberInput";
+import NumberInput from "./NumberInput";
 import "./ServingInputs.css";
 
 export default function ServingInputs({ servingSize, servings }) {

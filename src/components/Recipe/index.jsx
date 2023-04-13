@@ -1,16 +1,15 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
-import NameInput from "./NameInput";
-import TimesInputs from "./TimesInputs";
-import TimesDisplay from "./TimesDisplay";
-import InstructionsList from "./InstructionsList";
-import ServingInputs from "./ServingInputs";
-import NutrientsList from "./NutrientsList";
+import NameInput from "./Form/NameInput";
 import IngredientsList from "./IngredientsList";
-import AddButton from "./AddButton";
-import {
-  getNewIngredientString,
-  getNutrientsStr,
-} from "../../utils/formatScrapedRecipe";
+import TimesInputs from "./Form/TimesInputs";
+import TimesDisplay from "./TimesDisplay";
+import FormInstructionsList from "./Form/InstructionsList";
+import ServingInputs from "./Form/ServingInputs";
+import FormNutrientsList from "./Form/NutrientsList";
+import FormIngredientsList from "./Form/IngredientsList";
+import AddButton from "./Form/AddButton";
+import { getNutrientsStr } from "../../utils/formatScrapedRecipe";
 import "./index.css";
 
 export default function Recipe({ recipe }) {
@@ -24,37 +23,33 @@ export default function Recipe({ recipe }) {
     servings,
   } = recipe;
 
-  const isFormActive = true;
+  const [isFormActive, setIsFormActive] = useState(false);
 
   let timesComponent;
-  let ingredientsList;
-  let instructionsList;
+  let ingredientsComponent;
+  let instructionsComponent;
   let nutrientsComponent;
 
   if (isFormActive) {
     timesComponent = <TimesInputs prepTime={prepTime} cookTime={cookTime} />;
-    ingredientsList = <IngredientsList ingredients={ingredients} />;
-    instructionsList = <InstructionsList instructions={instructions} />;
+    ingredientsComponent = <FormIngredientsList ingredients={ingredients} />;
+    instructionsComponent = (
+      <FormInstructionsList instructions={instructions} />
+    );
     nutrientsComponent = (
       <>
         <ServingInputs
           servingSize={nutrients && nutrients.servingSize}
           servings={servings}
         />
-        <NutrientsList nutrients={nutrients} />
+        <FormNutrientsList nutrients={nutrients} />
       </>
     );
   } else {
     timesComponent = <TimesDisplay prepTime={prepTime} cookTime={cookTime} />;
-    ingredientsList = (
-      <ul>
-        {ingredients.map((el) => (
-          <li key={el}>{getNewIngredientString(el, 1)}</li>
-        ))}
-      </ul>
-    );
-    instructionsList = (
-      <ol>
+    ingredientsComponent = <IngredientsList ingredients={ingredients} />;
+    instructionsComponent = (
+      <ol id="instructions-list">
         {instructions.map((el) => (
           <li key={el}>{el}</li>
         ))}
@@ -64,15 +59,22 @@ export default function Recipe({ recipe }) {
   }
 
   return (
-    <form id="recipe">
+    <form id="recipe" className={isFormActive ? "form-style" : ""}>
       <header id="recipe-header">
         <div className="left">
           {isFormActive ? <NameInput value={title} /> : <h2>{title}</h2>}
           <div className="row">{timesComponent}</div>
         </div>
         <div className="right">
-          {/* Take care of the buttons */}
-          <button id="recipe-cancel-btn" className="btn-onyx" type="button">
+          <button
+            id="recipe-cancel-btn"
+            className="btn-onyx"
+            type="button"
+            onClick={(e) => {
+              setIsFormActive(!isFormActive);
+              e.preventDefault();
+            }}
+          >
             Cancel
           </button>
           <button id="recipe-save-btn" className="btn-onyx" type="submit">
@@ -85,13 +87,13 @@ export default function Recipe({ recipe }) {
           <h3>
             Ingredients {isFormActive && <AddButton text="Add Ingredient" />}
           </h3>
-          {ingredientsList}
+          {ingredientsComponent}
         </div>
         <div id="instructions-container">
           <h3 id="instructions-header">
             Instructions {isFormActive && <AddButton text="Add Step" />}
           </h3>
-          {instructionsList}
+          {instructionsComponent}
 
           {(nutrients || isFormActive) && (
             <h3 id="nutrition-facts-header">

@@ -1,12 +1,13 @@
 #recipe-name-input-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 }
 
-#recipe-name-input {
-  margin-left: 4px;
+#recipe #recipe-name-input {
   flex-grow: 1;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 #recipe-name-input::placeholder {

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import NumberInput from "./NumberInput";
+import NumberInput from "../NumberInput";
 
 export default function NutrientInput({ nutrient }) {
   const { name, quantity, unit } = nutrient;

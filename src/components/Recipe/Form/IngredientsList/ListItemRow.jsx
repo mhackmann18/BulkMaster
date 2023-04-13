@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import NumberInput from "./NumberInput";
+import NumberInput from "../NumberInput";
 import CookingUnitSelect from "./CookingUnitSelect";
-import { standardFormUnits } from "../../utils/cookingUnit";
-import "./IngredientsListItemRow.css";
+import { standardFormUnits } from "../../../../utils/cookingUnit";
+import "./index.css";
 
 export default function IngredientsListItemRow({ subIngredient }) {
   const { quantity, unit, str } = subIngredient;

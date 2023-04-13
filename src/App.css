@@ -73,6 +73,10 @@ input.no-spinner-wheel {
   border-radius: 8px;
 }
 
+.slate-gray {
+  color: var(--slate-gray);
+}
+
 .btn-onyx:hover {
   background-color: var(--outer-space);
   transition: background-color .1s ease;

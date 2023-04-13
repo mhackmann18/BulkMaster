@@ -2,99 +2,65 @@
 
 #recipe-header { 
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#times-display {
+  color: var(--slate-gray);
 }
 
 #recipe-content {
+  display: flex;
+  justify-content: space-between;
   background-color: var(--seasalt);
   padding: 15px;
   border-radius: 10px;
 }
 
-#recipe h2 {
-  font-size: 1.5rem;
-  text-align: left;
-}
-
-/* #recipe input {
-  border: none;
-  border-radius: 8px;
-  padding: 4px 8px;
-  color: var(--font-color-default);
-} */
-
-/* Recipe Name Input */
-
-p#recipe-times {
-  /* margin-bottom: 12px; */
-  color: var(--slate-gray);
-}
-
 #recipe h3 {
-  color: var(--outer-space);
-  text-align: left;
-  margin-bottom: 6px;
-}
-
-.two-col {
   display: flex;
   justify-content: space-between;
-}
-
-.col {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 10px;
 }
 
 #ingredients-container {
   width: 35%;
 }
 
-#ingredients-container ul {
-  list-style: none;
-  /* line-height: 2.5em; */
+.form-style #ingredients-container {
+  width: 42%;
 }
 
-div#recipe #ingredients-container ul li {
+#ingredients-container li {
   padding: 10px 0;
-}
-
-#ingredients-container ul li {
-  text-align: left;
   border-bottom: 1px solid var(--french-gray);
 }
 
-#ingredients-container ul li:last-child {
-  border: none;
+#ingredients-container li:first-child {
+  padding-top: 0;
 }
 
-/* Form */
-/* #ingredients-container input {
-  width: 100%;
-} */
+#ingredients-container li:last-child {
+  border: none;
+}
 
 #instructions-container {
   width: 60%;
 }
 
-#instructions-container ol {
+.form-style #instructions-container {
+  width: 54%;
+}
+
+#instructions-list {
   margin-left: 18px;
 }
 
-#instructions-container ol li {
+#instructions-list li {
   text-align: left;
-  margin-bottom: 6px;
-}
-
-/* FORM-SPECIFIC */
-
-form#recipe {
-  font-size: 1rem;
-}
-
-#recipe-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 #recipe-header .left .row {
@@ -125,28 +91,9 @@ form#recipe {
   border-radius: 12px;
 }
 
-
-/* #recipe-header .left {
-
-} */
-
-form#recipe h3 {
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-}
-
-form#recipe input, form#recipe select, form#recipe textarea {
+#recipe input, #recipe select, #recipe textarea {
   border: 1px solid var(--french-gray);
   border-radius: 3px;
   font-size: 16px;
   padding: 3px;
-}
-
-form#recipe #ingredients-container {
-  width: 42%;
-}
-
-form#recipe #instructions-container {
-  width: 54%;
 }
