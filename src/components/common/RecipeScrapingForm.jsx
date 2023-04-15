@@ -38,6 +38,7 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
     if (res.status === 200) {
       const data = await res.json();
       const formattedData = formatScrapedRecipe(data);
+      console.log(formattedData);
       if (!formattedData) {
         setUrlSubmitErr({
           isShowing: true,

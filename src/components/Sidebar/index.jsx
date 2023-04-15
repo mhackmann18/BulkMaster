@@ -30,7 +30,7 @@ export default function Sidebar({ username }) {
             </Link>
           </li>
           <li>
-            <Link to="" className="btn active">
+            <Link to="library" className="btn active">
               <FontAwesomeIcon className="sidebar-icon" icon={faBook} /> Recipe
               Library
             </Link>
