@@ -1,8 +1,7 @@
 .account-page {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
-  height: calc(100vh - 80px);
-  margin-top: 80px;
+  align-items: center;
+  height: 100vh;
   min-height: 350px;
 }

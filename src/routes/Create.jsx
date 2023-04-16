@@ -3,7 +3,7 @@ import "./Import.css";
 
 export default function Create() {
   return (
-    <div id="import-page">
+    <div id="create-page">
       <Recipe />
     </div>
   );
