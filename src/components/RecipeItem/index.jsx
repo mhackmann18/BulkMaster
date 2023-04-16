@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClone,
+  faTrashCan,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import "./index.css";
 
 export default function RecipeItem({
+  recipeId,
   recipeTitle,
   recipeServings,
   caloriesPerRecipeServing,
-  handleClick,
 }) {
   return (
-    <div className="recipe-item-wrapper" onClick={handleClick}>
+    <div className="recipe-item-wrapper">
       <header className="recipe-item">
         <div className="left">
           <h2>{recipeTitle}</h2>
@@ -21,10 +25,34 @@ export default function RecipeItem({
         </div>
         <div className="right">
           <FontAwesomeIcon
-            icon={faEllipsis}
-            className="options-btn btn"
-            title="Options"
-            size="lg"
+            icon={faTrashCan}
+            className="option-btn btn"
+            title="Delete"
+            size="1x"
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(`Delete recipe with id: ${recipeId}`);
+            }}
+          />
+          <FontAwesomeIcon
+            icon={faClone}
+            className="option-btn btn"
+            title="Duplicate"
+            size="1x"
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(`Duplicate recipe with id: ${recipeId}`);
+            }}
+          />
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="option-btn btn"
+            title="Edit"
+            size="1x"
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(`Edit recipe with id: ${recipeId}`);
+            }}
           />
         </div>
       </header>
@@ -33,8 +61,8 @@ export default function RecipeItem({
 }
 
 RecipeItem.propTypes = {
+  recipeId: PropTypes.number.isRequired,
   recipeTitle: PropTypes.string.isRequired,
   recipeServings: PropTypes.number.isRequired,
   caloriesPerRecipeServing: PropTypes.number.isRequired,
-  handleClick: PropTypes.func.isRequired,
 };

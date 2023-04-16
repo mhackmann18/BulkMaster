@@ -18,7 +18,8 @@ export default function Library() {
           recipeTitle={recipe.title}
           recipeServings={recipe.servings}
           caloriesPerRecipeServing={recipe.nutrients.calories.quantity}
-          handleClick={() => {
+          recipeId={recipe.id}
+          handleItemClick={() => {
             setCurrentRecipe(recipe);
             setOpeningRecipePopup(true);
           }}
