@@ -7,7 +7,7 @@ export default function Import() {
   const [recipe, setRecipe] = useState(null);
 
   return (
-    <div id="import-page-content">
+    <div id="import-page">
       {recipe ? (
         <Recipe recipe={recipe} />
       ) : (

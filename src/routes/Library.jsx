@@ -2,16 +2,16 @@ import { useState } from "react";
 import RecipeItem from "../components/RecipeItem";
 import PopupWindow from "../components/common/PopupWindow";
 import Recipe from "../components/Recipe";
-import "./Recipes.css";
+import "./Library.css";
 import data from "../assets/data.json";
 
-export default function Recipes() {
+export default function Library() {
   const [openingRecipePopup, setOpeningRecipePopup] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState(null);
   const recipes = data;
 
   return (
-    <div id="library-page-content">
+    <div id="library-page">
       {recipes.map((recipe) => (
         <RecipeItem
           key={recipe.id}

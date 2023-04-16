@@ -1,4 +1,4 @@
-#import-page-content {
+#import-page {
   height: 100%;
   width: 100%;
   padding: 30px 15px 20px 50px;
@@ -7,6 +7,6 @@
   overflow-y: auto;
 }
 
-#import-page-content #recipe-scraping-form {
+#import-page #recipe-scraping-form {
   margin-top: 42vh;
 }

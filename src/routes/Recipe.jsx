@@ -15,7 +15,7 @@ export default function Recipe() {
   }
 
   return (
-    <div id="import-page-content">
+    <div id="import-page">
       <RecipeItem recipe={recipe} />
     </div>
   );

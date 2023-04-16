@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./index.css";
 
 export default function Navbar() {
@@ -5,9 +6,15 @@ export default function Navbar() {
     <header id="main-nav">
       <h1>PREPMASTER</h1>
       <ul>
-        <li>About</li>
-        <li>Sign Up</li>
-        <li>Log In</li>
+        <li>
+          <Link to="about">About</Link>
+        </li>
+        <li>
+          <Link to="signup">Sign Up</Link>
+        </li>
+        <li>
+          <Link to="login">Log In</Link>
+        </li>
       </ul>
     </header>
   );
