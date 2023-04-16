@@ -1,3 +1,9 @@
+#instructions-list{
+  --instruction-hover-border-radius: 4px; 
+  --instruction-hover-background-color: var(--antiflash-white); 
+  --instruction-hover-transition-duration: .1s; 
+}
+
 .form-style #instructions-list {
   margin: 15px 0 14px 0;
 }
@@ -13,6 +19,10 @@
   opacity: 100%;
 }
 
+.form-style #instructions-list li:hover textarea {
+  outline-color: var(--instruction-hover-background-color);
+}
+
 .form-style #instructions-list .btn {
   margin-right: 10px;
   opacity: 0;
@@ -25,6 +35,8 @@
 
 .form-style #instructions-list textarea {
   flex-grow: 1;
-  padding-left: 5px;
+  padding-left: 4px;
   margin-left: 5px;
+  outline: 4px solid transparent;
+  transition: outline-color var(--instruction-hover-transition-duration) ease-in;
 }
