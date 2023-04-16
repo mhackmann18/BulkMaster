@@ -1,15 +1,23 @@
-#signup-form {
+.account-form {
   width: 500px;
   display: flex;
   flex-direction: column;
+  margin-top: 18vh;
   /* border: 2px solid var(--platinum); */
-  border-radius: 10px;
-  padding: 20px;
+  /* border-radius: 10px; */
+  /* padding: 20px; */
   /* background-color: var(--seasalt); */
 }
 
-#signup-form h2 {
+.account-form h2 {
   text-align: center;
+}
+
+#login-msg {
+  text-align: center;
+  color: var(--slate-gray);
+  /* height: 30px; */
+  margin: 15px 0;
 }
 
 #signup-msg {
@@ -18,12 +26,12 @@
   height: 60px;
 }
 
-#signup-msg a {
+#signup-msg a, #login-msg a {
   color: var(--eerie-black);
   text-decoration: underline;
 }
 
-#signup-form input {
+.account-form input {
   padding: 8px;
   border: 1px solid var(--french-gray);
   border-radius: 8px;
@@ -31,7 +39,7 @@
   margin-top: 8px;
 }
 
-#signup-form button {
+.account-form button {
   margin-top: 8px;
   padding: 12px;
 }

@@ -1,9 +1,9 @@
 import SignupForm from "../components/SignupForm";
-import "./Signup.css";
+import "./account-page.css";
 
 export default function Signup() {
   return (
-    <div id="signup-page">
+    <div id="signup-page" className="account-page">
       <SignupForm />
     </div>
   );

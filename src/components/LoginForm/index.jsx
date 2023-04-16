@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
-import "./account-form.css";
+import "../SignupForm/account-form.css";
 
-export default function SignupForm() {
+export default function LoginForm() {
   return (
-    <form id="signup-form" className="account-form">
-      <h2>Create an account</h2>
-      <p id="signup-msg">
-        Import your favorite recipes. Create your own recipes. Save it all in
-        one place. Already have an account? <Link to="/login">Log in</Link>
+    <form id="login-form" className="account-form">
+      <h2>Log in</h2>
+      <p id="login-msg">
+        Don&apos;t have an account yet? <Link to="/signup">Sign Up</Link>
       </p>
       <label htmlFor="username">Username</label>
       <input name="username" id="username" type="text" />
       <label htmlFor="password">Password</label>
       <input name="password" id="password" type="text" />
       <button type="submit" className="btn-default bg-eerie-black">
-        Sign up
+        Log in
       </button>
     </form>
   );

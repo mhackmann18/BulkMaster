@@ -18,9 +18,9 @@
   box-sizing: border-box;
 }
 
-/* html {
+html {
   overflow-y: scroll;
-} */
+}
 
 body, input, select, textarea {
   background-color: var(--white);
