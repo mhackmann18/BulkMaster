@@ -3,7 +3,7 @@ import Splash from "./routes/Splash";
 import Dashboard from "./routes/Dashboard";
 import Import from "./routes/Import";
 import Create from "./routes/Create";
-import Library from "./routes/Library";
+import Recipes from "./routes/Recipes";
 import Recipe from "./routes/Recipe";
 import "./App.css";
 
@@ -16,8 +16,8 @@ export default function App() {
           <Route path="" element={<Import />} />
           <Route path="import" element={<Import />} />
           <Route path="create" element={<Create />} />
-          <Route path="library" element={<Library />} />
-          <Route path="library/:id" element={<Recipe />} />
+          <Route path="recipes" element={<Recipes />} />
+          <Route path="recipes/:id" element={<Recipe />} />
         </Route>
       </Routes>
     </div>

@@ -2,10 +2,10 @@ import { useState } from "react";
 import RecipeItem from "../components/RecipeItem";
 import PopupWindow from "../components/common/PopupWindow";
 import Recipe from "../components/Recipe";
-import "./Library.css";
+import "./Recipes.css";
 import data from "../assets/data.json";
 
-export default function Library() {
+export default function Recipes() {
   const [openingRecipePopup, setOpeningRecipePopup] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState(null);
   const recipes = data;
