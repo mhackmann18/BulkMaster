@@ -36,7 +36,7 @@ export default function Sidebar({ username }) {
             </Link>
           </li>
           <li>
-            <Link to="" className="btn">
+            <Link to="settings" className="btn">
               <FontAwesomeIcon className="sidebar-icon" icon={faGear} />{" "}
               Settings
             </Link>

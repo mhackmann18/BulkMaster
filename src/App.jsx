@@ -4,6 +4,7 @@ import Dashboard from "./routes/Dashboard";
 import Import from "./routes/Import";
 import Create from "./routes/Create";
 import Library from "./routes/Library";
+import Settings from "./routes/Settings";
 import Recipe from "./routes/Recipe";
 import "./App.css";
 import Home from "./routes/Home";
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="create-recipe" element={<Create />} />
           <Route path="recipe-library" element={<Library />} />
           <Route path="recipe-library/:id" element={<Recipe />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </div>
