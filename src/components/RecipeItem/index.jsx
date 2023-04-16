@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClone,
@@ -13,8 +14,14 @@ export default function RecipeItem({
   recipeServings,
   caloriesPerRecipeServing,
 }) {
+  const navigate = useNavigate();
+
+  function openRecipe() {
+    return navigate(`/dashboard/library/${recipeId}`);
+  }
+
   return (
-    <div className="recipe-item-wrapper">
+    <div className="recipe-item-wrapper" onClick={openRecipe}>
       <header className="recipe-item">
         <div className="left">
           <h2>{recipeTitle}</h2>
@@ -29,30 +36,30 @@ export default function RecipeItem({
             className="option-btn btn"
             title="Delete"
             size="1x"
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log(`Delete recipe with id: ${recipeId}`);
-            }}
+            onClick={(e) =>
+              console.log(`Delete recipe with id: ${recipeId}`) ||
+              e.stopPropagation()
+            }
           />
           <FontAwesomeIcon
             icon={faClone}
             className="option-btn btn"
             title="Duplicate"
             size="1x"
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log(`Duplicate recipe with id: ${recipeId}`);
-            }}
+            onClick={(e) =>
+              console.log(`Duplicate recipe with id: ${recipeId}`) ||
+              e.stopPropagation()
+            }
           />
           <FontAwesomeIcon
             icon={faPenToSquare}
             className="option-btn btn"
             title="Edit"
             size="1x"
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log(`Edit recipe with id: ${recipeId}`);
-            }}
+            onClick={(e) =>
+              console.log(`Edit recipe with id: ${recipeId}`) ||
+              e.stopPropagation()
+            }
           />
         </div>
       </header>
