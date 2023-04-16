@@ -14,6 +14,13 @@ import "./index.css";
 export default function Sidebar({ username }) {
   const currentPath = useLocation().pathname;
 
+  const dashboardRouteNames = {
+    import: "import-recipe",
+    create: "create-recipe",
+    library: "recipe-library",
+    settings: "settings",
+  };
+
   return (
     <div id="sidebar">
       <div className="upper">
@@ -21,9 +28,9 @@ export default function Sidebar({ username }) {
         <ul>
           <li>
             <Link
-              to="import-recipe"
+              to={dashboardRouteNames.import}
               className={
-                currentPath === "/dashboard/import-recipe"
+                currentPath.includes(dashboardRouteNames.import)
                   ? "active btn"
                   : "btn"
               }
@@ -36,7 +43,7 @@ export default function Sidebar({ username }) {
             <Link
               to="create-recipe"
               className={
-                currentPath === "/dashboard/create-recipe"
+                currentPath.includes(dashboardRouteNames.create)
                   ? "active btn"
                   : "btn"
               }
@@ -49,7 +56,7 @@ export default function Sidebar({ username }) {
             <Link
               to="recipe-library"
               className={
-                currentPath === "/dashboard/recipe-library"
+                currentPath.includes(dashboardRouteNames.library)
                   ? "active btn"
                   : "btn"
               }
@@ -62,7 +69,9 @@ export default function Sidebar({ username }) {
             <Link
               to="settings"
               className={
-                currentPath === "/dashboard/settings" ? "active btn" : "btn"
+                currentPath.includes(dashboardRouteNames.settings)
+                  ? "active btn"
+                  : "btn"
               }
             >
               <FontAwesomeIcon className="sidebar-icon" icon={faGear} />{" "}
