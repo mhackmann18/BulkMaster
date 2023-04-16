@@ -82,3 +82,19 @@ input.no-spinner-wheel {
   background-color: var(--outer-space);
   transition: background-color .1s ease;
 }
+
+.btn-default {
+  font-size: 1rem;
+  color: var(--antiflash-white);
+  padding: 10px 12px;
+  border-style: none;
+  border-radius: 8px;
+}
+
+.bg-eerie-black {
+  background-color: var(--eerie-black);
+}
+
+.bg-eerie-black:hover {
+  background-color: var(--onyx);
+}

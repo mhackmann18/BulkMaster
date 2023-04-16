@@ -13,7 +13,7 @@ export default function SignupForm() {
       <input name="username" id="username" type="text" />
       <label htmlFor="password">Password</label>
       <input name="password" id="password" type="text" />
-      <button type="submit" className="btn-onyx">
+      <button type="submit" className="btn-default bg-eerie-black">
         Sign Up
       </button>
     </form>
