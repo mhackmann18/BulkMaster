@@ -6,3 +6,7 @@
   min-width: 400px;
   overflow-y: auto;
 }
+
+#import-page-content #recipe-scraping-form {
+  margin-top: 42vh;
+}

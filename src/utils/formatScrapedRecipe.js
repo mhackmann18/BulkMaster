@@ -181,9 +181,13 @@ function formatAmount(num, precision) {
 export function getNutrientStringsFromObj(obj, mult = 1) {
   if (!obj || mult < 0) return null;
 
-  const nutrientArr = [];
+  const nutrientStrings = [];
 
   for (const [key, val] of Object.entries(obj)) {
+    if (!val) {
+      continue;
+    }
+
     let name = key.replace("Content", "");
     name = name.charAt(0).toUpperCase() + name.slice(1);
     const nameWords = name.match(/[A-Z][a-z]+/g);
@@ -191,16 +195,20 @@ export function getNutrientStringsFromObj(obj, mult = 1) {
       (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
       ""
     );
-    if (val) {
-      nutrientArr.push(
-        `${nameStr}: ${formatAmount(val.quantity * mult, 0)}${
-          val.unit ? ` ${val.unit}` : ""
-        }`
-      );
+
+    const nutrientString = `${nameStr}: ${formatAmount(
+      val.quantity * mult,
+      0
+    )}${val.unit ? ` ${val.unit}` : ""}`;
+
+    if (nameStr !== "Serving Size" && nameStr !== "Serving Size ") {
+      nutrientStrings.push(nutrientString);
+    } else {
+      nutrientStrings.unshift(nutrientString);
     }
   }
 
-  return nutrientArr;
+  return nutrientStrings;
 }
 
 export function getIngredientsMultiplier(

@@ -17,7 +17,7 @@ export default function RecipeItem({
   const navigate = useNavigate();
 
   function openRecipe() {
-    return navigate(`/dashboard/recipes/${recipeId}`);
+    return navigate(`/dashboard/recipe-library/${recipeId}`);
   }
 
   return (

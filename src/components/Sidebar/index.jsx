@@ -18,19 +18,19 @@ export default function Sidebar({ username }) {
         <h1>PREPMASTER</h1>
         <ul>
           <li>
-            <Link to="import" className="btn">
+            <Link to="import-recipe" className="btn">
               <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />{" "}
               Import Recipe
             </Link>
           </li>
           <li>
-            <Link to="create" className="btn">
+            <Link to="create-recipe" className="btn">
               <FontAwesomeIcon className="sidebar-icon" icon={faPlus} /> Create
               Recipe
             </Link>
           </li>
           <li>
-            <Link to="recipes" className="btn active">
+            <Link to="recipe-library" className="btn active">
               <FontAwesomeIcon className="sidebar-icon" icon={faBook} /> Recipe
               Library
             </Link>

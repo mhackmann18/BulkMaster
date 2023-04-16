@@ -14,10 +14,10 @@ export default function App() {
         <Route path="/" element={<Splash />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="" element={<Import />} />
-          <Route path="import" element={<Import />} />
-          <Route path="create" element={<Create />} />
-          <Route path="recipes" element={<Recipes />} />
-          <Route path="recipes/:id" element={<Recipe />} />
+          <Route path="import-recipe" element={<Import />} />
+          <Route path="create-recipe" element={<Create />} />
+          <Route path="recipe-library" element={<Recipes />} />
+          <Route path="recipe-library/:id" element={<Recipe />} />
         </Route>
       </Routes>
     </div>

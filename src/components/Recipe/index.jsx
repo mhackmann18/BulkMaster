@@ -8,8 +8,8 @@ import FormInstructionsList from "./Form/InstructionsList";
 import ServingInputs from "./Form/ServingInputs";
 import FormNutrientsList from "./Form/NutrientsList";
 import FormIngredientsList from "./Form/IngredientsList";
+import NutrientsList from "./NutrientsList";
 import AddButton from "./Form/AddButton";
-import { getNutrientsStr } from "../../utils/formatScrapedRecipe";
 import "./index.css";
 
 export default function Recipe({ recipe }) {
@@ -55,7 +55,9 @@ export default function Recipe({ recipe }) {
         ))}
       </ol>
     );
-    nutrientsComponent = getNutrientsStr(nutrients, 1);
+    nutrientsComponent = (
+      <NutrientsList nutrients={nutrients} servings={servings} />
+    );
   }
 
   return (
