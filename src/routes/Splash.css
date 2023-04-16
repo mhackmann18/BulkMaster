@@ -1,26 +1,12 @@
-.justify-content {
+#splash-page {
   display: flex;
   justify-content: center;
 }
 
-.content-width {
+#splash-page .content-wrapper {
   width: 70%;
 }
 
-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-}
-
-#rsf-wrapper {
-  margin-top: 46vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-#main-msg {
-  font-size: 22px;
-  margin-bottom: 20px;
+#splash-page .content {
+  margin-top: 40px;
 }

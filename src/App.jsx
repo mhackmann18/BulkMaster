@@ -10,8 +10,12 @@ import Home from "./routes/Home";
 import About from "./routes/About";
 import Signup from "./routes/Signup";
 import Login from "./routes/Login";
+import disableInputScroll from "./utils/disableInputScroll";
 
 export default function App() {
+  // Stop number input value from changing on scroll for all number inputs
+  disableInputScroll();
+
   return (
     <div className="App">
       <Routes>

@@ -1,0 +1,12 @@
+#rsf-wrapper {
+  margin-top: 46vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#main-msg {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
