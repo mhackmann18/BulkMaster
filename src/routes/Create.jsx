@@ -4,7 +4,7 @@ import "./Import.css";
 export default function Create() {
   return (
     <div id="create-page">
-      <Recipe />
+      <Recipe startingState="edit" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { getNutrientStringsFromObj } from "../../utils/formatScrapedRecipe";
+import { getNutrientStringsFromObj } from "../../../utils/formatScrapedRecipe";
 import "./NutrientsList.css";
 
 export default function NutrientsList({ nutrients, servings }) {

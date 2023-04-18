@@ -1,18 +1,18 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import NameInput from "./Form/NameInput";
-import IngredientsList from "./IngredientsList";
+import IngredientsList from "./Display/IngredientsList";
 import TimesInputs from "./Form/TimesInputs";
-import TimesDisplay from "./TimesDisplay";
+import TimesDisplay from "./Display/TimesDisplay";
 import FormInstructionsList from "./Form/InstructionsList";
 import ServingInputs from "./Form/ServingInputs";
 import FormNutrientsList from "./Form/NutrientsList";
 import FormIngredientsList from "./Form/IngredientsList";
-import NutrientsList from "./NutrientsList";
+import NutrientsList from "./Display/NutrientsList";
 import AddButton from "./Form/AddButton";
-import "./index.css";
+import "./RecipeContainer.css";
 
-export default function Recipe({ recipe }) {
+export default function Recipe({ recipe, startingVariant }) {
   const {
     cookTime,
     ingredients,
@@ -23,14 +23,14 @@ export default function Recipe({ recipe }) {
     servings,
   } = recipe;
 
-  const [isFormActive, setIsFormActive] = useState(false);
+  const [variant, setVariant] = useState(startingVariant);
 
   let timesComponent;
   let ingredientsComponent;
   let instructionsComponent;
   let nutrientsComponent;
 
-  if (isFormActive) {
+  if (variant === "edit") {
     timesComponent = <TimesInputs prepTime={prepTime} cookTime={cookTime} />;
     ingredientsComponent = <FormIngredientsList ingredients={ingredients} />;
     instructionsComponent = (
@@ -61,10 +61,10 @@ export default function Recipe({ recipe }) {
   }
 
   return (
-    <form id="recipe" className={isFormActive ? "form-style" : ""}>
+    <form id="recipe" className={variant === "edit" ? "form-style" : ""}>
       <header id="recipe-header">
         <div className="left">
-          {isFormActive ? <NameInput value={title} /> : <h2>{title}</h2>}
+          {variant === "edit" ? <NameInput value={title} /> : <h2>{title}</h2>}
           <div className="row">{timesComponent}</div>
         </div>
         <div className="right">
@@ -73,7 +73,7 @@ export default function Recipe({ recipe }) {
             className="btn-onyx"
             type="button"
             onClick={(e) => {
-              setIsFormActive(!isFormActive);
+              setVariant(!variant === "edit");
               e.preventDefault();
             }}
           >
@@ -87,20 +87,21 @@ export default function Recipe({ recipe }) {
       <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
           <h3>
-            Ingredients {isFormActive && <AddButton text="Add Ingredient" />}
+            Ingredients{" "}
+            {variant === "edit" && <AddButton text="Add Ingredient" />}
           </h3>
           {ingredientsComponent}
         </div>
         <div id="instructions-container">
           <h3 id="instructions-header">
-            Instructions {isFormActive && <AddButton text="Add Step" />}
+            Instructions {variant === "edit" && <AddButton text="Add Step" />}
           </h3>
           {instructionsComponent}
 
-          {(nutrients || isFormActive) && (
+          {(nutrients || variant === "edit") && (
             <h3 id="nutrition-facts-header">
               Nutrition Facts{" "}
-              {isFormActive && <AddButton text="Add Nutrient" />}
+              {variant === "edit" && <AddButton text="Add Nutrient" />}
             </h3>
           )}
           {nutrientsComponent}
@@ -120,6 +121,12 @@ Recipe.propTypes = {
     title: PropTypes.string,
     servings: PropTypes.number,
   }),
+  startingVariant: PropTypes.oneOf([
+    "display-imported",
+    "display-existing",
+    "edit-existing",
+    "create-new",
+  ]).isRequired,
 };
 
 Recipe.defaultProps = {

@@ -129,7 +129,7 @@ function formatNutrientObj(obj) {
 
     let unit = val.replace(numRE, "");
 
-    unit = unit.trim() || null;
+    unit = unit.trim() || "";
 
     if (quantity[0].includes("/")) {
       quantity[0] = fraction(quantity[0]);
