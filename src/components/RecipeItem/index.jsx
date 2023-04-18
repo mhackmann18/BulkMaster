@@ -16,12 +16,11 @@ export default function RecipeItem({
 }) {
   const navigate = useNavigate();
 
-  function openRecipe() {
-    return navigate(`/dashboard/recipe-library/${recipeId}`);
-  }
-
   return (
-    <div className="recipe-item-wrapper" onClick={openRecipe}>
+    <div
+      className="recipe-item-wrapper"
+      onClick={() => navigate(`/dashboard/recipe-library/${recipeId}`)}
+    >
       <header className="recipe-item">
         <div className="left">
           <h2>{recipeTitle}</h2>
