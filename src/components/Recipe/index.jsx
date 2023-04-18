@@ -6,7 +6,6 @@ import RecipeForm from "./Form";
 export default function Recipe({ recipe, startingDisplayType }) {
   const [displayType, setDisplayType] = useState(startingDisplayType);
 
-  // recipe status can be inferred
   return displayType === "div" ? (
     <RecipeDisplay
       recipe={recipe}

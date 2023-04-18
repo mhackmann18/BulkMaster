@@ -21,6 +21,25 @@ export default function RecipeForm({ recipe, switchToDiv }) {
 
   const recipeStatus = recipe.title ? "existing" : "new";
 
+  let buttonsPanelObjects;
+
+  if (recipeStatus === "existing") {
+    buttonsPanelObjects = [
+      { text: "Cancel", action: switchToDiv },
+      {
+        text: "Save Changes",
+        action: (e) => console.log("Save Changes") || e.preventDefault(),
+      },
+    ];
+  } else if (recipeStatus === "new") {
+    buttonsPanelObjects = [
+      {
+        text: "Save to Library",
+        action: (e) => console.log("Save to Library") || e.preventDefault(),
+      },
+    ];
+  }
+
   return (
     <form id="recipe" className="form-style">
       <RecipeContainer
@@ -28,28 +47,7 @@ export default function RecipeForm({ recipe, switchToDiv }) {
         timesComponent={
           <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
         }
-        buttonsPanelComponent={
-          <>
-            {recipeStatus === "existing" && (
-              <button
-                id="recipe-cancel-btn"
-                className="btn-onyx"
-                type="button"
-                onClick={switchToDiv}
-              >
-                Cancel
-              </button>
-            )}
-            <button
-              id="recipe-save-btn"
-              className="btn-onyx"
-              type="submit"
-              onClick={(e) => e.preventDefault()}
-            >
-              {recipeStatus === "existing" ? "Save Changes" : "Save"}
-            </button>
-          </>
-        }
+        buttonsPanelObjects={buttonsPanelObjects}
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
         ingredientsComponent={
           <IngredientInputsList ingredients={ingredients} />

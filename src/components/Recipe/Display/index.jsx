@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import RecipeContainer from "../RecipeContainer";
 import RecipeTimesDisplay from "./TimesDisplay";
 import IngredientsList from "./IngredientsList";
@@ -15,7 +16,33 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
     servings,
   } = recipe;
 
+  const navigate = useNavigate();
+
   const recipeStatus = recipe.id ? "saved" : "imported";
+
+  let buttonsPanelObjects;
+
+  if (recipeStatus === "imported") {
+    buttonsPanelObjects = [
+      {
+        text: "Back",
+        action: () => navigate(`/dashboard/import-recipe`),
+      },
+      { text: "Edit", action: switchToForm },
+      {
+        text: "Save",
+        action: (e) => console.log("Save to Library") || e.preventDefault(),
+      },
+    ];
+  } else if (recipeStatus === "saved") {
+    buttonsPanelObjects = [
+      {
+        text: "Back",
+        action: () => navigate(`/dashboard/recipe-library`),
+      },
+      { text: "Edit", action: switchToForm },
+    ];
+  }
 
   return (
     <div id="recipe">
@@ -24,26 +51,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
         timesComponent={
           <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
         }
-        buttonsPanelComponent={
-          <>
-            <button
-              id="recipe-cancel-btn"
-              className="btn-onyx"
-              type="button"
-              onClick={switchToForm}
-            >
-              Edit
-            </button>
-            <button
-              id="recipe-save-btn"
-              className="btn-onyx"
-              type="submit"
-              onClick={(e) => e.preventDefault()}
-            >
-              {recipeStatus === "saved" ? "Back" : "Save"}
-            </button>
-          </>
-        }
+        buttonsPanelObjects={buttonsPanelObjects}
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
           <ol id="instructions-list">
