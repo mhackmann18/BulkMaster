@@ -9,7 +9,7 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
       </label>
       <NumberInput
         value={prepTime}
-        setValue={() => {}}
+        setValue={() => null}
         minValue={0}
         maxValue={999}
         variant="no-spinner-wheel"
@@ -23,7 +23,7 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
       </label>
       <NumberInput
         value={cookTime}
-        setValue={() => {}}
+        setValue={() => null}
         minValue={0}
         maxValue={999}
       />

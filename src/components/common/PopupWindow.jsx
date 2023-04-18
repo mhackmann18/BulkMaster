@@ -89,5 +89,5 @@ PopupWindow.propTypes = {
 };
 
 PopupWindow.defaultProps = {
-  onClose: () => {},
+  onClose: () => null,
 };

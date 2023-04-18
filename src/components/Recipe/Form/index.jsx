@@ -8,7 +8,7 @@ import IngredientInputsList from "./IngredientsList";
 import ServingInputs from "./ServingInputs";
 import NutrientsList from "./NutrientsList";
 
-export default function RecipeForm({ recipe }) {
+export default function RecipeForm({ recipe, switchToDiv }) {
   const {
     cookTime,
     ingredients,
@@ -19,12 +19,36 @@ export default function RecipeForm({ recipe }) {
     servings,
   } = recipe;
 
+  const recipeStatus = recipe.title ? "existing" : "new";
+
   return (
     <form id="recipe" className="form-style">
       <RecipeContainer
         nameComponent={<RecipeNameInput value={title} />}
         timesComponent={
           <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
+        }
+        buttonsPanelComponent={
+          <>
+            {recipeStatus === "existing" && (
+              <button
+                id="recipe-cancel-btn"
+                className="btn-onyx"
+                type="button"
+                onClick={switchToDiv}
+              >
+                Cancel
+              </button>
+            )}
+            <button
+              id="recipe-save-btn"
+              className="btn-onyx"
+              type="submit"
+              onClick={(e) => e.preventDefault()}
+            >
+              {recipeStatus === "existing" ? "Save Changes" : "Save"}
+            </button>
+          </>
         }
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
         ingredientsComponent={
@@ -57,6 +81,7 @@ RecipeForm.propTypes = {
     title: PropTypes.string,
     servings: PropTypes.number,
   }),
+  switchToDiv: PropTypes.func,
 };
 
 RecipeForm.defaultProps = {
@@ -69,4 +94,5 @@ RecipeForm.defaultProps = {
     title: "",
     servings: 1,
   },
+  switchToDiv: () => null,
 };

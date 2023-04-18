@@ -4,7 +4,7 @@ import RecipeTimesDisplay from "./TimesDisplay";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 
-export default function RecipeDisplay({ recipe }) {
+export default function RecipeDisplay({ recipe, switchToForm }) {
   const {
     cookTime,
     ingredients,
@@ -15,12 +15,34 @@ export default function RecipeDisplay({ recipe }) {
     servings,
   } = recipe;
 
+  const recipeStatus = recipe.id ? "saved" : "imported";
+
   return (
     <div id="recipe">
       <RecipeContainer
         nameComponent={<h2>{title}</h2>}
         timesComponent={
           <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
+        }
+        buttonsPanelComponent={
+          <>
+            <button
+              id="recipe-cancel-btn"
+              className="btn-onyx"
+              type="button"
+              onClick={switchToForm}
+            >
+              Edit
+            </button>
+            <button
+              id="recipe-save-btn"
+              className="btn-onyx"
+              type="submit"
+              onClick={(e) => e.preventDefault()}
+            >
+              {recipeStatus === "saved" ? "Back" : "Save"}
+            </button>
+          </>
         }
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
@@ -40,6 +62,7 @@ export default function RecipeDisplay({ recipe }) {
 
 RecipeDisplay.propTypes = {
   recipe: PropTypes.shape({
+    id: PropTypes.number,
     cookTime: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string),
     instructions: PropTypes.arrayOf(PropTypes.string),
@@ -48,4 +71,5 @@ RecipeDisplay.propTypes = {
     title: PropTypes.string,
     servings: PropTypes.number,
   }).isRequired,
+  switchToForm: PropTypes.func.isRequired,
 };

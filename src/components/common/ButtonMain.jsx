@@ -15,5 +15,5 @@ ButtonMain.propTypes = {
 };
 
 ButtonMain.defaultProps = {
-  onClick: () => {},
+  onClick: () => null,
 };

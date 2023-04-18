@@ -16,7 +16,7 @@ export default function Recipe() {
 
   return (
     <div id="import-page">
-      <RecipeItem recipe={recipe} />
+      <RecipeItem recipe={recipe} startingDisplayType="div" />
     </div>
   );
 }

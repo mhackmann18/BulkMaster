@@ -4,6 +4,7 @@ import "./RecipeContainer.css";
 export default function RecipeContainer({
   nameComponent,
   timesComponent,
+  buttonsPanelComponent,
   ingredientsHeaderButtonComponent,
   ingredientsComponent,
   instructionsHeaderButtonComponent,
@@ -18,14 +19,7 @@ export default function RecipeContainer({
           {nameComponent}
           <div className="row">{timesComponent}</div>
         </div>
-        <div className="right">
-          <button id="recipe-cancel-btn" className="btn-onyx" type="button">
-            Cancel
-          </button>
-          <button id="recipe-save-btn" className="btn-onyx" type="submit">
-            Save
-          </button>
-        </div>
+        <div className="right">{buttonsPanelComponent}</div>
       </header>
       <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
@@ -52,19 +46,35 @@ export default function RecipeContainer({
 
 RecipeContainer.propTypes = {
   nameComponent: PropTypes.element.isRequired,
-  timesComponent: PropTypes.element,
-  ingredientsHeaderButtonComponent: PropTypes.element,
+  timesComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.oneOf([null]),
+  ]),
+  buttonsPanelComponent: PropTypes.element.isRequired,
+  ingredientsHeaderButtonComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.oneOf([null]),
+  ]),
   ingredientsComponent: PropTypes.element.isRequired,
-  instructionsHeaderButtonComponent: PropTypes.element,
+  instructionsHeaderButtonComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.oneOf([null]),
+  ]),
   instructionsComponent: PropTypes.element.isRequired,
-  nutrientsHeaderButtonComponent: PropTypes.element,
-  nutrientsComponent: PropTypes.element,
+  nutrientsHeaderButtonComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.oneOf([null]),
+  ]),
+  nutrientsComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.oneOf([null]),
+  ]),
 };
 
 RecipeContainer.defaultProps = {
-  ingredientsHeaderButtonComponent: false,
-  instructionsHeaderButtonComponent: false,
-  nutrientsHeaderButtonComponent: false,
-  nutrientsComponent: false,
-  timesComponent: false,
+  ingredientsHeaderButtonComponent: null,
+  instructionsHeaderButtonComponent: null,
+  nutrientsHeaderButtonComponent: null,
+  nutrientsComponent: null,
+  timesComponent: null,
 };

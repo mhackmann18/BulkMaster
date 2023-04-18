@@ -1,7 +1,7 @@
 import { useState } from "react";
-// import Recipe from "../components/Recipe";
+import Recipe from "../components/Recipe";
 // import RecipeForm from "../components/Recipe/Form";
-import RecipeDisplay from "../components/Recipe/Display";
+// import RecipeDisplay from "../components/Recipe/Display";
 import PopupWindow from "../components/common/PopupWindow";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
 import "./Home.css";
@@ -18,7 +18,7 @@ export default function Home() {
           setIsOpening={setOpeningPopup}
           onClose={() => setRecipe(null)}
         >
-          <RecipeDisplay recipe={recipe} startingVariant="display-imported" />
+          <Recipe recipe={recipe} startingDisplayType="div" />
         </PopupWindow>
       )}
       <div id="rsf-wrapper">
