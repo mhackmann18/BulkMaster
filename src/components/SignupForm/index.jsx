@@ -9,6 +9,7 @@ export default function SignupForm() {
   const [passwordInputError, setPasswordInputError] = useState("");
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
+  const [formSubmitError, setFormSubmitError] = useState("");
 
   async function handleUsernameInputBlur(e) {
     const [isValid, msg] = await checkUsernameInput(e.target.value);
@@ -46,6 +47,14 @@ export default function SignupForm() {
     const username = e.target.username.value;
     const password = e.target.password.value;
     const confirmPassword = e.target["confirm-password"].value;
+
+    if (!username || !password || !confirmPassword) {
+      setFormSubmitError("Please fill in all fields");
+      return false;
+    }
+
+    setFormSubmitError("");
+
     let isValid = true;
 
     const [usernameIsValid, usernameErrMsg] = await checkUsernameInput(
@@ -118,6 +127,11 @@ export default function SignupForm() {
       <button type="submit" className="btn-default bg-eerie-black">
         Sign up
       </button>
+      {formSubmitError && (
+        <Alert id="account-form-submit-error" severity="error">
+          {formSubmitError}
+        </Alert>
+      )}
     </form>
   );
 }

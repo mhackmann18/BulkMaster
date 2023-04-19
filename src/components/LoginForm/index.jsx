@@ -36,7 +36,7 @@ export default function LoginForm() {
         Log in
       </button>
       {formSubmitError && (
-        <Alert id="login-form-error" severity="error">
+        <Alert id="account-form-submit-error" severity="error">
           {formSubmitError}
         </Alert>
       )}
