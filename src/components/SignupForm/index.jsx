@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import theme from "../../theme";
+import { usernameExists } from "../../utils/user";
 import "./account-form.css";
 
 export default function SignupForm() {
@@ -11,8 +12,8 @@ export default function SignupForm() {
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
 
-  function handleUsernameInputBlur(e) {
-    const [isValid, msg] = checkUsernameInput(e.target.value);
+  async function handleUsernameInputBlur(e) {
+    const [isValid, msg] = await checkUsernameInput(e.target.value);
 
     if (!isValid) {
       setUsernameInputError(msg);
@@ -32,17 +33,26 @@ export default function SignupForm() {
   }
 
   function handleConfirmPasswordInputBlur(e) {
-    console.log(e);
+    const passwordInputValue = e.target.parentElement.password.value;
+    const confirmPasswordInputValue = e.target.value;
+
+    if (passwordInputValue !== confirmPasswordInputValue) {
+      setConfirmPasswordInputError("Passwords don't match");
+    } else {
+      setConfirmPasswordInputError("");
+    }
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
     const confirmPassword = e.target["confirm-password"].value;
     let isValid = true;
 
-    const [usernameIsValid, usernameErrMsg] = checkUsernameInput(username);
+    const [usernameIsValid, usernameErrMsg] = await checkUsernameInput(
+      username
+    );
     const [passwordIsValid, passwordErrMsg] = checkPasswordInput(password);
 
     if (!usernameIsValid) {
@@ -60,7 +70,7 @@ export default function SignupForm() {
     }
 
     if (password !== confirmPassword) {
-      setConfirmPasswordInputError("Passwords do not match");
+      setConfirmPasswordInputError("Passwords don't match");
       isValid = false;
     } else {
       setConfirmPasswordInputError("");
@@ -73,8 +83,9 @@ export default function SignupForm() {
     <form id="signup-form" className="account-form" onSubmit={handleSubmit}>
       <h2>Create an account</h2>
       <p id="signup-msg">
-        Import your favorite recipes. Create your own recipes. Save it all in
-        one place. Already have an account? <Link to="/login">Log in</Link>
+        Import and customize your favorite recipes. Create your own recipes.
+        Save it all in one place. Already have an account?{" "}
+        <Link to="/login">Log in</Link>
       </p>
       <label htmlFor="username">Username</label>
       <input
@@ -119,12 +130,19 @@ export default function SignupForm() {
   );
 }
 
-function checkUsernameInput(username) {
+async function checkUsernameInput(username) {
   let isValid = false;
   let msg = "";
 
-  if (username.length < 8) {
-    msg = "Username must be at least 8 characters long";
+  if (username.length < 6) {
+    msg = "Username must be at least 6 characters in length";
+  } else if (username.length > 30) {
+    msg = "Username must be no more than 30 character in length";
+  } else if (!/^[a-zA-Z0-9_-]{6,30}$/.test(username)) {
+    msg =
+      "Username must only contain letters, numbers, dashes ( - ), and underscores ( _ )";
+  } else if (await usernameExists(username)) {
+    msg = "Username is already taken. Please choose a different username";
   } else {
     isValid = true;
   }
@@ -137,7 +155,16 @@ function checkPasswordInput(password) {
   let msg = "";
 
   if (password.length < 8) {
-    msg = "Password must be at least 8 characters long";
+    msg = "Password must be at least 8 characters in length";
+  } else if (password.length > 128) {
+    msg = "Password must be no more than 128 characters in length";
+  } else if (
+    !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,128}$/.test(
+      password
+    )
+  ) {
+    msg =
+      "Password must contain at least one letter, one number and one special character";
   } else {
     isValid = true;
   }

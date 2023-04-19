@@ -2,6 +2,9 @@ export function isUserLoggedIn() {
   return true;
 }
 
-export function fdasf() {
-  return "";
+export async function usernameExists(username) {
+  if (!username) {
+    return true;
+  }
+  return false;
 }
