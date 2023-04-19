@@ -27,6 +27,9 @@
     "react/forbid-prop-types": "off",
     "no-restricted-syntax": "off",
     "no-continue": "off",
-    "no-console": "off" 
+    "no-console": "off",
+    "no-use-before-define": ["error", {
+      "functions": false
+    }]
   }
 }

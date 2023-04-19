@@ -31,11 +31,15 @@
   text-decoration: underline;
 }
 
+.account-form label {
+  margin-top: 8px;
+}
+
 .account-form input {
   padding: 8px;
   border: 1px solid var(--french-gray);
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   margin-top: 8px;
 }
 
