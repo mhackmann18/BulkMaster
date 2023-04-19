@@ -8,3 +8,11 @@ export async function usernameExists(username) {
   }
   return false;
 }
+
+export async function validateUserCredentials(username, password) {
+  if (username && password) {
+    return true;
+  }
+
+  return false;
+}

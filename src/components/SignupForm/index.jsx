@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ThemeProvider } from "@mui/material";
 import Alert from "@mui/material/Alert";
-import theme from "../../theme";
 import { usernameExists } from "../../utils/user";
 import "./account-form.css";
 
@@ -94,11 +92,9 @@ export default function SignupForm() {
         type="text"
         onBlur={handleUsernameInputBlur}
       />
-      <ThemeProvider theme={theme}>
-        {usernameInputError && (
-          <Alert severity="error">{usernameInputError}</Alert>
-        )}
-      </ThemeProvider>
+      {usernameInputError && (
+        <Alert severity="error">{usernameInputError}</Alert>
+      )}
       <label htmlFor="password">Password</label>
       <input
         name="password"
@@ -106,11 +102,9 @@ export default function SignupForm() {
         type="password"
         onBlur={handlePasswordInputBlur}
       />
-      <ThemeProvider theme={theme}>
-        {passwordInputError && (
-          <Alert severity="error">{passwordInputError}</Alert>
-        )}
-      </ThemeProvider>
+      {passwordInputError && (
+        <Alert severity="error">{passwordInputError}</Alert>
+      )}
       <label htmlFor="confirm-password">Confirm Password</label>
       <input
         name="confirm-password"
@@ -118,11 +112,9 @@ export default function SignupForm() {
         type="password"
         onBlur={handleConfirmPasswordInputBlur}
       />
-      <ThemeProvider theme={theme}>
-        {confirmPasswordInputError && (
-          <Alert severity="error">{confirmPasswordInputError}</Alert>
-        )}
-      </ThemeProvider>
+      {confirmPasswordInputError && (
+        <Alert severity="error">{confirmPasswordInputError}</Alert>
+      )}
       <button type="submit" className="btn-default bg-eerie-black">
         Sign up
       </button>
@@ -158,6 +150,7 @@ function checkPasswordInput(password) {
     msg = "Password must be at least 8 characters in length";
   } else if (password.length > 128) {
     msg = "Password must be no more than 128 characters in length";
+    // Regex from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
   } else if (
     !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,128}$/.test(
       password
