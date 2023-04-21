@@ -24,10 +24,10 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
 
   if (recipeStatus === "imported") {
     buttonsPanelObjects = [
-      {
-        text: "Back",
-        action: () => navigate(`/dashboard/import-recipe`),
-      },
+      // {
+      //   text: "Back",
+      //   action: () => navigate(`/dashboard/import-recipe`),
+      // },
       { text: "Edit", action: switchToForm },
       {
         text: "Save",
