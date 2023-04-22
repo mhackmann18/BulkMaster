@@ -88,7 +88,7 @@ export default function SignupForm() {
 
   return (
     <form id="signup-form" className="account-form" onSubmit={handleSubmit}>
-      <h2>Create an account</h2>
+      <h2>Sign Up</h2>
       <p id="signup-msg">
         Import and customize your favorite recipes. Create your own recipes.
         Save it all in one place. Already have an account?{" "}

@@ -4,9 +4,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: .8rem;
 }
 
 #main-msg {
   font-size: 22px;
   margin-bottom: 20px;
+  text-align: center;
 }

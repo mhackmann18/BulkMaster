@@ -59,18 +59,18 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
 
   return (
     <form id="recipe-scraping-form" className={variant} onSubmit={handleSubmit}>
-      <div id="rsf-input-wrapper">
-        <input
-          type="text"
-          id="url-input"
-          placeholder="Paste a recipe's URL"
-          onFocus={() => {
-            setURLInputErr({ isShowing: false, msg: "" });
-            setUrlSubmitErr({ isShowing: false, msg: "" });
-          }}
-        />
-        {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
-      </div>
+      {/* <div id="rsf-input-wrapper"> */}
+      <input
+        type="text"
+        id="url-input"
+        placeholder="Paste a recipe's URL"
+        onFocus={() => {
+          setURLInputErr({ isShowing: false, msg: "" });
+          setUrlSubmitErr({ isShowing: false, msg: "" });
+        }}
+      />
+      {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
+      {/* </div> */}
       <ButtonMain text="Get Recipe" />
       {isLoading && <Spinner />}
       {urlSubmitErr.isShowing && <ErrMsg msg={urlSubmitErr.msg} />}
