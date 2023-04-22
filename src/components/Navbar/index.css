@@ -1,6 +1,5 @@
 #navbar {
   position: fixed;
-  top: 0;
   left: 0;
   padding: .7rem 1rem;
   width: 100vw;
@@ -19,7 +18,6 @@
   display: flex;
   align-items: center;
   list-style: none;
-  float: right;
 }
 
 #navbar li a {
@@ -30,7 +28,6 @@
   width: 100px;
   padding: 14px 0;
   border-radius: 40px;
-  color: var(--onyx);
 }
 
 #navbar a.active {
@@ -38,16 +35,12 @@
   background-color: var(--antiflash-white);
 }
 
-#navbar li a:hover {
-  background-color: var(--seasalt);
-}
-
 #navbar li a.active:hover {
   background-color: var(--antiflash-white);
 }
 
-.slate-gray {
-  color: var(--slate-gray);
+#navbar li a:hover {
+  background-color: var(--seasalt);
 }
 
 @media screen and (max-width: 600px) {
@@ -76,8 +69,4 @@
     padding-left: 15vw;
     padding-right: 15vw;
   }
-}
-
-#navbar-menu-icon {
-  float: right;
 }

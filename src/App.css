@@ -20,6 +20,7 @@
 
 html {
   overflow-y: scroll;
+  /* overflow-x: hidden; */
 }
 
 body, input, select, textarea {
@@ -43,6 +44,7 @@ ul {
 
 a {
   text-decoration: none;
+  color: var(--font-color-default);
 }
 
 textarea {
