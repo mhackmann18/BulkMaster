@@ -3,6 +3,8 @@
   justify-content: center;
 }
 
-#splash-page .content-wrapper {
-  width: 70%;
+@media screen and (min-width: 992px) {
+  #splash-page .content-wrapper {
+    width: 70%;
+  }  
 }

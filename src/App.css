@@ -98,3 +98,9 @@ input.no-spinner-wheel {
 .bg-eerie-black:hover {
   background-color: var(--onyx);
 }
+
+@media screen and (min-width: 600px) {
+  .viewport-small {
+    display: none;
+  }
+}
