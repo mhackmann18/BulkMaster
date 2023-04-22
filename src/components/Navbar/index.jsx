@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <header id="navbar">
-      <Link id="navbar-logo" to="">
+      <Link id="navbar-logo" to="" onClick={() => setMobileMenuVisible(false)}>
         PREPMASTER
       </Link>
       <ul className={mobileMenuVisible ? "" : "hide"}>
@@ -18,7 +18,7 @@ export default function Navbar() {
           <Link
             to="about"
             className={currentPath === "/about" ? "active" : ""}
-            onClick={() => setMobileMenuVisible(!mobileMenuVisible)}
+            onClick={() => setMobileMenuVisible(false)}
           >
             About
           </Link>
@@ -27,7 +27,7 @@ export default function Navbar() {
           <Link
             to="signup"
             className={currentPath === "/signup" ? "active" : ""}
-            onClick={() => setMobileMenuVisible(!mobileMenuVisible)}
+            onClick={() => setMobileMenuVisible(false)}
           >
             Sign up
           </Link>
@@ -36,7 +36,7 @@ export default function Navbar() {
           <Link
             to="login"
             className={currentPath === "/login" ? "active" : ""}
-            onClick={() => setMobileMenuVisible(!mobileMenuVisible)}
+            onClick={() => setMobileMenuVisible(false)}
           >
             Log in
           </Link>
