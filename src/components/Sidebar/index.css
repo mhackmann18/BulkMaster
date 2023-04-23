@@ -3,26 +3,57 @@ html {
 }
 
 #sidebar {
-  top: 0;
-  position: fixed;
-  padding: 0px 14px;
+  background-color: var(--seasalt);
   border-right: 1px solid var(--french-gray);
-  width: var(--sidebar-width);
-  bottom: 0;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
   justify-content: space-between;
-  background-color: var(--seasalt);
+  width: var(--sidebar-width);
+  padding: 0px .5rem;
+  transition: width .2s linear;
+  overflow-x: hidden
 }
 
+#sidebar.collapsed {
+  padding: 0 .5rem;
+  width: 65px;
+}
+
+/* Laptops */
+/* @media screen and (min-width: 993px) {
+  #sidebar {
+    padding: 0px 14px;
+    width: var(--sidebar-width);
+  }
+} */
+
 #sidebar h1 {
-  height: 80px;
+  margin-top: 10px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 1.9rem;
   font-family: 'Oswald', sans-serif;
   color: var(--eerie-black);
-  margin-left: 10px;
+  /* margin-left: 10px; */
+  margin-bottom: 20px;
+  height: 60px;
+}
+
+#sidebar.collapsed h1 {
+  justify-content: center;
+}
+
+#sidebar-menu-icon {
+  color: var(--slate-gray);
+}
+
+#sidebar-menu-icon:hover {
+  cursor: pointer;
 }
 
 #sidebar .btn {
@@ -33,6 +64,11 @@ html {
   font-weight: 500;
   padding: 15px;
   margin-top: 5px;
+  white-space: nowrap;
+}
+
+#sidebar.collapsed .btn span {
+  display: none;
 }
 
 #sidebar .btn:hover {
@@ -50,7 +86,12 @@ html {
 .sidebar-icon {
   color: var(--slate-gray);
   margin-right: 14px;
-  width: 16px;
+  width: 18px;
+  height: 18px;
+}
+
+#sidebar.collapsed .sidebar-icon {
+  margin: 0;
 }
 
 .active .sidebar-icon {
@@ -59,6 +100,10 @@ html {
 
 #sidebar .lower {
   padding: 20px 5px;
+}
+
+#sidebar.collapsed #theme-toggle {
+  display: none;
 }
 
 #sidebar .logout-container {
@@ -74,3 +119,37 @@ html {
 #sidebar .logout-container * {
   color: var(--french-gray-2);
 }
+
+#sidebar.collapsed .logout-container span {
+  display: none;
+}
+
+/* Tablets */
+/* @media screen and (max-width: 992px) {
+  #sidebar {
+    padding: .8rem;
+    left: 0;
+  }
+
+  #sidebar h1 {
+    margin: 0;
+    display: none;
+  }
+
+  #sidebar .lower {
+    padding: 0;
+  }
+
+  #sidebar .btn {
+    padding: 10px 15px;
+    margin-top: 5px;
+  }
+
+  #sidebar ul span {
+    display:none;
+  }
+
+  #sidebar #theme-toggle {
+    scale: 70%;
+  }
+} */

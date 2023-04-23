@@ -10,6 +10,23 @@ export default function SignupForm() {
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
+  // const formRef = useRef(null);
+
+  // function centerInViewportY(elementHeight) {
+  //   if (!elementHeight) return {};
+
+  //   const viewportHeight = Math.max(
+  //     document.documentElement.clientHeight || 0,
+  //     window.innerHeight || 0
+  //   );
+
+  //   return {
+  //     marginTop:
+  //       elementHeight > viewportHeight
+  //         ? 0
+  //         : (viewportHeight - elementHeight) / 2,
+  //   };
+  // }
 
   async function handleUsernameInputBlur(e) {
     const [isValid, msg] = await checkUsernameInput(e.target.value);
@@ -87,7 +104,13 @@ export default function SignupForm() {
   }
 
   return (
-    <form id="signup-form" className="account-form" onSubmit={handleSubmit}>
+    <form
+      id="signup-form"
+      className="account-form"
+      onSubmit={handleSubmit}
+      // ref={formRef}
+      // style={centerInViewportY(formRef.current && formRef.current.offsetHeight)}
+    >
       <h2>Sign Up</h2>
       <p id="signup-msg">
         Import and customize your favorite recipes. Create your own recipes.

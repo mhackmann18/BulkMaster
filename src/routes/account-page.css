@@ -1,11 +1,12 @@
 .account-page {
   display: flex;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
 }
 
-@media screen and (min-width: 600px) {
+/* @media screen and (min-width: 600px) {
   .account-page {
     align-items: center;
   }
-}
+} */

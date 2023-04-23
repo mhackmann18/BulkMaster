@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBars,
   faArrowDown,
   faPlus,
   faBook,
@@ -12,6 +14,7 @@ import ToggleTheme from "../common/ToggleTheme";
 import "./index.css";
 
 export default function Sidebar({ username }) {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const currentPath = useLocation().pathname;
 
   const dashboardRouteNames = {
@@ -22,9 +25,17 @@ export default function Sidebar({ username }) {
   };
 
   return (
-    <div id="sidebar">
+    <div id="sidebar" className={sidebarCollapsed ? "collapsed" : ""}>
       <div className="upper">
-        <h1>PREPMASTER</h1>
+        <h1>
+          {!sidebarCollapsed && "PREPMASTER"}{" "}
+          <FontAwesomeIcon
+            icon={faBars}
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            size="xs"
+            id="sidebar-menu-icon"
+          />
+        </h1>
         <ul>
           <li>
             <Link
@@ -36,7 +47,7 @@ export default function Sidebar({ username }) {
               }
             >
               <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />{" "}
-              Import Recipe
+              <span>Import Recipe</span>
             </Link>
           </li>
           <li>
@@ -48,8 +59,8 @@ export default function Sidebar({ username }) {
                   : "btn"
               }
             >
-              <FontAwesomeIcon className="sidebar-icon" icon={faPlus} /> Create
-              Recipe
+              <FontAwesomeIcon className="sidebar-icon" icon={faPlus} />{" "}
+              <span>Create Recipe</span>
             </Link>
           </li>
           <li>
@@ -61,8 +72,8 @@ export default function Sidebar({ username }) {
                   : "btn"
               }
             >
-              <FontAwesomeIcon className="sidebar-icon" icon={faBook} /> Recipe
-              Library
+              <FontAwesomeIcon className="sidebar-icon" icon={faBook} />{" "}
+              <span>Recipe Library</span>
             </Link>
           </li>
           <li>
@@ -75,7 +86,7 @@ export default function Sidebar({ username }) {
               }
             >
               <FontAwesomeIcon className="sidebar-icon" icon={faGear} />{" "}
-              Settings
+              <span>Settings</span>
             </Link>
           </li>
         </ul>
@@ -83,9 +94,13 @@ export default function Sidebar({ username }) {
       <div className="lower">
         <ToggleTheme />
         <div className="logout-container">
-          Signed in as {username}{" "}
+          <span>{username} </span>
           <Link to="" title="logout">
-            <FontAwesomeIcon className="icon" icon={faArrowRightFromBracket} />
+            <FontAwesomeIcon
+              className="icon"
+              icon={faArrowRightFromBracket}
+              rotation={180}
+            />
           </Link>
         </div>
       </div>
