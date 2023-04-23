@@ -14,7 +14,10 @@ import ToggleTheme from "../common/ToggleTheme";
 import "./index.css";
 
 export default function Sidebar({ username, onCollapse }) {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const deviceWidth =
+    // eslint-disable-next-line no-restricted-globals
+    window.innerWidth > 0 ? window.innerWidth : screen.width;
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(deviceWidth <= 992);
   const currentPath = useLocation().pathname;
   const elementRef = useRef(null);
 
