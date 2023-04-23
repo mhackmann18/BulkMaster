@@ -1,5 +1,4 @@
 import RecipeItem from "../components/RecipeItem";
-import "./Library.css";
 import data from "../assets/data.json";
 
 export default function Library() {

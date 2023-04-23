@@ -1,13 +1,7 @@
 #import-page, #create-page {
   height: 100%;
   width: 100%;
-  padding: 30px 15px 20px 50px;
   position: relative;
-  min-width: 400px;
-  overflow-y: auto;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
 }
 
 #import-page #recipe-scraping-form {
