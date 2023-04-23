@@ -33,7 +33,7 @@ export default function Sidebar({ username }) {
             icon={faBars}
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             size="xs"
-            id="sidebar-menu-icon"
+            id="sidebar-collapse-btn"
           />
         </h1>
         <ul>
@@ -46,8 +46,10 @@ export default function Sidebar({ username }) {
                   : "btn"
               }
             >
-              <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />{" "}
-              <span>Import Recipe</span>
+              <div className="sidebar-icon-wrapper">
+                <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />
+              </div>
+              <span className="sidebar-nav-btn-text">Import Recipe</span>
             </Link>
           </li>
           <li>
@@ -59,8 +61,10 @@ export default function Sidebar({ username }) {
                   : "btn"
               }
             >
-              <FontAwesomeIcon className="sidebar-icon" icon={faPlus} />{" "}
-              <span>Create Recipe</span>
+              <div className="sidebar-icon-wrapper">
+                <FontAwesomeIcon className="sidebar-icon" icon={faPlus} />
+              </div>
+              <span className="sidebar-nav-btn-text">Create Recipe</span>
             </Link>
           </li>
           <li>
@@ -72,8 +76,10 @@ export default function Sidebar({ username }) {
                   : "btn"
               }
             >
-              <FontAwesomeIcon className="sidebar-icon" icon={faBook} />{" "}
-              <span>Recipe Library</span>
+              <div className="sidebar-icon-wrapper">
+                <FontAwesomeIcon className="sidebar-icon" icon={faBook} />
+              </div>
+              <span className="sidebar-nav-btn-text">Recipe Library</span>
             </Link>
           </li>
           <li>
@@ -85,8 +91,10 @@ export default function Sidebar({ username }) {
                   : "btn"
               }
             >
-              <FontAwesomeIcon className="sidebar-icon" icon={faGear} />{" "}
-              <span>Settings</span>
+              <div className="sidebar-icon-wrapper">
+                <FontAwesomeIcon className="sidebar-icon" icon={faGear} />
+              </div>
+              <span className="sidebar-nav-btn-text">Settings</span>
             </Link>
           </li>
         </ul>
