@@ -1,16 +1,23 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import "./Dashboard.css";
 
 export default function Dashboard() {
+  const [contentMarginLeft, setContentMarginLeft] = useState(0);
   const username = "johndoe11";
 
   return (
-    <>
-      <Sidebar username={username} />
-      <main id="dashboard-page">
+    <div id="dashboard-page">
+      <Sidebar
+        username={username}
+        onCollapse={(elementWidth) => setContentMarginLeft(elementWidth)}
+      />
+      <main
+        id="dashboard-page-content"
+        style={{ marginLeft: contentMarginLeft }}
+      >
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }

@@ -1,7 +1,0 @@
-#dashboard-page {
-  /* https://stackoverflow.com/questions/33606565/is-it-possible-to-calculate-the-viewport-width-vw-without-scrollbar */
-  /* 100% is width including scrollbars, 100vw is without scrollbars */
-  margin-left: var(--sidebar-width);
-  width: calc(100vw - (100vw - 100%) - var(--sidebar-width));
-  /* overflow-y: scroll; */
-}

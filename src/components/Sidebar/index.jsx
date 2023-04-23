@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,9 +13,14 @@ import {
 import ToggleTheme from "../common/ToggleTheme";
 import "./index.css";
 
-export default function Sidebar({ username }) {
+export default function Sidebar({ username, onCollapse }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const currentPath = useLocation().pathname;
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    onCollapse(elementRef.current.offsetWidth);
+  }, [sidebarCollapsed]);
 
   const dashboardRouteNames = {
     import: "import-recipe",
@@ -25,7 +30,11 @@ export default function Sidebar({ username }) {
   };
 
   return (
-    <div id="sidebar" className={sidebarCollapsed ? "collapsed" : ""}>
+    <div
+      id="sidebar"
+      className={sidebarCollapsed ? "collapsed" : ""}
+      ref={elementRef}
+    >
       <div className="upper">
         <h1>
           {!sidebarCollapsed && "PREPMASTER"}{" "}
@@ -118,4 +127,5 @@ export default function Sidebar({ username }) {
 
 Sidebar.propTypes = {
   username: PropTypes.string.isRequired,
+  onCollapse: PropTypes.func.isRequired,
 };
