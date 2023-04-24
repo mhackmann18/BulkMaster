@@ -6,9 +6,11 @@ export default function RecipeTimesDisplay({ prepTime, cookTime }) {
   }
   return (
     <p id="times-display">
-      {prepTime && `Prep Time: ${prepTime} minutes`}
-      {prepTime && cookTime && " | "}
-      {cookTime && `Cook Time: ${cookTime} minutes`}
+      <span>
+        {prepTime && `Prep Time: ${prepTime} minutes`}
+        {prepTime && cookTime && " | "}
+      </span>
+      <span>{cookTime && `Cook Time: ${cookTime} minutes`}</span>
     </p>
   );
 }
