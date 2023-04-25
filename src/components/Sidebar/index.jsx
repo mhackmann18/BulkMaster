@@ -23,13 +23,6 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
     settings: "settings",
   };
 
-  function handleNavBtnClick() {
-    // Collapse after a link btn is clicked on smaller screens
-    if ((window.innerWidth > 0 ? window.innerWidth : screen.width) <= 992) {
-      setCollapsed(true);
-    }
-  }
-
   return (
     <div id="sidebar" className={collapsed ? "collapsed" : ""}>
       <div className="upper">
@@ -46,7 +39,6 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
           <li>
             <Link
               to={dashboardRouteNames.import}
-              onClick={handleNavBtnClick}
               className={
                 currentPath.includes(dashboardRouteNames.import)
                   ? "active btn"
@@ -62,7 +54,6 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
           <li>
             <Link
               to="create-recipe"
-              onClick={handleNavBtnClick}
               className={
                 currentPath.includes(dashboardRouteNames.create)
                   ? "active btn"
@@ -78,7 +69,6 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
           <li>
             <Link
               to="recipe-library"
-              onClick={handleNavBtnClick}
               className={
                 currentPath.includes(dashboardRouteNames.library)
                   ? "active btn"
@@ -94,7 +84,6 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
           <li>
             <Link
               to="settings"
-              onClick={handleNavBtnClick}
               className={
                 currentPath.includes(dashboardRouteNames.settings)
                   ? "active btn"
