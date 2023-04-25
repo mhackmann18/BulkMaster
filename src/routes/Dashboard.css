@@ -16,5 +16,6 @@
 @media screen and (max-width: 480px) {
   #dashboard-page-content {
     margin-left: 0;
+    margin-bottom: 60px;
   }
 }

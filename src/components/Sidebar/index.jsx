@@ -48,7 +48,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
               <div className="sidebar-icon-wrapper">
                 <FontAwesomeIcon className="sidebar-icon" icon={faArrowDown} />
               </div>
-              <span className="sidebar-nav-btn-text">Import Recipe</span>
+              <span className="sidebar-nav-btn-text">Import</span>
             </Link>
           </li>
           <li>
@@ -63,7 +63,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
               <div className="sidebar-icon-wrapper">
                 <FontAwesomeIcon className="sidebar-icon" icon={faPlus} />
               </div>
-              <span className="sidebar-nav-btn-text">Create Recipe</span>
+              <span className="sidebar-nav-btn-text">Create</span>
             </Link>
           </li>
           <li>
@@ -78,7 +78,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
               <div className="sidebar-icon-wrapper">
                 <FontAwesomeIcon className="sidebar-icon" icon={faBook} />
               </div>
-              <span className="sidebar-nav-btn-text">Recipe Library</span>
+              <span className="sidebar-nav-btn-text">Library</span>
             </Link>
           </li>
           <li>
