@@ -14,7 +14,7 @@ export default function RecipeContainer({
   nutrientsComponent,
 }) {
   return (
-    <>
+    <div className="recipe-container">
       <header id="recipe-header">
         <div className="left">
           {nameComponent}
@@ -52,7 +52,7 @@ export default function RecipeContainer({
           {nutrientsComponent}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

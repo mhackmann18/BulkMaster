@@ -8,6 +8,7 @@
   flex-grow: 1;
   font-size: 24px;
   font-weight: bold;
+  max-width: 100%;
 }
 
 #recipe-name-input::placeholder {

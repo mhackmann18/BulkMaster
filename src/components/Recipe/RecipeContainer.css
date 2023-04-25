@@ -1,5 +1,9 @@
+.recipe-container {
+  container-type: inline-size;
+}
+
 #recipe-header { 
-  padding: 10px;
+  padding: max(1vh, 1vw);
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -109,7 +113,7 @@
   padding: 3px;
 }
 
-@media screen and (max-width: 600px) {
+@container (max-width: 600px) {
   #recipe-header {
     flex-direction: column;
   }
@@ -122,11 +126,11 @@
     flex-direction: column;
   }
 
-  #ingredients-container {
+  #ingredients-container, .form-style #ingredients-container {
     width: 100%;
   }
 
-  #instructions-container {
+  #instructions-container, .form-style #instructions-container {
     width: 100%;
     margin-top: 1rem;
   }
