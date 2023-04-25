@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+/* eslint-disable no-restricted-globals */
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,17 +13,8 @@ import {
 import ToggleTheme from "../common/ToggleTheme";
 import "./index.css";
 
-export default function Sidebar({ username, onCollapse }) {
-  const deviceWidth =
-    // eslint-disable-next-line no-restricted-globals
-    window.innerWidth > 0 ? window.innerWidth : screen.width;
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(deviceWidth <= 992);
+export default function Sidebar({ username, collapsed, setCollapsed }) {
   const currentPath = useLocation().pathname;
-  const elementRef = useRef(null);
-
-  useEffect(() => {
-    onCollapse(elementRef.current.offsetWidth);
-  }, [sidebarCollapsed]);
 
   const dashboardRouteNames = {
     import: "import-recipe",
@@ -34,23 +25,19 @@ export default function Sidebar({ username, onCollapse }) {
 
   function handleNavBtnClick() {
     // Collapse after a link btn is clicked on smaller screens
-    if (deviceWidth <= 992) {
-      setSidebarCollapsed(true);
+    if ((window.innerWidth > 0 ? window.innerWidth : screen.width) <= 992) {
+      setCollapsed(true);
     }
   }
 
   return (
-    <div
-      id="sidebar"
-      className={sidebarCollapsed ? "collapsed" : ""}
-      ref={elementRef}
-    >
+    <div id="sidebar" className={collapsed ? "collapsed" : ""}>
       <div className="upper">
         <h1>
-          {!sidebarCollapsed && "PREPMASTER"}{" "}
+          {!collapsed && "PREPMASTER"}{" "}
           <FontAwesomeIcon
             icon={faBars}
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onClick={() => setCollapsed(!collapsed)}
             size="xs"
             id="sidebar-collapse-btn"
           />
@@ -141,5 +128,6 @@ export default function Sidebar({ username, onCollapse }) {
 
 Sidebar.propTypes = {
   username: PropTypes.string.isRequired,
-  onCollapse: PropTypes.func.isRequired,
+  collapsed: PropTypes.bool.isRequired,
+  setCollapsed: PropTypes.func.isRequired,
 };

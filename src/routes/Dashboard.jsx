@@ -6,33 +6,21 @@ import Sidebar from "../components/Sidebar";
 import "./Dashboard.css";
 
 export default function Dashboard() {
-  const [contentMarginLeft, setContentMarginLeft] = useState(1000);
+  const deviceWidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(deviceWidth <= 992);
   const username = "johndoe11";
 
-  function handleCollapse(elementWidth) {
-    const deviceWidth =
-      window.innerWidth > 0 ? window.innerWidth : screen.width;
-
-    // For viewport widths less than 992, the content's left margin shouldn't update
-    // when the Sidebar is expanded. The expanded sidebar will instead overlap the
-    // contentelementWidth < contentMarginLeft ensures that only the lesser Sidebar
-    // width (The collapsed width) is used to calculate the margin
-    if (deviceWidth <= 992) {
-      if (elementWidth < contentMarginLeft) {
-        setContentMarginLeft(elementWidth);
-      }
-    } else {
-      setContentMarginLeft(elementWidth);
-    }
-  }
-
   return (
-    <div id="dashboard-page">
-      <Sidebar username={username} onCollapse={handleCollapse} />
-      <main
-        id="dashboard-page-content"
-        style={{ marginLeft: contentMarginLeft }}
-      >
+    <div
+      id="dashboard-page"
+      className={sidebarCollapsed ? "sidebar-collapsed" : ""}
+    >
+      <Sidebar
+        username={username}
+        collapsed={sidebarCollapsed}
+        setCollapsed={setSidebarCollapsed}
+      />
+      <main id="dashboard-page-content">
         <Outlet />
       </main>
     </div>

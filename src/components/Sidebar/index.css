@@ -1,7 +1,3 @@
-html {
-  --sidebar-width: 240px;
-}
-
 #sidebar {
   width: var(--sidebar-width);
   padding: 0px .5rem;
@@ -14,12 +10,12 @@ html {
   z-index: 1;
   top: 0;
   bottom: 0;
-  overflow-x: hidden
+  overflow-x: hidden;
+  transition: width var(--sidebar-transition-duration) ease;
 }
 
 #sidebar.collapsed {
   padding: 0 .5rem;
-  width: auto;
 }
 
 #sidebar h1 {
@@ -126,12 +122,40 @@ html {
   display: none;
 }
 
-@media screen and (max-width: 600px) {
-  #sidebar.collapsed {
-    padding: 0 .3rem;
+
+/* On mobile, the .collapsed class's style is no different from the default  */
+@media screen and (max-width: 480px) {
+
+  #sidebar.collapsed, #sidebar {
+    width: 100vw;
+    top: auto;
+    right: 0;
+    left: 0;
+    padding: .3rem 5vw;
+    bottom: 0;
+    border-top: 1px solid var(--french-gray);
+    border-right: none;
+    /* border-radius: 0 0 4px 0; */
+  }
+
+  .sidebar-nav-btn-text {
+    display: none;
   }
 
   #sidebar .btn {
-    margin-top: 12px;
+    margin: 0;
+  }
+
+  #sidebar h1 {
+    display: none;
+  }
+
+  #sidebar ul {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #sidebar .lower {
+    display: none;
   }
 }
