@@ -11,22 +11,25 @@
 .form-style #instructions-list li {
   display: flex;
   align-items: flex-start;
-  width: calc(100% + 30px);
-  margin-left: -30px;
+  /* width: calc(100% + 30px); */
+  /* margin-left: -30px; */
 }
 
-.form-style #instructions-list li:hover .btn {
+/* .form-style #instructions-list li:hover .btn {
   opacity: 100%;
-}
+} */
 
-.form-style #instructions-list li:hover textarea {
+/* .form-style #instructions-list li:hover textarea {
   outline-color: var(--instruction-hover-background-color);
-}
+} */
 
 .form-style #instructions-list .btn {
-  margin-right: 10px;
-  opacity: 0;
-  transition: opacity .1s ease-in;
+  display: inline;
+  margin-left: 10px;
+  margin-top: 15px;
+  vertical-align: middle;
+  /* opacity: 0;
+  transition: opacity .1s ease-in; */
 }
 
 .form-style #instructions-list .btn:hover {

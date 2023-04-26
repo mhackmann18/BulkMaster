@@ -15,8 +15,8 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
           variant="no-spinner-wheel"
         />
         <select name="time-units">
-          <option value="minutes">Minutes</option>
-          <option value="hours">Hours</option>
+          <option value="minutes">minutes</option>
+          <option value="hours">hours</option>
         </select>
       </div>
       <div className="recipe-time-inputs-container">
@@ -30,8 +30,8 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
           maxValue={999}
         />
         <select name="time-units" id="">
-          <option value="minutes">Minutes</option>
-          <option value="hours">Hours</option>
+          <option value="minutes">minutes</option>
+          <option value="hours">hours</option>
         </select>
       </div>
     </>

@@ -1,16 +1,14 @@
 .recipe-time-inputs-container {
+  height: 2rem;
   margin-top: 5px;
+  display: inline-block;
+  white-space: nowrap;
 }
 
-#recipe-header .left .row label {
-  margin-left: 16px;
+.recipe-time-inputs-container * {
+  height: 100%;
 }
 
 #recipe-header .left .row label:first-child {
   margin-left: 0;
-}
-
-.recipe-time-inputs-container {
-  display: inline-block;
-  white-space: nowrap;
 }
