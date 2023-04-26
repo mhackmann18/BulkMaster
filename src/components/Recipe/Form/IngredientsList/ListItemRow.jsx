@@ -30,20 +30,20 @@ export default function IngredientsListItemRow({ subIngredient }) {
           type="text"
           defaultValue={str}
         />
-      </div>
-      <div className="buttons-container">
-        <FontAwesomeIcon
-          icon={faPlus}
-          size="lg"
-          className="btn"
-          title="Add Alternative Ingredient"
-        />
-        <FontAwesomeIcon
-          icon={faTrashCan}
-          size="lg"
-          className="btn remove"
-          title="Remove Ingredient"
-        />
+        <div className="buttons-container">
+          <FontAwesomeIcon
+            icon={faPlus}
+            size="lg"
+            className="btn"
+            title="Add Alternative Ingredient"
+          />
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            size="lg"
+            className="btn remove"
+            title="Remove Ingredient"
+          />
+        </div>
       </div>
     </div>
   );

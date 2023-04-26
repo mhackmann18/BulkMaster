@@ -4,9 +4,9 @@ form#recipe {
 }
 
 form#recipe .sub-ingredient {
-  display: flex;
   align-items: center;
-  
+  justify-content: space-between;
+  width: 100%;
 }
 
 @container (min-width: 601px){
@@ -22,8 +22,15 @@ form#recipe .sub-ingredient {
   }
 }
 
-form#recipe .sub-ingredient .buttons-container {
+form#recipe .sub-ingredient .inputs-container .buttons-container {
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  margin-left: 0;
+}
+
+form#recipe .sub-ingredient .inputs-container .buttons-container * {
+  margin-left: 10px;
 }
 
 form#recipe .sub-ingredient .btn {
@@ -37,7 +44,7 @@ form#recipe .sub-ingredient .btn:hover {
 
 form#recipe .sub-ingredient .inputs-container {
   display: flex;
-  width: 100%;
+  flex-grow: 1;
 }
 
 form#recipe .sub-ingredient .inputs-container * {
