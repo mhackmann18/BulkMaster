@@ -1,0 +1,16 @@
+.recipe-time-inputs-container {
+  margin-top: 5px;
+}
+
+#recipe-header .left .row label {
+  margin-left: 16px;
+}
+
+#recipe-header .left .row label:first-child {
+  margin-left: 0;
+}
+
+.recipe-time-inputs-container {
+  display: inline-block;
+  white-space: nowrap;
+}

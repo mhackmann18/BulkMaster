@@ -12,21 +12,7 @@ export default function IngredientsListItemRow({ subIngredient }) {
 
   return (
     <div className="sub-ingredient">
-      <div className="buttons-container">
-        <FontAwesomeIcon
-          icon={faTrashCan}
-          size="lg"
-          className="btn remove"
-          title="Remove Ingredient"
-        />
-        <FontAwesomeIcon
-          icon={faPlus}
-          size="lg"
-          className="btn"
-          title="Add Alternative Ingredient"
-        />
-      </div>
-      <div className="inputs">
+      <div className="inputs-container">
         <NumberInput
           startingValue={quantity}
           minValue={0}
@@ -39,9 +25,24 @@ export default function IngredientsListItemRow({ subIngredient }) {
         <CookingUnitSelect unit={unit || ""} />
         <input
           name="ingredient-name"
+          className="ingredient-unit-input"
           title="Name"
           type="text"
           defaultValue={str}
+        />
+      </div>
+      <div className="buttons-container">
+        <FontAwesomeIcon
+          icon={faPlus}
+          size="lg"
+          className="btn"
+          title="Add Alternative Ingredient"
+        />
+        <FontAwesomeIcon
+          icon={faTrashCan}
+          size="lg"
+          className="btn remove"
+          title="Remove Ingredient"
         />
       </div>
     </div>

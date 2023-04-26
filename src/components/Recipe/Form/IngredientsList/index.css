@@ -1,5 +1,4 @@
 form#recipe {
-  --sub-ingredient-hover-border-radius: 4px; 
   --sub-ingredient-hover-background-color: var(--antiflash-white); 
   --sub-ingredient-hover-transition-duration: .1s; 
 }
@@ -7,37 +6,28 @@ form#recipe {
 form#recipe .sub-ingredient {
   display: flex;
   align-items: center;
-  position: relative;
-  transition: none;
-  transition: background-color var(--sub-ingredient-hover-transition-duration) ease-in;
-  padding: 4px;
+  
 }
 
-form#recipe #ingredients-list .sub-ingredient:hover {
-  background-color: var(--sub-ingredient-hover-background-color);
-  border-radius: var(--sub-ingredient-hover-border-radius);
-  /* padding: 10px 4px 10px 0; */
-  /* width: calc(100% + 10px); */
-}
+@container (min-width: 601px){
+  form#recipe .sub-ingredient {
+    transition: none;
+    transition: background-color var(--sub-ingredient-hover-transition-duration) ease-in;
+    padding: 4px;
+  }
 
-form#recipe #ingredients-list .sub-ingredient:hover .buttons-container {
-  opacity: 100%;
+  form#recipe #ingredients-list .sub-ingredient:hover {
+    background-color: var(--sub-ingredient-hover-background-color);
+    border-radius: 4px;
+  }
 }
 
 form#recipe .sub-ingredient .buttons-container {
-  position: absolute;
-  /* background-color: var(--sub-ingredient-hover-background-color); */
-  display: flex;
-  opacity: 0;
-  align-items: center;
-  left: -50px;
-  height: 100%;
-  /* border-radius: var(--sub-ingredient-hover-border-radius) 0 0 var(--sub-ingredient-hover-border-radius); */
-  transition: opacity var(--sub-ingredient-hover-transition-duration) ease-in;
+  white-space: nowrap;
 }
 
 form#recipe .sub-ingredient .btn {
-  margin-right: 10px;
+  margin-left: 10px;
   color: var(--outer-space);
 }
 
@@ -45,21 +35,25 @@ form#recipe .sub-ingredient .btn:hover {
   color: var(--slate-gray);
 }
 
-form#recipe .sub-ingredient .inputs {
+form#recipe .sub-ingredient .inputs-container {
   display: flex;
   width: 100%;
 }
 
-form#recipe .sub-ingredient .inputs * {
+form#recipe .sub-ingredient .inputs-container * {
   margin-left: 4px;
 }
 
-form#recipe .sub-ingredient .inputs input:first-child {
+form#recipe .sub-ingredient .inputs-container input:first-child {
   margin: 0;
 }
 
 form#recipe .sub-ingredient input[type="number"] {
   width: 50px;
+}
+
+.ingredient-unit-input {
+  min-width: 100px;
 }
 
 form#recipe .sub-ingredient input[type="text"] {

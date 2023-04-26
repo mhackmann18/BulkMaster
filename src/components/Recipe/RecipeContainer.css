@@ -75,7 +75,7 @@
 }
 
 #recipe-header .left .row {
-  display: flex;
+  display: inline-block;
 }
 
 #recipe-header .left .row * {
@@ -84,16 +84,6 @@
 
 #recipe-header .left .row *:last-child {
   margin-right: 0;
-}
-
-#recipe-header .left .row label {
-  display: flex;
-  align-items: center;
-  margin-left: 16px;
-}
-
-#recipe-header .left .row label:first-child {
-  margin-left: 0;
 }
 
 #recipe-header .right button {
@@ -124,6 +114,8 @@
 
   #recipe-content {
     flex-direction: column;
+    background-color: var(--white);
+    padding: 0;
   }
 
   #ingredients-container, .form-style #ingredients-container {

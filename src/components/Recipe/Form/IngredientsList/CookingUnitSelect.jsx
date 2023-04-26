@@ -9,7 +9,7 @@ import "./CookingUnitSelect.css";
 export default function CookingUnitSelect({ unit }) {
   return (
     <select
-      className="cooking-unit"
+      className="ingredient-unit-select"
       name="ingredient-unit"
       title="Unit"
       defaultValue={unit}
