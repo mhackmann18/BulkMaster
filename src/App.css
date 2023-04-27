@@ -88,9 +88,33 @@ input.no-spinner-wheel {
 .btn-default {
   font-size: 1rem;
   color: var(--antiflash-white);
+  background-color: var(--eerie-black);
   padding: 10px 12px;
   border-style: none;
   border-radius: 8px;
+}
+
+.btn-eerie-black {
+  transition: background-color .1s linear;
+  background-color: var(--eerie-black);
+}
+
+.btn-eerie-black:hover {
+  background-color: var(--outer-space);
+}
+
+.btn-no-bg {
+  font-size: 1rem;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: var(--onyx);
+  transition: background-color .1s linear;
+}
+
+.btn-no-bg:hover {
+  background-color: var(--french-gray);
 }
 
 .bg-eerie-black {
@@ -99,6 +123,10 @@ input.no-spinner-wheel {
 
 .bg-eerie-black:hover {
   background-color: var(--onyx);
+}
+
+.bg-slate-gray {
+  background-color: var(--slate-gray);
 }
 
 @media screen and (min-width: 600px) {
