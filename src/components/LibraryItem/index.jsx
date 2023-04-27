@@ -63,10 +63,10 @@ export default function LibraryItem({
           className="option-btn btn"
           title="Edit"
           size="1x"
-          onClick={(e) =>
-            console.log(`Edit recipe with id: ${recipeId}`) ||
-            e.stopPropagation()
-          }
+          onClick={(e) => {
+            navigate(`/dashboard/recipe-library/${recipeId}/edit`);
+            e.stopPropagation();
+          }}
         />
       </div>
     </div>

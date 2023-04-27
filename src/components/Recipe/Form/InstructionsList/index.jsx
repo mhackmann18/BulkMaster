@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { TextareaAutosize } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -10,7 +11,7 @@ export default function InstructionsList({ instructions }) {
       {instructions.map((el, index) => (
         <li key={uuidv4()}>
           <span className="instruction-number">{index + 1}. </span>
-          <textarea type="text" defaultValue={el} />
+          <TextareaAutosize maxRows={4} type="text" defaultValue={el} />
           {/* <div className="instruction-remove-btn-wrapper"> */}
           <FontAwesomeIcon
             icon={faTrashCan}
