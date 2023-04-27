@@ -44,7 +44,7 @@ form#recipe .sub-ingredient .btn:hover {
 
 form#recipe .sub-ingredient .inputs-container {
   display: flex;
-  flex-grow: 1;
+  flex-basis: 1;
 }
 
 form#recipe .sub-ingredient .inputs-container * {
