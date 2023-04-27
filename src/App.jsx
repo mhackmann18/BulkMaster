@@ -34,7 +34,8 @@ export default function App() {
             <Route path="import-recipe" element={<Import />} />
             <Route path="create-recipe" element={<Create />} />
             <Route path="recipe-library" element={<Library />} />
-            <Route path="recipe-library/:id" element={<Recipe />} />
+            <Route path="recipe-library/:id/" element={<Recipe />} />
+            <Route path="recipe-library/:id/edit" element={<Recipe edit />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
