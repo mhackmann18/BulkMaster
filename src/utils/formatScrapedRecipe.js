@@ -1,118 +1,7 @@
 /* eslint-disable camelcase */
 import { fraction } from "mathjs";
-import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
-
-export function getFracStrFromUniChar(str) {
-  /* Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction */
-
-  const unicodeFractions = [
-    "½",
-    "⅓",
-    "⅔",
-    "¼",
-    "¾",
-    "⅕",
-    "⅖",
-    "⅗",
-    "⅘",
-    "⅙",
-    "⅚",
-    "⅐",
-    "⅛",
-    "⅜",
-    "⅝",
-    "⅞",
-    "⅑",
-    "⅒",
-  ];
-  const unicodeFractionsConversions = [
-    "1/2",
-    "1/3",
-    "2/3",
-    "1/4",
-    "3/4",
-    "1/5",
-    "2/5",
-    "3/5",
-    "4/5",
-    "1/6",
-    "5/6",
-    "1/7",
-    "1/8",
-    "3/8",
-    "5/8",
-    "7/8",
-    "1/9",
-    "1/10",
-  ];
-
-  return unicodeFractions.includes(str)
-    ? unicodeFractionsConversions[unicodeFractions.indexOf(str)]
-    : null;
-}
-
-function getArrayFromIngredient(str, mult = 1) {
-  const strCopy = str.trim();
-  const tokens = strCopy.split(" ");
-
-  // Match integers, decimals, and vulgar fractions
-  const numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
-
-  // These values will be used to build the final ingredients string
-  const normalizedTokens = [];
-
-  for (let i = 0; i < tokens.length; i += 1) {
-    const current = tokens[i];
-    const match = current.match(numericalRE);
-    const num = (match && match[0]) || getFracStrFromUniChar(current);
-
-    // Handle number tokens
-    if (num) {
-      // If the token from the last iteration was a number, add this one to it
-      if (normalizedTokens && typeof normalizedTokens.at(-1) === "number") {
-        normalizedTokens[normalizedTokens.length - 1] +=
-          Number(fraction(num)) * mult;
-      } else {
-        normalizedTokens.push(Number(fraction(num)) * mult);
-      }
-      // Handle cooking unit tokens
-    } else if (isCookingUnit(current)) {
-      const unit = normalizeCookingUnit(current);
-
-      // Unit should be plural if the number before it was greater than 1
-      if (
-        typeof normalizedTokens.at(-1) === "number" &&
-        normalizedTokens.at(-1) > 1
-      ) {
-        normalizedTokens.push(`${unit}s`);
-      } else {
-        normalizedTokens.push(unit);
-      }
-      // Handle unintersting tokens
-    } else {
-      // Edge case: Undo multiplication operation of any number token that was
-      // not was not followed by a unit, or was not the first in the string
-      if (
-        normalizedTokens.length > 1 &&
-        typeof normalizedTokens.at(-1) === "number"
-      ) {
-        normalizedTokens[normalizedTokens.length - 1] /= mult;
-      }
-      normalizedTokens.push(current);
-    }
-
-    if (typeof normalizedTokens.at(-1) === "number") {
-      normalizedTokens[normalizedTokens.length - 1] =
-        Math.round(normalizedTokens[normalizedTokens.length - 1] * 100) / 100;
-    }
-  }
-
-  return normalizedTokens;
-}
-
-export function getNewIngredientString(str, mult = 1) {
-  return getArrayFromIngredient(str, mult).join(" ");
-}
+import { formatAmount } from "./helperFunctions";
+import Ingredient from "./Ingredient";
 
 function formatNutrientObj(obj) {
   if (!obj || !Object.keys(obj).length) return null;
@@ -156,26 +45,22 @@ export default function formatScrapedRecipe(data) {
     yields,
   } = data;
 
-  if (!ingredients || !instructions_list || !title) return null;
-
-  // ingredients.map((el) => createIngredientObjFromStr(el, 1));
+  if (!ingredients || !instructions_list || !title) {
+    return null;
+  }
 
   return {
     url: canonical_url,
     cookTime: cook_time,
-    ingredients: ingredients.map((el) => getNewIngredientString(el)),
+    ingredients: ingredients.map((el) =>
+      Ingredient.normalizeIngredientString(el)
+    ),
     instructions: instructions_list,
     nutrients: nutrients && formatNutrientObj(nutrients),
     prepTime: prep_time,
     title,
     servings: yields ? Number(yields.split(" ")[0]) : 1,
   };
-}
-
-function formatAmount(num, precision) {
-  let multiplier = precision * 10;
-  if (!precision || precision < 0) multiplier = 1;
-  return `${Math.round(num * multiplier) / multiplier}`;
 }
 
 export function getNutrientStringsFromObj(obj, mult = 1) {
@@ -209,29 +94,6 @@ export function getNutrientStringsFromObj(obj, mult = 1) {
   }
 
   return nutrientStrings;
-}
-
-export function getIngredientsMultiplier(
-  recipe,
-  newServingsCount,
-  newCaloriesCount
-) {
-  if (!recipe || !newServingsCount) return 1;
-
-  const oldServingsCount = recipe.servings;
-
-  if (!newCaloriesCount) return newServingsCount / oldServingsCount;
-
-  if (!oldServingsCount) return null;
-
-  const oldCalorieCount =
-    recipe.nutrients && recipe.nutrients.calories.quantity;
-
-  if (!oldCalorieCount) return newServingsCount / oldServingsCount;
-
-  return (
-    ((newCaloriesCount / oldCalorieCount) * newServingsCount) / oldServingsCount
-  );
 }
 
 export function getNutrientsStr(nutrients, mult = 1) {

@@ -1,5 +1,5 @@
 import { fraction } from "mathjs";
-import { getFracStrFromUniChar } from "./formatScrapedRecipe";
+import { getFracStrFromUniChar } from "./helperFunctions";
 import {
   isCookingUnit,
   normalizeCookingUnit,
@@ -12,7 +12,7 @@ export default class Ingredient {
   }
 
   getIngredientObjects() {
-    const normalizedTokens = Ingredient.getArrayFromIngredient(this.str);
+    const normalizedTokens = Ingredient.getIngredientTokens(this.str);
     const ingredientObjects = [];
     let ingredientObject = { str: "" };
 
@@ -42,7 +42,11 @@ export default class Ingredient {
     return ingredientObjects;
   }
 
-  static getArrayFromIngredient(str, mult = 1) {
+  static normalizeIngredientString(str, mult = 1) {
+    return Ingredient.getIngredientTokens(str, mult).join(" ");
+  }
+
+  static getIngredientTokens(str, mult = 1) {
     const strCopy = str.trim();
     const tokens = strCopy.split(" ");
 
@@ -99,5 +103,25 @@ export default class Ingredient {
     }
 
     return normalizedTokens;
+  }
+
+  static getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
+    if (!recipe || !newServingsCount) return 1;
+
+    const oldServingsCount = recipe.servings;
+
+    if (!newCaloriesCount) return newServingsCount / oldServingsCount;
+
+    if (!oldServingsCount) return null;
+
+    const oldCalorieCount =
+      recipe.nutrients && recipe.nutrients.calories.quantity;
+
+    if (!oldCalorieCount) return newServingsCount / oldServingsCount;
+
+    return (
+      ((newCaloriesCount / oldCalorieCount) * newServingsCount) /
+      oldServingsCount
+    );
   }
 }

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { getNewIngredientString } from "../../../../utils/formatScrapedRecipe";
+import Ingredient from "../../../../utils/Ingredient";
 import IngredientsListItem from "./ListItem";
 
 export default function IngredientInputsList({ ingredients }) {
@@ -10,7 +10,7 @@ export default function IngredientInputsList({ ingredients }) {
         ingredients.map((el) => (
           <IngredientsListItem
             key={uuidv4()}
-            ingredient={getNewIngredientString(el)}
+            ingredient={Ingredient.normalizeIngredientString(el)}
           />
         ))
       ) : (
