@@ -17,6 +17,7 @@ export default function RecipeForm({ recipe, switchToDiv }) {
     prepTime,
     title,
     servings,
+    servingSize,
   } = recipe;
 
   const recipeStatus = recipe.title ? "existing" : "new";
@@ -91,10 +92,7 @@ export default function RecipeForm({ recipe, switchToDiv }) {
         nutrientsHeaderButtonComponent={<AddButton text="Add Nutrient" />}
         nutrientsComponent={
           <>
-            <ServingInputs
-              servingSize={nutrients && nutrients.servingSize}
-              servings={servings}
-            />
+            <ServingInputs servingSize={servingSize} servings={servings} />
             <NutrientsList nutrients={nutrients} />
           </>
         }

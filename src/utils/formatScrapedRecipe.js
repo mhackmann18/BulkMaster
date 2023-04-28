@@ -158,3 +158,18 @@ export function getNutrientObjectFromString(str) {
     unit: ["g", "mg", "kcal"].includes(lastToken) ? lastToken : "",
   };
 }
+
+export function getNutrientQuantityFromArray(nutrientStr, nutrientStrArr) {
+  let quantityStr;
+  const nutrientNameRegex = /^[^:]+/;
+  const positiveIntRegex = /\d+/;
+
+  for (const el of nutrientStrArr) {
+    const name = el.match(nutrientNameRegex)[0];
+    if (nutrientStr === name) {
+      [quantityStr] = el.match(positiveIntRegex);
+    }
+  }
+
+  return quantityStr && Number(quantityStr);
+}

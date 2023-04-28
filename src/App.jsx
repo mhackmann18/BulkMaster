@@ -32,10 +32,11 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<Import />} />
             <Route path="import-recipe" element={<Import />} />
+            {/* <Route path="import-recipe/:url" element={<Recipe />} /> */}
             <Route path="create-recipe" element={<Create />} />
             <Route path="recipe-library" element={<Library />} />
             <Route path="recipe-library/:id/" element={<Recipe />} />
-            <Route path="recipe-library/:id/edit" element={<Recipe edit />} />
+            {/* <Route path="recipe-library/:id/edit" element={<RecipeEdit />} /> */}
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

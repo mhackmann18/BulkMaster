@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClone,
   faTrashCan,
-  faPenToSquare,
+  // faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.css";
 
@@ -58,7 +58,7 @@ export default function LibraryItem({
             e.stopPropagation()
           }
         />
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           icon={faPenToSquare}
           className="option-btn btn"
           title="Edit"
@@ -67,7 +67,7 @@ export default function LibraryItem({
             navigate(`/dashboard/recipe-library/${recipeId}/edit`);
             e.stopPropagation();
           }}
-        />
+        /> */}
       </div>
     </div>
   );

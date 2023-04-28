@@ -41,7 +41,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
       {
         text: "Back",
         type: "button",
-        action: () => navigate(`/dashboard/recipe-library`),
+        action: () => navigate(-1),
       },
       { text: "Edit", type: "button", action: switchToForm },
     ];

@@ -3,6 +3,7 @@ import LibraryItem from "../components/LibraryItem";
 import ConfirmationModal from "../components/common/ConfirmationModal";
 import data from "../assets/data.json";
 import "./Library.css";
+import { getNutrientQuantityFromArray } from "../utils/formatScrapedRecipe";
 
 export default function Library() {
   const [deleteModal, setDeleteModal] = useState({
@@ -19,11 +20,10 @@ export default function Library() {
           key={recipe.id}
           recipeTitle={recipe.title}
           recipeServings={recipe.servings}
-          caloriesPerRecipeServing={
-            recipe.nutrients &&
-            recipe.nutrients.calories &&
-            recipe.nutrients.calories.quantity
-          }
+          caloriesPerRecipeServing={getNutrientQuantityFromArray(
+            "Calories",
+            recipe.nutrients
+          )}
           recipeId={recipe.id}
           setDeleteModal={setDeleteModal}
         />
