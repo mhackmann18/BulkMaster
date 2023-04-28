@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import NumberInput from "../../common/NumberInput";
+import NumberInput from "./NumberInput";
 import "./TimesInputs.css";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
@@ -8,13 +8,14 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
       <div className="recipe-time-inputs-container">
         <label className="recipe-time-label slate-gray">Prep Time: </label>
         <NumberInput
-          value={prepTime}
+          startingValue={prepTime}
           setValue={() => null}
           minValue={0}
           maxValue={999}
           variant="no-spinner-wheel"
+          name="prep-time-number"
         />
-        <select name="time-units">
+        <select name="prep-time-units">
           <option value="minutes">minutes</option>
           <option value="hours">hours</option>
         </select>
@@ -24,12 +25,13 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
           Cook Time:{" "}
         </label>
         <NumberInput
-          value={cookTime}
+          startingValue={cookTime}
           setValue={() => null}
           minValue={0}
           maxValue={999}
+          name="cook-time-number"
         />
-        <select name="time-units" id="">
+        <select name="cook-time-units" id="">
           <option value="minutes">minutes</option>
           <option value="hours">hours</option>
         </select>

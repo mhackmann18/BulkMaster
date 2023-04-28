@@ -25,8 +25,9 @@ export default function RecipeContainer({
             <button
               key={uuidv4()}
               className="btn-onyx"
-              type="button"
               onClick={el.action}
+              // eslint-disable-next-line react/button-has-type
+              type={el.type}
             >
               {el.text}
             </button>

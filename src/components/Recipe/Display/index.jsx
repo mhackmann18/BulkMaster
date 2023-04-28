@@ -28,9 +28,10 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
       //   text: "Back",
       //   action: () => navigate(`/dashboard/import-recipe`),
       // },
-      { text: "Edit", action: switchToForm },
+      { text: "Edit", type: "button", action: switchToForm },
       {
         text: "Save",
+        type: "button",
         action: (e) => console.log("Save to Library") || e.preventDefault(),
       },
     ];
@@ -38,9 +39,10 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
     buttonsPanelObjects = [
       {
         text: "Back",
+        type: "button",
         action: () => navigate(`/dashboard/recipe-library`),
       },
-      { text: "Edit", action: switchToForm },
+      { text: "Edit", type: "button", action: switchToForm },
     ];
   }
 

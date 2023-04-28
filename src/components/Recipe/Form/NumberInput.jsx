@@ -56,6 +56,7 @@ export default function NumberInput({
       onChange={handleChange}
       onKeyDown={handleKeydown}
       onPaste={handlePaste}
+      step="any"
     />
   );
 }
@@ -65,7 +66,7 @@ NumberInput.propTypes = {
   minValue: PropTypes.number,
   maxValue: PropTypes.number,
   variant: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   title: PropTypes.string,
   id: PropTypes.string,
 };
@@ -75,7 +76,6 @@ NumberInput.defaultProps = {
   minValue: 0,
   maxValue: Infinity,
   variant: "",
-  name: "",
   title: "",
   id: "",
 };

@@ -11,7 +11,12 @@ export default function InstructionsList({ instructions }) {
       {instructions.map((el, index) => (
         <li key={uuidv4()}>
           <span className="instruction-number">{index + 1}. </span>
-          <TextareaAutosize maxRows={4} type="text" defaultValue={el} />
+          <TextareaAutosize
+            maxRows={4}
+            type="text"
+            defaultValue={el}
+            name="instruction"
+          />
           {/* <div className="instruction-remove-btn-wrapper"> */}
           <FontAwesomeIcon
             icon={faTrashCan}
