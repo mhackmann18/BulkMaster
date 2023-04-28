@@ -9,10 +9,10 @@ function formatNutrientObj(obj) {
   const formattedObj = {};
 
   // Match numbers and vulgar fractions at start
-  const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
+  const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?($|\s)/;
 
   for (const [key, val] of Object.entries(obj)) {
-    if (!val) continue;
+    if (!val || key === "servingSize") continue;
 
     const quantity = val.match(numRE);
 
@@ -20,7 +20,7 @@ function formatNutrientObj(obj) {
 
     unit = unit.trim() || "";
 
-    if (quantity[0].includes("/")) {
+    if (quantity && quantity[0].includes("/")) {
       quantity[0] = fraction(quantity[0]);
     }
 
@@ -56,10 +56,12 @@ export default function formatScrapedRecipe(data) {
       Ingredient.normalizeIngredientString(el)
     ),
     instructions: instructions_list,
-    nutrients: nutrients && formatNutrientObj(nutrients),
+    nutrients:
+      nutrients && getNutrientStringsFromObj(formatNutrientObj(nutrients)),
     prepTime: prep_time,
     title,
     servings: yields ? Number(yields.split(" ")[0]) : 1,
+    servingSize: nutrients.servingSize,
   };
 }
 
@@ -139,4 +141,20 @@ export function getArrFromNutrientsObject(obj) {
   }
 
   return nutrientsArr;
+}
+
+export function getNutrientObjectFromString(str) {
+  const nutrientNameRegex = /^[^:]+/;
+  const name = str.match(nutrientNameRegex)[0];
+
+  const positiveIntRegex = /\d+/;
+  const quantityStr = str.match(positiveIntRegex)[0];
+
+  const lastToken = str.split(" ").at(-1);
+
+  return {
+    name,
+    quantity: Number(quantityStr),
+    unit: ["g", "mg", "kcal"].includes(lastToken) ? lastToken : "",
+  };
 }

@@ -129,6 +129,8 @@ input.no-spinner-wheel {
   background-color: var(--slate-gray);
 }
 
+.bold {font-weight: 600;}
+
 @media screen and (min-width: 600px) {
   .viewport-small {
     display: none;

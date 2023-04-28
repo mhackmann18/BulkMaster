@@ -14,6 +14,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
     prepTime,
     title,
     servings,
+    servingSize,
   } = recipe;
 
   const navigate = useNavigate();
@@ -63,7 +64,11 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
           </ol>
         }
         nutrientsComponent={
-          <NutrientsList nutrients={nutrients} servings={servings} />
+          <NutrientsList
+            nutrients={nutrients}
+            servingsCount={servings}
+            servingSize={servingSize}
+          />
         }
       />
     </div>
@@ -76,10 +81,11 @@ RecipeDisplay.propTypes = {
     cookTime: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string),
     instructions: PropTypes.arrayOf(PropTypes.string),
-    nutrients: PropTypes.object,
+    nutrients: PropTypes.arrayOf(PropTypes.string),
     prepTime: PropTypes.number,
     title: PropTypes.string,
     servings: PropTypes.number,
+    servingSize: PropTypes.string,
   }).isRequired,
   switchToForm: PropTypes.func.isRequired,
 };
