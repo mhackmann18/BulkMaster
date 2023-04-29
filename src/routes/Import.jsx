@@ -9,7 +9,11 @@ export default function Import() {
   return (
     <div id="import-page">
       {recipe ? (
-        <Recipe recipe={recipe} startingDisplayType="div" />
+        <Recipe
+          recipe={recipe}
+          startingDisplayType="div"
+          setRecipe={setRecipe}
+        />
       ) : (
         <RecipeScrapingForm
           variant={recipe && "inline"}
