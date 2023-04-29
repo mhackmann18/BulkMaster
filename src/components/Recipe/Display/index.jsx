@@ -27,7 +27,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
     buttonsPanelObjects = [
       {
         text: "Back",
-        action: () => navigate("/dashboard/import-recipe"),
+        action: () => navigate(-1),
       },
       { text: "Edit", type: "button", action: switchToForm },
       {

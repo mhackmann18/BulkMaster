@@ -6,3 +6,14 @@
 #splash-page .content-wrapper {
   width: 100vw;
 }
+
+#splash-page .content {
+  width: 70vw;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+  #splash-page .content {
+    width: 100vw;
+  }
+}

@@ -26,6 +26,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Splash />}>
             <Route path="" element={<Home />} />
+            <Route path="search" element={<ImportedRecipe redirectTo="/" />} />
             <Route path="about" element={<About />} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
@@ -33,7 +34,10 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<Import />} />
             <Route path="import-recipe" element={<Import />} />
-            <Route path="import-recipe/search" element={<ImportedRecipe />} />
+            <Route
+              path="import-recipe/search"
+              element={<ImportedRecipe redirectTo="/dashboard/import-recipe" />}
+            />
             {/* <Route path="import-recipe/:url" element={<Recipe />} /> */}
             <Route path="create-recipe" element={<Create />} />
             <Route path="recipe-library" element={<Library />} />

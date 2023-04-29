@@ -102,7 +102,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
         <ToggleTheme />
         <div className="logout-container">
           <span>{username} </span>
-          <Link to="" title="logout">
+          <Link to="/" title="logout">
             <FontAwesomeIcon
               className="icon"
               icon={faArrowRightFromBracket}
