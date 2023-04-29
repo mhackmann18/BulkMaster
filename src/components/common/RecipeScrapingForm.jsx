@@ -1,32 +1,25 @@
 import "./RecipeScrapingForm.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import ErrBubble from "./ErrBubble";
-import ErrMsg from "./ErrMsg";
+import Alert from "@mui/material/Alert";
 import ButtonMain from "./ButtonMain";
 import formatScrapedRecipe from "../../utils/formatScrapedRecipe";
 import { isValidHttpURL } from "../../utils/validation";
 import Spinner from "./Spinner";
 
 export default function RecipeScrapingForm({ handleResponse, variant }) {
-  const [urlInputErr, setURLInputErr] = useState({ isShowing: false, msg: "" });
-  const [urlSubmitErr, setUrlSubmitErr] = useState({
-    isShowing: false,
-    msg: "",
-  });
+  const [inputError, setInputError] = useState("");
+  const [submitError, setSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setUrlSubmitErr({ isShowing: false, msg: "" });
+    setSubmitError("");
     document.activeElement.blur();
     const inputString = e.target.querySelector("input").value;
 
     if (!isValidHttpURL(inputString)) {
-      setURLInputErr({
-        isShowing: true,
-        msg: "Please paste a valid recipe URL",
-      });
+      setInputError("Please paste a valid recipe URL");
       return false;
     }
 
@@ -40,19 +33,16 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
       const formattedData = formatScrapedRecipe(data);
       console.log(formattedData);
       if (!formattedData) {
-        setUrlSubmitErr({
-          isShowing: true,
-          msg: "Unable to obtain recipe data from the provided URL. Please paste a different URL",
-        });
+        setSubmitError("Unable to obtain recipe data from the URL");
       } else {
         handleResponse(formattedData);
       }
     } else if (res.status === 400) {
       const errText = await res.text();
-      setURLInputErr({ isShowing: true, msg: errText });
+      setInputError(errText);
     } else {
       const errText = await res.text();
-      setUrlSubmitErr({ isShowing: true, msg: errText });
+      setSubmitError(errText);
     }
     setIsLoading(false);
   }
@@ -65,15 +55,24 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
         id="url-input"
         placeholder="Paste a recipe's URL"
         onFocus={() => {
-          setURLInputErr({ isShowing: false, msg: "" });
-          setUrlSubmitErr({ isShowing: false, msg: "" });
+          setInputError("");
+          setSubmitError("");
         }}
       />
-      {urlInputErr.isShowing && <ErrBubble msg={urlInputErr.msg} />}
+      {inputError && (
+        <Alert id="rsf-input-error" severity="error">
+          {inputError}
+        </Alert>
+      )}
+      {/* {inputError.isShowing && <ErrBubble msg={inputError.msg} />} */}
       {/* </div> */}
       <ButtonMain text="Get Recipe" />
       {isLoading && <Spinner />}
-      {urlSubmitErr.isShowing && <ErrMsg msg={urlSubmitErr.msg} />}
+      {submitError && (
+        <Alert id="rsf-submit-error" severity="error">
+          {submitError}
+        </Alert>
+      )}
     </form>
   );
 }

@@ -43,6 +43,12 @@
   margin-top: 20px;
 }
 
+#rsf-input-error, #rsf-submit-error {
+  margin-top: .5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
 #recipe-scraping-form .err-msg {
   margin-top: 25px;
 }
