@@ -1,9 +1,10 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import "./ToggleTheme.css";
 
-export default function ToggleTheme() {
+export default function ToggleTheme({ onChange, variant }) {
   const [colorScheme, setColorScheme] = useState("light");
 
   if (colorScheme === "dark") {
@@ -26,9 +27,11 @@ export default function ToggleTheme() {
       <div
         title="toggle theme"
         id="theme-toggle"
-        onClick={() =>
-          setColorScheme(colorScheme === "light" ? "dark" : "light")
-        }
+        className={variant}
+        onClick={() => {
+          setColorScheme(colorScheme === "light" ? "dark" : "light");
+          onChange(colorScheme === "light" ? "dark" : "light");
+        }}
       >
         <FontAwesomeIcon icon={faSun} className="icon sun" />
         <div
@@ -40,3 +43,13 @@ export default function ToggleTheme() {
     </div>
   );
 }
+
+ToggleTheme.propTypes = {
+  onChange: PropTypes.func,
+  variant: PropTypes.string,
+};
+
+ToggleTheme.defaultProps = {
+  onChange: () => false,
+  variant: "",
+};

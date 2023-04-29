@@ -1,0 +1,18 @@
+#settings-list {
+  width: 100%;
+}
+
+.settings-list-item {
+  margin-bottom: .6rem;
+  border-bottom: 1px solid var(--french-gray);
+  padding-bottom: .6rem;
+}
+
+.settings-list-item-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings-list-item-content input {
+  width: 100%;
+}

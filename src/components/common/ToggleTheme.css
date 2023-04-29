@@ -8,6 +8,11 @@
   border-radius: 22px;
 }
 
+#theme-toggle.small {
+  scale: 75%;
+  margin: -5px -10px;
+}
+
 #theme-toggle:hover {
   cursor: pointer;
 }
