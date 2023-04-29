@@ -1,27 +1,15 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
-import Recipe from "../components/Recipe";
 import "./Import.css";
 
 export default function Import() {
-  const [recipe, setRecipe] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = (res) => navigate("search", { state: { recipe: res } });
 
   return (
     <div id="import-page">
-      {recipe ? (
-        <Recipe
-          recipe={recipe}
-          startingDisplayType="div"
-          setRecipe={setRecipe}
-        />
-      ) : (
-        <RecipeScrapingForm
-          variant={recipe && "inline"}
-          handleResponse={(res) => {
-            setRecipe(res);
-          }}
-        />
-      )}
+      <RecipeScrapingForm handleResponse={handleSubmit} />
     </div>
   );
 }

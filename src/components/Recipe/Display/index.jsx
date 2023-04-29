@@ -5,7 +5,7 @@ import RecipeTimesDisplay from "./TimesDisplay";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 
-export default function RecipeDisplay({ recipe, switchToForm, setRecipe }) {
+export default function RecipeDisplay({ recipe, switchToForm }) {
   const {
     cookTime,
     ingredients,
@@ -27,7 +27,7 @@ export default function RecipeDisplay({ recipe, switchToForm, setRecipe }) {
     buttonsPanelObjects = [
       {
         text: "Back",
-        action: () => setRecipe(null),
+        action: () => navigate("/dashboard/import-recipe"),
       },
       { text: "Edit", type: "button", action: switchToForm },
       {
@@ -90,9 +90,4 @@ RecipeDisplay.propTypes = {
     servingSize: PropTypes.string,
   }).isRequired,
   switchToForm: PropTypes.func.isRequired,
-  setRecipe: PropTypes.func,
-};
-
-RecipeDisplay.defaultProps = {
-  setRecipe: () => false,
 };

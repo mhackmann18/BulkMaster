@@ -7,6 +7,7 @@ import Create from "./routes/Create";
 import Library from "./routes/Library";
 import Settings from "./routes/Settings";
 import Recipe from "./routes/Recipe";
+import ImportedRecipe from "./routes/ImportedRecipe";
 import "./App.css";
 import Home from "./routes/Home";
 import About from "./routes/About";
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<Import />} />
             <Route path="import-recipe" element={<Import />} />
+            <Route path="import-recipe/search" element={<ImportedRecipe />} />
             {/* <Route path="import-recipe/:url" element={<Recipe />} /> */}
             <Route path="create-recipe" element={<Create />} />
             <Route path="recipe-library" element={<Library />} />

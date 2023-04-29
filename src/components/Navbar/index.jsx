@@ -7,7 +7,6 @@ import "./index.css";
 export default function Navbar() {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
   const location = useLocation();
-  console.log(location);
 
   // Collapse the menu when the route changes
   useEffect(() => setMobileMenuVisible(false), [location]);
