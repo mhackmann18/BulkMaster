@@ -5,7 +5,7 @@
 .settings-list-item {
   margin-bottom: .6rem;
   border: 1px solid var(--french-gray);
-  background-color: var(--seasalt);
+  /* background-color: var(--seasalt); */
   border-radius: 5px;
   padding: .6rem;
 }

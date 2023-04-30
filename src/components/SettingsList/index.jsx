@@ -1,19 +1,12 @@
-import { useState } from "react";
-import ToggleTheme from "../common/ToggleTheme";
+// import ToggleTheme from "../common/ToggleTheme";
+// import SettingsListItem from "./SettingsListItem";
+import ThemeItem from "./ThemeItem";
 import "./index.css";
 
 export default function SettingsList() {
-  const [theme, setTheme] = useState("light");
-
   return (
     <ul id="settings-list">
-      <li className="settings-list-item">
-        <h4>Theme</h4>
-        <div className="settings-list-item-content">
-          <span>{theme.charAt(0).toUpperCase() + theme.slice(1)} Mode</span>
-          <ToggleTheme variant="small" onChange={(value) => setTheme(value)} />
-        </div>
-      </li>
+      <ThemeItem />
       <li className="settings-list-item">
         <h4>Username</h4>
         <div className="settings-list-item-content">
@@ -21,6 +14,9 @@ export default function SettingsList() {
           <button className="btn-link" type="button">
             Change
           </button>
+        </div>
+        <div>
+          <input type="text" />
         </div>
       </li>
       <li className="settings-list-item">

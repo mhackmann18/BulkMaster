@@ -12,7 +12,7 @@ export default function Button({ text, handleClick, variant }) {
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
-  variant: PropTypes.func,
+  variant: PropTypes.string,
 };
 
 Button.defaultProps = {
