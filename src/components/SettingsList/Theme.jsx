@@ -2,7 +2,7 @@ import { useState } from "react";
 import ToggleTheme from "../common/ToggleTheme";
 import SettingsListItem from "./SettingsListItem";
 
-export default function ThemeItem() {
+export default function Theme() {
   const [theme, setTheme] = useState("light");
 
   return (
