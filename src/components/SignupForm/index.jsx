@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import { usernameExists } from "../../utils/user";
+import { checkUsernameInput } from "../../utils/validation";
 import "./account-form.css";
 
 export default function SignupForm() {
@@ -10,23 +10,6 @@ export default function SignupForm() {
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
-  // const formRef = useRef(null);
-
-  // function centerInViewportY(elementHeight) {
-  //   if (!elementHeight) return {};
-
-  //   const viewportHeight = Math.max(
-  //     document.documentElement.clientHeight || 0,
-  //     window.innerHeight || 0
-  //   );
-
-  //   return {
-  //     marginTop:
-  //       elementHeight > viewportHeight
-  //         ? 0
-  //         : (viewportHeight - elementHeight) / 2,
-  //   };
-  // }
 
   async function handleUsernameInputBlur(e) {
     const [isValid, msg] = await checkUsernameInput(e.target.value);
@@ -104,13 +87,7 @@ export default function SignupForm() {
   }
 
   return (
-    <form
-      id="signup-form"
-      className="account-form"
-      onSubmit={handleSubmit}
-      // ref={formRef}
-      // style={centerInViewportY(formRef.current && formRef.current.offsetHeight)}
-    >
+    <form id="signup-form" className="account-form" onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <p id="signup-msg">
         Import and customize your favorite recipes. Create your own recipes.
@@ -157,26 +134,6 @@ export default function SignupForm() {
       )}
     </form>
   );
-}
-
-async function checkUsernameInput(username) {
-  let isValid = false;
-  let msg = "";
-
-  if (username.length < 6) {
-    msg = "Username must be at least 6 characters in length";
-  } else if (username.length > 30) {
-    msg = "Username must be no more than 30 character in length";
-  } else if (!/^[a-zA-Z0-9_-]{6,30}$/.test(username)) {
-    msg =
-      "Username must only contain letters, numbers, dashes ( - ), and underscores ( _ )";
-  } else if (await usernameExists(username)) {
-    msg = "Username is already taken. Please choose a different username";
-  } else {
-    isValid = true;
-  }
-
-  return [isValid, msg];
 }
 
 function checkPasswordInput(password) {

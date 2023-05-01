@@ -1,0 +1,19 @@
+#change-username-form .main {
+  display: flex;
+  width: 100%;
+}
+
+#change-username-form input {
+  flex-grow: 1;
+  border: 1px solid var(--platinum);
+  padding: .5rem;
+  border-radius: 4px;
+}
+
+#change-username-form button {
+  margin-left: .5rem;
+}
+
+#change-username-error {
+  margin-top: .5rem;
+}

@@ -5,13 +5,22 @@ import "./Settings.css";
 export default function Settings() {
   return (
     <div id="settings-page">
-      <SettingsList />
-      <Button text="Sign Out" handleClick={() => {}} variant="default wide" />
-      <Button
-        text="Delete Account"
-        handleClick={() => {}}
-        variant="default wide"
-      />
+      <div id="settings">
+        <h1>Settings</h1>
+        <SettingsList />
+        <div className="buttons-container">
+          <Button
+            text="Sign Out"
+            handleClick={() => {}}
+            variant="default wide"
+          />
+          <Button
+            text="Delete Account"
+            handleClick={() => {}}
+            variant="default wide"
+          />
+        </div>
+      </div>
     </div>
   );
 }

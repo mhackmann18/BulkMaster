@@ -1,9 +1,10 @@
+/* eslint-disable react/button-has-type */
 import PropTypes from "prop-types";
 import "./Button.css";
 
-export default function Button({ text, handleClick, variant }) {
+export default function Button({ text, type, handleClick, variant }) {
   return (
-    <button onClick={handleClick} className={variant} type="button">
+    <button onClick={handleClick} type={type} className={variant}>
       {text}
     </button>
   );
@@ -11,10 +12,13 @@ export default function Button({ text, handleClick, variant }) {
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  type: PropTypes.string,
+  handleClick: PropTypes.func,
   variant: PropTypes.string,
 };
 
 Button.defaultProps = {
+  type: "button",
+  handleClick: () => false,
   variant: "default",
 };

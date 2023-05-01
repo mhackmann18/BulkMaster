@@ -2,9 +2,25 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
-#settings-page > button {
-  margin-top: 10px;
+#settings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+#settings h1 {
+  margin-bottom: 1.5rem;
+}
+
+#settings .buttons-container {
+  text-align: center;
+}
+
+#settings .buttons-container button {
+  display: block;
+  margin: 10px auto;
 }

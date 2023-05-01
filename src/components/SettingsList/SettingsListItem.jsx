@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import "./SettingsListItem.css";
 
 export default function SettingsListItem({ headerText, children }) {
   return (
