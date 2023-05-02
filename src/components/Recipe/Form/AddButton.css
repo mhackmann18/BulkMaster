@@ -9,6 +9,6 @@ form#recipe .add-btn {
 }
 
 form#recipe .add-btn:hover {
-  background-color: var(--platinum);
+  background-color: var(--antiflash-white);
   color: var(--outer-space);
 }
