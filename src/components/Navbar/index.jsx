@@ -18,6 +18,11 @@ export default function Navbar() {
       </Link>
       <ul className={mobileMenuVisible ? "" : "hide"}>
         <li>
+          <Link to="" className={location.pathname === "/" ? "active" : ""}>
+            Home
+          </Link>
+        </li>
+        <li>
           <Link
             to="features"
             className={location.pathname === "/features" ? "active" : ""}
