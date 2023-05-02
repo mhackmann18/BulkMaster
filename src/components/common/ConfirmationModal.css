@@ -5,6 +5,7 @@
   margin: 36vh auto;
   width: 40vw;
   min-width: 300px;
+  border: 1px solid var(--french-gray);
 }
 
 .modal-box h3 {
