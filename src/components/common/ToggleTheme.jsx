@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import "./ToggleTheme.css";
+import { ThemeContext } from "../../ThemeContextProvider";
 
 export default function ToggleTheme({ onChange, variant }) {
-  const [colorScheme, setColorScheme] = useState("light");
+  const themeContext = useContext(ThemeContext);
+  const { theme, setTheme } = themeContext;
 
-  if (colorScheme === "dark") {
+  if (theme === "dark") {
     document.querySelector("body").classList.add("dark-mode");
   } else {
     document.querySelector("body").classList.remove("dark-mode");
@@ -29,14 +31,14 @@ export default function ToggleTheme({ onChange, variant }) {
         id="theme-toggle"
         className={variant}
         onClick={() => {
-          setColorScheme(colorScheme === "light" ? "dark" : "light");
-          onChange(colorScheme === "light" ? "dark" : "light");
+          setTheme(theme === "light" ? "dark" : "light");
+          onChange(theme === "light" ? "dark" : "light");
         }}
       >
         <FontAwesomeIcon icon={faSun} className="icon sun" />
         <div
           className="round-slider"
-          style={colorScheme === "light" ? style1 : style2}
+          style={theme === "light" ? style1 : style2}
         />
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
       </div>
