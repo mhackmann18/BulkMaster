@@ -24,11 +24,9 @@
 
 .settings-change-form input {
   flex-grow: 1;
-  border: 1px solid var(--platinum);
+  border: 1px solid var(--french-gray);
   padding: .25rem;
   border-radius: 4px;
-  /* width: 40vw; */
-  /* max-width: 300px; */
   min-width: 160px;
 }
 
