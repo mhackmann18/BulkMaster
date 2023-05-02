@@ -44,3 +44,26 @@ export async function checkUsernameInput(username) {
 
   return [isValid, msg];
 }
+
+export async function checkPasswordInput(password) {
+  let isValid = false;
+  let msg = "";
+
+  if (password.length < 8) {
+    msg = "Password must be at least 8 characters in length";
+  } else if (password.length > 128) {
+    msg = "Password must be no more than 128 characters in length";
+    // Regex from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+  } else if (
+    !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,128}$/.test(
+      password
+    )
+  ) {
+    msg =
+      "Password must contain at least one letter, one number and one special character";
+  } else {
+    isValid = true;
+  }
+
+  return [isValid, msg];
+}

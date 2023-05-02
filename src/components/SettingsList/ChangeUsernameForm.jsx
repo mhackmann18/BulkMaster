@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Alert } from "@mui/material";
 import Button from "../common/Button";
 import { checkUsernameInput } from "../../utils/validation";
-import "./ChangeUsernameForm.css";
+import "./ChangeSettingForm.css";
 
 export default function ChangeUsernameForm({ onCancel, onSubmit }) {
   const [inputError, setInputError] = useState("");
@@ -27,21 +27,25 @@ export default function ChangeUsernameForm({ onCancel, onSubmit }) {
   }
 
   return (
-    <form id="change-username-form" onSubmit={handleSubmit}>
-      <div className="main">
-        <input name="username" type="text" defaultValue={oldUsername} />
-        <Button
-          text="Cancel"
-          handleClick={onCancel}
-          variant="btn-default btn-small"
+    <form className="settings-change-form" onSubmit={handleSubmit}>
+      <div className="row">
+        <label htmlFor="username">New Username:</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          defaultValue={oldUsername}
         />
-        <Button text="Save" type="submit" variant="btn-default btn-small" />
       </div>
       {inputError && (
-        <Alert id="change-username-error" severity="error">
+        <Alert className="settings-change-error" severity="error">
           {inputError}
         </Alert>
       )}
+      <div className="row buttons">
+        <Button text="Cancel" handleClick={onCancel} variant="btn-no-bg" />
+        <Button text="Save" type="submit" variant="btn-default" />
+      </div>
     </form>
   );
 }
