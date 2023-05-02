@@ -35,11 +35,11 @@ form#recipe .sub-ingredient .inputs-container .buttons-container * {
 
 form#recipe .sub-ingredient .btn {
   margin-left: 10px;
-  color: var(--outer-space);
+  color: var(--french-gray);
 }
 
 form#recipe .sub-ingredient .btn:hover {
-  color: var(--slate-gray);
+  color: var(--outer-space);
 }
 
 form#recipe .sub-ingredient .inputs-container {
