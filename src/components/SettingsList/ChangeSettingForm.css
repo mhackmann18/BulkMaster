@@ -2,6 +2,8 @@
   display: flex;
   width: 100%;
   margin-top: .5rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .settings-change-form .row.buttons {
@@ -17,10 +19,7 @@
   align-items: center;
   color: var(--outer-space);
   margin-right: .5rem;
-}
-
-#change-password-form label {
-  width: 12rem;
+  width: 10rem;
 }
 
 .settings-change-form input {
@@ -28,6 +27,9 @@
   border: 1px solid var(--platinum);
   padding: .25rem;
   border-radius: 4px;
+  /* width: 40vw; */
+  /* max-width: 300px; */
+  min-width: 160px;
 }
 
 .settings-change-form button {

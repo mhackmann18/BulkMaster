@@ -36,7 +36,7 @@ export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
         <input id="new-password" name="new-password" type="password" />
       </div>
       <div className="row">
-        <label htmlFor="confirm-new-password">Confirm New Password: </label>
+        <label htmlFor="confirm-new-password">Confirm Password: </label>
         <input
           id="confirm-new-password"
           name="confirm-new-password"
