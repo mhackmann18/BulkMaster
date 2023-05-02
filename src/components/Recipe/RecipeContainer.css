@@ -17,8 +17,6 @@
 }
 
 #recipe-header .right {
-  display: flex;
-  align-items: flex-start;
   white-space: nowrap;
   margin-bottom: .5rem;
 }

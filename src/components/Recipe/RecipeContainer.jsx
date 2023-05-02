@@ -50,7 +50,7 @@ RecipeContainer.propTypes = {
     PropTypes.element,
     PropTypes.oneOf([null]),
   ]),
-  buttonsComponent: PropTypes.arrayOf(PropTypes.object).isRequired,
+  buttonsComponent: PropTypes.node.isRequired,
   ingredientsHeaderButtonComponent: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.oneOf([null]),
