@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
 import RecipeNameInput from "./NameInput";
 import RecipeTimesInputs from "./TimesInputs";
+import ExistingRecipeButtons from "./ExistingRecipeButtons";
+import NewRecipeButtons from "./NewRecipeButtons";
 import AddButton from "./AddButton";
 import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
@@ -22,24 +24,12 @@ export default function RecipeForm({ recipe, switchToDiv }) {
 
   const recipeStatus = recipe.title ? "existing" : "new";
 
-  let buttonsPanelObjects;
+  let buttonsPanel;
 
   if (recipeStatus === "existing") {
-    buttonsPanelObjects = [
-      { text: "Cancel", type: "button", action: switchToDiv },
-      {
-        text: "Save Changes",
-        type: "submit",
-      },
-    ];
+    buttonsPanel = <ExistingRecipeButtons switchToDiv={switchToDiv} />;
   } else if (recipeStatus === "new") {
-    buttonsPanelObjects = [
-      {
-        text: "Save to Library",
-        type: "button",
-        action: (e) => console.log("Save to Library") || e.preventDefault(),
-      },
-    ];
+    buttonsPanel = <NewRecipeButtons />;
   }
 
   function handleSubmit(e) {
@@ -82,7 +72,7 @@ export default function RecipeForm({ recipe, switchToDiv }) {
         timesComponent={
           <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
         }
-        buttonsPanelObjects={buttonsPanelObjects}
+        buttonsComponent={buttonsPanel}
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
         ingredientsComponent={
           <IngredientInputsList ingredients={ingredients} />

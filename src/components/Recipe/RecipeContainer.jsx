@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 import "./RecipeContainer.css";
 
 export default function RecipeContainer({
   nameComponent,
   timesComponent,
-  buttonsPanelObjects,
+  buttonsComponent,
   ingredientsHeaderButtonComponent,
   ingredientsComponent,
   instructionsHeaderButtonComponent,
@@ -20,19 +19,7 @@ export default function RecipeContainer({
           {nameComponent}
           <div className="row">{timesComponent}</div>
         </div>
-        <div className="right">
-          {buttonsPanelObjects.map((el) => (
-            <button
-              key={uuidv4()}
-              className="btn-onyx"
-              onClick={el.action}
-              // eslint-disable-next-line react/button-has-type
-              type={el.type}
-            >
-              {el.text}
-            </button>
-          ))}
-        </div>
+        <div className="right">{buttonsComponent}</div>
       </header>
       <div id="recipe-content" className="two-col">
         <div id="ingredients-container">
@@ -63,7 +50,7 @@ RecipeContainer.propTypes = {
     PropTypes.element,
     PropTypes.oneOf([null]),
   ]),
-  buttonsPanelObjects: PropTypes.arrayOf(PropTypes.object).isRequired,
+  buttonsComponent: PropTypes.arrayOf(PropTypes.object).isRequired,
   ingredientsHeaderButtonComponent: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.oneOf([null]),

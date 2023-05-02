@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import RecipeContainer from "../RecipeContainer";
 import RecipeTimesDisplay from "./TimesDisplay";
+import ImportedRecipeButtons from "./ImportedRecipeButtons";
+import SavedRecipeButtons from "./SavedRecipeButtons";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 
@@ -17,34 +18,13 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
     servingSize,
   } = recipe;
 
-  const navigate = useNavigate();
-
   const recipeStatus = recipe.id ? "saved" : "imported";
-
-  let buttonsPanelObjects;
+  let buttonsPanel;
 
   if (recipeStatus === "imported") {
-    buttonsPanelObjects = [
-      {
-        text: "Back",
-        action: () => navigate(-1),
-      },
-      { text: "Edit", type: "button", action: switchToForm },
-      {
-        text: "Save",
-        type: "button",
-        action: (e) => console.log("Save to Library") || e.preventDefault(),
-      },
-    ];
+    buttonsPanel = <ImportedRecipeButtons switchToForm={switchToForm} />;
   } else if (recipeStatus === "saved") {
-    buttonsPanelObjects = [
-      {
-        text: "Back",
-        type: "button",
-        action: () => navigate(-1),
-      },
-      { text: "Edit", type: "button", action: switchToForm },
-    ];
+    buttonsPanel = <SavedRecipeButtons switchToForm={switchToForm} />;
   }
 
   return (
@@ -54,7 +34,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
         timesComponent={
           <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
         }
-        buttonsPanelObjects={buttonsPanelObjects}
+        buttonsComponent={buttonsPanel}
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
           <ol id="instructions-list">
