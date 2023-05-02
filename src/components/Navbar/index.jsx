@@ -6,13 +6,27 @@ import "./index.css";
 
 export default function Navbar() {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const location = useLocation();
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Collapse the menu when the route changes
   useEffect(() => setMobileMenuVisible(false), [location]);
 
   return (
-    <header id="navbar">
+    <header id="navbar" className={scrollPosition === 0 ? "" : "border"}>
       <Link id="navbar-logo" to="">
         PREPMASTER
       </Link>

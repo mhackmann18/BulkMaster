@@ -6,8 +6,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: var(--white);
   z-index: 1;
+  border-bottom: 1px solid var(--white);
+  transition: border-color .1s ease;
 }
 
 #navbar-logo {
@@ -19,7 +21,6 @@
 #navbar ul {
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, .6);
   list-style: none;
 }
 
@@ -72,6 +73,12 @@
 
   #navbar ul li a {
     margin: 5px 0;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  #navbar.border {
+    border-color: var(--french-gray);
   }
 }
 
