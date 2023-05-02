@@ -32,7 +32,6 @@ export default function App() {
             <Route path="login" element={<Login />} />
           </Route>
           <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="" element={<Import />} />
             <Route path="import-recipe" element={<Import />} />
             <Route
               path="import-recipe/search"
