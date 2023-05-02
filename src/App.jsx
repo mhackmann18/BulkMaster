@@ -10,7 +10,7 @@ import Recipe from "./routes/Recipe";
 import ImportedRecipe from "./routes/ImportedRecipe";
 import "./App.css";
 import Home from "./routes/Home";
-import About from "./routes/About";
+import Features from "./routes/Features";
 import Signup from "./routes/Signup";
 import Login from "./routes/Login";
 import disableInputScroll from "./utils/disableInputScroll";
@@ -27,7 +27,7 @@ export default function App() {
           <Route path="/" element={<Splash />}>
             <Route path="" element={<Home />} />
             <Route path="search" element={<ImportedRecipe redirectTo="/" />} />
-            <Route path="about" element={<About />} />
+            <Route path="features" element={<Features />} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
           </Route>
