@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+// import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -23,6 +24,14 @@ export default function IngredientsListItemRow({ subIngredient }) {
           placeholder="Count"
         />
         <CookingUnitSelect unit={unit || ""} />
+        {/* <TextField
+          label="Name"
+          variant="outlined"
+          size="small"
+          // error
+          // helperText="Required Field"
+          defaultValue={str}
+        /> */}
         <input
           name="ingredient-name"
           className="ingredient-unit-input"
