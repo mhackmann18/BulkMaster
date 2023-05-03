@@ -1,12 +1,25 @@
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import NumberInput from "../Form/NumberInput";
 import "./MealPrepCalculatorForm.css";
 
-export default function MealPrepCalculatorForm() {
+export default function MealPrepCalculatorForm({
+  recipeServingsCount,
+  recipeCaloriesCount,
+  onCancelClick,
+  onSubmit,
+}) {
   function handleSubmit(e) {
+    const oldServingsCount = recipeServingsCount;
+    const oldCaloriesCount = recipeCaloriesCount;
+    const newServingsCount = e.target["meals-quantity"].value;
+    const newCaloriesCount = e.target["calories-per-meal"].value;
+    const recipeMultiplier =
+      (newServingsCount * newCaloriesCount) /
+      (oldServingsCount * oldCaloriesCount);
     e.preventDefault();
+    onSubmit(recipeMultiplier);
   }
 
   return (
@@ -36,7 +49,7 @@ export default function MealPrepCalculatorForm() {
         variant="input-default"
       />
       <div className="buttons-container">
-        <button className="btn-no-bg" onClick={() => {}} type="button">
+        <button className="btn-no-bg" onClick={onCancelClick} type="button">
           Cancel
         </button>
         <button className="btn-default" type="submit">
@@ -46,3 +59,10 @@ export default function MealPrepCalculatorForm() {
     </form>
   );
 }
+
+MealPrepCalculatorForm.propTypes = {
+  recipeServingsCount: PropTypes.number.isRequired,
+  recipeCaloriesCount: PropTypes.number.isRequired,
+  onCancelClick: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};

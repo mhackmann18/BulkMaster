@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
+import OpenCalculatorButton from "./OpenCalculatorButton";
 import RecipeContainer from "../RecipeContainer";
 import RecipeTimesDisplay from "./TimesDisplay";
 import ImportedRecipeButtons from "./ImportedRecipeButtons";
 import SavedRecipeButtons from "./SavedRecipeButtons";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
+import { getNutrientQuantityFromArray } from "../../../utils/formatScrapedRecipe";
 
 export default function RecipeDisplay({ recipe, switchToForm }) {
   const {
@@ -34,7 +36,21 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
         timesComponent={
           <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
         }
-        buttonsComponent={buttonsPanel}
+        buttonsComponent={
+          <>
+            <OpenCalculatorButton
+              recipeServingsCount={servings}
+              recipeCaloriesCount={getNutrientQuantityFromArray(
+                "Calories",
+                nutrients
+              )}
+              onSubmit={(multiplier) =>
+                console.log(`Multiply recipe by ${multiplier}`)
+              }
+            />
+            {buttonsPanel}
+          </>
+        }
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
           <ol id="instructions-list">
