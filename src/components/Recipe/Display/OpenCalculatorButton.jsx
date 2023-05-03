@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalculator } from "@fortawesome/free-solid-svg-icons";
-import CalculatorModal from "./CalculatorModal";
+import StandardModal from "../../common/StandardModal";
+import MealPrepCalculatorForm from "./MealPrepCalculatorForm";
 import "./OpenCalculatorButton.css";
 
 export default function OpenCalculatorButton() {
@@ -16,7 +17,9 @@ export default function OpenCalculatorButton() {
       >
         <FontAwesomeIcon icon={faCalculator} size="lg" />
       </button>
-      <CalculatorModal open={modalOpen} setOpen={setModalOpen} />
+      <StandardModal open={modalOpen} setOpen={setModalOpen}>
+        <MealPrepCalculatorForm />
+      </StandardModal>
     </>
   );
 }

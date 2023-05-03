@@ -151,6 +151,13 @@ input.no-spinner-wheel {
   background-color: var(--slate-gray);
 }
 
+.input-default {
+  border: 1px solid var(--french-gray);
+  border-radius: 3px;
+  font-size: 1rem;
+  padding: 3px;
+}
+
 .bold {font-weight: 600;}
 
 @media screen and (min-width: 600px) {

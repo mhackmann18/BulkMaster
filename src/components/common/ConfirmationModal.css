@@ -1,24 +1,19 @@
-.modal-box {
-  background-color: var(--white);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 36vh auto;
+.confirmation-modal-content {
   width: 40vw;
   min-width: 300px;
-  border: 1px solid var(--french-gray);
 }
 
-.modal-box h3 {
+.confirmation-modal-content h3 {
   margin-bottom: .5rem;
 }
 
-.modal-box .buttons-container {
+.confirmation-modal-content .buttons-container {
   display: flex;
   margin-top: 1rem;
   width: 100%;
   justify-content: flex-end;
 }
 
-.modal-box .buttons-container * {
+.confirmation-modal-content .buttons-container * {
   margin-left: 8px;
 }

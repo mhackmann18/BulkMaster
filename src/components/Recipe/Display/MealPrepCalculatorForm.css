@@ -1,0 +1,32 @@
+#meal-prep-calculator-form {
+  line-height: 3rem;
+}
+
+#meal-prep-calculator-form header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#meal-prep-calculator-form p {
+  font-size: 1.25rem;
+}
+
+#meal-prep-calculator-form label {
+  color: var(--slate-gray);
+  font-weight: 500;
+  margin-right: .5rem;
+}
+
+#meal-prep-calculator-form input {
+  width: 4rem;
+}
+
+#meal-prep-calculator-form .buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+#meal-prep-calculator-form .buttons-container button {
+  margin-left: .5rem;
+}

@@ -1,0 +1,12 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--french-gray);
+}

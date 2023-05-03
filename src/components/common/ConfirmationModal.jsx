@@ -12,9 +12,9 @@ export default function ConfirmationModal({
   onConfirm,
 }) {
   return (
-    <Modal open={open} onClose={onCancel}>
+    <Modal className="modal" open={open} onClose={onCancel}>
       <Fade in={open}>
-        <div className="modal-box">
+        <div className="confirmation-modal-content modal-box">
           <h3>{headerText}</h3>
           <p>{messageText}</p>
           <div className="buttons-container">
