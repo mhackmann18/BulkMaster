@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
-// import { TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import NumberInput from "../NumberInput";
+import QuantityInput from "./QuantityInput";
+// import { faPlus } from "@fortawesome/free-solid-svg-icons";
+// import NumberInput from "../NumberInput";
 import CookingUnitSelect from "./CookingUnitSelect";
 import { standardFormUnits } from "../../../../utils/cookingUnit";
+import "./ListItemRow.css";
 import "./index.css";
 
 export default function IngredientsListItemRow({ subIngredient }) {
@@ -14,38 +16,43 @@ export default function IngredientsListItemRow({ subIngredient }) {
   return (
     <div className="sub-ingredient">
       <div className="inputs-container">
-        <NumberInput
+        {/* <NumberInput
           startingValue={quantity}
           minValue={0}
           maxValue={99}
           variant="no-spinner-wheel"
           title="Quantity"
           name="ingredient-quantity"
-          placeholder="Count"
-        />
-        <CookingUnitSelect unit={unit || ""} />
-        {/* <TextField
-          label="Name"
-          variant="outlined"
-          size="small"
-          // error
-          // helperText="Required Field"
-          defaultValue={str}
         /> */}
-        <input
+        <QuantityInput ingredientQuantity={quantity} />
+        <CookingUnitSelect unit={unit || ""} />
+        <div className="ingredient-name-input-wrapper">
+          <TextField
+            name="ingredient-name"
+            defaultValue={str}
+            label="Name"
+            variant="outlined"
+            size="small"
+            fullWidth
+            // error
+            // helperText="Required Field"
+          />
+        </div>
+
+        {/* <input
           name="ingredient-name"
           className="ingredient-unit-input"
           title="Name"
           type="text"
           defaultValue={str}
-        />
+        /> */}
         <div className="buttons-container">
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faPlus}
             size="lg"
             className="btn"
             title="Add Alternative Ingredient"
-          />
+          /> */}
           <FontAwesomeIcon
             icon={faTrashCan}
             size="lg"
