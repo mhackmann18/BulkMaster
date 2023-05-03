@@ -6,9 +6,9 @@ import {
   standardFormUnits,
   standardFormUnitsPlural,
 } from "../../../../utils/cookingUnit";
-import "./CookingUnitSelect.css";
+import "./UnitInput.css";
 
-export default function CookingUnitSelect({ unit }) {
+export default function UnitInput({ ingredientUnit }) {
   return (
     // <select
     //   className="ingredient-unit-select"
@@ -22,7 +22,7 @@ export default function CookingUnitSelect({ unit }) {
         size="small"
         label="Unit"
         name="ingredient-unit"
-        defaultValue={unit}
+        defaultValue={ingredientUnit}
         fullWidth
       >
         {["", ...standardFormUnits].map((el) => (
@@ -39,7 +39,14 @@ export default function CookingUnitSelect({ unit }) {
   );
 }
 
-CookingUnitSelect.propTypes = {
-  unit: PropTypes.oneOf(["", ...standardFormUnits, ...standardFormUnitsPlural])
-    .isRequired,
+UnitInput.propTypes = {
+  ingredientUnit: PropTypes.oneOf([
+    "",
+    ...standardFormUnits,
+    ...standardFormUnitsPlural,
+  ]),
+};
+
+UnitInput.defaultProps = {
+  ingredientUnit: "",
 };

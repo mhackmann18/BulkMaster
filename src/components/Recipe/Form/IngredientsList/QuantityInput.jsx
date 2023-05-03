@@ -8,7 +8,7 @@ export default function QuantityInput({ ingredientQuantity }) {
       <TextField
         type="number"
         name="ingredient-quantity"
-        defaultValue={ingredientQuantity}
+        defaultValue={ingredientQuantity || ""}
         label="Quantity"
         variant="outlined"
         size="small"
@@ -23,5 +23,5 @@ QuantityInput.propTypes = {
 };
 
 QuantityInput.defaultProps = {
-  ingredientQuantity: "",
+  ingredientQuantity: 0,
 };

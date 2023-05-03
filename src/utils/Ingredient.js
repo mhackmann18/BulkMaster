@@ -37,8 +37,9 @@ export default class Ingredient {
         ingredientObject.str += `${token} `;
       }
     }
-
+    ingredientObject.str = ingredientObject.str.trim();
     ingredientObjects.push(ingredientObject);
+
     return ingredientObjects;
   }
 
