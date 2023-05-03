@@ -1,19 +1,19 @@
-.confirmation-modal-content {
+.confirmation-display {
   width: 40vw;
   min-width: 300px;
 }
 
-.confirmation-modal-content h3 {
+.confirmation-display h3 {
   margin-bottom: .5rem;
 }
 
-.confirmation-modal-content .buttons-container {
+.confirmation-display .buttons-container {
   display: flex;
   margin-top: 1rem;
   width: 100%;
   justify-content: flex-end;
 }
 
-.confirmation-modal-content .buttons-container * {
+.confirmation-display .buttons-container * {
   margin-left: 8px;
 }

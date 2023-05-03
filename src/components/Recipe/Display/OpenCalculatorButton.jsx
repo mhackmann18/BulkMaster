@@ -17,7 +17,7 @@ export default function OpenCalculatorButton() {
       >
         <FontAwesomeIcon icon={faCalculator} size="lg" />
       </button>
-      <StandardModal open={modalOpen} setOpen={setModalOpen}>
+      <StandardModal open={modalOpen} handleClose={() => setModalOpen(false)}>
         <MealPrepCalculatorForm />
       </StandardModal>
     </>
