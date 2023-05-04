@@ -1,3 +1,7 @@
+.MuiTextField-root .MuiInputBase-input {
+  color: var(--onyx);
+}
+
 .MuiTextField-root fieldset {
   border-color: var(--french-gray);
 }

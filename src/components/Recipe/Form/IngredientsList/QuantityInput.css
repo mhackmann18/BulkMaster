@@ -1,3 +1,8 @@
+.ingredient-quantity-input-wrapper {
+  background-color: var(--white);
+  border-radius: 4px;
+}
+
 @media screen and (min-width: 481px){
   .ingredient-quantity-input-wrapper {
     min-width: 6rem;

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
+import "./NameInput.css";
 
 export default function NameInput({ ingredientName }) {
   return (
