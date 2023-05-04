@@ -33,9 +33,23 @@
   border: 2px solid var(--slate-gray);
 }
 
-#recipe-scraping-form button {
+.btn-main {
   margin-top: 10px;
+  background-color: var(--eerie-black);
+  color: var(--antiflash-white);
+  font-weight: 500;
+  border: none;
+  font-size: 18px;
+  padding: 20px 22px;
+  border-radius: 50px;
 }
+
+.btn-main:hover {
+  cursor: pointer;
+  background-color: var(--onyx);
+  transition: background-color 0.2s ease;
+}
+
 
 #rsf-spinner {
   width: 50px;

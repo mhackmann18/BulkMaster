@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import OpenCalculatorButton from "./OpenCalculatorButton";
 import RecipeContainer from "../RecipeContainer";
 import SubHeading from "./SubHeading";
-import ImportedRecipeButtons from "./ImportedRecipeButtons";
-import SavedRecipeButtons from "./SavedRecipeButtons";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
+import Button from "../../common/Button";
 import { getNutrientQuantityFromArray } from "../../../utils/formatScrapedRecipe";
 
 export default function RecipeDisplay({ recipe, switchToForm }) {
@@ -19,15 +19,8 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
     servings,
     servingSize,
   } = recipe;
-
+  const navigate = useNavigate();
   const recipeStatus = recipe.id ? "saved" : "imported";
-  let buttonsPanel;
-
-  if (recipeStatus === "imported") {
-    buttonsPanel = <ImportedRecipeButtons switchToForm={switchToForm} />;
-  } else if (recipeStatus === "saved") {
-    buttonsPanel = <SavedRecipeButtons switchToForm={switchToForm} />;
-  }
 
   return (
     <div id="recipe">
@@ -42,17 +35,23 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
         }
         buttonsComponent={
           <>
+            <Button
+              text="Back"
+              type="button"
+              handleClick={() => navigate(-1)}
+            />
             <OpenCalculatorButton
               recipeServingsCount={servings}
               recipeCaloriesCount={getNutrientQuantityFromArray(
                 "Calories",
                 nutrients
               )}
-              onSubmit={(multiplier) =>
-                console.log(`Multiply recipe by ${multiplier}`)
-              }
+              onSubmit={(val) => console.log(`${val}`)}
             />
-            {buttonsPanel}
+            <Button text="Edit" type="button" handleClick={switchToForm} />
+            {recipeStatus === "imported" && (
+              <Button text="Save" type="button" handleClick={() => {}} />
+            )}
           </>
         }
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}

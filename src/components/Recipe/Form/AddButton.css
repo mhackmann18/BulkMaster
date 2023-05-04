@@ -1,5 +1,5 @@
 form#recipe .add-btn {
-  background-color: var(--white);
+  background-color: var(--seasalt);
   border-radius: .25rem;
   border: none;
   font-size: 1rem;
@@ -9,7 +9,7 @@ form#recipe .add-btn {
 }
 
 form#recipe .add-btn:hover {
-  background-color: var(--antiflash-white);
+  /* background-color: var(--antiflash-white); */
   color: var(--eerie-black);
   border-color: var(--eerie-black);
   outline: 1px solid var(--eerie-black);

@@ -2,7 +2,6 @@ import "./RecipeScrapingForm.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Alert from "@mui/material/Alert";
-import ButtonMain from "./ButtonMain";
 import formatScrapedRecipe from "../../utils/formatScrapedRecipe";
 import { isValidHttpURL } from "../../utils/validation";
 import Spinner from "./Spinner";
@@ -66,7 +65,9 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
       )}
       {/* {inputError.isShowing && <ErrBubble msg={inputError.msg} />} */}
       {/* </div> */}
-      <ButtonMain text="Get Recipe" />
+      <button className="btn-main" type="submit">
+        Get Recipe
+      </button>
       {isLoading && <Spinner />}
       {submitError && (
         <Alert id="rsf-submit-error" severity="error">

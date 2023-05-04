@@ -1,4 +1,4 @@
-#recipe-header #open-calculator-button {
+/* #recipe-header #open-calculator-button {
   padding: 0;
   border: 1px solid var(--eerie-black);
   color: var(--eerie-black);
@@ -6,9 +6,9 @@
   border-radius: 50%;
   height: 2rem;
   width: 2rem;
-}
+} */
 
-#recipe-header #open-calculator-button:hover {
+/* #recipe-header #open-calculator-button:hover {
   background-color: var(--eerie-black);
   color: var(--antiflash-white);
-}
+} */
