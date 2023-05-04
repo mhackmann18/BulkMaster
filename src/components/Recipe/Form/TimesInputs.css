@@ -1,14 +1,7 @@
 .recipe-time-inputs-container {
-  height: 2rem;
-  margin-top: 5px;
+  /* height: 2rem; */
+  margin-top: 10px;
   display: inline-block;
   white-space: nowrap;
-}
-
-.recipe-time-inputs-container * {
-  height: 100%;
-}
-
-#recipe-header .left .row label:first-child {
-  margin-left: 0;
+  width: 12rem;
 }

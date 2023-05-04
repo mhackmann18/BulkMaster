@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import OpenCalculatorButton from "./OpenCalculatorButton";
 import RecipeContainer from "../RecipeContainer";
-import RecipeTimesDisplay from "./TimesDisplay";
+import SubHeading from "./SubHeading";
 import ImportedRecipeButtons from "./ImportedRecipeButtons";
 import SavedRecipeButtons from "./SavedRecipeButtons";
 import IngredientsList from "./IngredientsList";
@@ -32,9 +32,13 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
   return (
     <div id="recipe">
       <RecipeContainer
-        nameComponent={<h2>{title}</h2>}
-        timesComponent={
-          <RecipeTimesDisplay prepTime={prepTime} cookTime={cookTime} />
+        titleComponent={<h2>{title}</h2>}
+        subHeadingComponent={
+          <SubHeading
+            servings={servings}
+            prepTime={prepTime}
+            cookTime={cookTime}
+          />
         }
         buttonsComponent={
           <>

@@ -1,40 +1,43 @@
 import PropTypes from "prop-types";
-import NumberInput from "./NumberInput";
+import { TextField, InputAdornment } from "@mui/material";
 import "./TimesInputs.css";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
   return (
     <>
       <div className="recipe-time-inputs-container">
-        <label className="recipe-time-label slate-gray">Prep Time: </label>
-        <NumberInput
-          startingValue={prepTime}
-          setValue={() => null}
-          minValue={0}
-          maxValue={999}
-          variant="no-spinner-wheel"
-          name="prep-time-number"
+        <TextField
+          name="prep-time"
+          type="number"
+          defaultValue={prepTime}
+          label="Prep Time"
+          variant="outlined"
+          size="small"
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">minutes</InputAdornment>
+            ),
+          }}
+          // error
+          // helperText="Required Field"
         />
-        <select name="prep-time-units">
-          <option value="minutes">minutes</option>
-          <option value="hours">hours</option>
-        </select>
       </div>
       <div className="recipe-time-inputs-container">
-        <label className="recipe-time-label slate-gray" htmlFor="">
-          Cook Time:{" "}
-        </label>
-        <NumberInput
-          startingValue={cookTime}
-          setValue={() => null}
-          minValue={0}
-          maxValue={999}
-          name="cook-time-number"
+        <TextField
+          name="cook-time"
+          type="number"
+          defaultValue={cookTime}
+          label="Cook Time"
+          variant="outlined"
+          size="small"
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">minutes</InputAdornment>
+            ),
+          }}
         />
-        <select name="cook-time-units" id="">
-          <option value="minutes">minutes</option>
-          <option value="hours">hours</option>
-        </select>
       </div>
     </>
   );

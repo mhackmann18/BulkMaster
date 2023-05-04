@@ -1,10 +1,23 @@
 import PropTypes from "prop-types";
+import { TextField } from "@mui/material";
 import "./NameInput.css";
 
 export default function RecipeNameInput({ value }) {
   return (
-    <div id="recipe-name-input-wrapper">
-      <input id="recipe-name-input" name="recipe-name" defaultValue={value} />
+    // <div id="recipe-name-input-wrapper">
+    <div className="recipe-name-input-wrapper">
+      <TextField
+        id="recipe-title-input"
+        name="recipe-title"
+        defaultValue={value}
+        label="Recipe Title"
+        variant="outlined"
+        size="large"
+        autoComplete="off"
+        fullWidth
+        // error
+        // helperText="Required Field"
+      />
     </div>
   );
 }

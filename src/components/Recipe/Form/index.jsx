@@ -68,8 +68,8 @@ export default function RecipeForm({ recipe, switchToDiv }) {
   return (
     <form id="recipe" className="form-style" onSubmit={handleSubmit}>
       <RecipeContainer
-        nameComponent={<RecipeNameInput value={title} />}
-        timesComponent={
+        titleComponent={<RecipeNameInput value={title} />}
+        subHeadingComponent={
           <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
         }
         buttonsComponent={buttonsPanel}

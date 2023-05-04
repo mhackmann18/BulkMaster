@@ -38,9 +38,20 @@
 }
 
 .form-style #instructions-list textarea {
+  border: 1px solid var(--french-gray);
+  border-radius: 4px;
   flex-grow: 1;
-  padding-left: 4px;
+  padding: .5rem .75rem;
   margin-left: 5px;
   outline: 4px solid transparent;
   transition: outline-color var(--instruction-hover-transition-duration) ease-in;
+}
+
+.form-style #instructions-list textarea:hover {
+  border-color: var(--slate-gray);
+}
+
+.form-style #instructions-list textarea:focus {
+  border-color: var(--eerie-black);
+  outline: 1px solid var(--eerie-black);
 }

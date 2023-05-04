@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import "./RecipeContainer.css";
 
 export default function RecipeContainer({
-  nameComponent,
-  timesComponent,
+  titleComponent,
+  subHeadingComponent,
   buttonsComponent,
   ingredientsHeaderButtonComponent,
   ingredientsComponent,
@@ -16,8 +16,8 @@ export default function RecipeContainer({
     <div className="recipe-container">
       <header id="recipe-header">
         <div className="left">
-          {nameComponent}
-          <div className="row">{timesComponent}</div>
+          {titleComponent}
+          <div className="row">{subHeadingComponent}</div>
         </div>
         <div className="right">{buttonsComponent}</div>
       </header>
@@ -45,8 +45,8 @@ export default function RecipeContainer({
 }
 
 RecipeContainer.propTypes = {
-  nameComponent: PropTypes.element.isRequired,
-  timesComponent: PropTypes.oneOfType([
+  titleComponent: PropTypes.element.isRequired,
+  subHeadingComponent: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.oneOf([null]),
   ]),
@@ -72,9 +72,9 @@ RecipeContainer.propTypes = {
 };
 
 RecipeContainer.defaultProps = {
+  subHeadingComponent: null,
   ingredientsHeaderButtonComponent: null,
   instructionsHeaderButtonComponent: null,
   nutrientsHeaderButtonComponent: null,
   nutrientsComponent: null,
-  timesComponent: null,
 };
