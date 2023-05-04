@@ -38,6 +38,7 @@ export default function SubHeading({ servings, prepTime, cookTime }) {
         anchorEl={sliderAnchorEl}
         startingValue={servings}
         handleChange={onSliderChange}
+        close={() => setAnchorEl(null)}
       />
     </p>
   );

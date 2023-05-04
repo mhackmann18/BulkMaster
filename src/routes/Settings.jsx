@@ -6,7 +6,7 @@ export default function Settings() {
   return (
     <div id="settings-page">
       <div id="settings">
-        <h1>Settings</h1>
+        <h1 id="page-heading">Settings</h1>
         <SettingsList />
         <div className="buttons-container">
           <Button

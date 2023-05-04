@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Popper, Slider } from "@mui/material";
+import { ClickAwayListener, Popper, Slider } from "@mui/material";
 import "./SliderPopper.css";
 
 export default function SliderPopper({
@@ -9,19 +9,22 @@ export default function SliderPopper({
   minValue,
   maxValue,
   handleChange,
+  close,
 }) {
   return (
     <Popper open={open} anchorEl={anchorEl}>
-      <div className="slider-wrapper">
-        <Slider
-          className="slider"
-          defaultValue={startingValue}
-          step={1}
-          min={minValue}
-          max={maxValue}
-          onChange={(e) => handleChange(e.target.value)}
-        />
-      </div>
+      <ClickAwayListener onClickAway={close}>
+        <div className="slider-wrapper">
+          <Slider
+            className="slider"
+            defaultValue={startingValue}
+            step={1}
+            min={minValue}
+            max={maxValue}
+            onChange={(e) => handleChange(e.target.value)}
+          />
+        </div>
+      </ClickAwayListener>
     </Popper>
   );
 }
@@ -33,6 +36,7 @@ SliderPopper.propTypes = {
   minValue: PropTypes.number,
   maxValue: PropTypes.number,
   handleChange: PropTypes.func.isRequired,
+  close: PropTypes.func,
 };
 
 SliderPopper.defaultProps = {
@@ -40,4 +44,5 @@ SliderPopper.defaultProps = {
   startingValue: 1,
   minValue: 1,
   maxValue: 30,
+  close: () => false,
 };

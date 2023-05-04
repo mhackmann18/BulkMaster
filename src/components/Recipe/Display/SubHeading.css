@@ -1,11 +1,23 @@
+#sub-heading {
+  color: var(--slate-gray);
+}
+
+#sub-heading span {
+  border-right: 1px solid var(--french-gray);
+  padding-right: 8px;
+}
+
+#sub-heading span:last-child {
+  border: none;
+}
+
 #sub-heading .servings-btn {
   color: var(--slate-gray);
   font-size: 1rem;
 }
 
-#sub-heading .servings-btn:hover, #sub-heading .servings-btn.active:hover {
-  font-weight: 400;
-  color: var(--outer-space);
+#sub-heading .servings-btn:hover {
+  color: var(--eerie-black);
 }
 
 #sub-heading .servings-btn.active {
