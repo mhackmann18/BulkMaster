@@ -1,4 +1,9 @@
-form#recipe #serving-size-inputs {
+.serving-size-input-wrapper {
+  background-color: var(--white);
+  border-radius: 4px;
+  width: 8rem;
+}
+/* form#recipe #serving-size-inputs {
   margin-bottom: 10px;
 }
 
@@ -8,4 +13,4 @@ form#recipe #serving-size-inputs input[type="text"]{
 
 form#recipe #serving-size-inputs input {
   margin-right: 4px;
-}
+} */

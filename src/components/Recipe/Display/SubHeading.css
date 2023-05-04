@@ -5,6 +5,8 @@
 #sub-heading span {
   border-right: 1px solid var(--french-gray);
   padding-right: 8px;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 #sub-heading span:last-child {

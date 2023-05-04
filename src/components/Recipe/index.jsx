@@ -37,7 +37,7 @@ Recipe.defaultProps = {
     nutrients: [],
     prepTime: 0,
     title: "",
-    servings: 1,
+    servings: 0,
   },
   startingDisplayType: "div",
 };

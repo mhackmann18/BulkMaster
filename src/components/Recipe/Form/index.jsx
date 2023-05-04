@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
 import RecipeNameInput from "./NameInput";
+import ServingsInput from "./ServingsInput";
 import RecipeTimesInputs from "./TimesInputs";
 import ExistingRecipeButtons from "./ExistingRecipeButtons";
 import NewRecipeButtons from "./NewRecipeButtons";
 import AddButton from "./AddButton";
 import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
-import ServingInputs from "./ServingInputs";
+import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 
 export default function RecipeForm({ recipe, switchToDiv }) {
@@ -70,7 +71,10 @@ export default function RecipeForm({ recipe, switchToDiv }) {
       <RecipeContainer
         titleComponent={<RecipeNameInput value={title} />}
         subHeadingComponent={
-          <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
+          <>
+            <ServingsInput startingValue={servings} />
+            <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
+          </>
         }
         buttonsComponent={buttonsPanel}
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
@@ -82,7 +86,7 @@ export default function RecipeForm({ recipe, switchToDiv }) {
         nutrientsHeaderButtonComponent={<AddButton text="Add Nutrient" />}
         nutrientsComponent={
           <>
-            <ServingInputs servingSize={servingSize} servings={servings} />
+            <ServingSizeInput servingSize={servingSize} servings={servings} />
             <NutrientsList nutrients={nutrients} />
           </>
         }

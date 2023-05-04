@@ -9,7 +9,7 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
         <TextField
           name="prep-time"
           type="number"
-          defaultValue={prepTime}
+          defaultValue={prepTime || ""}
           label="Prep Time"
           variant="outlined"
           size="small"
@@ -27,7 +27,7 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
         <TextField
           name="cook-time"
           type="number"
-          defaultValue={cookTime}
+          defaultValue={cookTime || ""}
           label="Cook Time"
           variant="outlined"
           size="small"
