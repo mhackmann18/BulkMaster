@@ -5,7 +5,7 @@ import "./Import.css";
 export default function Import() {
   const navigate = useNavigate();
 
-  const handleSubmit = (res) => navigate("search", { state: { recipe: res } });
+  const handleSubmit = (res) => navigate("search", { state: { data: res } });
 
   return (
     <div id="import-page">

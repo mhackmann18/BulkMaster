@@ -1,26 +1,28 @@
+import { fraction } from "mathjs";
+
+const unicodeFractions = [
+  "½",
+  "⅓",
+  "⅔",
+  "¼",
+  "¾",
+  "⅕",
+  "⅖",
+  "⅗",
+  "⅘",
+  "⅙",
+  "⅚",
+  "⅐",
+  "⅛",
+  "⅜",
+  "⅝",
+  "⅞",
+  "⅑",
+  "⅒",
+];
+
 export function getFracStrFromUniChar(str) {
   /* Accepts a single unicode character and returns its string representation, or null if it's not a valid unicode fraction */
-
-  const unicodeFractions = [
-    "½",
-    "⅓",
-    "⅔",
-    "¼",
-    "¾",
-    "⅕",
-    "⅖",
-    "⅗",
-    "⅘",
-    "⅙",
-    "⅚",
-    "⅐",
-    "⅛",
-    "⅜",
-    "⅝",
-    "⅞",
-    "⅑",
-    "⅒",
-  ];
   const unicodeFractionsConversions = [
     "1/2",
     "1/3",
@@ -45,6 +47,35 @@ export function getFracStrFromUniChar(str) {
   return unicodeFractions.includes(str)
     ? unicodeFractionsConversions[unicodeFractions.indexOf(str)]
     : null;
+}
+
+export function isUnicodeFraction(char) {
+  return unicodeFractions.includes(char);
+}
+
+export function isStringPositiveNumber(str) {
+  // Matches ints, decimals, and vulgar fractions
+  const numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?$/;
+
+  return Boolean(str.match(numericalRE) || isUnicodeFraction(str));
+}
+
+export function isStringPostiveFraction(str) {
+  const fractionRE = /^([1-9][0-9]*|0)\/[1-9][0-9]*$/;
+
+  return Boolean(str.match(fractionRE) || isUnicodeFraction(str));
+}
+
+export function getNumberFromNumericalString(str) {
+  const numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?$/;
+
+  const match = str.match(numericalRE);
+
+  if (!match && !isUnicodeFraction(str)) {
+    return null;
+  }
+
+  return Number(fraction((match && match[0]) || getFracStrFromUniChar(str)));
 }
 
 export function formatAmount(num, precision) {

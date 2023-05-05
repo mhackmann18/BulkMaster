@@ -1,128 +1,65 @@
-import { fraction } from "mathjs";
-import { getFracStrFromUniChar } from "./helperFunctions";
 import {
-  isCookingUnit,
-  normalizeCookingUnit,
-  getSingularCookingUnit,
-} from "./cookingUnit";
+  isStringPositiveNumber,
+  isStringPostiveFraction,
+  getNumberFromNumericalString,
+} from "./helperFunctions";
+import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
 
 export default class Ingredient {
   constructor(str) {
-    this.str = str;
+    const { quantity, unit, name } = Ingredient.stringToObject(str);
+    this.quantity = quantity;
+    this.unit = unit;
+    this.name = name;
   }
 
-  getIngredientObjects() {
-    const normalizedTokens = Ingredient.getIngredientTokens(this.str);
-    const ingredientObjects = [];
-    let ingredientObject = { str: "" };
-
-    for (let i = 0; i < normalizedTokens.length; i += 1) {
-      const token = normalizedTokens[i];
-      const nextToken = normalizedTokens[i + 1];
-
-      if (typeof token === "number") {
-        // A number and a unit marks the beginning of a new ingredient, so add the previous one to ingredientObjects
-        if (ingredientObject.str && isCookingUnit(nextToken)) {
-          ingredientObjects.push(ingredientObject);
-          ingredientObject = { str: "" };
-        }
-        if (i !== normalizedTokens.length - 1 && isCookingUnit(nextToken)) {
-          ingredientObject.quantity = token;
-        } else if (i === 0) {
-          ingredientObject.quantity = token;
-        }
-      } else if (isCookingUnit(token)) {
-        ingredientObject.unit = getSingularCookingUnit(token);
-      } else {
-        ingredientObject.str += `${token} `;
-      }
-    }
-    ingredientObject.str = ingredientObject.str.trim();
-    ingredientObjects.push(ingredientObject);
-
-    return ingredientObjects;
-  }
-
-  static normalizeIngredientString(str, mult = 1) {
-    return Ingredient.getIngredientTokens(str, mult).join(" ");
-  }
-
-  static getIngredientTokens(str, mult = 1) {
+  static stringToObject(str) {
     const strCopy = str.trim();
     const tokens = strCopy.split(" ");
+    let i = 0; // The index of the current token being checked
+    let quantity = 0;
+    let unit = null;
 
-    // Match integers, decimals, and vulgar fractions
-    const numericalRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?/;
+    // Check for quantity in the first token
+    if (isStringPositiveNumber(tokens[i])) {
+      quantity += getNumberFromNumericalString(tokens[i]);
+      i++;
+    }
 
-    // These values will be used to build the final ingredients string
-    const normalizedTokens = [];
+    // If there was an int quantity in the first token, check for a continuation of that quantity
+    if (quantity && quantity % 1 === 0 && isStringPostiveFraction(tokens[i])) {
+      const num = getNumberFromNumericalString(tokens[i]);
 
-    for (let i = 0; i < tokens.length; i += 1) {
-      const current = tokens[i];
-      const match = current.match(numericalRE);
-      const num = (match && match[0]) || getFracStrFromUniChar(current);
-
-      // Handle number tokens
-      if (num) {
-        // If the token from the last iteration was a number, add this one to it
-        if (normalizedTokens && typeof normalizedTokens.at(-1) === "number") {
-          normalizedTokens[normalizedTokens.length - 1] +=
-            Number(fraction(num)) * mult;
-        } else {
-          normalizedTokens.push(Number(fraction(num)) * mult);
-        }
-        // Handle cooking unit tokens
-      } else if (isCookingUnit(current)) {
-        const unit = normalizeCookingUnit(current);
-
-        // Unit should be plural if the number before it was greater than 1
-        if (
-          typeof normalizedTokens.at(-1) === "number" &&
-          normalizedTokens.at(-1) > 1
-        ) {
-          normalizedTokens.push(`${unit}s`);
-        } else {
-          normalizedTokens.push(unit);
-        }
-        // Handle unintersting tokens
-      } else {
-        // Edge case: Undo multiplication operation of any number token that was
-        // not was not followed by a unit, or was not the first in the string
-        if (
-          normalizedTokens.length > 1 &&
-          typeof normalizedTokens.at(-1) === "number"
-        ) {
-          normalizedTokens[normalizedTokens.length - 1] /= mult;
-        }
-        normalizedTokens.push(current);
-      }
-
-      if (typeof normalizedTokens.at(-1) === "number") {
-        normalizedTokens[normalizedTokens.length - 1] =
-          Math.round(normalizedTokens[normalizedTokens.length - 1] * 100) / 100;
+      if (num < 1) {
+        quantity += num;
+        i++;
       }
     }
 
-    return normalizedTokens;
-  }
+    // Check for unit
+    if (isCookingUnit(tokens[i])) {
+      unit = normalizeCookingUnit(tokens[i]);
+      i++;
+    }
 
-  static getIngredientsMultiplier(recipe, newServingsCount, newCaloriesCount) {
-    if (!recipe || !newServingsCount) return 1;
+    const name = tokens.slice(i).join(" ").trim();
 
-    const oldServingsCount = recipe.servings;
+    return {
+      quantity: quantity || null,
+      unit,
+      name,
+    };
 
-    if (!newCaloriesCount) return newServingsCount / oldServingsCount;
-
-    if (!oldServingsCount) return null;
-
-    const oldCalorieCount =
-      recipe.nutrients && recipe.nutrients.calories.quantity;
-
-    if (!oldCalorieCount) return newServingsCount / oldServingsCount;
-
-    return (
-      ((newCaloriesCount / oldCalorieCount) * newServingsCount) /
-      oldServingsCount
-    );
+    /* 
+    Reasoning:
+      If the first token in the ingredient string was an integer, it's entirely possible
+      that the second token could be a continuation of that integer (ex. "1 1/2 lbs ground beef").
+      I've chosen to include this secondary token in the overall quantity only if it is a positive
+      fraction less than 1. I believe that if the first two tokens in the string are numbers, and
+      the second is greater than 1, it would be highly irregular for the second to be part of
+      the quantity from token 1. I believe it's more likely that the second token is an unrelated number
+      (such as in the string "1 2 lb package of ground beef"). On the contrary, if the second token is
+      a fraction less than 1, I believe that it is more likely than not part of the quantity in token 1.
+    */
   }
 }

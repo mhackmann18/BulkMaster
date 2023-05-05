@@ -1,10 +1,10 @@
-import "./RecipeScrapingForm.css";
+/* eslint-disable camelcase */
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Alert from "@mui/material/Alert";
-import formatScrapedRecipe from "../../utils/formatScrapedRecipe";
-import { isValidHttpURL } from "../../utils/validation";
 import Spinner from "./Spinner";
+import { isValidHttpURL } from "../../utils/validation";
+import "./RecipeScrapingForm.css";
 
 export default function RecipeScrapingForm({ handleResponse, variant }) {
   const [inputError, setInputError] = useState("");
@@ -29,13 +29,49 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
 
     if (res.status === 200) {
       const data = await res.json();
-      const formattedData = formatScrapedRecipe(data);
-      console.log(formattedData);
-      if (!formattedData) {
-        setSubmitError("Unable to obtain recipe data from the URL");
-      } else {
-        handleResponse(formattedData);
-      }
+
+      const {
+        canonical_url,
+        cook_time,
+        ingredients,
+        instructions_list,
+        nutrients,
+        prep_time,
+        title,
+        yields,
+      } = data;
+
+      console.log(data);
+
+      // const formattedData = {
+      //   title,
+      //   ingredients,
+      //   instructions: instructions_list,
+      //   nutrients,
+      //   yields,
+      //   prepTime: prep_time,
+      //   cookTime: cook_time,
+      //   url: canonical_url,
+      // }
+
+      // console.log(formattedData);
+
+      // if (!formattedData) {
+      //   setSubmitError("Unable to obtain recipe data from the URL");
+      // } else {
+      //   handleResponse(formattedData);
+      // }
+
+      handleResponse({
+        title,
+        ingredients,
+        instructions: instructions_list,
+        nutrients,
+        yields,
+        prepTime: prep_time,
+        cookTime: cook_time,
+        url: canonical_url,
+      });
     } else if (res.status === 400) {
       const errText = await res.text();
       setInputError(errText);

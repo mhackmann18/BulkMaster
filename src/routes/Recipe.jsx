@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import recipes from "../assets/data.json";
-import RecipeItem from "../components/Recipe";
+import RecipeItem from "../components/RecipeItem";
 import "./Import.css";
 
 export default function Recipe({ edit }) {

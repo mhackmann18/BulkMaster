@@ -1,10 +1,10 @@
-import Recipe from "../components/Recipe";
+import RecipeItem from "../components/RecipeItem";
 import "./Import.css";
 
 export default function Create() {
   return (
     <div id="create-page">
-      <Recipe startingState="edit" startingDisplayType="form" />
+      <RecipeItem startingState="edit" startingDisplayType="form" />
     </div>
   );
 }
