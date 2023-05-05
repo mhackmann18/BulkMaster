@@ -45,6 +45,8 @@ export default function formatScrapedRecipe(data) {
     yields,
   } = data;
 
+  console.log(data);
+
   if (!ingredients || !instructions_list || !title) {
     return null;
   }

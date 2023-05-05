@@ -30,7 +30,7 @@ export default function MealPrepCalculatorForm({
                 <FontAwesomeIcon icon={faCircleQuestion} />
               </button> */}
       </header>
-      <p>How many meals are you preparing?</p>
+      <p>How many meals should this recipe yield?</p>
       <label htmlFor="meals-quantity">Number of meals:</label>
       <NumberInput
         minValue={1}
@@ -39,8 +39,8 @@ export default function MealPrepCalculatorForm({
         id="meals-quantity"
         variant="input-default"
       />
-      <p>What&apos;s the portion size for each meal?</p>
-      <label htmlFor="calories-per-meal">By serving size:</label>
+      <p>What is the desired portion size for each meal?</p>
+      <label htmlFor="calories-per-meal">By calorie content:</label>
       <NumberInput
         minValue={0}
         maxValue={9999}
@@ -49,7 +49,7 @@ export default function MealPrepCalculatorForm({
         variant="input-default"
       />
       <div className="separator">or</div>
-      <label htmlFor="calories-per-meal">By calorie content:</label>
+      <label htmlFor="calories-per-meal">By serving size:</label>
       <NumberInput
         minValue={0}
         maxValue={9999}
