@@ -7,7 +7,7 @@ import Recipe from "../../utils/Recipe";
 export default function RecipeItem({ recipe, startingDisplayType }) {
   const [displayType, setDisplayType] = useState(startingDisplayType);
 
-  console.log(recipe.ingredients);
+  // console.log(recipe.ingredients);
 
   return displayType === "div" ? (
     // <RecipeDisplay

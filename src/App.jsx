@@ -15,9 +15,9 @@ import Features from "./routes/Features";
 import Signup from "./routes/Signup";
 import Login from "./routes/Login";
 import disableInputScroll from "./utils/disableInputScroll";
-import theme from "./theme";
+import theme from "./theme/theme";
 import "./App.css";
-import "./muiOverrides.css";
+import "./theme/muiOverrides.css";
 
 export default function App() {
   // Stop number input value from changing on scroll for all number inputs

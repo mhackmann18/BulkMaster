@@ -2,6 +2,7 @@ import {
   isStringPositiveNumber,
   isStringPostiveFraction,
   getNumberFromNumericalString,
+  formatAmount as getFormattedAmountString,
 } from "./helperFunctions";
 import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
 
@@ -11,6 +12,26 @@ export default class Ingredient {
     this.quantity = quantity;
     this.unit = unit;
     this.name = name;
+  }
+
+  getString() {
+    let str = "";
+
+    if (this.quantity) {
+      str += `${getFormattedAmountString(this.quantity, 2)} `;
+    }
+
+    if (this.unit) {
+      if (!this.quantity || this.quantity === 1) {
+        str += `${this.unit} `;
+      } else {
+        str += `${this.unit}s `;
+      }
+    }
+
+    str += this.name;
+
+    return str;
   }
 
   static stringToObject(str) {
