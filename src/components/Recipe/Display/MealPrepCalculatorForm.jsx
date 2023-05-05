@@ -31,7 +31,7 @@ export default function MealPrepCalculatorForm({
               </button> */}
       </header>
       <p>How many meals are you preparing?</p>
-      <label htmlFor="meals-quantity">Number of Meals:</label>
+      <label htmlFor="meals-quantity">Number of meals:</label>
       <NumberInput
         minValue={1}
         maxValue={99}
@@ -39,8 +39,17 @@ export default function MealPrepCalculatorForm({
         id="meals-quantity"
         variant="input-default"
       />
-      <p>How many calories should each meal contain?</p>
-      <label htmlFor="calories-per-meal">Calories per Meal:</label>
+      <p>What&apos;s the portion size for each meal?</p>
+      <label htmlFor="calories-per-meal">By serving size:</label>
+      <NumberInput
+        minValue={0}
+        maxValue={9999}
+        name="calories-per-meal"
+        id="calories-per-meal"
+        variant="input-default"
+      />
+      <div className="separator">or</div>
+      <label htmlFor="calories-per-meal">By calorie content:</label>
       <NumberInput
         minValue={0}
         maxValue={9999}

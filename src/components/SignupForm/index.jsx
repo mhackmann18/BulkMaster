@@ -12,22 +12,26 @@ export default function SignupForm() {
   const [formSubmitError, setFormSubmitError] = useState("");
 
   async function handleUsernameInputBlur(e) {
-    const [isValid, msg] = await checkUsernameInput(e.target.value);
+    if (e.target.value) {
+      const [isValid, msg] = await checkUsernameInput(e.target.value);
 
-    if (!isValid) {
-      setUsernameInputError(msg);
-    } else {
-      setUsernameInputError("");
+      if (!isValid) {
+        setUsernameInputError(msg);
+      } else {
+        setUsernameInputError("");
+      }
     }
   }
 
-  function handlePasswordInputBlur(e) {
-    const [isValid, msg] = checkPasswordInput(e.target.value);
+  async function handlePasswordInputBlur(e) {
+    if (e.target.value) {
+      const [isValid, msg] = await checkPasswordInput(e.target.value);
 
-    if (!isValid) {
-      setPasswordInputError(msg);
-    } else {
-      setPasswordInputError("");
+      if (!isValid) {
+        setPasswordInputError(msg);
+      } else {
+        setPasswordInputError("");
+      }
     }
   }
 

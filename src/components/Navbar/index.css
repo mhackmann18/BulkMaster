@@ -10,6 +10,7 @@
   z-index: 1;
   border-bottom: 1px solid var(--white);
   transition: border-color .1s ease;
+  /* box-shadow: 1px 1px 3px 0px var(--eerie-black); */
 }
 
 #navbar-logo {

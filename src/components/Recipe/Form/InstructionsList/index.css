@@ -43,7 +43,6 @@
   flex-grow: 1;
   padding: .5rem .75rem;
   margin-left: 5px;
-  outline: 4px solid transparent;
   transition: outline-color var(--instruction-hover-transition-duration) ease-in;
 }
 

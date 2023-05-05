@@ -13,6 +13,7 @@ export default function InstructionsList({ instructions }) {
           <span className="instruction-number">{index + 1}. </span>
           <TextareaAutosize
             maxRows={4}
+            minRows={1}
             type="text"
             defaultValue={el}
             name="instruction"
