@@ -6,19 +6,20 @@ import QuantityInput from "./QuantityInput";
 // import NumberInput from "../NumberInput";
 import UnitInput from "./UnitInput";
 import NameInput from "./NameInput";
-import { standardFormUnits } from "../../../../utils/cookingUnit";
+import Ingredient from "../../../../utils/Ingredient";
+// import { standardFormUnits } from "../../../../utils/cookingUnit";
 import "./ListItemRow.css";
 import "./index.css";
 
 export default function IngredientsListItemRow({ subIngredient }) {
-  const { quantity, unit, str } = subIngredient;
+  const { quantity, unit, name } = subIngredient;
 
   return (
     <div className="sub-ingredient">
       <div className="inputs-container">
         <QuantityInput ingredientQuantity={quantity} />
         <UnitInput ingredientUnit={unit} />
-        <NameInput ingredientName={str} />
+        <NameInput ingredientName={name} />
         <div className="buttons-container">
           <FontAwesomeIcon
             icon={faTrashCan}
@@ -33,11 +34,7 @@ export default function IngredientsListItemRow({ subIngredient }) {
 }
 
 IngredientsListItemRow.propTypes = {
-  subIngredient: PropTypes.shape({
-    quantity: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
-    unit: PropTypes.oneOf([...standardFormUnits, null]),
-    str: PropTypes.string.isRequired,
-  }).isRequired,
+  subIngredient: PropTypes.instanceOf(Ingredient).isRequired,
 };
 
 // IngredientsListItemRow.defaultProps = {

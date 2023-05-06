@@ -22,7 +22,7 @@ export default function UnitInput({ ingredientUnit }) {
         size="small"
         label="Unit"
         name="ingredient-unit"
-        defaultValue={ingredientUnit}
+        defaultValue={ingredientUnit || ""}
         fullWidth
       >
         {["", ...standardFormUnits].map((el) => (

@@ -4,19 +4,17 @@ import IngredientsListItemRow from "./ListItemRow";
 import Ingredient from "../../../../utils/Ingredient";
 
 export default function IngredientsListItem({ ingredient }) {
-  const ing = new Ingredient(ingredient);
-  const ingredientObjects = ing.getIngredientObjects();
-
   return (
     <li>
-      {ingredientObjects.length &&
-        ingredientObjects.map((el) => (
-          <IngredientsListItemRow key={uuidv4()} subIngredient={el} />
-        ))}
+      <IngredientsListItemRow key={uuidv4()} subIngredient={ingredient} />
     </li>
   );
 }
 
 IngredientsListItem.propTypes = {
-  ingredient: PropTypes.string.isRequired,
+  ingredient: PropTypes.instanceOf(Ingredient),
+};
+
+IngredientsListItem.defaultProps = {
+  ingredient: new Ingredient({ name: "", quantity: null, unit: null }),
 };

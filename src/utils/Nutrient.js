@@ -4,11 +4,8 @@ export default class Nutrient {
   constructor(nutrient) {
     if (typeof nutrient === "string") {
       // Write a function for converting nutrient strings to objects
-      const { name, quantity, unit } = {
-        name: "replace this",
-        quantity: null,
-        unit: "replace this",
-      };
+      const { name, quantity, unit } =
+        Nutrient.getNutrientObjectFromString(nutrient);
 
       this.name = name;
       this.quantity = quantity;
@@ -22,6 +19,22 @@ export default class Nutrient {
 
   getString() {
     return `${this.name}: ${this.quantity} ${this.unit}`.trim();
+  }
+
+  static getNutrientObjectFromString(str) {
+    const nutrientNameRegex = /^[^:]+/;
+    const name = str.match(nutrientNameRegex)[0];
+
+    const positiveIntRegex = /\d+/;
+    const quantityStr = str.match(positiveIntRegex)[0];
+
+    const lastToken = str.split(" ").at(-1);
+
+    return {
+      name,
+      quantity: Number(quantityStr),
+      unit: ["g", "mg", "kcal"].includes(lastToken) ? lastToken : "",
+    };
   }
 
   static getNutrientsArrayFromScrapedObject(obj) {

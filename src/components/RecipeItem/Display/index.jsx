@@ -42,7 +42,9 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
             />
             <OpenCalculatorButton
               recipeServingsCount={servings}
-              recipeCaloriesCount={100} // update this
+              recipeCaloriesCount={
+                recipe.getNutrientByName("calories").quantity
+              }
               onSubmit={(val) => console.log(`${val}`)}
             />
             <Button text="Edit" type="button" handleClick={switchToForm} />

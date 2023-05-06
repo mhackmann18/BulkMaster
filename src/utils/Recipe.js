@@ -12,6 +12,7 @@ export default class Recipe {
     prepTime,
     cookTime,
     url,
+    id,
   }) {
     this.title = title;
     this.ingredients = ingredients.length
@@ -31,6 +32,21 @@ export default class Recipe {
     this.prepTime = prepTime;
     this.cookTime = cookTime;
     this.url = url;
+    if (id) {
+      this.id = id;
+    }
+  }
+
+  getNutrientByName(name) {
+    const nameUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
+
+    for (const nutrient of this.nutrients) {
+      if (nutrient.name === nameUpperCase) {
+        return nutrient;
+      }
+    }
+
+    return null;
   }
 
   static getRecipeMultiplier(recipe, newServingsCount, newCaloriesCount) {

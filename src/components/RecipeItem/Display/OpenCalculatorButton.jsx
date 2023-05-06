@@ -22,7 +22,7 @@ export default function OpenCalculatorButton({
         className="btn-default"
       >
         {/* <FontAwesomeIcon icon={faCalculator} size="lg" /> */}
-        Meal Prep
+        Prep
       </button>
       <StandardModal open={modalOpen} handleClose={() => setModalOpen(false)}>
         <MealPrepCalculatorForm

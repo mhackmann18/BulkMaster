@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import NumberInput from "../NumberInput";
-import { getNutrientObjectFromString } from "../../../../utils/formatScrapedRecipe";
+import Nutrient from "../../../../utils/Nutrient";
+// import { getNutrientObjectFromString } from "../../../../utils/formatScrapedRecipe";
 
 export default function NutrientInput({ nutrient }) {
-  const { name, quantity, unit } = getNutrientObjectFromString(nutrient);
+  const { name, quantity, unit } = nutrient;
 
   return (
     <>
@@ -31,5 +32,5 @@ export default function NutrientInput({ nutrient }) {
 }
 
 NutrientInput.propTypes = {
-  nutrient: PropTypes.string.isRequired,
+  nutrient: PropTypes.instanceOf(Nutrient).isRequired,
 };

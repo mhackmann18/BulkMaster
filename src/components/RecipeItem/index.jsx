@@ -15,11 +15,7 @@ export default function RecipeItem({ recipe, startingDisplayType }) {
       switchToForm={() => setDisplayType("form")}
     />
   ) : (
-    // <span>{recipe.title}</span>
-    <RecipeForm
-      // recipe={recipe}
-      switchToDiv={() => setDisplayType("div")}
-    />
+    <RecipeForm recipe={recipe} switchToDiv={() => setDisplayType("div")} />
   );
 }
 

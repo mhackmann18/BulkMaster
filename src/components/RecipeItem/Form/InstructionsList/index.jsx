@@ -6,9 +6,11 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import "./index.css";
 
 export default function InstructionsList({ instructions }) {
+  const textAreaContent = instructions.length ? instructions : [""];
+
   return (
     <ul id="instructions-list">
-      {instructions.map((el, index) => (
+      {textAreaContent.map((el, index) => (
         <li key={uuidv4()}>
           <span className="instruction-number">{index + 1}. </span>
           <TextareaAutosize

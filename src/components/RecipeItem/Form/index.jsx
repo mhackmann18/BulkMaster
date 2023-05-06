@@ -10,6 +10,7 @@ import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
 import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
+import Recipe from "../../../utils/Recipe";
 
 export default function RecipeForm({ recipe, switchToDiv }) {
   const {
@@ -86,7 +87,7 @@ export default function RecipeForm({ recipe, switchToDiv }) {
         nutrientsHeaderButtonComponent={<AddButton text="Add Nutrient" />}
         nutrientsComponent={
           <>
-            <ServingSizeInput servingSize={servingSize} servings={servings} />
+            <ServingSizeInput servingSize={servingSize} />
             <NutrientsList nutrients={nutrients} />
           </>
         }
@@ -96,29 +97,10 @@ export default function RecipeForm({ recipe, switchToDiv }) {
 }
 
 RecipeForm.propTypes = {
-  recipe: PropTypes.shape({
-    cookTime: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string),
-    instructions: PropTypes.arrayOf(PropTypes.string),
-    nutrients: PropTypes.arrayOf(PropTypes.string),
-    prepTime: PropTypes.number,
-    title: PropTypes.string,
-    servings: PropTypes.number,
-    servingSize: PropTypes.string,
-  }),
+  recipe: PropTypes.instanceOf(Recipe).isRequired,
   switchToDiv: PropTypes.func,
 };
 
 RecipeForm.defaultProps = {
-  recipe: {
-    cookTime: 0,
-    ingredients: [],
-    instructions: [""],
-    nutrients: [],
-    prepTime: 0,
-    title: "",
-    servings: 1,
-    servingSize: "",
-  },
   switchToDiv: () => null,
 };

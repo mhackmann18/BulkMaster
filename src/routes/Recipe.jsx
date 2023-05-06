@@ -3,9 +3,10 @@ import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import recipes from "../assets/data.json";
 import RecipeItem from "../components/RecipeItem";
+import Recipe from "../utils/Recipe";
 import "./Import.css";
 
-export default function Recipe({ edit }) {
+export default function RecipePage({ edit }) {
   const [recipe, setRecipe] = useState(null);
   const { state } = useLocation();
   const { id } = useParams();
@@ -19,17 +20,17 @@ export default function Recipe({ edit }) {
   return (
     <div id="import-page">
       <RecipeItem
-        recipe={recipe}
+        recipe={recipe ? new Recipe(recipe) : undefined}
         startingDisplayType={(state && state.edit) || edit ? "form" : "div"}
       />
     </div>
   );
 }
 
-Recipe.propTypes = {
+RecipePage.propTypes = {
   edit: PropTypes.bool,
 };
 
-Recipe.defaultProps = {
+RecipePage.defaultProps = {
   edit: false,
 };
