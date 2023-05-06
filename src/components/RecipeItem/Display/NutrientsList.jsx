@@ -8,9 +8,13 @@ export default function NutrientsList({ nutrients, servingSize }) {
   return (
     <ul id="nutrients-list">
       <li>Serving Size: {servingSize},</li>
-      {nutrients.map((el) => (
-        <li key={uuidv4()}>{el},</li>
-      ))}
+      {nutrients.map((el, i) =>
+        i !== nutrients.length - 1 ? (
+          <li key={uuidv4()}>{el},</li>
+        ) : (
+          <li key={uuidv4()}>{el}</li>
+        )
+      )}
     </ul>
   );
 }

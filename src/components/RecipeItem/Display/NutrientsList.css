@@ -1,4 +1,4 @@
 #nutrients-list li {
-  display: inline;
+  display: inline-block;
   margin-right: 4px;
 }

@@ -1,4 +1,6 @@
 import Ingredient from "./Ingredient";
+import Nutrient from "./Nutrient";
+// import Nutrient from "./Nutrient";
 
 export default class Recipe {
   constructor({
@@ -6,7 +8,7 @@ export default class Recipe {
     ingredients,
     instructions,
     nutrients,
-    yields,
+    servings,
     prepTime,
     cookTime,
     url,
@@ -16,8 +18,16 @@ export default class Recipe {
       ? ingredients.map((ingredient) => new Ingredient(ingredient))
       : [];
     this.instructions = instructions;
-    this.nutrients = nutrients;
-    this.yields = yields;
+    if (Array.isArray(nutrients)) {
+      this.nutrients = nutrients.map((nutrient) => new Nutrient(nutrient));
+    } else if (typeof nutrients === "object") {
+      this.nutrients = Nutrient.getNutrientsArrayFromScrapedObject(
+        nutrients
+      ).map((nutrient) => new Nutrient(nutrient));
+    }
+    this.servings =
+      typeof servings === "number" ? servings : Number(servings.split(" ")[0]);
+    this.servingSize = nutrients && nutrients.servingSize;
     this.prepTime = prepTime;
     this.cookTime = cookTime;
     this.url = url;

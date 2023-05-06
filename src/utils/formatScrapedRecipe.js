@@ -3,6 +3,45 @@ import { fraction } from "mathjs";
 import { formatAmount } from "./helperFunctions";
 import Ingredient from "./Ingredient";
 
+export function getNutrientsArrayFromScrapedObject(obj) {
+  if (!obj || !Object.keys(obj).length) return null;
+
+  const nutrients = [];
+
+  // Match numbers and vulgar fractions at start
+  const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?($|\s)/;
+
+  for (const [key, val] of Object.entries(obj)) {
+    if (!val || key === "servingSize") continue;
+
+    const quantity = val.match(numRE);
+
+    let unit = val.replace(numRE, "");
+
+    unit = unit.trim() || "";
+
+    if (quantity && quantity[0].includes("/")) {
+      quantity[0] = fraction(quantity[0]);
+    }
+
+    let name = key.replace("Content", "");
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    const nameWords = name.match(/[A-Z][a-z]+/g);
+    const nameStr = nameWords.reduce(
+      (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
+      ""
+    );
+
+    nutrients.push({
+      name: nameStr,
+      quantity: quantity ? Number(quantity[0]) : null,
+      unit,
+    });
+  }
+
+  return nutrients;
+}
+
 function formatNutrientObj(obj) {
   if (!obj || !Object.keys(obj).length) return null;
 
@@ -110,30 +149,30 @@ export function getNutrientsStr(nutrients, mult = 1) {
   );
 }
 
-export function getNutrientsArrayFromObject(obj) {
-  if (!obj) return null;
+// export function getNutrientsArrayFromObject(obj) {
+//   if (!obj) return null;
 
-  const nutrientArr = [];
+//   const nutrientArr = [];
 
-  for (const [key, val] of Object.entries(obj)) {
-    let name = key.replace("Content", "");
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-    const nameWords = name.match(/[A-Z][a-z]+/g);
-    const nameStr = nameWords.reduce(
-      (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
-      ""
-    );
-    if (val) {
-      nutrientArr.push({
-        name: nameStr,
-        quantity: val.quantity,
-        unit: val.unit,
-      });
-    }
-  }
+//   for (const [key, val] of Object.entries(obj)) {
+//     let name = key.replace("Content", "");
+//     name = name.charAt(0).toUpperCase() + name.slice(1);
+//     const nameWords = name.match(/[A-Z][a-z]+/g);
+//     const nameStr = nameWords.reduce(
+//       (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
+//       ""
+//     );
+//     if (val) {
+//       nutrientArr.push({
+//         name: nameStr,
+//         quantity: val.quantity,
+//         unit: val.unit,
+//       });
+//     }
+//   }
 
-  return nutrientArr;
-}
+//   return nutrientArr;
+// }
 
 export function getArrFromNutrientsObject(obj) {
   const nutrientsArr = [];

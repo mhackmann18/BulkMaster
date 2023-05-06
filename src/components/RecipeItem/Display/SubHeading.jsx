@@ -31,8 +31,8 @@ export default function SubHeading({ servings, prepTime, cookTime }) {
           {servings}
         </button>
       </span>
-      <span>{prepTime && `Prep Time: ${prepTime} minutes`}</span>
-      <span>{cookTime && `Cook Time: ${cookTime} minutes`}</span>
+      <span>{`Prep Time: ${prepTime ? `${prepTime} minutes` : "- -"}`}</span>
+      <span>{`Cook Time: ${cookTime ? `${cookTime} minutes` : "- -"}`}</span>
       <SliderPopper
         open={sliderOpen}
         anchorEl={sliderAnchorEl}

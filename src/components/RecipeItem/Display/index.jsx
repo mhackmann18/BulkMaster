@@ -6,7 +6,7 @@ import SubHeading from "./SubHeading";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 import Button from "../../common/Button";
-import { getNutrientQuantityFromArray } from "../../../utils/formatScrapedRecipe";
+import Recipe from "../../../utils/Recipe";
 
 export default function RecipeDisplay({ recipe, switchToForm }) {
   const {
@@ -42,10 +42,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
             />
             <OpenCalculatorButton
               recipeServingsCount={servings}
-              recipeCaloriesCount={getNutrientQuantityFromArray(
-                "Calories",
-                nutrients
-              )}
+              recipeCaloriesCount={100} // update this
               onSubmit={(val) => console.log(`${val}`)}
             />
             <Button text="Edit" type="button" handleClick={switchToForm} />
@@ -54,7 +51,13 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
             )}
           </>
         }
-        ingredientsComponent={<IngredientsList ingredients={ingredients} />}
+        ingredientsComponent={
+          <IngredientsList
+            ingredients={ingredients.map((ingredient) =>
+              ingredient.getString()
+            )}
+          />
+        }
         instructionsComponent={
           <ol id="instructions-list">
             {instructions.map((el) => (
@@ -65,7 +68,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
         nutrientsComponent={
           nutrients && (
             <NutrientsList
-              nutrients={nutrients}
+              nutrients={nutrients.map((nutrient) => nutrient.getString())}
               servingsCount={servings}
               servingSize={servingSize}
             />
@@ -77,16 +80,6 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
 }
 
 RecipeDisplay.propTypes = {
-  recipe: PropTypes.shape({
-    id: PropTypes.number,
-    cookTime: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string),
-    instructions: PropTypes.arrayOf(PropTypes.string),
-    nutrients: PropTypes.arrayOf(PropTypes.string),
-    prepTime: PropTypes.number,
-    title: PropTypes.string,
-    servings: PropTypes.number,
-    servingSize: PropTypes.string,
-  }).isRequired,
+  recipe: PropTypes.instanceOf(Recipe).isRequired,
   switchToForm: PropTypes.func.isRequired,
 };

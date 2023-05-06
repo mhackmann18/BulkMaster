@@ -1,21 +1,21 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-// import RecipeDisplay from "./Display";
+import RecipeDisplay from "./Display";
 import RecipeForm from "./Form";
 import Recipe from "../../utils/Recipe";
 
 export default function RecipeItem({ recipe, startingDisplayType }) {
   const [displayType, setDisplayType] = useState(startingDisplayType);
 
-  // console.log(recipe.ingredients);
+  console.log(recipe);
 
   return displayType === "div" ? (
-    // <RecipeDisplay
-    //   recipe={recipe}
-    //   switchToForm={() => setDisplayType("form")}
-    // />
-    <span>{recipe.title}</span>
+    <RecipeDisplay
+      recipe={recipe}
+      switchToForm={() => setDisplayType("form")}
+    />
   ) : (
+    // <span>{recipe.title}</span>
     <RecipeForm
       // recipe={recipe}
       switchToDiv={() => setDisplayType("div")}
@@ -33,8 +33,8 @@ RecipeItem.defaultProps = {
     title: "",
     ingredients: [],
     instructions: [],
-    nutrients: null,
-    yields: "",
+    nutrients: [],
+    servings: "",
     prepTime: 0,
     cookTime: 0,
     url: "",

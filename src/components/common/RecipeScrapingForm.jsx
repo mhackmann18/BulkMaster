@@ -67,7 +67,7 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
         ingredients,
         instructions: instructions_list,
         nutrients,
-        yields,
+        servings: yields,
         prepTime: prep_time,
         cookTime: cook_time,
         url: canonical_url,

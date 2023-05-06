@@ -7,8 +7,11 @@ import {
 import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
 
 export default class Ingredient {
-  constructor(str) {
-    const { quantity, unit, name } = Ingredient.stringToObject(str);
+  constructor(ingredient) {
+    const { quantity, unit, name } =
+      typeof ingredient === "string"
+        ? Ingredient.stringToObject(ingredient)
+        : ingredient;
     this.quantity = quantity;
     this.unit = unit;
     this.name = name;
@@ -59,6 +62,9 @@ export default class Ingredient {
 
     // Check for unit
     if (isCookingUnit(tokens[i])) {
+      if (!quantity) {
+        quantity = 1;
+      }
       unit = normalizeCookingUnit(tokens[i]);
       i++;
     }
