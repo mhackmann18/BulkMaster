@@ -21,7 +21,9 @@ export default function RecipePage({ edit }) {
     <div id="import-page">
       <RecipeItem
         recipe={recipe ? new Recipe(recipe) : undefined}
-        startingDisplayType={(state && state.edit) || edit ? "form" : "div"}
+        startingDisplayType={
+          (state && state.startAsForm) || edit ? "form" : "div"
+        }
       />
     </div>
   );

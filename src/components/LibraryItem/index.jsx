@@ -65,7 +65,7 @@ export default function LibraryItem({
             size="1x"
             onClick={(e) => {
               navigate(`/dashboard/recipe-library/${recipeId}`, {
-                state: { edit: true },
+                state: { startAsForm: true },
               });
               e.stopPropagation();
             }}

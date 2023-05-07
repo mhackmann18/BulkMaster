@@ -12,7 +12,7 @@ import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
 
-export default function RecipeForm({ recipe, switchToDiv }) {
+export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   const {
     cookTime,
     ingredients,
@@ -29,7 +29,11 @@ export default function RecipeForm({ recipe, switchToDiv }) {
   let buttonsPanel;
 
   if (recipeStatus === "existing") {
-    buttonsPanel = <ExistingRecipeButtons switchToDiv={switchToDiv} />;
+    buttonsPanel = (
+      <ExistingRecipeButtons
+        handleCancelButtonClick={handleCancelButtonClick}
+      />
+    );
   } else if (recipeStatus === "new") {
     buttonsPanel = <NewRecipeButtons />;
   }
@@ -98,9 +102,9 @@ export default function RecipeForm({ recipe, switchToDiv }) {
 
 RecipeForm.propTypes = {
   recipe: PropTypes.instanceOf(Recipe).isRequired,
-  switchToDiv: PropTypes.func,
+  handleCancelButtonClick: PropTypes.func,
 };
 
 RecipeForm.defaultProps = {
-  switchToDiv: () => null,
+  handleCancelButtonClick: () => null,
 };

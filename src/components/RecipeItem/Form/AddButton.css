@@ -14,3 +14,8 @@ form#recipe .add-btn:hover {
   border-color: var(--eerie-black);
   outline: 1px solid var(--eerie-black);
 }
+
+
+form #instructions-container .add-btn {
+  margin-bottom: 10px;
+}
