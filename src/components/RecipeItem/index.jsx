@@ -44,6 +44,7 @@ RecipeItem.defaultProps = {
     instructions: [],
     nutrients: [],
     servings: "",
+    servingSize: { quantity: 0, unit: "" },
     prepTime: 0,
     cookTime: 0,
     url: "",

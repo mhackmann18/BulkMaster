@@ -7,7 +7,9 @@ export default function NutrientsList({ nutrients, servingSize }) {
   // const nutrientsStrings = getNutrientStringsFromObj(nutrients);
   return (
     <ul id="nutrients-list">
-      <li>Serving Size: {servingSize},</li>
+      <li>
+        Serving Size: {servingSize.quantity} {servingSize.unit},
+      </li>
       {nutrients.map((el, i) =>
         i !== nutrients.length - 1 ? (
           <li key={uuidv4()}>{el},</li>
@@ -21,9 +23,9 @@ export default function NutrientsList({ nutrients, servingSize }) {
 
 NutrientsList.propTypes = {
   nutrients: PropTypes.arrayOf(PropTypes.string).isRequired,
-  servingSize: PropTypes.string,
+  servingSize: PropTypes.object,
 };
 
 NutrientsList.defaultProps = {
-  servingSize: "1 serving",
+  servingSize: { quantity: 1, unit: "serving" },
 };

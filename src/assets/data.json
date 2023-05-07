@@ -41,7 +41,7 @@
         "prepTime": 10,
         "title": "Slow Cooker Teriyaki Chicken",
         "servings": 6,
-        "servingSize": "1 serving"
+        "servingSize": { "quantity": 1, "unit": "serving" }
     },
     {
         "id": 2,
@@ -78,7 +78,7 @@
         "prepTime": 5,
         "title": "Korean Ground Beef and Rice Bowls",
         "servings": 4,
-        "servingSize": "1 serving"
+        "servingSize": { "quantity": 1, "unit": "serving" }
     },
     {
         "id": 3,
@@ -113,7 +113,7 @@
         "prepTime": 4,
         "title": "Pan-Seared Steaks",
         "servings": 4,
-        "servingSize": "6-oz portion NY Strip"
+        "servingSize": { "quantity": 1, "unit": "6-oz portion NY Strip"}
     },
     {
         "id": 4,
@@ -152,7 +152,8 @@
         ],
         "prepTime": 10,
         "title": "Perfect Pumpkin Pie",
-        "servings": 8
+        "servings": 8,
+        "servingSize": { "quantity": 1, "unit": "serving" }
     },
     {
         "id": 5,
@@ -194,6 +195,6 @@
         ],
         "title": "Homemade Spaghetti Sauce",
         "servings": 5,
-        "servingSize": "1 serving"
+        "servingSize": { "quantity": 1, "unit": "serving" }
     }
 ]

@@ -1,8 +1,26 @@
+#serving-size-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  height: auto;
+  color: var(--slate-gray);
+}
+
+#serving-size-input-container > * {
+  margin-right: 4px;
+}
+
+#serving-size-input-container > *:last-child {
+  margin-right: 0;
+}
+
 .serving-size-input-wrapper {
+  display: inline-block;
   background-color: var(--white);
   border-radius: 4px;
   width: 8rem;
 }
+
 /* form#recipe #serving-size-inputs {
   margin-bottom: 10px;
 }
