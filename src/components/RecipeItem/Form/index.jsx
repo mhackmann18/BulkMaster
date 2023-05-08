@@ -1,6 +1,7 @@
+// import { useState } from "react";
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
-import RecipeNameInput from "./NameInput";
+import RecipeNameInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
 import RecipeTimesInputs from "./TimesInputs";
 import ExistingRecipeButtons from "./ExistingRecipeButtons";
@@ -11,6 +12,11 @@ import IngredientInputsList from "./IngredientsList";
 import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
+import Nutrient from "../../../utils/Nutrient";
+// import {
+//   validateRecipeTitle,
+//   validateNumberString,
+// } from "../../../utils/validation";
 
 export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   const {
@@ -23,6 +29,9 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     servings,
     servingSize,
   } = recipe;
+  // const [titleInputErrorMessage, setTitleInputErrorMessage] = useState("");
+  // const [servingsInputErrorMessage, setServingsInputErrorMessage] =
+  //   useState("");
 
   const recipeStatus = recipe.title ? "existing" : "new";
 
@@ -40,44 +49,84 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const recipeTitle = e.target["recipe-name"].value;
-    const prepTimeNumber = e.target["prep-time-number"].value;
-    const prepTimeUnits = e.target["prep-time-units"].value;
-    const cookTimeNumber = e.target["cook-time-number"].value;
-    const cookTimeUnits = e.target["cook-time-units"].value;
-    const ingredientStrings = [];
-    for (let i = 0; i < e.target["ingredient-name"].length; i += 1) {
+    const formIsValid = true;
+
+    // const checkInput = (inputValue, validatorFn, setInputErrorMessage) => {
+    //   const [inputIsValid, inputErrorMessage] = validatorFn(inputValue);
+    //   if (!inputIsValid) {
+    //     formIsValid = false;
+    //     setInputErrorMessage(inputErrorMessage);
+    //   } else {
+    //     setInputErrorMessage("");
+    //   }
+    // };
+
+    const titleInput = e.target["recipe-title"].value;
+    const servingsInput = e.target["servings-quantity"].value;
+    const prepTimeInput = e.target["prep-time"].value;
+    // checkInput(
+    //   prepTimeInput,
+    //   (val) => validateNumberString(val, 9999, 1),
+    //   setServingsInputErrorMessage
+    // );
+    const cookTimeInput = e.target["cook-time"].value;
+    const ingredientInputs = [];
+    for (let i = 0; i < e.target["ingredient-name"].length; i++) {
       const quantity = e.target["ingredient-quantity"][i].value;
       const units = e.target["ingredient-unit"][i].value;
       const name = e.target["ingredient-name"][i].value;
-      ingredientStrings.push([quantity, units, name].join(" ").trim());
+      ingredientInputs.push([quantity, units, name].join(" ").trim());
     }
-    const instructionStrings = [];
-    for (const el of e.target.instruction) {
-      instructionStrings.push(el.value);
+    const instructionsInputs = [];
+    for (let i = 0; i < e.target.instruction.length; i++) {
+      instructionsInputs.push(e.target.instruction[i].value);
     }
     const servingSizeQuantity = e.target["serving-size-quantity"].value;
     const servingSizeUnit = e.target["serving-size-unit"].value;
+    const nutrientInputs = [];
+    for (const validNutrient of Nutrient.getValidNutrients()) {
+      if (
+        e.target[`${validNutrient.name}`] &&
+        e.target[`${validNutrient.name}`].value
+      ) {
+        nutrientInputs.push({
+          name: validNutrient.name,
+          quantity: e.target[`${validNutrient.name}`].value,
+          unit: validNutrient.unit,
+        });
+      }
+    }
 
     const obj = {
-      title: recipeTitle,
-      cookTime: cookTimeNumber && `${cookTimeNumber} ${cookTimeUnits}`,
-      prepTime: prepTimeNumber && `${prepTimeNumber} ${prepTimeUnits}`,
-      ingredients: ingredientStrings,
-      instructions,
-      yields: `${servingSizeQuantity} ${servingSizeUnit}`,
+      title: titleInput,
+      servings: servingsInput,
+      cookTime: cookTimeInput,
+      prepTime: prepTimeInput,
+      ingredients: ingredientInputs,
+      instructions: instructionsInputs,
+      servingSize: `${servingSizeQuantity} ${servingSizeUnit}`,
+      nutrients: nutrientInputs,
     };
 
     console.log(obj);
+    console.log(formIsValid);
   }
 
   return (
     <form id="recipe" className="form-style" onSubmit={handleSubmit}>
       <RecipeContainer
-        titleComponent={<RecipeNameInput value={title} />}
+        titleComponent={
+          <RecipeNameInput
+            value={title}
+            // errorMessage={titleInputErrorMessage}
+          />
+        }
         subHeadingComponent={
           <>
-            <ServingsInput startingValue={servings} />
+            <ServingsInput
+              startingValue={servings}
+              // errorMessage={servingsInputErrorMessage}
+            />
             <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
           </>
         }

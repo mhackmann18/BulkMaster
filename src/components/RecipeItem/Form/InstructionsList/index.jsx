@@ -6,6 +6,7 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import "./index.css";
 
 export default function InstructionsList({ instructions }) {
+  const maxLength = 10000;
   const textAreaContent = instructions.length ? instructions : [""];
 
   return (
@@ -18,6 +19,8 @@ export default function InstructionsList({ instructions }) {
             minRows={1}
             type="text"
             defaultValue={el}
+            required
+            maxLength={maxLength}
             name="instruction"
           />
           {/* <div className="instruction-remove-btn-wrapper"> */}

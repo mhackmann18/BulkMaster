@@ -4,21 +4,25 @@ import Nutrient from "../../../../utils/Nutrient";
 import "./Input.css";
 
 export default function NutrientInput({ nutrient }) {
+  const minQuantity = 0;
+  const maxQuantity = 9999;
+
   return (
     <div className="nutrient-input-wrapper">
       <TextField
-        name="nutrient"
+        name={`${nutrient.name}`}
         defaultValue={nutrient.quantity || ""}
         variant="outlined"
         label={nutrient.name}
         size="small"
-        // fullWidth
+        fullWidth
         type="number"
-        max={9999}
+        max={maxQuantity}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">{nutrient.unit}</InputAdornment>
           ),
+          inputProps: { min: minQuantity, max: maxQuantity },
         }}
       />
     </div>

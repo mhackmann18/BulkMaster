@@ -5,7 +5,7 @@ export default function NewRecipeButtons() {
     <Button
       text="Save to Library"
       type="submit"
-      handleClick={(e) => e.preventDefault()}
+      // handleClick={(e) => e.preventDefault()}
     />
   );
 }

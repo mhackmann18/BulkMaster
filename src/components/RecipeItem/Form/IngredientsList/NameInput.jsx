@@ -3,6 +3,8 @@ import { TextField } from "@mui/material";
 import "./NameInput.css";
 
 export default function NameInput({ ingredientName }) {
+  const maxCharacterLength = 99;
+
   return (
     <div className="ingredient-name-input-wrapper">
       <TextField
@@ -12,8 +14,10 @@ export default function NameInput({ ingredientName }) {
         variant="outlined"
         size="small"
         fullWidth
-        // error
-        // helperText="Required Field"
+        required
+        InputProps={{
+          inputProps: { minLength: 1, maxLength: maxCharacterLength },
+        }}
       />
     </div>
   );

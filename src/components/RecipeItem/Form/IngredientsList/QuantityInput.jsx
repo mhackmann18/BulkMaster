@@ -3,6 +3,9 @@ import { TextField } from "@mui/material";
 import "./QuantityInput.css";
 
 export default function QuantityInput({ ingredientQuantity }) {
+  const min = 0;
+  const max = 9999;
+
   return (
     <div className="ingredient-quantity-input-wrapper">
       <TextField
@@ -13,6 +16,9 @@ export default function QuantityInput({ ingredientQuantity }) {
         variant="outlined"
         size="small"
         fullWidth
+        InputProps={{
+          inputProps: { min, max },
+        }}
       />
     </div>
   );

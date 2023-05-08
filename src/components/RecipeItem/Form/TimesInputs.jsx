@@ -3,6 +3,9 @@ import { TextField, InputAdornment } from "@mui/material";
 import "./TimesInputs.css";
 
 export default function RecipeTimesInputs({ prepTime, cookTime }) {
+  const minTimeInMinutes = 1;
+  const maxTimeInMinutes = 9999;
+
   return (
     <>
       <div className="recipe-time-inputs-container">
@@ -18,9 +21,8 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
             endAdornment: (
               <InputAdornment position="end">minutes</InputAdornment>
             ),
+            inputProps: { min: minTimeInMinutes, max: maxTimeInMinutes },
           }}
-          // error
-          // helperText="Required Field"
         />
       </div>
       <div className="recipe-time-inputs-container">
@@ -36,6 +38,7 @@ export default function RecipeTimesInputs({ prepTime, cookTime }) {
             endAdornment: (
               <InputAdornment position="end">minutes</InputAdornment>
             ),
+            inputProps: { min: minTimeInMinutes, max: maxTimeInMinutes },
           }}
         />
       </div>
