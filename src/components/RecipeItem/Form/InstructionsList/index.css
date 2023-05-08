@@ -28,13 +28,13 @@
   margin-left: 10px;
   margin-top: 4px;
   vertical-align: middle;
-  color: var(--french-gray)
+  color: var(--eerie-black)
   /* opacity: 0;
   transition: opacity .1s ease-in; */
 }
 
 .form-style #instructions-list .btn:hover {
-  color: var(--outer-space);
+  color: var(--slate-gray);
 }
 
 .form-style #instructions-list textarea {

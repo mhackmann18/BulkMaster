@@ -88,7 +88,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         }
         instructionsHeaderButtonComponent={<AddButton text="Add Step" />}
         instructionsComponent={<InstructionsList instructions={instructions} />}
-        nutrientsHeaderButtonComponent={<AddButton text="Add Nutrient" />}
+        // nutrientsHeaderButtonComponent={<AddButton text="Add Nutrient" />}
         nutrientsComponent={
           <>
             <ServingSizeInput servingSize={servingSize} />

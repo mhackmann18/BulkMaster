@@ -59,6 +59,8 @@
 
 .form-style #ingredients-container {
   width: 50%;
+  max-width: 34rem;
+  margin-right: 2rem;
 }
 
 #ingredients-container li {
@@ -83,7 +85,7 @@ form #ingredients-container li {
 }
 
 .form-style #instructions-container {
-  width: 46%;
+  flex-grow: 1;
 }
 
 #instructions-list {
