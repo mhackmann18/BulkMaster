@@ -8,7 +8,14 @@ export default function NutrientInput({ nutrient }) {
   const maxQuantity = 9999;
 
   return (
-    <div className="nutrient-input-wrapper">
+    <div
+      className="nutrient-input-wrapper"
+      style={{
+        width: `${
+          (nutrient.name.length + nutrient.unit.length) / 2.3 + 3.6
+        }rem`,
+      }}
+    >
       <TextField
         name={`${nutrient.name}`}
         defaultValue={nutrient.quantity || ""}

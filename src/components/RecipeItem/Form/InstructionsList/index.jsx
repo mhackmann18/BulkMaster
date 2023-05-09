@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { TextareaAutosize } from "@mui/material";
+import { TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -13,8 +13,22 @@ export default function InstructionsList({ instructions }) {
     <ul id="instructions-list">
       {textAreaContent.map((el, index) => (
         <li key={uuidv4()}>
-          <span className="instruction-number">{index + 1}. </span>
-          <TextareaAutosize
+          {/* <span className="instruction-number">{index + 1}. </span> */}
+          <div className="instruction-input-wrapper">
+            <TextField
+              name="instruction"
+              defaultValue={el}
+              label={`Step ${index + 1}`}
+              variant="outlined"
+              size="small"
+              fullWidth
+              multiline
+              minRows={1}
+              maxRows={4}
+              // rows={4}
+              maxLength={maxLength}
+            />
+            {/* <TextareaAutosize
             maxRows={4}
             minRows={1}
             type="text"
@@ -22,15 +36,14 @@ export default function InstructionsList({ instructions }) {
             required
             maxLength={maxLength}
             name="instruction"
-          />
-          {/* <div className="instruction-remove-btn-wrapper"> */}
+          /> */}
+          </div>
           <FontAwesomeIcon
             icon={faTrashCan}
             size="lg"
             className="btn remove"
             title="Remove Step"
           />
-          {/* </div> */}
         </li>
       ))}
     </ul>

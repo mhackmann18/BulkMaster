@@ -19,6 +19,18 @@ import theme from "./theme/theme";
 import "./App.css";
 import "./theme/muiOverrides.css";
 
+const SUPPRESSED_WARNINGS = [
+  "MUI: Too many re-renders. The layout is unstable.\nTextareaAutosize limits the number of renders to prevent an infinite loop.",
+];
+
+const consoleWarn = console.error;
+
+console.error = function filterWarnings(msg, ...args) {
+  if (!SUPPRESSED_WARNINGS.some((entry) => msg.includes(entry))) {
+    consoleWarn(msg, ...args);
+  }
+};
+
 export default function App() {
   // Stop number input value from changing on scroll for all number inputs
   disableInputScroll();

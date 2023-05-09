@@ -10,6 +10,7 @@ export default function NameInput({ ingredientName }) {
       <TextField
         name="ingredient-name"
         defaultValue={ingredientName}
+        autoComplete="off"
         label="Name"
         variant="outlined"
         size="small"

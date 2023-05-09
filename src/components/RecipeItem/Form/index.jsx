@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
 import RecipeNameInput from "./TitleInput";
@@ -13,10 +12,6 @@ import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
 import Nutrient from "../../../utils/Nutrient";
-// import {
-//   validateRecipeTitle,
-//   validateNumberString,
-// } from "../../../utils/validation";
 
 export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   const {
@@ -64,11 +59,6 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     const titleInput = e.target["recipe-title"].value;
     const servingsInput = e.target["servings-quantity"].value;
     const prepTimeInput = e.target["prep-time"].value;
-    // checkInput(
-    //   prepTimeInput,
-    //   (val) => validateNumberString(val, 9999, 1),
-    //   setServingsInputErrorMessage
-    // );
     const cookTimeInput = e.target["cook-time"].value;
     const ingredientInputs = [];
     for (let i = 0; i < e.target["ingredient-name"].length; i++) {
@@ -115,18 +105,10 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   return (
     <form id="recipe" className="form-style" onSubmit={handleSubmit}>
       <RecipeContainer
-        titleComponent={
-          <RecipeNameInput
-            value={title}
-            // errorMessage={titleInputErrorMessage}
-          />
-        }
+        titleComponent={<RecipeNameInput value={title} />}
         subHeadingComponent={
           <>
-            <ServingsInput
-              startingValue={servings}
-              // errorMessage={servingsInputErrorMessage}
-            />
+            <ServingsInput startingValue={servings} />
             <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
           </>
         }
@@ -137,7 +119,6 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         }
         instructionsHeaderButtonComponent={<AddButton text="Add Step" />}
         instructionsComponent={<InstructionsList instructions={instructions} />}
-        // nutrientsHeaderButtonComponent={<AddButton text="Add Nutrient" />}
         nutrientsComponent={
           <>
             <ServingSizeInput servingSize={servingSize} />

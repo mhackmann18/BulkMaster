@@ -20,7 +20,10 @@ export default function ServingsInput({ startingValue, errorMessage }) {
         helperText={errorMessage}
         required
         InputProps={{
-          inputProps: { min: minServingsQuantity, max: maxServingsQuantity },
+          inputProps: {
+            min: minServingsQuantity,
+            max: maxServingsQuantity,
+          },
         }}
       />
     </div>

@@ -7,7 +7,7 @@
 }
 
 .MuiTextField-root fieldset {
-  border-color: var(--french-gray);
+  border-color: var(--french-gray-2);
 }
 
 .MuiTextField-root .MuiOutlinedInput-root:hover fieldset {

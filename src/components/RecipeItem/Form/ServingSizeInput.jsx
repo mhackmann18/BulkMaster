@@ -9,8 +9,8 @@ export default function ServingSizeInput({ servingSize }) {
 
   return (
     <div id="serving-size-input-container">
-      <p>Serving Size:</p>
-      <div className="serving-size-input-wrapper">
+      <span>Serving Size:</span>
+      <div className="serving-size-quantity-wrapper">
         <TextField
           name="serving-size-quantity"
           defaultValue={servingSize.quantity || ""}
@@ -18,21 +18,22 @@ export default function ServingSizeInput({ servingSize }) {
           variant="outlined"
           size="small"
           fullWidth
-          type="number"
           InputProps={{
             inputProps: {
               min: servingSizeMinQuantity,
               max: servingSizeMaxQuantity,
+              step: "any",
             },
           }}
         />
       </div>
-      <div className="serving-size-input-wrapper">
+      <div className="serving-size-unit-wrapper">
         <TextField
           name="serving-size-unit"
           defaultValue={servingSize.unit || ""}
           label="Unit"
           variant="outlined"
+          autoComplete="off"
           size="small"
           fullWidth
           InputProps={{

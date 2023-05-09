@@ -22,21 +22,27 @@ export default function RecipeContainer({
         <div className="right">{buttonsComponent}</div>
       </header>
       <div id="recipe-content" className="two-col">
-        <div id="ingredients-container">
-          <h3>Ingredients</h3>
-          {ingredientsComponent}
-          {ingredientsHeaderButtonComponent}
+        <div className="left">
+          <div id="ingredients-container">
+            <h3>Ingredients</h3>
+            {ingredientsComponent}
+            {ingredientsHeaderButtonComponent}
+          </div>
         </div>
-        <div id="instructions-container">
-          <h3 id="instructions-header">Instructions</h3>
-          {instructionsComponent}
-          {instructionsHeaderButtonComponent}
+        <div className="right">
+          <div id="instructions-container">
+            <h3 id="instructions-header">Instructions</h3>
+            {instructionsComponent}
+            {instructionsHeaderButtonComponent}
+          </div>
 
-          {nutrientsComponent && (
-            <h3 id="nutrition-facts-header">Nutrition Facts</h3>
-          )}
-          {nutrientsComponent}
-          {nutrientsHeaderButtonComponent}
+          <div className="nutrients-container">
+            {nutrientsComponent && (
+              <h3 id="nutrition-facts-header">Nutrition Facts</h3>
+            )}
+            {nutrientsComponent}
+            {nutrientsHeaderButtonComponent}
+          </div>
         </div>
       </div>
     </div>

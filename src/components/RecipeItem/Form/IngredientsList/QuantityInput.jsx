@@ -17,7 +17,7 @@ export default function QuantityInput({ ingredientQuantity }) {
         size="small"
         fullWidth
         InputProps={{
-          inputProps: { min, max },
+          inputProps: { min, max, step: "any" },
         }}
       />
     </div>
