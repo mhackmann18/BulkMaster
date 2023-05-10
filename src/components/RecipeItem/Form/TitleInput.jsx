@@ -1,8 +1,16 @@
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import "./TitleInput.css";
+import RecipeValidator from "../../../utils/RecipeValidator";
 
-export default function RecipeTitleInput({ value, errorMessage }) {
+export default function TitleInput({ value, errMsg, setErrMsg }) {
+  const handleBlur = (e) => {
+    // If the user focuses the field, then blurs without entering input, don't show them a required field err
+    if (e.target.value) {
+      setErrMsg(RecipeValidator.getTitleErrMsg(e.target.value));
+    }
+  };
+
   return (
     <div className="recipe-title-input-wrapper">
       <TextField
@@ -12,25 +20,28 @@ export default function RecipeTitleInput({ value, errorMessage }) {
         label="Recipe Title"
         variant="outlined"
         size="large"
+        onBlur={handleBlur}
         autoComplete="off"
         fullWidth
-        error={Boolean(errorMessage)}
-        helperText={errorMessage}
+        error={Boolean(errMsg)}
+        helperText={errMsg}
         required
-        InputProps={{
-          inputProps: { minLength: 1, maxLength: 70 },
+        inputProps={{
+          maxLength: RecipeValidator.titleMaxLength,
         }}
       />
     </div>
   );
 }
 
-RecipeTitleInput.propTypes = {
+TitleInput.propTypes = {
   value: PropTypes.string,
-  errorMessage: PropTypes.string,
+  errMsg: PropTypes.string,
+  setErrMsg: PropTypes.func,
 };
 
-RecipeTitleInput.defaultProps = {
+TitleInput.defaultProps = {
   value: "",
-  errorMessage: "",
+  errMsg: "",
+  setErrMsg: () => false,
 };

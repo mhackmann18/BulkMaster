@@ -1,8 +1,9 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
-import RecipeNameInput from "./TitleInput";
+import TitleInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
-import RecipeTimesInputs from "./TimesInputs";
+import TimeInput from "./TimeInput";
 import ExistingRecipeButtons from "./ExistingRecipeButtons";
 import NewRecipeButtons from "./NewRecipeButtons";
 import AddButton from "./AddButton";
@@ -12,6 +13,7 @@ import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
 import Nutrient from "../../../utils/Nutrient";
+import RecipeValidator from "../../../utils/RecipeValidator";
 
 export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   const {
@@ -24,9 +26,13 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     servings,
     servingSize,
   } = recipe;
-  // const [titleInputErrorMessage, setTitleInputErrorMessage] = useState("");
-  // const [servingsInputErrorMessage, setServingsInputErrorMessage] =
-  //   useState("");
+
+  // Form inputs error messages
+  const [titleInputErrorMessage, setTitleInputErrorMessage] = useState("");
+  const [servingsInputErrorMessage, setServingsInputErrorMessage] =
+    useState("");
+  const [prepTimeInputErrMsg, setPrepTimeInputErrMsg] = useState("");
+  const [cookTimeInputErrMsg, setCookTimeInputErrMsg] = useState("");
 
   const recipeStatus = recipe.title ? "existing" : "new";
 
@@ -44,21 +50,39 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const formIsValid = true;
+    let formIsValid = true;
 
-    // const checkInput = (inputValue, validatorFn, setInputErrorMessage) => {
-    //   const [inputIsValid, inputErrorMessage] = validatorFn(inputValue);
-    //   if (!inputIsValid) {
-    //     formIsValid = false;
-    //     setInputErrorMessage(inputErrorMessage);
-    //   } else {
-    //     setInputErrorMessage("");
-    //   }
-    // };
+    const checkInput = (inputValue, getErrMsg, showError) => {
+      const errMsg = getErrMsg(inputValue);
+      if (errMsg) {
+        formIsValid = false;
+        showError(errMsg);
+      } else {
+        showError("");
+      }
+    };
 
     const titleInputValue = e.target["recipe-title"].value;
+    checkInput(
+      titleInputValue,
+      RecipeValidator.getTitleErrMsg,
+      setTitleInputErrorMessage
+    );
+
     const servingsInputValue = e.target["servings-quantity"].value;
+    checkInput(
+      servingsInputValue,
+      RecipeValidator.getServingsErrMsg,
+      setServingsInputErrorMessage
+    );
+
     const prepTimeInputValue = e.target["prep-time"].value;
+    checkInput(
+      prepTimeInputValue,
+      RecipeValidator.getTimeErrMsg,
+      setPrepTimeInputErrMsg
+    );
+
     const cookTimeInputValue = e.target["cook-time"].value;
     const ingredientInputs = [];
     if (e.target["ingredient-name"].length) {
@@ -118,11 +142,34 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   return (
     <form id="recipe" className="form-style" onSubmit={handleSubmit} noValidate>
       <RecipeContainer
-        titleComponent={<RecipeNameInput value={title} />}
+        titleComponent={
+          <TitleInput
+            value={title}
+            errMsg={titleInputErrorMessage}
+            setErrMsg={setTitleInputErrorMessage}
+          />
+        }
         subHeadingComponent={
           <>
-            <ServingsInput startingValue={servings} />
-            <RecipeTimesInputs prepTime={prepTime} cookTime={cookTime} />
+            <ServingsInput
+              startingValue={servings}
+              errMsg={servingsInputErrorMessage}
+              setErrMsg={setServingsInputErrorMessage}
+            />
+            <TimeInput
+              name="prep-time"
+              labelText="Prep Time"
+              defaultValue={prepTime}
+              errMsg={prepTimeInputErrMsg}
+              setErrMsg={setPrepTimeInputErrMsg}
+            />
+            <TimeInput
+              name="cook-time"
+              labelText="Cook Time"
+              defaultValue={cookTime}
+              errMsg={cookTimeInputErrMsg}
+              setErrMsg={setCookTimeInputErrMsg}
+            />
           </>
         }
         buttonsComponent={buttonsPanel}

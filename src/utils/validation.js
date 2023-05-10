@@ -2,56 +2,6 @@ import { usernameExists } from "./user";
 
 // Form validation
 
-const requiredFieldMessage = "Required field";
-
-export function validateRecipeTitle(str) {
-  const maxCharacterCount = 70;
-  let isValid = true;
-  let msg = "";
-
-  const trimmedStr = str.trim();
-  if (!trimmedStr.length) {
-    isValid = false;
-    msg = requiredFieldMessage;
-  } else if (trimmedStr.length > maxCharacterCount) {
-    isValid = false;
-    msg = `Recipe title must be less than ${maxCharacterCount} characters in length`;
-  }
-
-  return [isValid, msg];
-}
-
-export function validateNumberString(
-  str,
-  maxValue,
-  minValue = 0,
-  required = false
-) {
-  let isValid = true;
-  let msg = "";
-  const number = Number(str);
-
-  if (!str && !required) {
-    return [isValid, msg];
-  }
-
-  if (!str && required) {
-    isValid = false;
-    msg = requiredFieldMessage;
-  } else if (Number.isNaN(number)) {
-    isValid = false;
-    msg = "Please enter a number";
-  } else if (number > maxValue) {
-    isValid = false;
-    msg = `Please enter a number less than ${maxValue + 1}`;
-  } else if (number < minValue) {
-    isValid = false;
-    msg = `Please enter a number greater than ${minValue - 1}`;
-  }
-
-  return [isValid, msg];
-}
-
 export function isValidNumberInput(input, maxValue = Infinity, minValue = 0) {
   if (input === "") {
     return true;

@@ -1,10 +1,17 @@
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import "./ServingsInput.css";
+import RecipeValidator from "../../../utils/RecipeValidator";
 
-export default function ServingsInput({ startingValue, errorMessage }) {
+export default function ServingsInput({ startingValue, errMsg, setErrMsg }) {
   const minServingsQuantity = 1;
   const maxServingsQuantity = 99;
+
+  const handleBlur = (e) => {
+    if (e.target.value) {
+      setErrMsg(RecipeValidator.getServingsErrMsg(e.target.value));
+    }
+  };
 
   return (
     <div className="servings-input-wrapper">
@@ -16,8 +23,9 @@ export default function ServingsInput({ startingValue, errorMessage }) {
         variant="outlined"
         size="small"
         fullWidth
-        error={Boolean(errorMessage)}
-        helperText={errorMessage}
+        onBlur={handleBlur}
+        error={Boolean(errMsg)}
+        helperText={errMsg}
         required
         InputProps={{
           inputProps: {
@@ -32,10 +40,12 @@ export default function ServingsInput({ startingValue, errorMessage }) {
 
 ServingsInput.propTypes = {
   startingValue: PropTypes.number,
-  errorMessage: PropTypes.string,
+  errMsg: PropTypes.string,
+  setErrMsg: PropTypes.func,
 };
 
 ServingsInput.defaultProps = {
   startingValue: 0,
-  errorMessage: "",
+  errMsg: "",
+  setErrMsg: () => false,
 };
