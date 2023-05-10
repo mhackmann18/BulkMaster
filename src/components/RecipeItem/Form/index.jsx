@@ -56,23 +56,36 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     //   }
     // };
 
-    const titleInput = e.target["recipe-title"].value;
-    const servingsInput = e.target["servings-quantity"].value;
-    const prepTimeInput = e.target["prep-time"].value;
-    const cookTimeInput = e.target["cook-time"].value;
+    const titleInputValue = e.target["recipe-title"].value;
+    const servingsInputValue = e.target["servings-quantity"].value;
+    const prepTimeInputValue = e.target["prep-time"].value;
+    const cookTimeInputValue = e.target["cook-time"].value;
     const ingredientInputs = [];
-    for (let i = 0; i < e.target["ingredient-name"].length; i++) {
-      const quantity = e.target["ingredient-quantity"][i].value;
-      const units = e.target["ingredient-unit"][i].value;
-      const name = e.target["ingredient-name"][i].value;
+    if (e.target["ingredient-name"].length) {
+      for (let i = 0; i < e.target["ingredient-name"].length; i++) {
+        console.log(e.target["ingredient-quantity"][i]);
+        const quantity = e.target["ingredient-quantity"][i].value;
+        const units = e.target["ingredient-unit"][i].value;
+        const name = e.target["ingredient-name"][i].value;
+        ingredientInputs.push([quantity, units, name].join(" ").trim());
+      }
+    } else {
+      const quantity = e.target["ingredient-quantity"].value;
+      const units = e.target["ingredient-unit"].value;
+      const name = e.target["ingredient-name"].value;
       ingredientInputs.push([quantity, units, name].join(" ").trim());
     }
     const instructionsInputs = [];
-    for (let i = 0; i < e.target.instruction.length; i++) {
-      instructionsInputs.push(e.target.instruction[i].value);
+    if (e.target.instruction.length) {
+      for (let i = 0; i < e.target.instruction.length; i++) {
+        instructionsInputs.push(e.target.instruction[i].value);
+      }
+    } else if (e.target.instruction.value) {
+      instructionsInputs.push(e.target.instruction.value);
     }
-    const servingSizeQuantity = e.target["serving-size-quantity"].value;
-    const servingSizeUnit = e.target["serving-size-unit"].value;
+    const servingSizeQuantityInputValue =
+      e.target["serving-size-quantity"].value;
+    const servingSizeUnitInputValue = e.target["serving-size-unit"].value;
     const nutrientInputs = [];
     for (const validNutrient of Nutrient.getValidNutrients()) {
       if (
@@ -88,13 +101,13 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     }
 
     const obj = {
-      title: titleInput,
-      servings: servingsInput,
-      cookTime: cookTimeInput,
-      prepTime: prepTimeInput,
+      title: titleInputValue,
+      servings: servingsInputValue,
+      cookTime: cookTimeInputValue,
+      prepTime: prepTimeInputValue,
       ingredients: ingredientInputs,
       instructions: instructionsInputs,
-      servingSize: `${servingSizeQuantity} ${servingSizeUnit}`,
+      servingSize: `${servingSizeQuantityInputValue} ${servingSizeUnitInputValue}`,
       nutrients: nutrientInputs,
     };
 
@@ -103,7 +116,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   }
 
   return (
-    <form id="recipe" className="form-style" onSubmit={handleSubmit}>
+    <form id="recipe" className="form-style" onSubmit={handleSubmit} noValidate>
       <RecipeContainer
         titleComponent={<RecipeNameInput value={title} />}
         subHeadingComponent={
