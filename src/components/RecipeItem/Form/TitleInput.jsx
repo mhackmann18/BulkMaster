@@ -1,11 +1,11 @@
+import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
-import "./TitleInput.css";
 import RecipeValidator from "../../../utils/RecipeValidator";
+import "./TitleInput.css";
 
-export default function TitleInput({ value, errMsg, setErrMsg }) {
+const TitleInput = forwardRef(({ value, errMsg, setErrMsg }, ref) => {
   const handleBlur = (e) => {
-    // If the user focuses the field, then blurs without entering input, don't show them a required field err
     if (e.target.value) {
       setErrMsg(RecipeValidator.getTitleErrMsg(e.target.value));
     }
@@ -29,10 +29,11 @@ export default function TitleInput({ value, errMsg, setErrMsg }) {
         inputProps={{
           maxLength: RecipeValidator.titleMaxLength,
         }}
+        inputRef={ref}
       />
     </div>
   );
-}
+});
 
 TitleInput.propTypes = {
   value: PropTypes.string,
@@ -45,3 +46,5 @@ TitleInput.defaultProps = {
   errMsg: "",
   setErrMsg: () => false,
 };
+
+export default TitleInput;

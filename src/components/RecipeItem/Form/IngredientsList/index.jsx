@@ -18,4 +18,11 @@ export default function IngredientInputsList({ ingredients }) {
 
 IngredientInputsList.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.instanceOf(Ingredient)).isRequired,
+  // errMsgObjArr: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     quantity: PropTypes.string.isRequired,
+  //     name: PropTypes.string.isRequired,
+  //   })
+  // ).isRequired,
+  // setErrMsgObjArr: PropTypes.func.isRequired,
 };

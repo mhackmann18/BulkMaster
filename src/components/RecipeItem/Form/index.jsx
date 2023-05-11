@@ -32,6 +32,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     useState("");
   const [prepTimeInputErrMsg, setPrepTimeInputErrMsg] = useState("");
   const [cookTimeInputErrMsg, setCookTimeInputErrMsg] = useState("");
+  // const [ingredientsInputErrMsg, setIngredientsInputErrMsg] = useState([]);
 
   const recipeStatus = recipe.title ? "existing" : "new";
 
