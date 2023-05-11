@@ -23,7 +23,7 @@ export default class RecipeValidator {
       msg = `Recipe title must be less than ${RecipeValidator.titleMaxLength} characters in length`;
     }
 
-    return msg;
+    return msg || true;
   }
 
   static getServingsErrMsg(str) {

@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react/jsx-props-no-spreading */
+import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
 import TitleInput from "./TitleInput";
@@ -11,7 +12,7 @@ import IngredientInputsList from "./IngredientsList";
 import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
-import Nutrient from "../../../utils/Nutrient";
+// import Nutrient from "../../../utils/Nutrient";
 import RecipeValidator from "../../../utils/RecipeValidator";
 
 export default function RecipeForm({ recipe, handleCancelButtonClick }) {
@@ -25,143 +26,48 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     servings,
     servingSize,
   } = recipe;
-
-  // Form inputs error messages
-  const [titleInputErrorMessage, setTitleInputErrorMessage] = useState("");
-  const [servingsInputErrorMessage, setServingsInputErrorMessage] =
-    useState("");
-  const [prepTimeInputErrMsg, setPrepTimeInputErrMsg] = useState("");
-  const [cookTimeInputErrMsg, setCookTimeInputErrMsg] = useState("");
-  // const [ingredientsInputErrMsg, setIngredientsInputErrMsg] = useState([]);
-
   const recipeStatus = recipe.title ? "existing" : "new";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let formIsValid = true;
+  const onSubmit = (data) => console.log(data);
 
-    const checkInput = (inputValue, getErrMsg, showError) => {
-      const errMsg = getErrMsg(inputValue);
-      if (errMsg) {
-        formIsValid = false;
-        showError(errMsg);
-      } else {
-        showError("");
-      }
-    };
-
-    const titleInputValue = e.target["recipe-title"].value;
-    checkInput(
-      titleInputValue,
-      RecipeValidator.getTitleErrMsg,
-      setTitleInputErrorMessage
-    );
-
-    const servingsInputValue = e.target["servings-quantity"].value;
-    checkInput(
-      servingsInputValue,
-      RecipeValidator.getServingsErrMsg,
-      setServingsInputErrorMessage
-    );
-
-    const prepTimeInputValue = e.target["prep-time"].value;
-    checkInput(
-      prepTimeInputValue,
-      RecipeValidator.getTimeErrMsg,
-      setPrepTimeInputErrMsg
-    );
-
-    const cookTimeInputValue = e.target["cook-time"].value;
-    checkInput(
-      cookTimeInputValue,
-      RecipeValidator.getTimeErrMsg,
-      setCookTimeInputErrMsg
-    );
-
-    const ingredientInputs = [];
-    if (e.target["ingredient-name"].length) {
-      for (let i = 0; i < e.target["ingredient-name"].length; i++) {
-        const quantity = e.target["ingredient-quantity"][i].value;
-        const units = e.target["ingredient-unit"][i].value;
-        const name = e.target["ingredient-name"][i].value;
-        ingredientInputs.push([quantity, units, name].join(" ").trim());
-      }
-    } else {
-      const quantity = e.target["ingredient-quantity"].value;
-      const units = e.target["ingredient-unit"].value;
-      const name = e.target["ingredient-name"].value;
-      ingredientInputs.push([quantity, units, name].join(" ").trim());
-    }
-    const instructionsInputs = [];
-    if (e.target.instruction.length) {
-      for (let i = 0; i < e.target.instruction.length; i++) {
-        instructionsInputs.push(e.target.instruction[i].value);
-      }
-    } else if (e.target.instruction.value) {
-      instructionsInputs.push(e.target.instruction.value);
-    }
-    const servingSizeQuantityInputValue =
-      e.target["serving-size-quantity"].value;
-    const servingSizeUnitInputValue = e.target["serving-size-unit"].value;
-    const nutrientInputs = [];
-    for (const validNutrient of Nutrient.getValidNutrients()) {
-      if (
-        e.target[`${validNutrient.name}`] &&
-        e.target[`${validNutrient.name}`].value
-      ) {
-        nutrientInputs.push({
-          name: validNutrient.name,
-          quantity: e.target[`${validNutrient.name}`].value,
-          unit: validNutrient.unit,
-        });
-      }
-    }
-
-    const obj = {
-      title: titleInputValue,
-      servings: servingsInputValue,
-      cookTime: cookTimeInputValue,
-      prepTime: prepTimeInputValue,
-      ingredients: ingredientInputs,
-      instructions: instructionsInputs,
-      servingSize: `${servingSizeQuantityInputValue} ${servingSizeUnitInputValue}`,
-      nutrients: nutrientInputs,
-    };
-
-    console.log(obj);
-    console.log(formIsValid);
-  };
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title,
+    },
+  });
 
   return (
-    <form id="recipe" className="form-style" onSubmit={handleSubmit} noValidate>
+    <form
+      id="recipe"
+      className="form-style"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       <RecipeContainer
         titleComponent={
           <TitleInput
-            value={title}
-            errMsg={titleInputErrorMessage}
-            setErrMsg={setTitleInputErrorMessage}
+            errorMessage={errors.title && errors.title.message}
+            {...register("title", {
+              validate: RecipeValidator.getTitleErrMsg,
+            })}
           />
         }
         subHeadingComponent={
           <>
-            <ServingsInput
-              startingValue={servings}
-              errMsg={servingsInputErrorMessage}
-              setErrMsg={setServingsInputErrorMessage}
-            />
+            <ServingsInput startingValue={servings} />
             <TimeInput
               name="prep-time"
               labelText="Prep Time"
               defaultValue={prepTime}
-              errMsg={prepTimeInputErrMsg}
-              setErrMsg={setPrepTimeInputErrMsg}
             />
             <TimeInput
               name="cook-time"
               labelText="Cook Time"
               defaultValue={cookTime}
-              errMsg={cookTimeInputErrMsg}
-              setErrMsg={setCookTimeInputErrMsg}
             />
           </>
         }

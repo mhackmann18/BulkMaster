@@ -14,8 +14,16 @@
   border-color: var(--slate-gray);
 }
 
+.MuiTextField-root .MuiOutlinedInput-root.Mui-error:hover fieldset {
+  border-color: #d32f2f;
+}
+
 .MuiTextField-root .MuiOutlinedInput-root.Mui-focused fieldset {
   border-color: var(--eerie-black);
+}
+
+.MuiTextField-root .MuiOutlinedInput-root.Mui-focused.Mui-error fieldset {
+  border-color: #d32f2f;
 }
 
 .MuiTextField-root label {
@@ -24,4 +32,8 @@
 
 .MuiTextField-root label.Mui-focused{
   color: var(--eerie-black);
+}
+
+.MuiTextField-root label.Mui-focused.Mui-error {
+  color: #d32f2f;
 }
