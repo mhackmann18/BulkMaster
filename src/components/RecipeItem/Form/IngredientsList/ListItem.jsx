@@ -25,21 +25,21 @@ export default function IngredientsListItem({
           <QuantityInput
             ingredientQuantity={quantity}
             errorMessage={
-              errors.ingredientQuantity &&
-              errors.ingredientQuantity[index] &&
-              errors.ingredientQuantity[index].message
+              errors.ingredients &&
+              errors.ingredients[index] &&
+              errors.ingredients[index].quantity.message
             }
-            {...register(`ingredient.${index}.quantity`, {
+            {...register(`ingredients.${index}.quantity`, {
               validate: RecipeValidator.getIngredientQuantityErrMsg,
             })}
           />
           <UnitInput
             ingredientUnit={unit}
-            {...register(`ingredient.${index}.unit`)}
+            {...register(`ingredients.${index}.unit`)}
           />
           <NameInput
             ingredientName={name}
-            {...register(`ingredient.${index}.name`)}
+            {...register(`ingredients.${index}.name`)}
           />
           <div className="buttons-container">
             <FontAwesomeIcon

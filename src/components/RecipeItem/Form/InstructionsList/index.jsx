@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
@@ -5,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import "./index.css";
 
-export default function InstructionsList({ instructions }) {
+export default function InstructionsList({ instructions, register }) {
   const maxLength = 10000;
   const textAreaContent = instructions.length ? instructions : [""];
 
@@ -13,10 +14,9 @@ export default function InstructionsList({ instructions }) {
     <ul id="instructions-list">
       {textAreaContent.map((el, index) => (
         <li key={uuidv4()}>
-          {/* <span className="instruction-number">{index + 1}. </span> */}
           <div className="instruction-input-wrapper">
             <TextField
-              name="instruction"
+              {...register(`instructions.${index}`)}
               defaultValue={el}
               label={`Step ${index + 1}`}
               variant="outlined"
@@ -25,18 +25,8 @@ export default function InstructionsList({ instructions }) {
               multiline
               minRows={1}
               maxRows={4}
-              // rows={4}
               maxLength={maxLength}
             />
-            {/* <TextareaAutosize
-            maxRows={4}
-            minRows={1}
-            type="text"
-            defaultValue={el}
-            required
-            maxLength={maxLength}
-            name="instruction"
-          /> */}
           </div>
           <FontAwesomeIcon
             icon={faTrashCan}
@@ -52,4 +42,6 @@ export default function InstructionsList({ instructions }) {
 
 InstructionsList.propTypes = {
   instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  register: PropTypes.func.isRequired,
+  // errors: PropTypes.object.isRequired,
 };
