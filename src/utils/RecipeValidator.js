@@ -39,9 +39,12 @@ export default class RecipeValidator {
     return RecipeValidator.getIntegerErrMsg(
       str,
       RecipeValidator.timeMaxValue,
-      RecipeValidator.timeMinValue,
-      false
+      RecipeValidator.timeMinValue
     );
+  }
+
+  static getIngredientQuantityErrMsg(str) {
+    return RecipeValidator.getNumberErrMsg(str, 999);
   }
 
   static getNumberErrMsg(str, maxValue, minValue = 0, required = false) {
@@ -67,11 +70,12 @@ export default class RecipeValidator {
 
   static getIntegerErrMsg(str, maxValue, minValue = 0, required = false) {
     let msg = "";
-    const number = Number(str);
 
     if (!str && !required) {
       return msg;
     }
+
+    const number = Number(str);
 
     if (!str && required) {
       msg = RecipeValidator.requiredFieldMsg;

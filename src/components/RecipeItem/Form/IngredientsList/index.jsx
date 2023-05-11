@@ -2,15 +2,20 @@ import PropTypes from "prop-types";
 import Ingredient from "../../../../utils/Ingredient";
 import IngredientsListItem from "./ListItem";
 
-export default function IngredientInputsList({ ingredients }) {
+export default function IngredientInputsList({ ingredients, register }) {
   return (
     <ul id="ingredients-list">
       {ingredients.length ? (
-        ingredients.map((ingredient) => (
-          <IngredientsListItem key={ingredient.name} ingredient={ingredient} />
+        ingredients.map((ingredient, index) => (
+          <IngredientsListItem
+            key={ingredient.name}
+            index={index}
+            ingredient={ingredient}
+            register={register}
+          />
         ))
       ) : (
-        <IngredientsListItem />
+        <IngredientsListItem index={0} register={register} />
       )}
     </ul>
   );
@@ -18,11 +23,5 @@ export default function IngredientInputsList({ ingredients }) {
 
 IngredientInputsList.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.instanceOf(Ingredient)).isRequired,
-  // errMsgObjArr: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     quantity: PropTypes.string.isRequired,
-  //     name: PropTypes.string.isRequired,
-  //   })
-  // ).isRequired,
-  // setErrMsgObjArr: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };

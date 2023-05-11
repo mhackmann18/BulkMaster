@@ -71,6 +71,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
               errorMessage={errors.prepTime && errors.prepTime.message}
               {...register("prepTime", {
                 validate: RecipeValidator.getTimeErrMsg,
+                required: false,
               })}
             />
             <TimeInput
@@ -78,6 +79,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
               errorMessage={errors.cookTime && errors.cookTime.message}
               {...register("cookTime", {
                 validate: RecipeValidator.getTimeErrMsg,
+                required: false,
               })}
             />
           </>
@@ -98,7 +100,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         }
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
         ingredientsComponent={
-          <IngredientInputsList ingredients={ingredients} />
+          <IngredientInputsList ingredients={ingredients} register={register} />
         }
         instructionsHeaderButtonComponent={<AddButton text="Add Step" />}
         instructionsComponent={<InstructionsList instructions={instructions} />}
