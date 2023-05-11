@@ -10,7 +10,12 @@ import "./ListItem.css";
 import "./index.css";
 import RecipeValidator from "../../../../utils/RecipeValidator";
 
-export default function IngredientsListItem({ ingredient, index, register }) {
+export default function IngredientsListItem({
+  ingredient,
+  errors,
+  index,
+  register,
+}) {
   const { quantity, unit, name } = ingredient;
 
   return (
@@ -19,6 +24,11 @@ export default function IngredientsListItem({ ingredient, index, register }) {
         <div className="inputs-container">
           <QuantityInput
             ingredientQuantity={quantity}
+            errorMessage={
+              errors.ingredientQuantity &&
+              errors.ingredientQuantity[index] &&
+              errors.ingredientQuantity[index].message
+            }
             {...register(`ingredientQuantity.${index}`, {
               validate: RecipeValidator.getIngredientQuantityErrMsg,
             })}
@@ -42,6 +52,7 @@ export default function IngredientsListItem({ ingredient, index, register }) {
 IngredientsListItem.propTypes = {
   ingredient: PropTypes.instanceOf(Ingredient),
   index: PropTypes.number.isRequired,
+  errors: PropTypes.object.isRequired,
   register: PropTypes.func.isRequired,
 };
 

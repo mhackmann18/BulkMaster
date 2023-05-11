@@ -52,7 +52,7 @@ export default class RecipeValidator {
     const number = Number(str);
 
     if (!str && !required) {
-      return msg;
+      return true;
     }
 
     if (!str && required) {
@@ -72,7 +72,7 @@ export default class RecipeValidator {
     let msg = "";
 
     if (!str && !required) {
-      return msg;
+      return true;
     }
 
     const number = Number(str);

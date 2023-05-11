@@ -27,8 +27,6 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   } = recipe;
   const recipeStatus = recipe.title ? "existing" : "new";
 
-  const onSubmit = (data) => console.log(data);
-
   const {
     handleSubmit,
     register,
@@ -41,6 +39,8 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
       cookTime,
     },
   });
+
+  const onSubmit = (data) => console.log(data);
 
   return (
     <form
@@ -100,7 +100,11 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         }
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
         ingredientsComponent={
-          <IngredientInputsList ingredients={ingredients} register={register} />
+          <IngredientInputsList
+            ingredients={ingredients}
+            errors={errors}
+            register={register}
+          />
         }
         instructionsHeaderButtonComponent={<AddButton text="Add Step" />}
         instructionsComponent={<InstructionsList instructions={instructions} />}
