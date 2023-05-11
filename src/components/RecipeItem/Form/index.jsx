@@ -4,8 +4,7 @@ import RecipeContainer from "../RecipeContainer";
 import TitleInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
 import TimeInput from "./TimeInput";
-import ExistingRecipeButtons from "./ExistingRecipeButtons";
-import NewRecipeButtons from "./NewRecipeButtons";
+import Button from "../../common/Button";
 import AddButton from "./AddButton";
 import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
@@ -36,19 +35,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
 
   const recipeStatus = recipe.title ? "existing" : "new";
 
-  let buttonsPanel;
-
-  if (recipeStatus === "existing") {
-    buttonsPanel = (
-      <ExistingRecipeButtons
-        handleCancelButtonClick={handleCancelButtonClick}
-      />
-    );
-  } else if (recipeStatus === "new") {
-    buttonsPanel = <NewRecipeButtons />;
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let formIsValid = true;
 
@@ -84,10 +71,15 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     );
 
     const cookTimeInputValue = e.target["cook-time"].value;
+    checkInput(
+      cookTimeInputValue,
+      RecipeValidator.getTimeErrMsg,
+      setCookTimeInputErrMsg
+    );
+
     const ingredientInputs = [];
     if (e.target["ingredient-name"].length) {
       for (let i = 0; i < e.target["ingredient-name"].length; i++) {
-        console.log(e.target["ingredient-quantity"][i]);
         const quantity = e.target["ingredient-quantity"][i].value;
         const units = e.target["ingredient-unit"][i].value;
         const name = e.target["ingredient-name"][i].value;
@@ -137,7 +129,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
 
     console.log(obj);
     console.log(formIsValid);
-  }
+  };
 
   return (
     <form id="recipe" className="form-style" onSubmit={handleSubmit} noValidate>
@@ -172,7 +164,20 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
             />
           </>
         }
-        buttonsComponent={buttonsPanel}
+        buttonsComponent={
+          recipeStatus === "existing" ? (
+            <>
+              <Button
+                text="Cancel"
+                type="button"
+                handleClick={handleCancelButtonClick}
+              />
+              <Button text="Save Changes" type="submit" />
+            </>
+          ) : (
+            <Button text="Save to Library" type="submit" />
+          )
+        }
         ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
         ingredientsComponent={
           <IngredientInputsList ingredients={ingredients} />
