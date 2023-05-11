@@ -1,51 +1,41 @@
+import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import "./ServingsInput.css";
-import RecipeValidator from "../../../utils/RecipeValidator";
 
-export default function ServingsInput({ startingValue, errMsg, setErrMsg }) {
-  const minServingsQuantity = 1;
-  const maxServingsQuantity = 99;
+const ServingsInput = forwardRef(
+  ({ errorMessage, name, onChange, onBlur }, ref) => (
+    // const minServingsQuantity = 1;
+    // const maxServingsQuantity = 99;
 
-  const handleBlur = (e) => {
-    if (e.target.value) {
-      setErrMsg(RecipeValidator.getServingsErrMsg(e.target.value));
-    }
-  };
-
-  return (
     <div className="servings-input-wrapper">
       <TextField
-        name="servings-quantity"
+        name={name}
         type="number"
-        defaultValue={startingValue || ""}
         label="Servings"
         variant="outlined"
         size="small"
         fullWidth
-        onBlur={handleBlur}
-        error={Boolean(errMsg)}
-        helperText={errMsg}
-        required
-        InputProps={{
-          inputProps: {
-            min: minServingsQuantity,
-            max: maxServingsQuantity,
-          },
-        }}
+        onBlur={onBlur}
+        onChange={onChange}
+        error={Boolean(errorMessage)}
+        helperText={errorMessage}
+        // required
+        inputRef={ref}
       />
     </div>
-  );
-}
+  )
+);
 
 ServingsInput.propTypes = {
-  startingValue: PropTypes.number,
-  errMsg: PropTypes.string,
-  setErrMsg: PropTypes.func,
+  errorMessage: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
 
 ServingsInput.defaultProps = {
-  startingValue: 0,
-  errMsg: "",
-  setErrMsg: () => false,
+  errorMessage: "",
 };
+
+export default ServingsInput;

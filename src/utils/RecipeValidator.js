@@ -62,7 +62,7 @@ export default class RecipeValidator {
       msg = `Please enter a number greater than or equal to ${minValue}`;
     }
 
-    return msg;
+    return msg || true;
   }
 
   static getIntegerErrMsg(str, maxValue, minValue = 0, required = false) {
@@ -85,6 +85,6 @@ export default class RecipeValidator {
       msg = `Please enter an integer greater than or equal to ${minValue}`;
     }
 
-    return msg;
+    return msg || true;
   }
 }

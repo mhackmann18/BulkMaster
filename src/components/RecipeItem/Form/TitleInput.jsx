@@ -9,12 +9,12 @@ const TitleInput = forwardRef(
       <TextField
         id="recipe-title-input"
         label="Recipe Title"
+        autoComplete="off"
         variant="outlined"
         size="large"
         name={name}
         onBlur={onBlur}
         onChange={onChange}
-        autoComplete="off"
         fullWidth
         error={Boolean(errorMessage)}
         helperText={errorMessage}

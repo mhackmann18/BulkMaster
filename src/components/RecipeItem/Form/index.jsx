@@ -12,7 +12,6 @@ import IngredientInputsList from "./IngredientsList";
 import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
-// import Nutrient from "../../../utils/Nutrient";
 import RecipeValidator from "../../../utils/RecipeValidator";
 
 export default function RecipeForm({ recipe, handleCancelButtonClick }) {
@@ -37,6 +36,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
   } = useForm({
     defaultValues: {
       title,
+      servings,
     },
   });
 
@@ -58,7 +58,12 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         }
         subHeadingComponent={
           <>
-            <ServingsInput startingValue={servings} />
+            <ServingsInput
+              errorMessage={errors.servings && errors.servings.message}
+              {...register("servings", {
+                validate: RecipeValidator.getServingsErrMsg,
+              })}
+            />
             <TimeInput
               name="prep-time"
               labelText="Prep Time"
