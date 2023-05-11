@@ -1,58 +1,41 @@
+import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { TextField, InputAdornment } from "@mui/material";
-import RecipeValidator from "../../../utils/RecipeValidator";
 import "./TimeInput.css";
 
-export default function TimeInput({
-  name,
-  labelText,
-  defaultValue,
-  errMsg,
-  setErrMsg,
-}) {
-  const handleBlur = (e) => {
-    if (e.target.value) {
-      setErrMsg(RecipeValidator.getTimeErrMsg(e.target.value));
-    } else {
-      setErrMsg("");
-    }
-  };
-
-  return (
+const TimeInput = forwardRef(
+  ({ labelText, errorMessage, name, onChange, onBlur }, ref) => (
     <div className="recipe-time-input-wrapper">
       <TextField
         name={name}
         type="number"
-        defaultValue={defaultValue || ""}
         label={labelText}
         variant="outlined"
         size="small"
+        onChange={onChange}
+        onBlur={onBlur}
         fullWidth
-        onBlur={handleBlur}
         InputProps={{
           endAdornment: <InputAdornment position="end">minutes</InputAdornment>,
-          inputProps: {
-            min: RecipeValidator.timeMinValue,
-            max: RecipeValidator.timeMaxValue,
-          },
         }}
-        error={Boolean(errMsg)}
-        helperText={errMsg}
+        error={Boolean(errorMessage)}
+        helperText={errorMessage}
+        inputRef={ref}
       />
     </div>
-  );
-}
+  )
+);
 
 TimeInput.propTypes = {
-  defaultValue: PropTypes.number,
-  name: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
-  errMsg: PropTypes.string,
-  setErrMsg: PropTypes.func,
+  errorMessage: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
 
 TimeInput.defaultProps = {
-  defaultValue: 0,
-  errMsg: "",
-  setErrMsg: () => "",
+  errorMessage: "",
 };
+
+export default TimeInput;

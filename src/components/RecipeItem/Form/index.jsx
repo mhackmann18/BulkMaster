@@ -37,6 +37,8 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     defaultValues: {
       title,
       servings,
+      prepTime,
+      cookTime,
     },
   });
 
@@ -65,14 +67,18 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
               })}
             />
             <TimeInput
-              name="prep-time"
               labelText="Prep Time"
-              defaultValue={prepTime}
+              errorMessage={errors.prepTime && errors.prepTime.message}
+              {...register("prepTime", {
+                validate: RecipeValidator.getTimeErrMsg,
+              })}
             />
             <TimeInput
-              name="cook-time"
               labelText="Cook Time"
-              defaultValue={cookTime}
+              errorMessage={errors.cookTime && errors.cookTime.message}
+              {...register("cookTime", {
+                validate: RecipeValidator.getTimeErrMsg,
+              })}
             />
           </>
         }
