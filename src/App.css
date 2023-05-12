@@ -201,3 +201,8 @@ input[type=number] {
 .separator:not(:empty)::after {
   margin-left: .25em;
 }
+
+.input-err-msg {
+  color: var(--error-color);
+  font-size: .75rem;
+}

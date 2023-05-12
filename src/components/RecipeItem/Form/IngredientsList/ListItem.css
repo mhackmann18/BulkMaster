@@ -61,7 +61,5 @@ form#recipe .sub-ingredient input[type="text"] {
 }
 
 .ingredient-err {
-  color: var(--error-color);
-  font-size: .75rem;
   margin-top: 3px;
 }

@@ -64,7 +64,7 @@ export default function IngredientsListItem({
           name={`ingredients.${index}.quantity`}
           errors={errors}
           render={({ message }) => (
-            <p className="ingredient-err">
+            <p className="ingredient-err input-err-msg">
               <span className="bold">Quantity: </span>
               {message}
             </p>
@@ -74,7 +74,7 @@ export default function IngredientsListItem({
           name={`ingredients.${index}.name`}
           errors={errors}
           render={({ message }) => (
-            <p className="ingredient-err">
+            <p className="ingredient-err input-err-msg">
               <span className="bold">Name: </span>
               {message}
             </p>

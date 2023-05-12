@@ -33,14 +33,10 @@
   flex-grow: 1;
 }
 
-/* form#recipe #serving-size-inputs {
-  margin-bottom: 10px;
+.serving-size-input-err {
+  margin-bottom: 3px;
 }
 
-form#recipe #serving-size-inputs input[type="text"]{
-  margin-right: 16px;
+.serving-size-input-err:last-child {
+  margin-bottom: 20px;
 }
-
-form#recipe #serving-size-inputs input {
-  margin-right: 4px;
-} */

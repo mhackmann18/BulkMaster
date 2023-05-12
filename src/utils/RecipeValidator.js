@@ -17,6 +17,10 @@ export default class RecipeValidator {
 
   static instructionMaxLength = 9999;
 
+  static servingSizeQuantityMaxValue = 9999;
+
+  static servingSizeUnitMaxLength = 69;
+
   static getTitleErrMsg(str) {
     let msg = "";
 
@@ -77,6 +81,26 @@ export default class RecipeValidator {
     } else if (trimmedStr.length > RecipeValidator.instructionMaxLength) {
       msg = `Step content must be less than ${
         RecipeValidator.instructionMaxLength + 1
+      } characters in length`;
+    }
+
+    return msg || true;
+  }
+
+  static getServingSizeQuantityErrMsg(str) {
+    return RecipeValidator.getIntegerErrMsg(
+      str,
+      RecipeValidator.servingSizeQuantityMaxValue
+    );
+  }
+
+  static getServingSizeUnitErrMsg(str) {
+    let msg = "";
+
+    const trimmedStr = str.trim();
+    if (trimmedStr.length > RecipeValidator.servingSizeUnitMaxLength) {
+      msg = `Serving size unit must be less than ${
+        RecipeValidator.servingSizeUnitMaxLength + 1
       } characters in length`;
     }
 
