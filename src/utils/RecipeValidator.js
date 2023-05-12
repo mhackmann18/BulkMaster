@@ -13,6 +13,8 @@ export default class RecipeValidator {
 
   static timeMinValue = 1;
 
+  static ingredientNameMaxLength = 100;
+
   static getTitleErrMsg(str) {
     let msg = "";
 
@@ -44,7 +46,20 @@ export default class RecipeValidator {
   }
 
   static getIngredientQuantityErrMsg(str) {
-    return RecipeValidator.getNumberErrMsg(str, 999);
+    return RecipeValidator.getNumberErrMsg(str, 9999);
+  }
+
+  static getIngredientNameErrMsg(str) {
+    let msg = "";
+
+    const trimmedStr = str.trim();
+    if (!trimmedStr.length) {
+      msg = RecipeValidator.requiredFieldMsg;
+    } else if (trimmedStr.length > RecipeValidator.ingredientNameMaxLength) {
+      msg = `Ingredient name must be less than ${RecipeValidator.ingredientNameMaxLength} characters in length`;
+    }
+
+    return msg || true;
   }
 
   static getNumberErrMsg(str, maxValue, minValue = 0, required = false) {

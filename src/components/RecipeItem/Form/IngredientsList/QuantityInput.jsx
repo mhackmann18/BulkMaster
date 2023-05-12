@@ -4,37 +4,31 @@ import { TextField } from "@mui/material";
 import "./QuantityInput.css";
 
 const QuantityInput = forwardRef(
-  ({ ingredientQuantity, errorMessage, name, onChange, onBlur }, ref) => {
-    const min = 0;
-    const max = 9999;
-
-    return (
-      <div className="ingredient-quantity-input-wrapper">
-        <TextField
-          name={name}
-          onChange={onChange}
-          onBlur={onBlur}
-          type="number"
-          defaultValue={ingredientQuantity || ""}
-          label="Quantity"
-          variant="outlined"
-          size="small"
-          fullWidth
-          error={Boolean(errorMessage)}
-          helperText={errorMessage}
-          InputProps={{
-            inputProps: { min, max, step: "any" },
-          }}
-          inputRef={ref}
-        />
-      </div>
-    );
-  }
+  ({ ingredientQuantity, error, name, onChange, onBlur }, ref) => (
+    <div className="ingredient-quantity-input-wrapper">
+      <TextField
+        name={name}
+        onChange={onChange}
+        onBlur={onBlur}
+        type="number"
+        defaultValue={ingredientQuantity || ""}
+        label="Quantity"
+        variant="outlined"
+        size="small"
+        fullWidth
+        error={error}
+        InputProps={{
+          inputProps: { step: "any" },
+        }}
+        inputRef={ref}
+      />
+    </div>
+  )
 );
 
 QuantityInput.propTypes = {
   ingredientQuantity: PropTypes.number,
-  errorMessage: PropTypes.string,
+  error: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
@@ -42,7 +36,7 @@ QuantityInput.propTypes = {
 
 QuantityInput.defaultProps = {
   ingredientQuantity: 0,
-  errorMessage: "",
+  error: false,
 };
 
 export default QuantityInput;

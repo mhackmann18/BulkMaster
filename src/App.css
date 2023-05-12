@@ -10,6 +10,7 @@
   --onyx: #343a40ff;
   --eerie-black: #212529ff;
   --font-color-default: var(--onyx);
+  --error-color: #d32f2f;
 }
 
 /* :root {
