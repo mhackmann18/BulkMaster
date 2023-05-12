@@ -7,7 +7,6 @@ const ServingsInput = forwardRef(
   ({ errorMessage, name, onChange, onBlur }, ref) => (
     // const minServingsQuantity = 1;
     // const maxServingsQuantity = 99;
-
     <div className="servings-input-wrapper">
       <TextField
         name={name}

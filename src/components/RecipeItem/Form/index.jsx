@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
@@ -26,6 +27,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     servingSize,
   } = recipe;
   const recipeStatus = recipe.title ? "existing" : "new";
+  // const [instructionsInput, setInstructionsInput] = useState(instructions);
 
   const {
     handleSubmit,
@@ -102,16 +104,16 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         ingredientsComponent={
           <IngredientInputsList
             ingredients={ingredients}
-            errors={errors}
             register={register}
+            errors={errors}
           />
         }
         instructionsHeaderButtonComponent={<AddButton text="Add Step" />}
         instructionsComponent={
           <InstructionsList
-            errors={errors}
-            register={register}
             instructions={instructions}
+            register={register}
+            errors={errors && errors.instructions}
           />
         }
         nutrientsComponent={

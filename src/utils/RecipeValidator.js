@@ -3,7 +3,7 @@ export default class RecipeValidator {
   static requiredFieldMsg = "Required field";
 
   // Field requirements
-  static titleMaxLength = 100;
+  static titleMaxLength = 99;
 
   static servingsMaxValue = 99;
 
@@ -13,7 +13,9 @@ export default class RecipeValidator {
 
   static timeMinValue = 1;
 
-  static ingredientNameMaxLength = 100;
+  static ingredientNameMaxLength = 99;
+
+  static instructionMaxLength = 9999;
 
   static getTitleErrMsg(str) {
     let msg = "";
@@ -22,7 +24,9 @@ export default class RecipeValidator {
     if (!trimmedStr.length) {
       msg = RecipeValidator.requiredFieldMsg;
     } else if (trimmedStr.length > RecipeValidator.titleMaxLength) {
-      msg = `Recipe title must be less than ${RecipeValidator.titleMaxLength} characters in length`;
+      msg = `Recipe title must be less than ${
+        RecipeValidator.titleMaxLength + 1
+      } characters in length`;
     }
 
     return msg || true;
@@ -56,7 +60,24 @@ export default class RecipeValidator {
     if (!trimmedStr.length) {
       msg = RecipeValidator.requiredFieldMsg;
     } else if (trimmedStr.length > RecipeValidator.ingredientNameMaxLength) {
-      msg = `Ingredient name must be less than ${RecipeValidator.ingredientNameMaxLength} characters in length`;
+      msg = `Ingredient name must be less than ${
+        RecipeValidator.ingredientNameMaxLength + 1
+      } characters in length`;
+    }
+
+    return msg || true;
+  }
+
+  static getInstructionErrMsg(str) {
+    let msg = "";
+
+    const trimmedStr = str.trim();
+    if (!trimmedStr.length) {
+      msg = "Step field must contain some text";
+    } else if (trimmedStr.length > RecipeValidator.instructionMaxLength) {
+      msg = `Step content must be less than ${
+        RecipeValidator.instructionMaxLength + 1
+      } characters in length`;
     }
 
     return msg || true;

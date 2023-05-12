@@ -1,31 +1,35 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import RecipeValidator from "../../../../utils/RecipeValidator";
 import "./index.css";
 
-export default function InstructionsList({ instructions, register }) {
-  const maxLength = 10000;
+export default function InstructionsList({ instructions, register, errors }) {
   const textAreaContent = instructions.length ? instructions : [""];
 
   return (
     <ul id="instructions-list">
       {textAreaContent.map((el, index) => (
-        <li key={uuidv4()}>
+        // eslint-disable-next-line react/no-array-index-key
+        <li key={index}>
           <div className="instruction-input-wrapper">
             <TextField
-              {...register(`instructions.${index}`)}
+              {...register(`instructions.${index}`, {
+                validate: RecipeValidator.getInstructionErrMsg,
+              })}
               defaultValue={el}
               label={`Step ${index + 1}`}
               variant="outlined"
               size="small"
               fullWidth
               multiline
-              minRows={1}
-              maxRows={4}
-              maxLength={maxLength}
+              helperText={
+                errors.length ? errors[index] && errors[index].message : ""
+              }
+              error={Boolean(errors.length && errors[index])}
+              rows={2}
             />
           </div>
           <FontAwesomeIcon
@@ -43,5 +47,9 @@ export default function InstructionsList({ instructions, register }) {
 InstructionsList.propTypes = {
   instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
   register: PropTypes.func.isRequired,
-  // errors: PropTypes.object.isRequired,
+  errors: PropTypes.array,
+};
+
+InstructionsList.defaultProps = {
+  errors: [],
 };

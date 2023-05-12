@@ -17,7 +17,7 @@ export default function IngredientsListItem({
   register,
 }) {
   const { quantity, unit, name } = ingredient;
-
+  // console.log(`Ingredient ${index} rerendered`);
   return (
     <li>
       <div className="sub-ingredient">
