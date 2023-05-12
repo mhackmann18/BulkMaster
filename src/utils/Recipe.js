@@ -1,9 +1,23 @@
+import { fraction } from "mathjs";
 import Ingredient from "./Ingredient";
-import Nutrient from "./Nutrient";
 import {
   getNumberFromNumericalString,
   isStringPositiveNumber,
 } from "./helperFunctions";
+
+const nutrientUnits = {
+  calories: "kcal",
+  fat: "g",
+  saturatedFat: "g",
+  unsaturatedFat: "g",
+  transFat: "g",
+  carbohydrate: "g",
+  protein: "g",
+  sugar: "g",
+  cholesterol: "mg",
+  sodium: "mg",
+  fiber: "g",
+};
 
 export default class Recipe {
   constructor({
@@ -23,13 +37,7 @@ export default class Recipe {
       ? ingredients.map((ingredient) => new Ingredient(ingredient))
       : [];
     this.instructions = instructions;
-    if (Array.isArray(nutrients)) {
-      this.nutrients = nutrients.map((nutrient) => new Nutrient(nutrient));
-    } else if (typeof nutrients === "object") {
-      this.nutrients = Nutrient.getNutrientsArrayFromScrapedObject(
-        nutrients
-      ).map((nutrient) => new Nutrient(nutrient));
-    }
+    this.nutrients = Recipe.formatNutrientObj(nutrients);
     this.servings =
       typeof servings === "number" ? servings : Number(servings.split(" ")[0]);
     this.servingSize =
@@ -38,9 +46,57 @@ export default class Recipe {
     this.prepTime = prepTime;
     this.cookTime = cookTime;
     this.url = url;
-    if (id) {
-      this.id = id;
+    this.id = id || null;
+  }
+
+  static formatNutrientObj(obj) {
+    if (!obj || !Object.keys(obj).length) return null;
+
+    const formattedObj = {};
+
+    // Match numbers and vulgar fractions at start
+    const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?($|\s)/;
+
+    for (const [key, val] of Object.entries(obj)) {
+      // Object has already been formatted
+      if (val.unit || val.quantity) return obj;
+      if (!val || key === "servingSize") continue;
+
+      const quantity = val.match(numRE);
+
+      if (quantity && quantity[0].includes("/")) {
+        quantity[0] = fraction(quantity[0]);
+      }
+
+      const name = key.replace("Content", "");
+
+      formattedObj[name] = {
+        quantity: quantity ? Number(quantity[0]) : null,
+        unit: nutrientUnits[name],
+      };
     }
+
+    return formattedObj;
+  }
+
+  static getNutrientNameStringFromKey(key) {
+    const name = key.charAt(0).toUpperCase() + key.slice(1);
+    const nameWords = name.match(/[A-Z][a-z]+/g);
+    const nameStr = nameWords.reduce(
+      (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
+      ""
+    );
+
+    return nameStr;
+  }
+
+  static getNutrientsStrings(nutrients) {
+    const strArr = [];
+    for (const [key, val] of Object.entries(nutrients)) {
+      const nameStr = Recipe.getNutrientNameStringFromKey(key);
+      strArr.push(`${nameStr}: ${val.quantity} ${val.unit}`);
+    }
+    return strArr;
   }
 
   getNutrientByName(name) {
@@ -53,6 +109,14 @@ export default class Recipe {
     }
 
     return null;
+  }
+
+  static getValidNutrientsArr() {
+    const arr = [];
+    for (const [name, unit] of Object.entries(nutrientUnits)) {
+      arr.push({ name, unit });
+    }
+    return arr;
   }
 
   static servingSizeStringToObject(str) {

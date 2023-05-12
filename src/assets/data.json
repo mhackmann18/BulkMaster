@@ -29,15 +29,36 @@
             "Pour the cornstarch into the pan and bring a boil. Cook for 1-2 minutes or until sauce has just thickened.",
             "Pour the sauce over the shredded chicken and toss to coat the chicken. Sprinkle with sesame seeds and green onions, then serve."
         ],
-        "nutrients": [
-            "Calories: 227 kcal",
-            "Carbohydrate: 22 g",
-            "Cholesterol: 72 mg",
-            "Fat: 3 g",
-            "Protein: 25 g",
-            "Sodium: 542 mg",
-            "Sugar: 17 g"
-        ],
+        "nutrients": {
+            "calories": {
+                "quantity": 227,
+                "unit": "kcal"
+            },
+            "carbohydrate": {
+                "quantity": 22,
+                "unit": "g"
+            },
+            "cholesterol": {
+                "quantity": 72,
+                "unit": "mg"
+            },
+            "fat": {
+                "quantity": 3,
+                "unit": "g"
+            },
+            "protein": {
+                "quantity": 25,
+                "unit": "g"
+            },
+            "sodium": {
+                "quantity": 542,
+                "unit": "mg"
+            },
+            "sugar": {
+                "quantity": 17,
+                "unit": "g"
+            }
+        },
         "prepTime": 10,
         "title": "Slow Cooker Teriyaki Chicken",
         "servings": 6,
@@ -64,17 +85,44 @@
             "In a small bowl whisk brown sugar, soy sauce, sesame oil, ginger, red pepper flakes and pepper. Pour over the ground beef and let simmer for another minute or two.",
             "Serve over hot rice and garnish with green onions and sesame seeds."
         ],
-        "nutrients": [
-            "Calories: 238 kcal",
-            "Carbohydrate: 16 g",
-            "Cholesterol: 70 mg",
-            "Fat: 8 g",
-            "Fiber: 1 g",
-            "Protein: 25 g",
-            "Saturated Fat: 3 g",
-            "Sodium: 610 mg",
-            "Sugar: 14 g"
-        ],
+        "nutrients": {
+            "calories": {
+                "quantity": 238,
+                "unit": "kcal"
+            },
+            "carbohydrate": {
+                "quantity": 16,
+                "unit": "g"
+            },
+            "cholesterol": {
+                "quantity": 70,
+                "unit": "mg"
+            },
+            "fat": {
+                "quantity": 8,
+                "unit": "g"
+            },
+            "fiber": {
+                "quantity": 1,
+                "unit": "g"
+            },
+            "protein": {
+                "quantity": 25,
+                "unit": "g"
+            },
+            "saturatedFat": {
+                "quantity": 3,
+                "unit": "g"
+            },
+            "sodium": {
+                "quantity": 610,
+                "unit": "mg"
+            },
+            "sugar": {
+                "quantity": 14,
+                "unit": "g"
+            }
+        },
         "prepTime": 5,
         "title": "Korean Ground Beef and Rice Bowls",
         "servings": 4,
@@ -102,14 +150,32 @@
             "During the last minute of cooking, add the butter and thyme sprigs to the pan with the steaks.",
             "If you are serving the steaks unsliced, transfer them to plates and serve hot. If you plan to slice the steaks, transfer them to a cutting board and let rest, covered with aluminum foil, for 5 to 10 minutes; then slice thinly against the grain."
         ],
-        "nutrients": [
-            "Calories: 492",
-            "Cholesterol: 147 mg",
-            "Fat: 39 g",
-            "Protein: 33 g",
-            "Saturated Fat: 14 g",
-            "Sodium: 421 mg"
-        ],
+        "nutrients": {
+            "calories": {
+                "quantity": 492,
+                "unit": "kcal"
+            },
+            "cholesterol": {
+                "quantity": 147,
+                "unit": "mg"
+            },
+            "fat": {
+                "quantity": 39,
+                "unit": "g"
+            },
+            "protein": {
+                "quantity": 33,
+                "unit": "g"
+            },
+            "saturatedFat": {
+                "quantity": 14,
+                "unit": "g"
+            },
+            "sodium": {
+                "quantity": 421,
+                "unit": "mg"
+            }
+        },
         "prepTime": 4,
         "title": "Pan-Seared Steaks",
         "servings": 4,
@@ -138,18 +204,48 @@
             "Reduce oven temperature to 350 degrees F (175 degrees C) and continue baking until a knife inserted 1 inch from the crust comes out clean, 35 to 40 minutes.",
             "Let cool before serving."
         ],
-        "nutrients": [
-            "Calories: 379 kcal",
-            "Carbohydrate: 31 g",
-            "Cholesterol: 64 mg",
-            "Fat: 14 g",
-            "Fiber: 3 g",
-            "Protein: 6 g",
-            "Saturated Fat: 6 g",
-            "Sodium: 352 mg",
-            "Sugar: 18 g",
-            "Unsaturated Fat: 0 g"
-        ],
+        "nutrients": {
+            "calories": {
+                "quantity": 379,
+                "unit": "kcal"
+            },
+            "carbohydrate": {
+                "quantity": 31,
+                "unit": "g"
+            },
+            "cholesterol": {
+                "quantity": 64,
+                "unit": "mg"
+            },
+            "fat": {
+                "quantity": 14,
+                "unit": "g"
+            },
+            "fiber": {
+                "quantity": 3,
+                "unit": "g"
+            },
+            "protein": {
+                "quantity": 6,
+                "unit": "g"
+            },
+            "saturatedFat": {
+                "quantity": 6,
+                "unit": "g"
+            },
+            "sodium": {
+                "quantity": 352,
+                "unit": "mg"
+            },
+            "sugar": {
+                "quantity": 18,
+                "unit": "g"
+            },
+            "unsaturatedFat": {
+                "quantity": 0,
+                "unit": "g"
+            }
+        },
         "prepTime": 10,
         "title": "Perfect Pumpkin Pie",
         "servings": 8,
@@ -182,17 +278,44 @@
             "Reduce heat and simmer for 30 minutes. Add chopped basil before serving, if desired.",
             "This sauce tastes great in Spaghetti Pie, Million Dollar Spaghetti, Slow Cooker Lasagna and Instant Pot Spaghetti."
         ],
-        "nutrients": [
-            "Calories: 303 kcal",
-            "Carbohydrate: 16 g",
-            "Cholesterol: 64 mg",
-            "Fat: 18 g",
-            "Fiber: 3 g",
-            "Protein: 18 g",
-            "Saturated Fat: 7 g",
-            "Sodium: 814 mg",
-            "Sugar: 11 g"
-        ],
+        "nutrients": {
+            "calories": {
+                "quantity": 303,
+                "unit": "kcal"
+            },
+            "carbohydrate": {
+                "quantity": 16,
+                "unit": "g"
+            },
+            "cholesterol": {
+                "quantity": 64,
+                "unit": "mg"
+            },
+            "fat": {
+                "quantity": 18,
+                "unit": "g"
+            },
+            "fiber": {
+                "quantity": 3,
+                "unit": "g"
+            },
+            "protein": {
+                "quantity": 18,
+                "unit": "g"
+            },
+            "saturatedFat": {
+                "quantity": 7,
+                "unit": "g"
+            },
+            "sodium": {
+                "quantity": 814,
+                "unit": "mg"
+            },
+            "sugar": {
+                "quantity": 11,
+                "unit": "g"
+            }
+        },
         "title": "Homemade Spaghetti Sauce",
         "servings": 5,
         "servingSize": { "quantity": 1, "unit": "serving" }

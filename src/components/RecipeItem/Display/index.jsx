@@ -42,9 +42,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
             />
             <OpenCalculatorButton
               recipeServingsCount={servings}
-              recipeCaloriesCount={
-                recipe.getNutrientByName("calories").quantity
-              }
+              recipeCaloriesCount={nutrients && nutrients.calories.quantity}
               onSubmit={(val) => console.log(`${val}`)}
             />
             <Button text="Edit" type="button" handleClick={switchToForm} />
@@ -70,7 +68,7 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
         nutrientsComponent={
           nutrients && (
             <NutrientsList
-              nutrients={nutrients.map((nutrient) => nutrient.getString())}
+              nutrients={nutrients}
               servingsCount={servings}
               servingSize={servingSize}
             />

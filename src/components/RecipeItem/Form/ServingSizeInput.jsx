@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import "./ServingSizeInput.css";
 
-export default function ServingSizeInput({ servingSize }) {
+export default function ServingSizeInput({ servingSize, register }) {
   const servingSizeMinQuantity = 0;
   const servingSizeMaxQuantity = 9999;
   const servingSizeUnitMaxLength = 100;
@@ -12,7 +13,9 @@ export default function ServingSizeInput({ servingSize }) {
       <span>Serving Size:</span>
       <div className="serving-size-quantity-wrapper">
         <TextField
-          name="serving-size-quantity"
+          {...register("servingSize.quantity")}
+          // name="serving-size-quantity"
+          type="number"
           defaultValue={servingSize.quantity || ""}
           label="Quantity"
           variant="outlined"
@@ -29,7 +32,7 @@ export default function ServingSizeInput({ servingSize }) {
       </div>
       <div className="serving-size-unit-wrapper">
         <TextField
-          name="serving-size-unit"
+          {...register("servingSize.unit")}
           defaultValue={servingSize.unit || ""}
           label="Unit"
           variant="outlined"
@@ -47,6 +50,7 @@ export default function ServingSizeInput({ servingSize }) {
 
 ServingSizeInput.propTypes = {
   servingSize: PropTypes.object,
+  register: PropTypes.func.isRequired,
 };
 
 ServingSizeInput.defaultProps = {

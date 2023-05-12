@@ -116,8 +116,8 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         }
         nutrientsComponent={
           <>
-            <ServingSizeInput servingSize={servingSize} />
-            <NutrientsList nutrients={nutrients} />
+            <ServingSizeInput servingSize={servingSize} register={register} />
+            <NutrientsList nutrients={nutrients} register={register} />
           </>
         }
       />

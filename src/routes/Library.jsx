@@ -1,7 +1,7 @@
 import LibraryItem from "../components/LibraryItem";
 import data from "../assets/data.json";
 import "./Library.css";
-import { getNutrientQuantityFromArray } from "../utils/formatScrapedRecipe";
+// import { getNutrientQuantityFromArray } from "../utils/formatScrapedRecipe";
 
 export default function Library() {
   const recipes = data;
@@ -13,10 +13,11 @@ export default function Library() {
           key={recipe.id}
           recipeTitle={recipe.title}
           recipeServings={recipe.servings}
-          caloriesPerRecipeServing={getNutrientQuantityFromArray(
-            "Calories",
-            recipe.nutrients
-          )}
+          caloriesPerRecipeServing={
+            recipe.nutrients &&
+            recipe.nutrients.calories &&
+            recipe.nutrients.calories.quantity
+          }
           recipeId={recipe.id}
         />
       ))}
