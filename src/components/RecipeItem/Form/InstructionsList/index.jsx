@@ -23,13 +23,14 @@ export default function InstructionsList({ instructions, register, errors }) {
               label={`Step ${index + 1}`}
               variant="outlined"
               size="small"
-              fullWidth
               multiline
+              fullWidth
               helperText={
                 errors.length ? errors[index] && errors[index].message : ""
               }
               error={Boolean(errors.length && errors[index])}
-              rows={2}
+              minRows={1}
+              maxRows={4}
             />
           </div>
           <FontAwesomeIcon

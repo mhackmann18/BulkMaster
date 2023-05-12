@@ -1,3 +1,7 @@
+.MuiInputBase-root {
+   background-color: var(--white);
+}
+
 .MuiTextField-root .MuiInputBase-input {
   color: var(--onyx);
 }
