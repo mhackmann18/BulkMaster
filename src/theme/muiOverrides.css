@@ -11,6 +11,10 @@
   font-weight: 600;
 }
 
+.MuiTextField-root.nowrap .MuiFormHelperText-root {
+  white-space: nowrap;
+}
+
 .MuiTextField-root .MuiInputAdornment-root p {
   color: var(--slate-gray);
 }

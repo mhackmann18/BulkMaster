@@ -102,7 +102,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
           <IngredientInputsList
             ingredients={ingredients}
             register={register}
-            errors={errors}
+            ingredientsErrors={errors.ingredients || []}
           />
         }
         instructionsHeaderButtonComponent={<AddButton text="Add Step" />}

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from "prop-types";
-import { ErrorMessage } from "@hookform/error-message";
+// import { ErrorMessage } from "@hookform/error-message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import QuantityInput from "./QuantityInput";
@@ -12,7 +12,7 @@ import RecipeValidator from "../../../../utils/RecipeValidator";
 
 export default function IngredientsListItem({
   ingredient,
-  errors,
+  ingredientErrors,
   index,
   register,
 }) {
@@ -23,12 +23,11 @@ export default function IngredientsListItem({
         <div className="inputs-container">
           <QuantityInput
             ingredientQuantity={quantity}
-            error={Boolean(
-              errors &&
-                errors.ingredients &&
-                errors.ingredients[index] &&
-                errors.ingredients[index].quantity
-            )}
+            errorMessage={
+              ingredientErrors &&
+              ingredientErrors.quantity &&
+              ingredientErrors.quantity.message
+            }
             {...register(`ingredients.${index}.quantity`, {
               validate: RecipeValidator.getIngredientQuantityErrMsg,
             })}
@@ -39,12 +38,11 @@ export default function IngredientsListItem({
           />
           <NameInput
             ingredientName={name}
-            error={Boolean(
-              errors &&
-                errors.ingredients &&
-                errors.ingredients[index] &&
-                errors.ingredients[index].name
-            )}
+            errorMessage={
+              ingredientErrors &&
+              ingredientErrors.name &&
+              ingredientErrors.name.message
+            }
             {...register(`ingredients.${index}.name`, {
               validate: RecipeValidator.getIngredientNameErrMsg,
             })}
@@ -59,10 +57,10 @@ export default function IngredientsListItem({
           </div>
         </div>
       </div>
-      <div className="ingredient-errors-container">
+      {/* <div className="ingredient-ingredientErrors-container">
         <ErrorMessage
           name={`ingredients.${index}.quantity`}
-          errors={errors}
+          ingredientErrors={ingredientErrors}
           render={({ message }) => (
             <p className="ingredient-err input-err-msg">
               <span className="bold">Quantity: </span>
@@ -72,7 +70,7 @@ export default function IngredientsListItem({
         />
         <ErrorMessage
           name={`ingredients.${index}.name`}
-          errors={errors}
+          ingredientErrors={ingredientErrors}
           render={({ message }) => (
             <p className="ingredient-err input-err-msg">
               <span className="bold">Name: </span>
@@ -80,7 +78,7 @@ export default function IngredientsListItem({
             </p>
           )}
         />
-      </div>
+      </div> */}
     </li>
   );
 }
@@ -88,10 +86,11 @@ export default function IngredientsListItem({
 IngredientsListItem.propTypes = {
   ingredient: PropTypes.instanceOf(Ingredient),
   index: PropTypes.number.isRequired,
-  errors: PropTypes.object.isRequired,
+  ingredientErrors: PropTypes.object,
   register: PropTypes.func.isRequired,
 };
 
 IngredientsListItem.defaultProps = {
   ingredient: new Ingredient({ name: "", quantity: null, unit: null }),
+  ingredientErrors: null,
 };

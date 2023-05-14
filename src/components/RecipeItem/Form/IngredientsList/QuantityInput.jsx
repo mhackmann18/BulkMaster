@@ -4,10 +4,11 @@ import { TextField } from "@mui/material";
 import "./QuantityInput.css";
 
 const QuantityInput = forwardRef(
-  ({ ingredientQuantity, error, name, onChange, onBlur }, ref) => (
+  ({ ingredientQuantity, errorMessage, name, onChange, onBlur }, ref) => (
     <div className="ingredient-quantity-input-wrapper">
       <TextField
         name={name}
+        className="nowrap"
         onChange={onChange}
         onBlur={onBlur}
         type="number"
@@ -16,7 +17,8 @@ const QuantityInput = forwardRef(
         variant="outlined"
         size="small"
         fullWidth
-        error={error}
+        error={Boolean(errorMessage)}
+        helperText={errorMessage}
         InputProps={{
           inputProps: { step: "any" },
         }}
@@ -28,7 +30,7 @@ const QuantityInput = forwardRef(
 
 QuantityInput.propTypes = {
   ingredientQuantity: PropTypes.number,
-  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
@@ -36,7 +38,7 @@ QuantityInput.propTypes = {
 
 QuantityInput.defaultProps = {
   ingredientQuantity: 0,
-  error: false,
+  errorMessage: "",
 };
 
 export default QuantityInput;

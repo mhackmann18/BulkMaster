@@ -14,6 +14,7 @@ form#recipe .sub-ingredient .inputs-container .buttons-container {
   display: flex;
   align-items: center;
   margin-left: 0;
+  height: 2.25rem;
 }
 
 form#recipe .sub-ingredient .inputs-container .buttons-container * {

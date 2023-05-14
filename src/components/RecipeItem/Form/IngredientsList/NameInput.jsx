@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import "./NameInput.css";
 
 const NameInput = forwardRef(
-  ({ ingredientName, error, name, onChange, onBlur }, ref) => (
+  ({ ingredientName, errorMessage, name, onChange, onBlur }, ref) => (
     <div className="ingredient-name-input-wrapper">
       <TextField
         name={name}
@@ -17,7 +17,8 @@ const NameInput = forwardRef(
         size="small"
         fullWidth
         required
-        error={error}
+        error={Boolean(errorMessage)}
+        helperText={errorMessage}
         inputRef={ref}
       />
     </div>
@@ -26,7 +27,7 @@ const NameInput = forwardRef(
 
 NameInput.propTypes = {
   ingredientName: PropTypes.string,
-  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
@@ -34,7 +35,7 @@ NameInput.propTypes = {
 
 NameInput.defaultProps = {
   ingredientName: "",
-  error: false,
+  errorMessage: "",
 };
 
 export default NameInput;
