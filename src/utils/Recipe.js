@@ -65,6 +65,10 @@ export default class Recipe {
     this.ingredients.push(new Ingredient({ name, unit, quantity }));
   }
 
+  addInstruction(str) {
+    this.instructions.push(str);
+  }
+
   static formatNutrientObj(obj) {
     if (!obj || !Object.keys(obj).length) return null;
 

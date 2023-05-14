@@ -70,6 +70,12 @@
 }
 
 form #ingredients-container li {
+  padding-top: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--french-gray);
+}
+
+form #ingredients-container li {
   border-bottom: none;
 }
 

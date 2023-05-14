@@ -102,10 +102,8 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
           <AddButton
             text="Add Ingredient"
             onClick={() => {
-              console.log("Add new ingredient");
               recipe.addIngredient("", "", 0);
               setRecipe(new Recipe({ ...recipe }));
-              console.log(recipe);
             }}
           />
         }
@@ -117,7 +115,13 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
           />
         }
         instructionsHeaderButtonComponent={
-          <AddButton text="Add Step" onClick={() => false} />
+          <AddButton
+            text="Add Step"
+            onClick={() => {
+              recipe.addInstruction("");
+              setRecipe(new Recipe({ ...recipe }));
+            }}
+          />
         }
         instructionsComponent={
           <InstructionsList
