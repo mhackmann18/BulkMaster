@@ -25,6 +25,7 @@ export default function InstructionsList({ instructions, register, errors }) {
               size="small"
               multiline
               fullWidth
+              required
               helperText={
                 errors.length ? errors[index] && errors[index].message : ""
               }

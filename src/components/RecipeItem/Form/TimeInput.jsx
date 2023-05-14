@@ -4,13 +4,14 @@ import { TextField, InputAdornment } from "@mui/material";
 import "./TimeInput.css";
 
 const TimeInput = forwardRef(
-  ({ labelText, errorMessage, name, onChange, onBlur }, ref) => (
+  ({ labelText, startValue, errorMessage, name, onChange, onBlur }, ref) => (
     <div className="recipe-time-input-wrapper">
       <TextField
         name={name}
         type="number"
         label={labelText}
         variant="outlined"
+        defaultValue={startValue || ""}
         size="small"
         onChange={onChange}
         onBlur={onBlur}
@@ -28,6 +29,7 @@ const TimeInput = forwardRef(
 
 TimeInput.propTypes = {
   labelText: PropTypes.string.isRequired,
+  startValue: PropTypes.number.isRequired,
   errorMessage: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

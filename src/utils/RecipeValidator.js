@@ -1,6 +1,14 @@
 export default class RecipeValidator {
   // Error messages
-  static requiredFieldMsg = "Required field";
+  static requiredFieldMsg = "Required";
+
+  static #getMaxValueMsg = (maxValue) => `Max value: ${maxValue}`;
+
+  static #getMinValueMsg = (minValue) => `Max value: ${minValue}`;
+
+  static #getMaxLengthMsg = (maxValue) => `Max value: ${maxValue}`;
+
+  static #getMinLengthMsg = (minValue) => `Max value: ${minValue}`;
 
   // Field requirements
   static titleMaxLength = 99;
@@ -30,9 +38,7 @@ export default class RecipeValidator {
     if (!trimmedStr.length) {
       msg = RecipeValidator.requiredFieldMsg;
     } else if (trimmedStr.length > RecipeValidator.titleMaxLength) {
-      msg = `Recipe title must be less than ${
-        RecipeValidator.titleMaxLength + 1
-      } characters in length`;
+      msg = RecipeValidator.#getMaxLengthMsg(RecipeValidator.titleMaxLength);
     }
 
     return msg || true;
@@ -66,9 +72,9 @@ export default class RecipeValidator {
     if (!trimmedStr.length) {
       msg = RecipeValidator.requiredFieldMsg;
     } else if (trimmedStr.length > RecipeValidator.ingredientNameMaxLength) {
-      msg = `Ingredient name must be less than ${
-        RecipeValidator.ingredientNameMaxLength + 1
-      } characters in length`;
+      msg = RecipeValidator.#getMaxLengthMsg(
+        RecipeValidator.ingredientNameMaxLength
+      );
     }
 
     return msg || true;
@@ -79,11 +85,11 @@ export default class RecipeValidator {
 
     const trimmedStr = str.trim();
     if (!trimmedStr.length) {
-      msg = "Step field must contain some text";
+      msg = RecipeValidator.requiredFieldMsg;
     } else if (trimmedStr.length > RecipeValidator.instructionMaxLength) {
-      msg = `Step content must be less than ${
-        RecipeValidator.instructionMaxLength + 1
-      } characters in length`;
+      msg = RecipeValidator.#getMaxLengthMsg(
+        RecipeValidator.instructionMaxLength
+      );
     }
 
     return msg || true;
@@ -101,34 +107,19 @@ export default class RecipeValidator {
 
     const trimmedStr = str.trim();
     if (trimmedStr.length > RecipeValidator.servingSizeUnitMaxLength) {
-      msg = `Serving size unit must be less than ${
-        RecipeValidator.servingSizeUnitMaxLength + 1
-      } characters in length`;
+      msg = RecipeValidator.#getMaxLengthMsg(
+        RecipeValidator.servingSizeUnitMaxLength
+      );
     }
 
     return msg || true;
   }
 
   static getNutrientErrMsg(str) {
-    const minValue = 0;
-    let msg = "";
-    const number = Number(str);
-
-    if (!str) {
-      return true;
-    }
-
-    if (Number.isNaN(number)) {
-      msg = "Please enter a number";
-    } else if (number > RecipeValidator.nutrientQuantityMaxValue) {
-      msg = `Max allowed value: ${
-        RecipeValidator.nutrientQuantityMaxValue + 1
-      }`;
-    } else if (number < minValue) {
-      msg = `Min allowed value: ${minValue}`;
-    }
-
-    return msg || true;
+    return RecipeValidator.getNumberErrMsg(
+      str,
+      RecipeValidator.nutrientQuantityMaxValue
+    );
   }
 
   static getNumberErrMsg(str, maxValue, minValue = 0, required = false) {
@@ -144,9 +135,9 @@ export default class RecipeValidator {
     } else if (Number.isNaN(number)) {
       msg = "Please enter a number";
     } else if (number > maxValue) {
-      msg = `Please enter a number less than ${maxValue + 1}`;
+      msg = RecipeValidator.#getMaxValueMsg(maxValue);
     } else if (number < minValue) {
-      msg = `Please enter a number greater than or equal to ${minValue}`;
+      msg = RecipeValidator.#getMinValueMsg(minValue);
     }
 
     return msg || true;
@@ -168,9 +159,9 @@ export default class RecipeValidator {
     } else if (number % 1 !== 0) {
       msg = "Please enter an integer";
     } else if (number > maxValue) {
-      msg = `Please enter an integer less than ${maxValue + 1}`;
+      msg = RecipeValidator.#getMaxValueMsg(maxValue);
     } else if (number < minValue) {
-      msg = `Please enter an integer greater than or equal to ${minValue}`;
+      msg = RecipeValidator.#getMinValueMsg(minValue);
     }
 
     return msg || true;

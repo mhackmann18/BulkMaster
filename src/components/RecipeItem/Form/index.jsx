@@ -33,14 +33,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      title,
-      servings,
-      prepTime,
-      cookTime,
-    },
-  });
+  } = useForm();
 
   const onSubmit = (data) => console.log(data);
 
@@ -55,6 +48,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         titleComponent={
           <TitleInput
             errorMessage={errors.title && errors.title.message}
+            startValue={title}
             {...register("title", {
               validate: RecipeValidator.getTitleErrMsg,
             })}
@@ -63,6 +57,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
         subHeadingComponent={
           <>
             <ServingsInput
+              startValue={servings}
               errorMessage={errors.servings && errors.servings.message}
               {...register("servings", {
                 validate: RecipeValidator.getServingsErrMsg,
@@ -70,6 +65,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
             />
             <TimeInput
               labelText="Prep Time"
+              startValue={prepTime}
               errorMessage={errors.prepTime && errors.prepTime.message}
               {...register("prepTime", {
                 validate: RecipeValidator.getTimeErrMsg,
@@ -78,6 +74,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
             />
             <TimeInput
               labelText="Cook Time"
+              startValue={cookTime}
               errorMessage={errors.cookTime && errors.cookTime.message}
               {...register("cookTime", {
                 validate: RecipeValidator.getTimeErrMsg,

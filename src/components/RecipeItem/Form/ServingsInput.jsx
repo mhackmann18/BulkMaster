@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import "./ServingsInput.css";
 
 const ServingsInput = forwardRef(
-  ({ errorMessage, name, onChange, onBlur }, ref) => (
+  ({ startValue, errorMessage, name, onChange, onBlur }, ref) => (
     // const minServingsQuantity = 1;
     // const maxServingsQuantity = 99;
     <div className="servings-input-wrapper">
@@ -13,13 +13,14 @@ const ServingsInput = forwardRef(
         type="number"
         label="Servings"
         variant="outlined"
+        defaultValue={startValue || ""}
         size="small"
         fullWidth
         onBlur={onBlur}
         onChange={onChange}
         error={Boolean(errorMessage)}
         helperText={errorMessage}
-        // required
+        required
         inputRef={ref}
       />
     </div>
@@ -27,6 +28,7 @@ const ServingsInput = forwardRef(
 );
 
 ServingsInput.propTypes = {
+  startValue: PropTypes.number.isRequired,
   errorMessage: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

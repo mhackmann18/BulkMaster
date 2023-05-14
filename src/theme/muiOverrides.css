@@ -6,6 +6,11 @@
   color: var(--onyx);
 }
 
+.MuiTextField-root .MuiFormHelperText-root {
+  margin-left: 0;
+  font-weight: 600;
+}
+
 .MuiTextField-root .MuiInputAdornment-root p {
   color: var(--slate-gray);
 }
