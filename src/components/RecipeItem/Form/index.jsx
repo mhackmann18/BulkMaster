@@ -123,7 +123,11 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
               register={register}
               errors={errors}
             />
-            <NutrientsList nutrients={nutrients} register={register} />
+            <NutrientsList
+              nutrients={nutrients}
+              register={register}
+              errors={errors}
+            />
           </>
         }
       />

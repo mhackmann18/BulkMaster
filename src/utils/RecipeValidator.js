@@ -21,6 +21,8 @@ export default class RecipeValidator {
 
   static servingSizeUnitMaxLength = 69;
 
+  static nutrientQuantityMaxValue = 9999;
+
   static getTitleErrMsg(str) {
     let msg = "";
 
@@ -102,6 +104,28 @@ export default class RecipeValidator {
       msg = `Serving size unit must be less than ${
         RecipeValidator.servingSizeUnitMaxLength + 1
       } characters in length`;
+    }
+
+    return msg || true;
+  }
+
+  static getNutrientErrMsg(str) {
+    const minValue = 0;
+    let msg = "";
+    const number = Number(str);
+
+    if (!str) {
+      return true;
+    }
+
+    if (Number.isNaN(number)) {
+      msg = "Please enter a number";
+    } else if (number > RecipeValidator.nutrientQuantityMaxValue) {
+      msg = `Max allowed value: ${
+        RecipeValidator.nutrientQuantityMaxValue + 1
+      }`;
+    } else if (number < minValue) {
+      msg = `Min allowed value: ${minValue}`;
     }
 
     return msg || true;
