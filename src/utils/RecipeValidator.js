@@ -4,11 +4,11 @@ export default class RecipeValidator {
 
   static #getMaxValueMsg = (maxValue) => `Max value: ${maxValue}`;
 
-  static #getMinValueMsg = (minValue) => `Max value: ${minValue}`;
+  static #getMinValueMsg = (minValue) => `Min value: ${minValue}`;
 
   static #getMaxLengthMsg = (maxValue) => `Max length: ${maxValue} characters`;
 
-  static #getMinLengthMsg = (minValue) => `Max length: ${minValue} characters`;
+  static #getMinLengthMsg = (minValue) => `Min length: ${minValue} characters`;
 
   // Field requirements
   static titleMaxLength = 99;

@@ -29,7 +29,7 @@ const TimeInput = forwardRef(
 
 TimeInput.propTypes = {
   labelText: PropTypes.string.isRequired,
-  startValue: PropTypes.number.isRequired,
+  startValue: PropTypes.number,
   errorMessage: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -38,6 +38,7 @@ TimeInput.propTypes = {
 
 TimeInput.defaultProps = {
   errorMessage: "",
+  startValue: 0,
 };
 
 export default TimeInput;

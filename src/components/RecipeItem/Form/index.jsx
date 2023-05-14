@@ -118,7 +118,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
             <ServingSizeInput
               servingSize={servingSize}
               register={register}
-              errors={errors}
+              servingSizeErrors={errors && errors.servingSize}
             />
             <NutrientsList
               nutrients={nutrients}

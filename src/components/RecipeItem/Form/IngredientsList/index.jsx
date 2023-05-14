@@ -7,7 +7,6 @@ export default function IngredientInputsList({
   ingredientsErrors,
   register,
 }) {
-  console.log(ingredientsErrors);
   return (
     <ul id="ingredients-list">
       {ingredients.length ? (
@@ -25,7 +24,9 @@ export default function IngredientInputsList({
       ) : (
         <IngredientsListItem
           index={0}
-          ingredientErrors={ingredientsErrors}
+          ingredientErrors={
+            ingredientsErrors.length ? ingredientsErrors[0] : null
+          }
           register={register}
         />
       )}

@@ -1,34 +1,41 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
-import { ErrorMessage } from "@hookform/error-message";
+// import { ErrorMessage } from "@hookform/error-message";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import "./ServingSizeInput.css";
 
-export default function ServingSizeInput({ servingSize, register, errors }) {
-  const servingSizeMinQuantity = 0;
-  const servingSizeMaxQuantity = 9999;
-
+export default function ServingSizeInput({
+  servingSize,
+  register,
+  servingSizeErrors,
+}) {
   return (
     <>
-      <div id="serving-size-input-container">
-        <span>Serving Size:</span>
+      <div className="serving-size-input-container">
+        <span className="serving-size-inputs-title">Serving Size:</span>
         <div className="serving-size-quantity-wrapper">
           <TextField
             {...register("servingSize.quantity", {
               validate: RecipeValidator.getServingSizeQuantityErrMsg,
             })}
+            className="nowrap"
             type="number"
             defaultValue={servingSize.quantity || ""}
             label="Quantity"
             variant="outlined"
             size="small"
             fullWidth
-            error={Boolean(errors.servingSize && errors.servingSize.quantity)}
+            error={Boolean(servingSizeErrors && servingSizeErrors.quantity)}
+            helperText={
+              servingSizeErrors &&
+              servingSizeErrors.quantity &&
+              servingSizeErrors.quantity.message
+            }
             InputProps={{
               inputProps: {
-                min: servingSizeMinQuantity,
-                max: servingSizeMaxQuantity,
+                // min: servingSizeMinQuantity,
+                // max: servingSizeMaxQuantity,
                 step: "any",
               },
             }}
@@ -45,14 +52,19 @@ export default function ServingSizeInput({ servingSize, register, errors }) {
             autoComplete="off"
             size="small"
             fullWidth
-            error={Boolean(errors.servingSize && errors.servingSize.unit)}
+            error={Boolean(servingSizeErrors && servingSizeErrors.unit)}
+            helperText={
+              servingSizeErrors &&
+              servingSizeErrors.unit &&
+              servingSizeErrors.unit.message
+            }
             // InputProps={{
             //   inputProps: { maxLength: servingSizeUnitMaxLength },
             // }}
           />
         </div>
       </div>
-      <div className="serving-size-err-container">
+      {/* <div className="serving-size-err-container">
         <ErrorMessage
           errors={errors}
           name="servingSize.quantity"
@@ -73,7 +85,7 @@ export default function ServingSizeInput({ servingSize, register, errors }) {
             </p>
           )}
         />
-      </div>
+      </div> */}
     </>
   );
 }
@@ -81,9 +93,10 @@ export default function ServingSizeInput({ servingSize, register, errors }) {
 ServingSizeInput.propTypes = {
   servingSize: PropTypes.object,
   register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  servingSizeErrors: PropTypes.object,
 };
 
 ServingSizeInput.defaultProps = {
   servingSize: { quantity: "", unit: "" },
+  servingSizeErrors: null,
 };
