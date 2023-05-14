@@ -49,6 +49,22 @@ export default class Recipe {
     this.id = id || null;
   }
 
+  getNutrientByName(name) {
+    const nameUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
+
+    for (const nutrient of this.nutrients) {
+      if (nutrient.name === nameUpperCase) {
+        return nutrient;
+      }
+    }
+
+    return null;
+  }
+
+  addIngredient(name, unit, quantity) {
+    this.ingredients.push(new Ingredient({ name, unit, quantity }));
+  }
+
   static formatNutrientObj(obj) {
     if (!obj || !Object.keys(obj).length) return null;
 
@@ -97,18 +113,6 @@ export default class Recipe {
       strArr.push(`${nameStr}: ${val.quantity} ${val.unit}`);
     }
     return strArr;
-  }
-
-  getNutrientByName(name) {
-    const nameUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
-
-    for (const nutrient of this.nutrients) {
-      if (nutrient.name === nameUpperCase) {
-        return nutrient;
-      }
-    }
-
-    return null;
   }
 
   static getValidNutrientsArr() {

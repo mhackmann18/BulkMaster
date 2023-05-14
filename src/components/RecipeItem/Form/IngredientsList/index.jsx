@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import PropTypes from "prop-types";
 import Ingredient from "../../../../utils/Ingredient";
 import IngredientsListItem from "./ListItem";
@@ -9,27 +10,19 @@ export default function IngredientInputsList({
 }) {
   return (
     <ul id="ingredients-list">
-      {ingredients.length ? (
-        ingredients.map((ingredient, index) => (
-          <IngredientsListItem
-            key={ingredient.name}
-            ingredientErrors={
-              ingredientsErrors.length ? ingredientsErrors[index] : null
-            }
-            index={index}
-            ingredient={ingredient}
-            register={register}
-          />
-        ))
-      ) : (
-        <IngredientsListItem
-          index={0}
-          ingredientErrors={
-            ingredientsErrors.length ? ingredientsErrors[0] : null
-          }
-          register={register}
-        />
-      )}
+      {ingredients.length
+        ? ingredients.map((ingredient, index) => (
+            <IngredientsListItem
+              key={index}
+              ingredientErrors={
+                ingredientsErrors.length ? ingredientsErrors[index] : null
+              }
+              index={index}
+              ingredient={ingredient}
+              register={register}
+            />
+          ))
+        : false}
     </ul>
   );
 }

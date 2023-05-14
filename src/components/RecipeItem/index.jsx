@@ -26,28 +26,17 @@ export default function RecipeItem({ recipe, startingDisplayType }) {
     />
   ) : (
     <RecipeForm
-      recipe={recipe}
+      startRecipe={recipe}
       handleCancelButtonClick={handleCancelButtonClick}
     />
   );
 }
 
 RecipeItem.propTypes = {
-  recipe: PropTypes.instanceOf(Recipe),
+  recipe: PropTypes.instanceOf(Recipe).isRequired,
   startingDisplayType: PropTypes.oneOf(["form", "div"]),
 };
 
 RecipeItem.defaultProps = {
-  recipe: new Recipe({
-    title: "",
-    ingredients: [],
-    instructions: [],
-    nutrients: null,
-    servings: "",
-    servingSize: { quantity: 0, unit: "" },
-    prepTime: 0,
-    cookTime: 0,
-    url: "",
-  }),
   startingDisplayType: "div",
 };

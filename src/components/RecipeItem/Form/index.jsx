@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-// import { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import RecipeContainer from "../RecipeContainer";
@@ -15,7 +15,8 @@ import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 
-export default function RecipeForm({ recipe, handleCancelButtonClick }) {
+export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
+  const [recipe, setRecipe] = useState(startRecipe);
   const {
     cookTime,
     ingredients,
@@ -26,8 +27,8 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
     servings,
     servingSize,
   } = recipe;
-  const recipeStatus = recipe.title ? "existing" : "new";
-  // const [instructionsInput, setInstructionsInput] = useState(instructions);
+
+  const recipeStatus = title ? "existing" : "new";
 
   const {
     handleSubmit,
@@ -97,7 +98,17 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
             <Button text="Save to Library" type="submit" />
           )
         }
-        ingredientsHeaderButtonComponent={<AddButton text="Add Ingredient" />}
+        ingredientsHeaderButtonComponent={
+          <AddButton
+            text="Add Ingredient"
+            onClick={() => {
+              console.log("Add new ingredient");
+              recipe.addIngredient("", "", 0);
+              setRecipe(new Recipe({ ...recipe }));
+              console.log(recipe);
+            }}
+          />
+        }
         ingredientsComponent={
           <IngredientInputsList
             ingredients={ingredients}
@@ -105,7 +116,9 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
             ingredientsErrors={errors.ingredients || []}
           />
         }
-        instructionsHeaderButtonComponent={<AddButton text="Add Step" />}
+        instructionsHeaderButtonComponent={
+          <AddButton text="Add Step" onClick={() => false} />
+        }
         instructionsComponent={
           <InstructionsList
             instructions={instructions}
@@ -133,7 +146,7 @@ export default function RecipeForm({ recipe, handleCancelButtonClick }) {
 }
 
 RecipeForm.propTypes = {
-  recipe: PropTypes.instanceOf(Recipe).isRequired,
+  startRecipe: PropTypes.instanceOf(Recipe).isRequired,
   handleCancelButtonClick: PropTypes.func,
 };
 
