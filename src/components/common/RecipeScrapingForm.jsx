@@ -31,7 +31,6 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
       const data = await res.json();
 
       const {
-        canonical_url,
         cook_time,
         ingredients,
         instructions_list,
@@ -49,7 +48,6 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
         servings: yields,
         prepTime: prep_time,
         cookTime: cook_time,
-        url: canonical_url,
       });
     } else if (res.status === 400) {
       const errText = await res.text();

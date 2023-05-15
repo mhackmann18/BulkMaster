@@ -3,6 +3,7 @@
   container-name: recipe-container;
   /* border: 1px solid var(--french-gray); */
   /* border-radius: 10px; */
+  position: relative;
 }
 
 #recipe-header { 

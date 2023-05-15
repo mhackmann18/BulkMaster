@@ -1,7 +1,6 @@
 [
     {
         "id": 1,
-        "url": "https://www.dinneratthezoo.com/slow-cooker-teriyaki-chicken/",
         "cookTime": 240,
         "ingredients": [
             "1.5 pounds boneless skinless chicken breasts",
@@ -66,7 +65,6 @@
     },
     {
         "id": 2,
-        "url": "https://therecipecritic.com/korean-ground-beef-rice-bowls/",
         "cookTime": 15,
         "ingredients": [
             "1 pound lean ground beef (90% lean)",
@@ -130,7 +128,6 @@
     },
     {
         "id": 3,
-        "url": "https://www.onceuponachef.com/recipes/how-to-cook-steak-on-the-stovetop.html",
         "cookTime": 6,
         "ingredients": [
             "2 (12-oz) New York strip or ribeye steaks or 4 (6-oz) filet mignons, about 1 inches thick",
@@ -183,7 +180,6 @@
     },
     {
         "id": 4,
-        "url": "https://www.allrecipes.com/recipe/23439/perfect-pumpkin-pie/",
         "cookTime": 50,
         "ingredients": [
             "1 (15 ounce) can pumpkin puree",
@@ -253,7 +249,6 @@
     },
     {
         "id": 5,
-        "url": "https://tastesbetterfromscratch.com/homemade-spaghetti-sauce/",
         "ingredients": [
             "1 pound ground beef ((or 0.5 pound ground Italian sausage and 0.5 pound ground beef))",
             "salt and freshly ground black pepper (, to taste)",

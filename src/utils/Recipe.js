@@ -30,7 +30,6 @@ export default class Recipe {
     servingSize, // object of shape: { quantity: number, unit: string } or a falsy
     prepTime, // number
     cookTime, // number
-    url, // string
     id, // a number greater than 0 or a fasly
   }) {
     this.title = title;
@@ -48,7 +47,6 @@ export default class Recipe {
       Recipe.servingSizeStringToObject(nutrients && nutrients.servingSize);
     this.prepTime = prepTime;
     this.cookTime = cookTime;
-    this.url = url;
     this.id = id || null;
   }
 
