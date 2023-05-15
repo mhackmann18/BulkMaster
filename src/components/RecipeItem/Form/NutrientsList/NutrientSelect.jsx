@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 import nutrientNames from "../../../../utils/validNutrients";
 
 export default function NutrientSelect({ nutrientName }) {
@@ -10,8 +9,9 @@ export default function NutrientSelect({ nutrientName }) {
       title="Name"
       defaultValue={nutrientName}
     >
-      {["", ...nutrientNames].map((el) => (
-        <option value={el} key={uuidv4()}>
+      {["", ...nutrientNames].map((el, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <option value={el} key={index}>
           {el}
         </option>
       ))}

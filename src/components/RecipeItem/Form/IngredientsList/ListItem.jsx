@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import PropTypes from "prop-types";
-// import { ErrorMessage } from "@hookform/error-message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import QuantityInput from "./QuantityInput";
@@ -12,11 +11,16 @@ import RecipeValidator from "../../../../utils/RecipeValidator";
 
 export default function IngredientsListItem({
   ingredient,
+  onRemoveClick,
   ingredientErrors,
-  index,
   register,
 }) {
-  const { quantity, unit, name } = ingredient;
+  const { quantity, unit, name, id } = ingredient;
+
+  const handleRemoveClick = () => {
+    onRemoveClick(id);
+  };
+
   return (
     <li>
       <div className="sub-ingredient">
@@ -28,13 +32,13 @@ export default function IngredientsListItem({
               ingredientErrors.quantity &&
               ingredientErrors.quantity.message
             }
-            {...register(`ingredients.${index}.quantity`, {
+            {...register(`ingredients.${id}.quantity`, {
               validate: RecipeValidator.getIngredientQuantityErrMsg,
             })}
           />
           <UnitInput
             ingredientUnit={unit}
-            {...register(`ingredients.${index}.unit`)}
+            {...register(`ingredients.${id}.unit`)}
           />
           <NameInput
             ingredientName={name}
@@ -43,13 +47,14 @@ export default function IngredientsListItem({
               ingredientErrors.name &&
               ingredientErrors.name.message
             }
-            {...register(`ingredients.${index}.name`, {
+            {...register(`ingredients.${id}.name`, {
               validate: RecipeValidator.getIngredientNameErrMsg,
             })}
           />
           <div className="buttons-container">
             <FontAwesomeIcon
               icon={faTrashCan}
+              onClick={handleRemoveClick}
               size="lg"
               className="btn remove"
               title="Remove Ingredient"
@@ -57,35 +62,13 @@ export default function IngredientsListItem({
           </div>
         </div>
       </div>
-      {/* <div className="ingredient-ingredientErrors-container">
-        <ErrorMessage
-          name={`ingredients.${index}.quantity`}
-          ingredientErrors={ingredientErrors}
-          render={({ message }) => (
-            <p className="ingredient-err input-err-msg">
-              <span className="bold">Quantity: </span>
-              {message}
-            </p>
-          )}
-        />
-        <ErrorMessage
-          name={`ingredients.${index}.name`}
-          ingredientErrors={ingredientErrors}
-          render={({ message }) => (
-            <p className="ingredient-err input-err-msg">
-              <span className="bold">Name: </span>
-              {message}
-            </p>
-          )}
-        />
-      </div> */}
     </li>
   );
 }
 
 IngredientsListItem.propTypes = {
   ingredient: PropTypes.instanceOf(Ingredient),
-  index: PropTypes.number.isRequired,
+  onRemoveClick: PropTypes.func.isRequired,
   ingredientErrors: PropTypes.object,
   register: PropTypes.func.isRequired,
 };

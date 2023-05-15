@@ -110,8 +110,12 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
         ingredientsComponent={
           <IngredientInputsList
             ingredients={ingredients}
+            onIngredientRemoveClick={(id) => {
+              recipe.removeIngredientById(id);
+              setRecipe(new Recipe({ ...recipe }));
+            }}
             register={register}
-            ingredientsErrors={errors.ingredients || []}
+            ingredientsErrors={errors.ingredients}
           />
         }
         instructionsHeaderButtonComponent={
@@ -126,6 +130,10 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
         instructionsComponent={
           <InstructionsList
             instructions={instructions}
+            onInstructionRemoveClick={(id) => {
+              recipe.removeInstructionById(id);
+              setRecipe(new Recipe({ ...recipe }));
+            }}
             register={register}
             errors={errors && errors.instructions}
           />

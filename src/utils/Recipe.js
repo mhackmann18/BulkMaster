@@ -1,4 +1,5 @@
 import { fraction } from "mathjs";
+import { v4 as uuidv4 } from "uuid";
 import Ingredient from "./Ingredient";
 import {
   getNumberFromNumericalString,
@@ -36,7 +37,9 @@ export default class Recipe {
     this.ingredients = ingredients.length
       ? ingredients.map((ingredient) => new Ingredient(ingredient))
       : [];
-    this.instructions = instructions;
+    this.instructions = instructions.map((el) =>
+      typeof el === "string" ? { text: el, id: uuidv4() } : el
+    );
     this.nutrients = Recipe.formatNutrientObj(nutrients);
     this.servings =
       typeof servings === "number" ? servings : Number(servings.split(" ")[0]);
@@ -66,7 +69,42 @@ export default class Recipe {
   }
 
   addInstruction(str) {
-    this.instructions.push(str);
+    this.instructions.push({ text: str, id: uuidv4() });
+    console.log(this.instructions);
+  }
+
+  removeIngredientById(id) {
+    if (!id) return null;
+
+    let removedIngredientIndex = -1;
+
+    for (let i = 0; i < this.ingredients.length; i++) {
+      if (this.ingredients[i].id === id) {
+        removedIngredientIndex = i;
+        break;
+      }
+    }
+
+    if (removedIngredientIndex === -1) return null;
+
+    return this.ingredients.splice(removedIngredientIndex, 1);
+  }
+
+  removeInstructionById(id) {
+    if (!id) return null;
+
+    let removeInstructionIndex = -1;
+
+    for (let i = 0; i < this.instructions.length; i++) {
+      if (this.instructions[i].id === id) {
+        removeInstructionIndex = i;
+        break;
+      }
+    }
+
+    if (removeInstructionIndex === -1) return null;
+
+    return this.instructions.splice(removeInstructionIndex, 1);
   }
 
   static formatNutrientObj(obj) {

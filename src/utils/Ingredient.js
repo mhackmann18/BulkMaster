@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import {
   isStringPositiveNumber,
   isStringPostiveFraction,
@@ -8,13 +9,14 @@ import { isCookingUnit, normalizeCookingUnit } from "./cookingUnit";
 
 export default class Ingredient {
   constructor(ingredient) {
-    const { quantity, unit, name } =
+    const { quantity, unit, name, id } =
       typeof ingredient === "string"
         ? Ingredient.stringToObject(ingredient)
         : ingredient;
     this.quantity = quantity;
     this.unit = unit;
     this.name = name;
+    this.id = id || uuidv4();
   }
 
   getString() {
