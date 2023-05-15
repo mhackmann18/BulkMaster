@@ -16,7 +16,7 @@ import Recipe from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 
 export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
-  const [recipe, setRecipe] = useState(startRecipe);
+  const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
   const {
     cookTime,
     ingredients,

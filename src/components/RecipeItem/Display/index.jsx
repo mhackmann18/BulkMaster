@@ -51,17 +51,11 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
             )}
           </>
         }
-        ingredientsComponent={
-          <IngredientsList
-            ingredients={ingredients.map((ingredient) =>
-              ingredient.getString()
-            )}
-          />
-        }
+        ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
           <ol id="instructions-list">
             {instructions.map((el) => (
-              <li key={el}>{el}</li>
+              <li key={el.id}>{el.text}</li>
             ))}
           </ol>
         }

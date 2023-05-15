@@ -4,7 +4,7 @@ export default function IngredientsList({ ingredients }) {
   return (
     <ul>
       {ingredients.map((ing) => (
-        <li key={ing.id}>{ing.text}</li>
+        <li key={ing.id}>{ing.getString()}</li>
       ))}
     </ul>
   );
