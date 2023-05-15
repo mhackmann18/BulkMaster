@@ -41,27 +41,6 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
         yields,
       } = data;
 
-      console.log(data);
-
-      // const formattedData = {
-      //   title,
-      //   ingredients,
-      //   instructions: instructions_list,
-      //   nutrients,
-      //   yields,
-      //   prepTime: prep_time,
-      //   cookTime: cook_time,
-      //   url: canonical_url,
-      // }
-
-      // console.log(formattedData);
-
-      // if (!formattedData) {
-      //   setSubmitError("Unable to obtain recipe data from the URL");
-      // } else {
-      //   handleResponse(formattedData);
-      // }
-
       handleResponse({
         title,
         ingredients,

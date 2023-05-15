@@ -10,7 +10,7 @@ export default function Home() {
       <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
       <RecipeScrapingForm
         handleResponse={(res) => {
-          navigate("search", { state: { recipe: res } });
+          navigate("search", { state: { data: res } });
         }}
       />
     </div>

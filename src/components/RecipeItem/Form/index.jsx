@@ -95,7 +95,7 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
               <Button text="Save Changes" type="submit" />
             </>
           ) : (
-            <Button text="Save to Library" type="submit" />
+            <Button text="Create Recipe" type="submit" />
           )
         }
         ingredientsHeaderButtonComponent={
