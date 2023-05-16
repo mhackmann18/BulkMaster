@@ -4,9 +4,10 @@ import IngredientsListItem from "./ListItem";
 
 export default function IngredientInputsList({
   ingredients,
-  onIngredientRemoveClick,
+  onDeleteIngredient,
   ingredientsErrors,
   register,
+  watch,
 }) {
   return (
     <ul id="ingredients-list">
@@ -15,8 +16,9 @@ export default function IngredientInputsList({
             <IngredientsListItem
               key={ingredient.id}
               ingredient={ingredient}
-              onRemoveClick={onIngredientRemoveClick}
+              onDeleteIngredient={onDeleteIngredient}
               register={register}
+              watch={watch}
               ingredientErrors={
                 ingredientsErrors && ingredientsErrors[ingredient.id]
               }
@@ -29,9 +31,10 @@ export default function IngredientInputsList({
 
 IngredientInputsList.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.instanceOf(Ingredient)).isRequired,
-  onIngredientRemoveClick: PropTypes.func.isRequired,
+  onDeleteIngredient: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   ingredientsErrors: PropTypes.object,
+  watch: PropTypes.func.isRequired,
 };
 
 IngredientInputsList.defaultProps = {

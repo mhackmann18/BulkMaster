@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -8,17 +9,29 @@ import NameInput from "./NameInput";
 import Ingredient from "../../../../utils/Ingredient";
 import "./ListItem.css";
 import RecipeValidator from "../../../../utils/RecipeValidator";
+import ConfirmationDisplay from "../../../common/ConfirmationDisplay";
+import StandardModal from "../../../common/StandardModal";
 
 export default function IngredientsListItem({
   ingredient,
-  onRemoveClick,
+  onDeleteIngredient,
   ingredientErrors,
   register,
+  watch,
 }) {
   const { quantity, unit, name, id } = ingredient;
 
+  const [removeIngredientModalOpen, setRemoveIngredientModalOpen] =
+    useState(false);
+
+  const ingredientDeletedMessage = "Ingredient deleted successfully";
+
   const handleRemoveClick = () => {
-    onRemoveClick(id);
+    if (watch(`ingredients.${id}.name`)) {
+      setRemoveIngredientModalOpen(true);
+    } else {
+      onDeleteIngredient(id, ingredientDeletedMessage);
+    }
   };
 
   return (
@@ -51,6 +64,7 @@ export default function IngredientsListItem({
               validate: RecipeValidator.getIngredientNameErrMsg,
             })}
           />
+          {}
           <div className="buttons-container">
             <FontAwesomeIcon
               icon={faTrashCan}
@@ -62,15 +76,31 @@ export default function IngredientsListItem({
           </div>
         </div>
       </div>
+      <StandardModal
+        open={removeIngredientModalOpen}
+        handleClose={() => setRemoveIngredientModalOpen(false)}
+      >
+        <ConfirmationDisplay
+          headerText="Delete Ingredient"
+          messageText={`Are you sure you want to delete the ingredient '${ingredient.getString()}'?`}
+          cancelBtnText="Cancel"
+          confirmBtnText="Delete"
+          onCancel={() => setRemoveIngredientModalOpen(false)}
+          onConfirm={() => {
+            onDeleteIngredient(id, ingredientDeletedMessage);
+          }}
+        />
+      </StandardModal>
     </li>
   );
 }
 
 IngredientsListItem.propTypes = {
   ingredient: PropTypes.instanceOf(Ingredient),
-  onRemoveClick: PropTypes.func.isRequired,
+  onDeleteIngredient: PropTypes.func.isRequired,
   ingredientErrors: PropTypes.object,
   register: PropTypes.func.isRequired,
+  watch: PropTypes.func.isRequired,
 };
 
 IngredientsListItem.defaultProps = {

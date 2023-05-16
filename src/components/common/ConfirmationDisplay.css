@@ -1,6 +1,7 @@
 .confirmation-display {
   width: 40vw;
   min-width: 300px;
+  line-height: 1.8rem;
 }
 
 .confirmation-display h3 {

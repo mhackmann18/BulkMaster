@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import { Snackbar, Alert } from "@mui/material";
 import RecipeContainer from "../RecipeContainer";
 import TitleInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
@@ -17,6 +18,28 @@ import RecipeValidator from "../../../utils/RecipeValidator";
 
 export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
+  const [successToast, setSuccessToast] = useState({
+    open: false,
+    messages: [],
+    activeMessage: "",
+  });
+
+  const closeSuccessToast = () => {
+    setSuccessToast({ ...successToast, open: false });
+  };
+
+  useEffect(() => {
+    if (!successToast.open && successToast.messages.length) {
+      setSuccessToast({
+        open: true,
+        activeMessage: successToast.messages[0],
+        messages: successToast.messages.slice(1),
+      });
+    } else if (successToast.open && successToast.messages.length) {
+      setSuccessToast({ ...successToast, open: false });
+    }
+  }, [successToast]);
+
   const {
     cookTime,
     ingredients,
@@ -33,6 +56,7 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -110,11 +134,16 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
         ingredientsComponent={
           <IngredientInputsList
             ingredients={ingredients}
-            onIngredientRemoveClick={(id) => {
+            onDeleteIngredient={(id, successMessage) => {
               recipe.removeIngredientById(id);
               setRecipe(new Recipe({ ...recipe }));
+              setSuccessToast({
+                ...successToast,
+                messages: [...successToast.messages, successMessage],
+              });
             }}
             register={register}
+            watch={watch}
             ingredientsErrors={errors.ingredients}
           />
         }
@@ -153,6 +182,22 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
           </>
         }
       />
+
+      <Snackbar
+        open={successToast.open}
+        autoHideDuration={6000}
+        onClose={closeSuccessToast}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        id="recipe-form-toast"
+      >
+        <Alert
+          onClose={closeSuccessToast}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {successToast.activeMessage}
+        </Alert>
+      </Snackbar>
     </form>
   );
 }
