@@ -131,11 +131,6 @@ form .nutrients-container {
   margin-left: 0;
 }
 
-/* #recipe-form-toast {
-  border: 1px solid rgb(30, 70, 32);
-  border-radius: 4px;
-} */
-
 @media screen and (max-width: 480px) {
   #recipe-content {
     background-color: var(--white);

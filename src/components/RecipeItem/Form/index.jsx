@@ -162,8 +162,16 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
             onInstructionRemoveClick={(id) => {
               recipe.removeInstructionById(id);
               setRecipe(new Recipe({ ...recipe }));
+              setSuccessToast({
+                ...successToast,
+                messages: [
+                  ...successToast.messages,
+                  `Instruction step deleted successfully`,
+                ],
+              });
             }}
             register={register}
+            watch={watch}
             errors={errors && errors.instructions}
           />
         }
@@ -188,7 +196,6 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
         autoHideDuration={6000}
         onClose={closeSuccessToast}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        id="recipe-form-toast"
       >
         <Alert
           onClose={closeSuccessToast}
