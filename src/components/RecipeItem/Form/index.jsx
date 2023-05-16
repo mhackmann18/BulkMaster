@@ -193,7 +193,7 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
         <Alert
           onClose={closeSuccessToast}
           severity="success"
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", border: 1 }}
         >
           {successToast.activeMessage}
         </Alert>
