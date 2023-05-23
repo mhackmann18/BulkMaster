@@ -25,10 +25,7 @@ export default function RecipeItem({ recipe, startingDisplayType }) {
       switchToForm={() => setDisplayType("form")}
     />
   ) : (
-    <RecipeForm
-      startRecipe={recipe}
-      handleCancelButtonClick={handleCancelButtonClick}
-    />
+    <RecipeForm startRecipe={recipe} onCancel={handleCancelButtonClick} />
   );
 }
 

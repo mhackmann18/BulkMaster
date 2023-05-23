@@ -15,9 +15,12 @@ import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
+import StandardModal from "../../common/StandardModal";
+import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 
-export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
+export default function RecipeForm({ startRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
+  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
   const [successToast, setSuccessToast] = useState({
     open: false,
     messages: [],
@@ -26,6 +29,10 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
 
   const closeSuccessToast = () => {
     setSuccessToast({ ...successToast, open: false });
+  };
+
+  const closeFormModal = () => {
+    setCloseFormModalOpen(false);
   };
 
   useEffect(() => {
@@ -57,8 +64,16 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
     handleSubmit,
     register,
     watch,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm();
+
+  const handleCancelClick = () => {
+    if (isDirty) {
+      setCloseFormModalOpen(true);
+    } else {
+      onCancel();
+    }
+  };
 
   const onSubmit = (data) => console.log(data);
 
@@ -114,7 +129,7 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
               <Button
                 text="Cancel"
                 type="button"
-                handleClick={handleCancelButtonClick}
+                handleClick={handleCancelClick}
               />
               <Button text="Save Changes" type="submit" />
             </>
@@ -191,6 +206,16 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
         }
       />
 
+      <StandardModal open={closeFormModalOpen} handleClose={closeFormModal}>
+        <ConfirmationDisplay
+          headerText="Unsaved Changes"
+          messageText="You have made unsaved changes. Do you want to save or discard them?"
+          cancelBtnText="Discard"
+          onCancel={onCancel}
+          confirmBtnText="Save"
+          onConfirm={closeFormModal}
+        />
+      </StandardModal>
       <Snackbar
         open={successToast.open}
         autoHideDuration={6000}
@@ -211,9 +236,9 @@ export default function RecipeForm({ startRecipe, handleCancelButtonClick }) {
 
 RecipeForm.propTypes = {
   startRecipe: PropTypes.instanceOf(Recipe).isRequired,
-  handleCancelButtonClick: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 RecipeForm.defaultProps = {
-  handleCancelButtonClick: () => null,
+  onCancel: () => null,
 };
