@@ -20,33 +20,6 @@ import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 
 export default function RecipeForm({ startRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
-  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
-  const [successToast, setSuccessToast] = useState({
-    open: false,
-    messages: [],
-    activeMessage: "",
-  });
-
-  const closeSuccessToast = () => {
-    setSuccessToast({ ...successToast, open: false });
-  };
-
-  const closeFormModal = () => {
-    setCloseFormModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (!successToast.open && successToast.messages.length) {
-      setSuccessToast({
-        open: true,
-        activeMessage: successToast.messages[0],
-        messages: successToast.messages.slice(1),
-      });
-    } else if (successToast.open && successToast.messages.length) {
-      setSuccessToast({ ...successToast, open: false });
-    }
-  }, [successToast]);
-
   const {
     cookTime,
     ingredients,
@@ -56,7 +29,57 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     title,
     servings,
     servingSize,
+    id,
   } = recipe;
+
+  // Toast
+
+  const [toast, setToast] = useState({
+    open: false,
+    messages: [],
+    activeMessage: "",
+    // severity: "success",
+  });
+
+  const addSuccessToastMessage = (message) => {
+    setToast({
+      ...toast,
+      messages: [...toast.messages, message],
+      severity: "success",
+    });
+  };
+
+  const addErrorToastMessage = (message) => {
+    setToast({
+      ...toast,
+      messages: [...toast.messages, message],
+      severity: "error",
+    });
+  };
+
+  const closeToast = () => {
+    setToast({ ...toast, open: false });
+  };
+
+  // Close Form Modal
+
+  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
+
+  const closeFormModal = () => {
+    setCloseFormModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (!toast.open && toast.messages.length) {
+      setToast({
+        open: true,
+        activeMessage: toast.messages[0],
+        messages: toast.messages.slice(1),
+      });
+    } else if (toast.open && toast.messages.length) {
+      setToast({ ...toast, open: false });
+    }
+  }, [toast]);
 
   const recipeStatus = title ? "existing" : "new";
 
@@ -68,6 +91,8 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     formState: { errors, isDirty },
   } = useForm();
 
+  // Form Handlers
+
   const handleCancelClick = () => {
     if (isDirty) {
       setCloseFormModalOpen(true);
@@ -77,7 +102,18 @@ export default function RecipeForm({ startRecipe, onCancel }) {
   };
 
   const onSubmit = (data) => {
-    console.log(getRecipeFromFormData(data));
+    const newRecipe = getRecipeFromFormData(data, id);
+    if (newRecipe.error) {
+      // Show error in ui
+      console.log(newRecipe.error);
+      addErrorToastMessage(newRecipe.error);
+    } else if (newRecipe.id) {
+      // Update recipe
+      console.log(`Update recipe with id ${id}`, newRecipe);
+    } else if (!newRecipe.id) {
+      // Create recipe
+      console.log(`Create new recipe`, newRecipe);
+    }
   };
 
   return (
@@ -152,14 +188,11 @@ export default function RecipeForm({ startRecipe, onCancel }) {
         ingredientsComponent={
           <IngredientInputsList
             ingredients={ingredients}
-            onDeleteIngredient={(id, successMessage) => {
-              unregister(`ingredients.${id}`);
-              recipe.removeIngredientById(id);
+            onDeleteIngredient={(ingredientId, successMessage) => {
+              unregister(`ingredients.${ingredientId}`);
+              recipe.removeIngredientById(ingredientId);
               setRecipe(new Recipe({ ...recipe }));
-              setSuccessToast({
-                ...successToast,
-                messages: [...successToast.messages, successMessage],
-              });
+              addSuccessToastMessage(successMessage);
             }}
             register={register}
             watch={watch}
@@ -178,17 +211,11 @@ export default function RecipeForm({ startRecipe, onCancel }) {
         instructionsComponent={
           <InstructionsList
             instructions={instructions}
-            onInstructionRemoveClick={(id) => {
-              unregister(`instructions.${id}`);
-              recipe.removeInstructionById(id);
+            onInstructionRemoveClick={(instructionId) => {
+              unregister(`instructions.${instructionId}`);
+              recipe.removeInstructionById(instructionId);
               setRecipe(new Recipe({ ...recipe }));
-              setSuccessToast({
-                ...successToast,
-                messages: [
-                  ...successToast.messages,
-                  `Instruction step deleted successfully`,
-                ],
-              });
+              addSuccessToastMessage("Instruction step deleted successfully");
             }}
             register={register}
             watch={watch}
@@ -222,36 +249,36 @@ export default function RecipeForm({ startRecipe, onCancel }) {
         />
       </StandardModal>
       <Snackbar
-        open={successToast.open}
+        open={toast.open}
         autoHideDuration={6000}
-        onClose={closeSuccessToast}
+        onClose={closeToast}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          onClose={closeSuccessToast}
-          severity="success"
+          onClose={closeToast}
+          severity={toast.severity}
           sx={{ width: "100%", border: 1 }}
         >
-          {successToast.activeMessage}
+          {toast.activeMessage}
         </Alert>
       </Snackbar>
     </form>
   );
 }
 
-function getRecipeFromFormData(data) {
+function getRecipeFromFormData(data, recipeId) {
+  if (!data.ingredients) {
+    return { error: "Recipe must have at least one ingredient" };
+  }
+
   const newIngredients = [];
   for (const [key, value] of Object.entries(data.ingredients)) {
     newIngredients.push({
       id: key,
       quantity: Number(value.quantity),
       unit: value.unit,
-      name: value.unit,
+      name: value.name,
     });
-  }
-
-  if (!newIngredients.length) {
-    console.log("Must have at least one ingredient");
   }
 
   const newInstructions = [];
@@ -280,7 +307,7 @@ function getRecipeFromFormData(data) {
   }
 
   return new Recipe({
-    // id: startRecipe.id,
+    id: recipeId,
     title: data.title,
     servings: Number(data.servings),
     prepTime: Number(data.prepTime),

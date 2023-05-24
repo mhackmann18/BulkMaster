@@ -68,7 +68,6 @@ export default class Recipe {
 
   addInstruction(str) {
     this.instructions.push({ text: str, id: uuidv4() });
-    console.log(this.instructions);
   }
 
   removeIngredientById(id) {
