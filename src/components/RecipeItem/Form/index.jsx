@@ -17,6 +17,7 @@ import Recipe, { nutrientUnits } from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
+import { updateRecipeById } from "../../../utils/user";
 
 export default function RecipeForm({ startRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -38,7 +39,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     open: false,
     messages: [],
     activeMessage: "",
-    // severity: "success",
+    severity: "success",
   });
 
   const addSuccessToastMessage = (message) => {
@@ -61,17 +62,10 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     setToast({ ...toast, open: false });
   };
 
-  // Close Form Modal
-
-  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
-
-  const closeFormModal = () => {
-    setCloseFormModalOpen(false);
-  };
-
   useEffect(() => {
     if (!toast.open && toast.messages.length) {
       setToast({
+        ...toast,
         open: true,
         activeMessage: toast.messages[0],
         messages: toast.messages.slice(1),
@@ -80,6 +74,14 @@ export default function RecipeForm({ startRecipe, onCancel }) {
       setToast({ ...toast, open: false });
     }
   }, [toast]);
+
+  // Close Form Modal
+
+  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
+
+  const closeFormModal = () => {
+    setCloseFormModalOpen(false);
+  };
 
   const recipeStatus = title ? "existing" : "new";
 
@@ -101,18 +103,27 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     }
   };
 
-  const onSubmit = (data) => {
-    const newRecipe = getRecipeFromFormData(data, id);
-    if (newRecipe.error) {
+  const onSubmit = async (data) => {
+    const recipeData = getRecipeFromFormData(data, id);
+    if (recipeData.error) {
       // Show error in ui
-      console.log(newRecipe.error);
-      addErrorToastMessage(newRecipe.error);
-    } else if (newRecipe.id) {
-      // Update recipe
-      console.log(`Update recipe with id ${id}`, newRecipe);
-    } else if (!newRecipe.id) {
+      addErrorToastMessage(recipeData.error);
+    } else if (recipeData.id) {
+      if (!startRecipe.isEquivalent(recipeData)) {
+        // Update recipe
+        const res = await updateRecipeById(recipeData, id);
+
+        if (res.success) {
+          addSuccessToastMessage(res.message);
+        } else {
+          addErrorToastMessage(res.message);
+        }
+      } else {
+        addSuccessToastMessage("Recipe updated");
+      }
+    } else if (!recipeData.id) {
       // Create recipe
-      console.log(`Create new recipe`, newRecipe);
+      console.log(`Create new recipe`, recipeData);
     }
   };
 
