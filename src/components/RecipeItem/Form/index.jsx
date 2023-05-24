@@ -13,7 +13,7 @@ import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
 import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
-import Recipe from "../../../utils/Recipe";
+import Recipe, { nutrientUnits } from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
@@ -63,6 +63,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
   const {
     handleSubmit,
     register,
+    unregister,
     watch,
     formState: { errors, isDirty },
   } = useForm();
@@ -75,7 +76,9 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     }
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(getRecipeFromFormData(data));
+  };
 
   return (
     <form
@@ -150,6 +153,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
           <IngredientInputsList
             ingredients={ingredients}
             onDeleteIngredient={(id, successMessage) => {
+              unregister(`ingredients.${id}`);
               recipe.removeIngredientById(id);
               setRecipe(new Recipe({ ...recipe }));
               setSuccessToast({
@@ -175,6 +179,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
           <InstructionsList
             instructions={instructions}
             onInstructionRemoveClick={(id) => {
+              unregister(`instructions.${id}`);
               recipe.removeInstructionById(id);
               setRecipe(new Recipe({ ...recipe }));
               setSuccessToast({
@@ -232,6 +237,59 @@ export default function RecipeForm({ startRecipe, onCancel }) {
       </Snackbar>
     </form>
   );
+}
+
+function getRecipeFromFormData(data) {
+  const newIngredients = [];
+  for (const [key, value] of Object.entries(data.ingredients)) {
+    newIngredients.push({
+      id: key,
+      quantity: Number(value.quantity),
+      unit: value.unit,
+      name: value.unit,
+    });
+  }
+
+  if (!newIngredients.length) {
+    console.log("Must have at least one ingredient");
+  }
+
+  const newInstructions = [];
+  for (const [key, value] of Object.entries(data.instructions)) {
+    newInstructions.push({ id: key, text: value });
+  }
+
+  const newNutrients = {};
+  for (const [name, value] of Object.entries(data.nutrients)) {
+    if (value) {
+      newNutrients[name] = {
+        quantity: Number(value),
+        unit: nutrientUnits[name],
+      };
+    }
+  }
+
+  let newServingSize;
+  if (data.servingSize.quantity || data.servingSize.unit) {
+    newServingSize = {
+      quantity: Number(data.servingSize.quantity),
+      unit: data.servingSize.unit || null,
+    };
+  } else {
+    newServingSize = null;
+  }
+
+  return new Recipe({
+    // id: startRecipe.id,
+    title: data.title,
+    servings: Number(data.servings),
+    prepTime: Number(data.prepTime),
+    cookTime: Number(data.cookTime),
+    ingredients: newIngredients,
+    instructions: newInstructions,
+    nutrients: Object.keys(newNutrients).length ? newNutrients : null,
+    servingSize: newServingSize,
+  });
 }
 
 RecipeForm.propTypes = {

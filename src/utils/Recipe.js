@@ -6,7 +6,7 @@ import {
   isStringPositiveNumber,
 } from "./helperFunctions";
 
-const nutrientUnits = {
+export const nutrientUnits = {
   calories: "kcal",
   fat: "g",
   saturatedFat: "g",
@@ -103,6 +103,89 @@ export default class Recipe {
     if (removeInstructionIndex === -1) return null;
 
     return this.instructions.splice(removeInstructionIndex, 1);
+  }
+
+  // Compares another Recipe instance for shallow equality (not considering array element ids)
+  isEquivalent(obj) {
+    console.log(obj);
+    if (!(obj instanceof Recipe)) {
+      console.log("Instance");
+
+      return false;
+    }
+
+    // Title
+    if (obj.title !== this.title) {
+      console.log("title");
+
+      return false;
+    }
+
+    // Ingredients
+    if (this.ingredients.length !== obj.ingredients.length) {
+      console.log("Ingredients length");
+
+      return false;
+    }
+    for (let i = 0; i < this.ingredients.length; i++) {
+      if (
+        this.ingredients[i].quantity !== obj.ingredients[i].quantity ||
+        this.ingredients[i].unit !== obj.ingredients[i].unit ||
+        this.ingredients[i].name !== obj.ingredients[i].name
+      ) {
+        console.log("Ingredients");
+        return false;
+      }
+    }
+
+    // Instructions
+    if (this.instructions.length !== obj.instructions.length) {
+      console.log("Instructions");
+      return false;
+    }
+    for (let i = 0; i < this.instructions.length; i++) {
+      if (this.instructions[i].text !== obj.instructions[i].text) {
+        console.log("Instructions");
+        return false;
+      }
+    }
+
+    // Nutrients
+    if (this.ingredients !== obj.ingredients) {
+      // if(this.ingredients.calories.quantity)
+    }
+
+    // Servings
+    if (this.servings !== obj.servings) {
+      console.log("servings");
+
+      return false;
+    }
+
+    // Serving Size
+    if (
+      this.servingSize.quantity !== obj.servingSize.quantity ||
+      this.servingSize.unit !== obj.servingSize.unit
+    ) {
+      console.log("Serving size");
+      return false;
+    }
+
+    // Prep Time
+    if (this.prepTime !== obj.prepTime) {
+      console.log("Prep time");
+
+      return false;
+    }
+
+    // Cook Time
+    if (this.cookTime !== obj.cookTime) {
+      console.log("cook time");
+
+      return false;
+    }
+
+    return true;
   }
 
   static formatNutrientObj(obj) {
