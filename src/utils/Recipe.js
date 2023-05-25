@@ -2,6 +2,7 @@ import { fraction } from "mathjs";
 import { v4 as uuidv4 } from "uuid";
 import Ingredient from "./Ingredient";
 import {
+  formatAmount,
   getNumberFromNumericalString,
   isStringPositiveNumber,
 } from "./helperFunctions";
@@ -152,7 +153,8 @@ export default class Recipe {
     }
     for (let i = 0; i < this.ingredients.length; i++) {
       if (
-        this.ingredients[i].quantity !== obj.ingredients[i].quantity ||
+        formatAmount(this.ingredients[i].quantity, 3) !==
+          formatAmount(obj.ingredients[i].quantity, 3) ||
         this.ingredients[i].unit !== obj.ingredients[i].unit ||
         this.ingredients[i].name !== obj.ingredients[i].name
       ) {
@@ -192,7 +194,10 @@ export default class Recipe {
       return false;
     }
     for (const [name, value] of Object.entries(this.nutrients)) {
-      if (obj.nutrients[name].quantity !== value.quantity) {
+      if (
+        formatAmount(obj.nutrients[name].quantity, 3) !==
+        formatAmount(value.quantity, 3)
+      ) {
         console.log("C");
 
         return false;
