@@ -45,8 +45,8 @@ export default class Recipe {
     this.servingSize =
       servingSize ||
       Recipe.servingSizeStringToObject(nutrients && nutrients.servingSize);
-    this.prepTime = prepTime;
-    this.cookTime = cookTime;
+    this.prepTime = prepTime || null;
+    this.cookTime = cookTime || null;
     this.id = id || null;
   }
 
@@ -104,7 +104,7 @@ export default class Recipe {
     return this.instructions.splice(removeInstructionIndex, 1);
   }
 
-  // Compares another Recipe instance for shallow equality (not considering array element ids)
+  // Compares another Recipe instance for shallow equality (not considering array element ids or recipe id)
   isEquivalent(obj) {
     if (!(obj instanceof Recipe)) {
       console.log("Instance");
@@ -152,8 +152,21 @@ export default class Recipe {
     }
 
     // Nutrients
-    if (this.ingredients !== obj.ingredients) {
-      // if(this.ingredients.calories.quantity)
+    if (
+      (!this.nutrients || !obj.nutrients) &&
+      this.nutrients !== obj.nutrients
+    ) {
+      return false;
+    }
+    if (
+      Object.keys(this.nutrients).length !== Object.keys(obj.nutrients).length
+    ) {
+      return false;
+    }
+    for (const [name, value] of Object.entries(this.nutrients)) {
+      if (obj.nutrients[name].quantity !== value.quantity) {
+        return false;
+      }
     }
 
     // Servings

@@ -33,6 +33,8 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     id,
   } = recipe;
 
+  const recipeStatus = title ? "existing" : "new";
+
   // Toast
 
   const [toast, setToast] = useState({
@@ -75,7 +77,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     }
   }, [toast]);
 
-  // Close Form Modal
+  // Modal
 
   const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
 
@@ -83,7 +85,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     setCloseFormModalOpen(false);
   };
 
-  const recipeStatus = title ? "existing" : "new";
+  // Form
 
   const {
     handleSubmit,
@@ -93,9 +95,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     formState: { errors },
   } = useForm();
 
-  // Form Handlers
-
-  const handleCancelClick = () => {
+  const handleCloseButtonClick = () => {
     const recipeData = getRecipeFromFormData(watch(), id);
 
     if (!startRecipe.isEquivalent(recipeData)) {
@@ -121,7 +121,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
           addErrorToastMessage(res.message);
         }
       } else {
-        addSuccessToastMessage("Recipe updated");
+        addSuccessToastMessage("No changes to save");
       }
     } else if (!recipeData.id) {
       // Create recipe
@@ -181,7 +181,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
               <Button
                 text="Close"
                 type="button"
-                handleClick={handleCancelClick}
+                handleClick={handleCloseButtonClick}
               />
               <Button text="Save Changes" type="submit" />
             </>
