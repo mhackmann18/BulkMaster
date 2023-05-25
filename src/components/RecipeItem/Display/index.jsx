@@ -8,6 +8,7 @@ import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 import Button from "../../common/Button";
 import Recipe from "../../../utils/Recipe";
+import { updateRecipeById } from "../../../utils/user";
 
 export default function RecipeDisplay({
   startRecipe,
@@ -25,9 +26,10 @@ export default function RecipeDisplay({
     title,
     servings,
     servingSize,
+    id,
   } = recipe;
   const navigate = useNavigate();
-  const recipeStatus = recipe.id ? "saved" : "imported";
+  const recipeStatus = id ? "saved" : "imported";
 
   return (
     <div id="recipe">
@@ -49,14 +51,19 @@ export default function RecipeDisplay({
                 })
               );
             }}
-            onSliderBlur={(newServings) => {
+            onSliderBlur={async (newServings) => {
               if (newServings === startRecipe.servings) {
                 return false;
               }
               if (recipeStatus === "imported") {
                 setStartRecipe(recipe);
               } else if (recipeStatus === "saved") {
-                console.log("Update recipe in db");
+                const res = await updateRecipeById(recipe, id);
+                if (!res.success) {
+                  // Show error modal here
+                  console.log(res.message);
+                  setRecipe({ ...startRecipe });
+                }
               }
             }}
           />
