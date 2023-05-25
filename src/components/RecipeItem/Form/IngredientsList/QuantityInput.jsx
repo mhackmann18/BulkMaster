@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
+// import { formatAmount } from "../../../../utils/helperFunctions";
 import "./QuantityInput.css";
 
 const QuantityInput = forwardRef(
