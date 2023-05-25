@@ -90,13 +90,15 @@ export default function RecipeForm({ startRecipe, onCancel }) {
     register,
     unregister,
     watch,
-    formState: { errors, isDirty },
+    formState: { errors },
   } = useForm();
 
   // Form Handlers
 
   const handleCancelClick = () => {
-    if (isDirty) {
+    const recipeData = getRecipeFromFormData(watch(), id);
+
+    if (!startRecipe.isEquivalent(recipeData)) {
       setCloseFormModalOpen(true);
     } else {
       onCancel();
@@ -177,7 +179,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
           recipeStatus === "existing" ? (
             <>
               <Button
-                text="Cancel"
+                text="Close"
                 type="button"
                 handleClick={handleCancelClick}
               />
@@ -252,11 +254,13 @@ export default function RecipeForm({ startRecipe, onCancel }) {
       <StandardModal open={closeFormModalOpen} handleClose={closeFormModal}>
         <ConfirmationDisplay
           headerText="Unsaved Changes"
-          messageText="You have made unsaved changes. Do you want to save or discard them?"
-          cancelBtnText="Discard"
-          onCancel={onCancel}
-          confirmBtnText="Save"
-          onConfirm={closeFormModal}
+          messageText="Are you sure you want to leave this page? Changes you made will not be saved."
+          cancelBtnText="Cancel"
+          onCancel={closeFormModal}
+          confirmBtnText="Leave Page"
+          onConfirm={() => {
+            onCancel();
+          }}
         />
       </StandardModal>
       <Snackbar
@@ -286,8 +290,8 @@ function getRecipeFromFormData(data, recipeId) {
   for (const [key, value] of Object.entries(data.ingredients)) {
     newIngredients.push({
       id: key,
-      quantity: Number(value.quantity),
-      unit: value.unit,
+      quantity: Number(value.quantity) || null,
+      unit: value.unit || null,
       name: value.name,
     });
   }
@@ -310,7 +314,7 @@ function getRecipeFromFormData(data, recipeId) {
   let newServingSize;
   if (data.servingSize.quantity || data.servingSize.unit) {
     newServingSize = {
-      quantity: Number(data.servingSize.quantity),
+      quantity: Number(data.servingSize.quantity) || null,
       unit: data.servingSize.unit || null,
     };
   } else {
@@ -321,8 +325,8 @@ function getRecipeFromFormData(data, recipeId) {
     id: recipeId,
     title: data.title,
     servings: Number(data.servings),
-    prepTime: Number(data.prepTime),
-    cookTime: Number(data.cookTime),
+    prepTime: Number(data.prepTime) || null,
+    cookTime: Number(data.cookTime) || null,
     ingredients: newIngredients,
     instructions: newInstructions,
     nutrients: Object.keys(newNutrients).length ? newNutrients : null,

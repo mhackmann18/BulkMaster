@@ -106,7 +106,6 @@ export default class Recipe {
 
   // Compares another Recipe instance for shallow equality (not considering array element ids)
   isEquivalent(obj) {
-    console.log(obj);
     if (!(obj instanceof Recipe)) {
       console.log("Instance");
 
@@ -132,7 +131,10 @@ export default class Recipe {
         this.ingredients[i].unit !== obj.ingredients[i].unit ||
         this.ingredients[i].name !== obj.ingredients[i].name
       ) {
-        console.log("Ingredients");
+        console.log(
+          `Ingredient ${this.ingredients[i].name} not equal to ${obj.ingredients[i].name}`
+        );
+        console.log(this.ingredients[i], obj.ingredients[i]);
         return false;
       }
     }

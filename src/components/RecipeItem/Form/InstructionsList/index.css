@@ -11,52 +11,21 @@
 .form-style #instructions-list li {
   display: flex;
   align-items: flex-start;
-  /* width: calc(100% + 30px); */
-  /* margin-left: -30px; */
 }
 
 .instruction-input-wrapper {
-  /* background-color: var(--white); */
   border-radius: 4px;
   flex-grow: 1;
 }
 
-/* .form-style #instructions-list li:hover .btn {
-  opacity: 100%;
-} */
-
-/* .form-style #instructions-list li:hover textarea {
-  outline-color: var(--instruction-hover-background-color);
-} */
-
 .form-style #instructions-list .btn {
   display: inline;
   margin-left: 10px;
-  margin-top: 4px;
+  margin-top: 8px;
   vertical-align: middle;
   color: var(--eerie-black)
-  /* opacity: 0;
-  transition: opacity .1s ease-in; */
 }
 
 .form-style #instructions-list .btn:hover {
   color: var(--slate-gray);
 }
-
-/* .form-style #instructions-list textarea {
-  border: 1px solid var(--french-gray-2);
-  border-radius: 4px;
-  flex-grow: 1;
-  padding: .5rem .75rem;
-  margin-left: 5px;
-  transition: outline-color var(--instruction-hover-transition-duration) ease-in;
-} */
-
-/* .form-style #instructions-list textarea:hover {
-  border-color: var(--slate-gray);
-} */
-
-/* .form-style #instructions-list textarea:focus {
-  border-color: var(--eerie-black);
-  outline: 1px solid var(--eerie-black);
-} */
