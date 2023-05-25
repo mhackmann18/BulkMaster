@@ -21,7 +21,7 @@ export default function RecipeItem({ recipe, startingDisplayType }) {
 
   return displayType === "div" ? (
     <RecipeDisplay
-      recipe={recipe}
+      startRecipe={recipe}
       switchToForm={() => setDisplayType("form")}
     />
   ) : (

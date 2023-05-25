@@ -13,9 +13,7 @@ export default function NutrientsList({ nutrients, register, errors }) {
           <NutrientInput
             labelText={Recipe.getNutrientNameStringFromKey(name)}
             unit={unit}
-            quantity={
-              (nutrients && nutrients[name] && nutrients[name].quantity) || 0
-            }
+            quantity={nutrients && nutrients[name] && nutrients[name].quantity}
             errorMessage={
               errors.nutrients &&
               errors.nutrients[name] &&

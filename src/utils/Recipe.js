@@ -20,6 +20,31 @@ export const nutrientUnits = {
   fiber: "g",
 };
 
+/* 
+Eventually, this module should be refactored to typescript, but until then, here's the expected values
+for every field in Recipe. 
+
+title: string (required, maxLength: see RecipeValidator)
+
+ingredients: array({ 
+  name: string (required, maxLength: see RecipeValidator), 
+  unit: cookingUnit OR null, 
+  quantity: number (maxValue: see RecipeValidator) OR null, 
+  id: string
+})
+
+instructions: array({
+  text: string (required, maxLength: see RecipeValidator),
+  id: string
+})
+
+nutrients: {
+  calories: { quantity: number (maxValue: see RecipeValidator), unit: nutrientUnit }
+  ...
+} OR null 
+
+*/
+
 export default class Recipe {
   constructor({
     title, // string
@@ -156,15 +181,20 @@ export default class Recipe {
       (!this.nutrients || !obj.nutrients) &&
       this.nutrients !== obj.nutrients
     ) {
+      console.log(this.nutrients, obj.nutrients);
       return false;
     }
     if (
       Object.keys(this.nutrients).length !== Object.keys(obj.nutrients).length
     ) {
+      console.log(obj.nutrients, this.nutrients);
+
       return false;
     }
     for (const [name, value] of Object.entries(this.nutrients)) {
       if (obj.nutrients[name].quantity !== value.quantity) {
+        console.log("C");
+
         return false;
       }
     }
@@ -200,6 +230,20 @@ export default class Recipe {
     }
 
     return true;
+  }
+
+  getMultipliedRecipe(multiplier) {
+    if (multiplier < 0) {
+      return null;
+    }
+
+    const newRecipe = new Recipe({ ...this });
+
+    for (const ingredient of newRecipe.ingredients) {
+      ingredient.quantity *= multiplier;
+    }
+
+    return newRecipe;
   }
 
   static formatNutrientObj(obj) {

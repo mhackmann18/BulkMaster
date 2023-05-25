@@ -10,7 +10,7 @@ const NutrientInput = forwardRef(
   ) => (
     <TextField
       name={name}
-      defaultValue={quantity || ""}
+      defaultValue={typeof quantity === "number" ? quantity : ""}
       variant="outlined"
       style={{
         width: `${(labelText.length + unit.length) / 2.3 + 3.6}rem`,
@@ -35,7 +35,7 @@ const NutrientInput = forwardRef(
 NutrientInput.propTypes = {
   labelText: PropTypes.string.isRequired,
   unit: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
+  quantity: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
   errorMessage: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -43,6 +43,7 @@ NutrientInput.propTypes = {
 };
 
 NutrientInput.defaultProps = {
+  quantity: "",
   errorMessage: "",
 };
 

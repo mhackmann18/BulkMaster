@@ -302,14 +302,17 @@ function getRecipeFromFormData(data, recipeId) {
   }
 
   const newNutrients = {};
+  // console.log(data.nutrients);
   for (const [name, value] of Object.entries(data.nutrients)) {
-    if (value) {
+    if (value || value === "0") {
       newNutrients[name] = {
         quantity: Number(value),
         unit: nutrientUnits[name],
       };
     }
   }
+
+  // console.log(newNutrients);
 
   let newServingSize;
   if (data.servingSize.quantity || data.servingSize.unit) {

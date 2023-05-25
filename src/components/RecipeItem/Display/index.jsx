@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import OpenCalculatorButton from "./OpenCalculatorButton";
@@ -8,7 +9,9 @@ import NutrientsList from "./NutrientsList";
 import Button from "../../common/Button";
 import Recipe from "../../../utils/Recipe";
 
-export default function RecipeDisplay({ recipe, switchToForm }) {
+export default function RecipeDisplay({ startRecipe, switchToForm }) {
+  const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
+
   const {
     cookTime,
     ingredients,
@@ -31,6 +34,14 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
             servings={servings}
             prepTime={prepTime}
             cookTime={cookTime}
+            onSliderChange={(newServings) => {
+              setRecipe({
+                ...startRecipe.getMultipliedRecipe(
+                  newServings / startRecipe.servings
+                ),
+                servings: newServings,
+              });
+            }}
           />
         }
         buttonsComponent={
@@ -74,6 +85,6 @@ export default function RecipeDisplay({ recipe, switchToForm }) {
 }
 
 RecipeDisplay.propTypes = {
-  recipe: PropTypes.instanceOf(Recipe).isRequired,
+  startRecipe: PropTypes.instanceOf(Recipe).isRequired,
   switchToForm: PropTypes.func.isRequired,
 };

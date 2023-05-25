@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import SliderPopper from "./SliderPopper";
 import "./SubHeading.css";
 
-export default function SubHeading({ servings, prepTime, cookTime }) {
+export default function SubHeading({
+  servings,
+  prepTime,
+  cookTime,
+  onSliderChange,
+}) {
   if (!prepTime && !cookTime && !servings) {
     return false;
   }
@@ -13,10 +18,6 @@ export default function SubHeading({ servings, prepTime, cookTime }) {
 
   const handleServingsButtonClick = (e) => {
     setAnchorEl(sliderAnchorEl ? null : e.currentTarget);
-  };
-
-  const onSliderChange = (value) => {
-    console.log(`Set recipe servings to ${value}`);
   };
 
   return (
@@ -48,6 +49,7 @@ SubHeading.propTypes = {
   servings: PropTypes.number,
   prepTime: PropTypes.number,
   cookTime: PropTypes.number,
+  onSliderChange: PropTypes.func.isRequired,
 };
 
 SubHeading.defaultProps = {
