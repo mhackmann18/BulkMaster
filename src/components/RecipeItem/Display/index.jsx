@@ -9,7 +9,11 @@ import NutrientsList from "./NutrientsList";
 import Button from "../../common/Button";
 import Recipe from "../../../utils/Recipe";
 
-export default function RecipeDisplay({ startRecipe, switchToForm }) {
+export default function RecipeDisplay({
+  startRecipe,
+  switchToForm,
+  setStartRecipe,
+}) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
 
   const {
@@ -31,16 +35,29 @@ export default function RecipeDisplay({ startRecipe, switchToForm }) {
         titleComponent={<h2>{title}</h2>}
         subHeadingComponent={
           <SubHeading
+            defaultServings={startRecipe.servings}
             servings={servings}
             prepTime={prepTime}
             cookTime={cookTime}
             onSliderChange={(newServings) => {
-              setRecipe({
-                ...startRecipe.getMultipliedRecipe(
-                  newServings / startRecipe.servings
-                ),
-                servings: newServings,
-              });
+              setRecipe(
+                new Recipe({
+                  ...startRecipe.getMultipliedRecipe(
+                    newServings / startRecipe.servings
+                  ),
+                  servings: newServings,
+                })
+              );
+            }}
+            onSliderBlur={(newServings) => {
+              if (newServings === startRecipe.servings) {
+                return false;
+              }
+              if (recipeStatus === "imported") {
+                setStartRecipe(recipe);
+              } else if (recipeStatus === "saved") {
+                console.log("Update recipe in db");
+              }
             }}
           />
         }
@@ -87,4 +104,5 @@ export default function RecipeDisplay({ startRecipe, switchToForm }) {
 RecipeDisplay.propTypes = {
   startRecipe: PropTypes.instanceOf(Recipe).isRequired,
   switchToForm: PropTypes.func.isRequired,
+  setStartRecipe: PropTypes.func.isRequired,
 };

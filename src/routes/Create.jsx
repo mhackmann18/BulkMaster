@@ -7,7 +7,7 @@ export default function Create() {
   return (
     <div id="create-page">
       <RecipeItem
-        recipe={
+        startRecipe={
           new Recipe({
             title: "",
             ingredients: [new Ingredient({ name: "", unit: "", quantity: 0 })],

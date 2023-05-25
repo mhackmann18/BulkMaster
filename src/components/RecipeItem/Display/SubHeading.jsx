@@ -4,10 +4,12 @@ import SliderPopper from "./SliderPopper";
 import "./SubHeading.css";
 
 export default function SubHeading({
+  defaultServings,
   servings,
   prepTime,
   cookTime,
   onSliderChange,
+  onSliderBlur,
 }) {
   if (!prepTime && !cookTime && !servings) {
     return false;
@@ -37,8 +39,9 @@ export default function SubHeading({
       <SliderPopper
         open={sliderOpen}
         anchorEl={sliderAnchorEl}
-        startingValue={servings}
+        startingValue={defaultServings}
         handleChange={onSliderChange}
+        onBlur={onSliderBlur}
         close={() => setAnchorEl(null)}
       />
     </p>
@@ -46,10 +49,12 @@ export default function SubHeading({
 }
 
 SubHeading.propTypes = {
+  defaultServings: PropTypes.number.isRequired,
   servings: PropTypes.number,
   prepTime: PropTypes.number,
   cookTime: PropTypes.number,
   onSliderChange: PropTypes.func.isRequired,
+  onSliderBlur: PropTypes.func.isRequired,
 };
 
 SubHeading.defaultProps = {

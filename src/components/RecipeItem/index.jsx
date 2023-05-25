@@ -5,7 +5,8 @@ import RecipeDisplay from "./Display";
 import RecipeForm from "./Form";
 import Recipe from "../../utils/Recipe";
 
-export default function RecipeItem({ recipe, startingDisplayType }) {
+export default function RecipeItem({ startRecipe, startingDisplayType }) {
+  const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
   const [displayType, setDisplayType] = useState(startingDisplayType);
   const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ export default function RecipeItem({ recipe, startingDisplayType }) {
     <RecipeDisplay
       startRecipe={recipe}
       switchToForm={() => setDisplayType("form")}
+      setStartRecipe={setRecipe}
     />
   ) : (
     <RecipeForm startRecipe={recipe} onCancel={handleCancelButtonClick} />
@@ -30,7 +32,7 @@ export default function RecipeItem({ recipe, startingDisplayType }) {
 }
 
 RecipeItem.propTypes = {
-  recipe: PropTypes.instanceOf(Recipe).isRequired,
+  startRecipe: PropTypes.instanceOf(Recipe).isRequired,
   startingDisplayType: PropTypes.oneOf(["form", "div"]),
 };
 

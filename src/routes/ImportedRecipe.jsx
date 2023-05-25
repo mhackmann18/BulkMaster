@@ -11,7 +11,7 @@ export default function ImportedRecipe({ redirectTo }) {
   return (
     <div id="import-recipe">
       {state && state.data ? (
-        <RecipeItem recipe={new Recipe(state.data)} />
+        <RecipeItem startRecipe={new Recipe(state.data)} />
       ) : (
         <Navigate to={redirectTo} />
       )}

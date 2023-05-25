@@ -240,7 +240,9 @@ export default class Recipe {
     const newRecipe = new Recipe({ ...this });
 
     for (const ingredient of newRecipe.ingredients) {
-      ingredient.quantity *= multiplier;
+      if (ingredient.quantity) {
+        ingredient.quantity *= multiplier;
+      }
     }
 
     return newRecipe;
