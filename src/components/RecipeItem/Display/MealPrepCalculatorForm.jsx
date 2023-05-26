@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
-import NumberInput from "../Form/NumberInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { TextField } from "@mui/material";
 import "./MealPrepCalculatorForm.css";
 
 export default function MealPrepCalculatorForm({
   recipeServingsCount,
   recipeCaloriesCount,
-  onCancelClick,
+  // onCancelClick,
   onSubmit,
 }) {
   function handleSubmit(e) {
@@ -26,45 +26,71 @@ export default function MealPrepCalculatorForm({
     <form id="meal-prep-calculator-form" onSubmit={handleSubmit}>
       <header>
         <h2>Meal Prep Calculator</h2>
-        {/* <button type="button" title="Info">
-                <FontAwesomeIcon icon={faCircleQuestion} />
-              </button> */}
+        <button id="mpc-info-btn" type="button">
+          <FontAwesomeIcon icon={faQuestion} size="sm" />
+        </button>
       </header>
-      <p>How many meals should this recipe yield?</p>
-      <label htmlFor="meals-quantity">Number of meals:</label>
-      <NumberInput
-        minValue={1}
-        maxValue={99}
-        name="meals-quantity"
-        id="meals-quantity"
-        variant="input-default"
-      />
-      <p>What is the desired portion size for each meal?</p>
-      <label htmlFor="calories-per-meal">By calorie content:</label>
-      <NumberInput
-        minValue={0}
-        maxValue={9999}
-        name="calories-per-meal"
-        id="calories-per-meal"
-        variant="input-default"
-      />
-      <div className="separator">or</div>
-      <label htmlFor="calories-per-meal">By serving size:</label>
-      <NumberInput
-        minValue={0}
-        maxValue={9999}
-        name="calories-per-meal"
-        id="calories-per-meal"
-        variant="input-default"
-      />
-      <div className="buttons-container">
-        <button className="btn-no-bg" onClick={onCancelClick} type="button">
-          Cancel
-        </button>
-        <button className="btn-default" type="submit">
-          Update Recipe
-        </button>
+      <div id="portions-quantity-container" className="input-row">
+        <label htmlFor="portions-quantity">Number of portions</label>
+        <TextField
+          name="portions-quantity"
+          // onChange={onChange}
+          // onBlur={onBlur}
+          defaultValue={recipeServingsCount}
+          type="number"
+          variant="outlined"
+          size="small"
+          // fullWidth
+          required
+          // error={Boolean(errorMessage)}
+          // helperText={errorMessage}
+          // inputRef={ref}
+        />
       </div>
+      <div id="portion-size-container">
+        <p>Portion Size</p>
+        <div className="portion-size-option-container input-row active">
+          <label>By calorie content</label>{" "}
+          <div className="portion-size-input-wrapper">
+            <TextField
+              name="portions-quantity"
+              // onChange={onChange}
+              // onBlur={onBlur}
+              defaultValue={recipeServingsCount}
+              type="number"
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              // error={Boolean(errorMessage)}
+              // helperText={errorMessage}
+              // inputRef={ref}
+            />
+          </div>
+        </div>
+        <div className="portion-size-option-container input-row">
+          <label>By serving size</label>{" "}
+          <div className="portion-size-input-wrapper">
+            <TextField
+              name="portions-quantity"
+              // onChange={onChange}
+              // onBlur={onBlur}
+              defaultValue={recipeServingsCount}
+              type="number"
+              variant="outlined"
+              size="small"
+              fullWidth
+              required
+              // error={Boolean(errorMessage)}
+              // helperText={errorMessage}
+              // inputRef={ref}
+            />
+          </div>
+        </div>
+      </div>
+      <button id="mpc-submit-btn" className="btn-default" type="submit">
+        Update Recipe
+      </button>
     </form>
   );
 }
@@ -72,6 +98,6 @@ export default function MealPrepCalculatorForm({
 MealPrepCalculatorForm.propTypes = {
   recipeServingsCount: PropTypes.number.isRequired,
   recipeCaloriesCount: PropTypes.number.isRequired,
-  onCancelClick: PropTypes.func.isRequired,
+  // onCancelClick: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
