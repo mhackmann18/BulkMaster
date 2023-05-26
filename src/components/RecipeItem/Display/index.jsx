@@ -1,12 +1,17 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faPenToSquare,
+  faBook,
+} from "@fortawesome/free-solid-svg-icons";
 import OpenCalculatorButton from "./OpenCalculatorButton";
 import RecipeContainer from "../RecipeContainer";
 import SubHeading from "./SubHeading";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
-import Button from "../../common/Button";
 import Recipe from "../../../utils/Recipe";
 import { updateRecipeById } from "../../../utils/user";
 
@@ -70,20 +75,46 @@ export default function RecipeDisplay({
         }
         buttonsComponent={
           <>
-            <Button
-              text="Back"
+            <button
+              className="btn-default"
+              onClick={() => navigate(-1)}
               type="button"
-              handleClick={() => navigate(-1)}
-            />
+            >
+              <FontAwesomeIcon
+                className="button-panel-icon"
+                icon={faArrowLeft}
+                size="sm"
+              />
+              Back
+            </button>
             <OpenCalculatorButton
               recipeServingsCount={servings}
               recipeCaloriesCount={nutrients && nutrients.calories.quantity}
               recipeServingSize={servingSize}
               onSubmit={(val) => console.log(`${val}`)}
             />
-            <Button text="Edit" type="button" handleClick={switchToForm} />
+            <button
+              className="btn-default"
+              onClick={switchToForm}
+              type="button"
+            >
+              <FontAwesomeIcon
+                className="button-panel-icon"
+                icon={faPenToSquare}
+                size="sm"
+              />
+              Edit
+            </button>
+            {/* <Button text="Edit" type="button" handleClick={switchToForm} /> */}
             {recipeStatus === "imported" && (
-              <Button text="Save" type="button" handleClick={() => {}} />
+              <button type="button" onClick={() => {}} className="btn-default">
+                <FontAwesomeIcon
+                  className="button-panel-icon"
+                  icon={faBook}
+                  size="sm"
+                />
+                Save
+              </button>
             )}
           </>
         }

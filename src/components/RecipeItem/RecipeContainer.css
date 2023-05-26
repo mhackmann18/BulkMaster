@@ -123,12 +123,16 @@ form .nutrients-container {
 
 #recipe-header .right button {
   padding: 14px 16px;
-  margin-left: .8rem;
+  margin-left: .5rem;
   border-radius: 12px;
 }
 
 #recipe-header .right button:first-child {
   margin-left: 0;
+}
+
+.button-panel-icon {
+  margin-right: .5rem;
 }
 
 @media screen and (max-width: 480px) {

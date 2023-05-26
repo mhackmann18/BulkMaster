@@ -3,11 +3,16 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { Snackbar, Alert } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faArrowLeft,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import RecipeContainer from "../RecipeContainer";
 import TitleInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
 import TimeInput from "./TimeInput";
-import Button from "../../common/Button";
 import AddButton from "./AddButton";
 import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
@@ -178,15 +183,36 @@ export default function RecipeForm({ startRecipe, onCancel }) {
         buttonsComponent={
           recipeStatus === "existing" ? (
             <>
-              <Button
-                text="Close"
+              <button
+                onClick={handleCloseButtonClick}
+                className="btn-default"
                 type="button"
-                handleClick={handleCloseButtonClick}
-              />
-              <Button text="Save Changes" type="submit" />
+              >
+                <FontAwesomeIcon
+                  icon={faArrowLeft}
+                  size="sm"
+                  className="button-panel-icon"
+                />
+                Back
+              </button>
+              <button type="submit" className="btn-default">
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className="button-panel-icon"
+                  size="sm"
+                />
+                Save Changes
+              </button>
             </>
           ) : (
-            <Button text="Create Recipe" type="submit" />
+            <button type="submit" className="btn-default">
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="button-panel-icon"
+                size="sm"
+              />
+              Create Recipe
+            </button>
           )
         }
         ingredientsHeaderButtonComponent={

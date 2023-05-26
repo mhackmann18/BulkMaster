@@ -2,23 +2,22 @@
   padding: .5rem;
 }
 
-#mpc-form h3 {
-  color: var(--outer-space);
-  /* margin-bottom: .5rem; */
-  margin-right: .5rem;
-  font-weight: 500;
-  /* font-size: 1.1rem; */
-}
-
-#mpc-form h3:first-child {
-  margin-bottom: .5rem;
-}
-
 #mpc-form header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+#mpc-form h3 {
+  display: inline-block;
+  color: var(--outer-space);
+  margin-right: .5rem;
+  font-weight: 500;
+}
+
+#mpc-form h3:first-child {
+  margin-bottom: .75rem;
 }
 
 #mpc-info-btn {
@@ -40,31 +39,27 @@
   align-items: center;
   font-size: .9rem;
   color: var(--french-gray-2);
+  margin-bottom: .3rem;
 }
 
 #portion-size-buttons-container button {
   background: none;
   border: none;
   color: var(--french-gray-2);
-  font-size: 1rem;
-  /* text-decoration: underline; */
-  padding: .5rem 1rem;
+  font-size: .9rem;
+  padding: .4rem 1rem;
   transition: none;
   border-radius: 1rem;
-  /* text-decoration: underline; */
+  margin-left: 8px;
 }
 
 #portion-size-buttons-container button:hover {
-  /* text-decoration: underline; */
-  /* background-color: var(--seasalt); */
   color: var(--slate-gray);
-  /* font-weight: 500; */
+  background-color: var(--seasalt);
 }
 
 #portion-size-buttons-container button.active {
-  /* background-color: var(--antiflash-white); */
-  text-decoration: underline;
-  /* font-weight: 500; */
+  background-color: var(--antiflash-white);
   color: var(--outer-space);
 }
 
@@ -74,7 +69,10 @@
 
 #mpc-submit-btn {
   width: 100%;
-  /* height: 3rem; */
-  /* margin-top: .5rem; */
   padding: 1rem;
+}
+
+#mpc-info-tip {
+  background-color: red;
+  z-index: 1000;
 }
