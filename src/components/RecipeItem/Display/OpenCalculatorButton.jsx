@@ -9,6 +9,7 @@ import "./OpenCalculatorButton.css";
 export default function OpenCalculatorButton({
   recipeServingsCount,
   recipeCaloriesCount,
+  recipeServingSize,
   onSubmit,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +29,7 @@ export default function OpenCalculatorButton({
         <MealPrepCalculatorForm
           recipeServingsCount={recipeServingsCount}
           recipeCaloriesCount={recipeCaloriesCount}
+          recipeServingSize={recipeServingSize}
           onCancelClick={() => setModalOpen(false)}
           onSubmit={(multiplier) => {
             onSubmit(multiplier);
@@ -42,5 +44,6 @@ export default function OpenCalculatorButton({
 OpenCalculatorButton.propTypes = {
   recipeServingsCount: PropTypes.number.isRequired,
   recipeCaloriesCount: PropTypes.number.isRequired,
+  recipeServingSize: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

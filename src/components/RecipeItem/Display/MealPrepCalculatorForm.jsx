@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { TextField } from "@mui/material";
+// import { faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+import { InputAdornment, TextField } from "@mui/material";
 import "./MealPrepCalculatorForm.css";
 
 export default function MealPrepCalculatorForm({
   recipeServingsCount,
   recipeCaloriesCount,
   // onCancelClick,
+  recipeServingSize,
   onSubmit,
 }) {
   function handleSubmit(e) {
@@ -23,40 +25,45 @@ export default function MealPrepCalculatorForm({
   }
 
   return (
-    <form id="meal-prep-calculator-form" onSubmit={handleSubmit}>
+    <form id="mpc-form" onSubmit={handleSubmit}>
       <header>
         <h2>Meal Prep Calculator</h2>
         <button id="mpc-info-btn" type="button">
-          <FontAwesomeIcon icon={faQuestion} size="sm" />
+          <FontAwesomeIcon icon={faCircleQuestion} />
         </button>
       </header>
-      <div id="portions-quantity-container" className="input-row">
-        <label htmlFor="portions-quantity">Number of portions</label>
-        <TextField
-          name="portions-quantity"
-          // onChange={onChange}
-          // onBlur={onBlur}
-          defaultValue={recipeServingsCount}
-          type="number"
-          variant="outlined"
-          size="small"
-          // fullWidth
-          required
-          // error={Boolean(errorMessage)}
-          // helperText={errorMessage}
-          // inputRef={ref}
-        />
+      {/* <h3>Number of portions</h3> */}
+      <div id="portions-quantity-container" className="input-row ">
+        <label htmlFor="portions-quantity">Portions Quantity</label>
+        <div className="portions-quantity-input-wrapper">
+          <TextField
+            name="portions-quantity"
+            id="portions-quantity"
+            // onChange={onChange}
+            // onBlur={onBlur}
+            defaultValue={recipeServingsCount}
+            type="number"
+            variant="outlined"
+            size="small"
+            // fullWidth
+            required
+            // error={Boolean(errorMessage)}
+            // helperText={errorMessage}
+            // inputRef={ref}
+          />
+        </div>
       </div>
       <div id="portion-size-container">
-        <p>Portion Size</p>
-        <div className="portion-size-option-container input-row active">
-          <label>By calorie content</label>{" "}
+        <h3>Portion Size</h3>
+        <div className="input-row active">
+          <label htmlFor="portion-calorie-quantity">By calorie content</label>
           <div className="portion-size-input-wrapper">
             <TextField
-              name="portions-quantity"
+              name="portion-calorie-quantity"
+              id="portion-calorie-quantity"
               // onChange={onChange}
               // onBlur={onBlur}
-              defaultValue={recipeServingsCount}
+              defaultValue={recipeCaloriesCount}
               type="number"
               variant="outlined"
               size="small"
@@ -65,17 +72,27 @@ export default function MealPrepCalculatorForm({
               // error={Boolean(errorMessage)}
               // helperText={errorMessage}
               // inputRef={ref}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">calories</InputAdornment>
+                ),
+                // inputProps: { min: minQuantity, max: maxQuantity },
+              }}
             />
           </div>
         </div>
-        <div className="portion-size-option-container input-row">
-          <label>By serving size</label>{" "}
+        <div className="separator">or</div>
+        <div className="input-row">
+          <label htmlFor="portion-servings-quantity">
+            By number of servings
+          </label>
           <div className="portion-size-input-wrapper">
             <TextField
-              name="portions-quantity"
+              name="portion-servings-quantity"
+              id="portion-servings-quantity"
               // onChange={onChange}
               // onBlur={onBlur}
-              defaultValue={recipeServingsCount}
+              defaultValue={recipeServingSize.quantity}
               type="number"
               variant="outlined"
               size="small"
@@ -84,6 +101,14 @@ export default function MealPrepCalculatorForm({
               // error={Boolean(errorMessage)}
               // helperText={errorMessage}
               // inputRef={ref}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {recipeServingSize.unit}
+                  </InputAdornment>
+                ),
+                // inputProps: { min: minQuantity, max: maxQuantity },
+              }}
             />
           </div>
         </div>
@@ -98,6 +123,7 @@ export default function MealPrepCalculatorForm({
 MealPrepCalculatorForm.propTypes = {
   recipeServingsCount: PropTypes.number.isRequired,
   recipeCaloriesCount: PropTypes.number.isRequired,
+  recipeServingSize: PropTypes.object.isRequired,
   // onCancelClick: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

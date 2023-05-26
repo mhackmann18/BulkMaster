@@ -3,7 +3,7 @@
 } */
 
 
-#meal-prep-calculator-form header {
+#mpc-form header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,40 +11,72 @@
 }
 
 #mpc-info-btn {
-  border-radius: 50%;
+  border: none;
+  background: none;
+  /* border-radius: 50%;
   height: 20px;
   width: 20px;
   background: none;
   border: 1px solid var(--eerie-black);
-  color: var(--eerie-black);
+  color: var(--eerie-black); */
 }
 
 #mpc-info-btn:hover {
-  background: var(--eerie-black);
-  color: var(--antiflash-white);
+  /* background: var(--eerie-black); */
+  color: var(--slate-gray);
 }
 
 #portions-quantity-container, #portion-size-container {
   margin-bottom: 1rem;
 }
 
-.input-row {
+.portions-quantity-input-wrapper {
+  width: 6rem;
+}
+
+#meal-prep-calculator-form h3 {
+  font-weight: 400;
+  margin-bottom: .6rem;
+  color: var(--outer-space);
+}
+
+#portion-size-container > p {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: .6rem;
+}
+
+#mpc-form .input-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid var(--french-gray);
+  padding: .25rem .25rem .25rem 1rem;
+  /* margin-bottom: .5rem; */
+  border-radius: 8px;
+  transition: none;
+  opacity: 50%;
 }
 
-.portion-size-option-container {
-  background-color: var(--antiflash-white);
-  padding: .25rem .25rem .25rem 1rem;
-  margin-bottom: .5rem;
-  border-radius: 8px;
+#mpc-form .input-row:hover {
+  cursor: pointer;
+  opacity: 100%;
+}
+
+#mpc-form .input-row.active {
+  outline: 1px solid var(--eerie-black);
+  opacity: 100%;
+}
+
+#portion-size-container .separator {
+  margin: .5rem 0;
 }
 
 .portion-size-input-wrapper {
-  width: 6rem;
+  width: 14rem;
 }
 
 #mpc-submit-btn {
   width: 100%;
+  height: 3rem;
 }
