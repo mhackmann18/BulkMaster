@@ -73,6 +73,11 @@
 }
 
 #mpc-info-tip {
-  background-color: red;
-  z-index: 1000;
+  margin-top: .25rem;
+  background-color: var(--white);
+  border: 1px solid var(--eerie-black);
+  border-radius: .5rem;
+  padding: .5rem;
+  max-width: 14rem;
+  font-size: .8rem;
 }

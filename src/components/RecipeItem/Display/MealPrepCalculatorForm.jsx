@@ -29,7 +29,6 @@ export default function MealPrepCalculatorForm({
 
   const handleInfoClick = (e) => {
     setPopperAnchorEl(popperAnchorEl ? null : e.currentTarget);
-    console.log(popperOpen);
   };
 
   return (
@@ -37,9 +36,12 @@ export default function MealPrepCalculatorForm({
       <form id="mpc-form" onSubmit={handleSubmit}>
         <header>
           <h2>Meal Prep Calculator</h2>
-          <button onClick={handleInfoClick} id="mpc-info-btn" type="button">
-            <FontAwesomeIcon icon={faCircleQuestion} />
-          </button>
+          <FontAwesomeIcon
+            icon={faCircleQuestion}
+            size="lg"
+            onMouseEnter={handleInfoClick}
+            onMouseLeave={() => setPopperAnchorEl(null)}
+          />
         </header>
         <div id="portions-quantity-container">
           <label htmlFor="portions-quantity">
@@ -125,13 +127,12 @@ export default function MealPrepCalculatorForm({
           Update Recipe
         </button>
       </form>
-      <Popper
-        id="mpc-info-tip"
-        open={popperOpen}
-        anchorEl={popperAnchorEl}
-        disablePortal
-      >
-        <div>dfsafsfdfsafsfdfsafsfdfsafsfdfsafsfdfsafsf</div>
+      <Popper open={popperOpen} anchorEl={popperAnchorEl} disablePortal>
+        <div id="mpc-info-tip">
+          The meal prep calculator will update the recipe&apos;s ingredient
+          quantities and nutrient quantities to reflect the number of portions
+          and the portion size provided.
+        </div>
       </Popper>
     </>
   );
