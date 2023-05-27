@@ -1,39 +1,40 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { InputAdornment, TextField, Popper } from "@mui/material";
+import RecipeValidator from "../../../utils/RecipeValidator";
 import "./MealPrepCalculatorForm.css";
 
 export default function MealPrepCalculatorForm({
   recipeServingsCount,
   recipeCaloriesCount,
   recipeServingSize,
-  onSubmit,
 }) {
-  const [portionSizeInput, setPortionSizeInput] = useState("servings");
+  const [mealSizeInput, setMealSize] = useState("servings");
   const [popperAnchorEl, setPopperAnchorEl] = useState(null);
   const popperOpen = Boolean(popperAnchorEl);
 
-  function handleSubmit(e) {
-    const oldServingsCount = recipeServingsCount;
-    const oldCaloriesCount = recipeCaloriesCount;
-    const newServingsCount = e.target["meals-quantity"].value;
-    const newCaloriesCount = e.target["calories-per-meal"].value;
-    const recipeMultiplier =
-      (newServingsCount * newCaloriesCount) /
-      (oldServingsCount * oldCaloriesCount);
-    e.preventDefault();
-    onSubmit(recipeMultiplier);
-  }
+  const {
+    register,
+    unregister,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleInfoClick = (e) => {
     setPopperAnchorEl(popperAnchorEl ? null : e.currentTarget);
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <form id="mpc-form" onSubmit={handleSubmit}>
+      <form id="mpc-form" onSubmit={handleSubmit(onSubmit)}>
         <header>
           <h2>Meal Prep Calculator</h2>
           <FontAwesomeIcon
@@ -43,82 +44,109 @@ export default function MealPrepCalculatorForm({
             onMouseLeave={() => setPopperAnchorEl(null)}
           />
         </header>
-        <div id="portions-quantity-container">
-          <label htmlFor="portions-quantity">
-            <h3>Number of Portions</h3>
+        <div id="meals-quantity-container">
+          <label htmlFor="meals-quantity">
+            <h3>Number of Meals</h3>
           </label>
-          <div className="portion-input-wrapper">
+          <div className="meal-input-wrapper">
             <TextField
-              name="portions-quantity"
-              id="portions-quantity"
+              id="meals-quantity"
               defaultValue={recipeServingsCount}
               type="number"
               variant="outlined"
               size="small"
               fullWidth
-              required
+              {...register("meals-quantity", {
+                validate: RecipeValidator.getServingsErrMsg,
+              })}
+              error={Boolean(errors && errors["meals-quantity"])}
+              helperText={
+                errors && errors["meals-quantity"]
+                  ? errors["meals-quantity"].message
+                  : ""
+              }
             />
           </div>
         </div>
-        <div id="portion-size-container">
-          <div id="portion-size-header">
-            <label htmlFor="portion-size">
-              <h3>Portion Size</h3>
+        <div id="meal-size-container">
+          <div id="meal-size-header">
+            <label htmlFor="meal-size">
+              <h3>Meal Size</h3>
             </label>
-            <div id="portion-size-buttons-container">
+            <div id="meal-size-buttons-container">
               <button
-                onClick={() => setPortionSizeInput("servings")}
-                className={portionSizeInput === "servings" ? "active" : ""}
+                onClick={() => {
+                  unregister("meal-calories-quantity");
+                  setMealSize("servings");
+                }}
+                className={mealSizeInput === "servings" ? "active" : ""}
                 type="button"
               >
                 By servings count
               </button>
               <button
-                onClick={() => setPortionSizeInput("calories")}
-                className={portionSizeInput === "calories" ? "active" : ""}
+                onClick={() => {
+                  unregister("meal-servings-quantity");
+                  setMealSize("calories");
+                }}
+                className={mealSizeInput === "calories" ? "active" : ""}
                 type="button"
               >
                 By calorie content
               </button>
             </div>
           </div>
-          {portionSizeInput === "calories" ? (
-            <div className="portion-input-wrapper" key={1}>
+          {mealSizeInput === "calories" ? (
+            <div className="meal-input-wrapper" key={1}>
               <TextField
-                name="portion-calorie-quantity"
-                id="portion-size"
+                id="meal-size"
                 defaultValue={recipeCaloriesCount}
                 type="number"
                 variant="outlined"
                 size="small"
                 fullWidth
-                required
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">calories</InputAdornment>
                   ),
                 }}
+                {...register("meal-calories-quantity", {
+                  validate: (str) =>
+                    RecipeValidator.getNutrientErrMsg(str, true),
+                })}
+                error={Boolean(errors && errors["meal-calories-quantity"])}
+                helperText={
+                  errors && errors["meal-calories-quantity"]
+                    ? errors["meal-calories-quantity"].message
+                    : ""
+                }
               />
             </div>
           ) : (
-            <div className="portion-input-wrapper" key={2}>
+            <div className="meal-input-wrapper" key={2}>
               <TextField
-                name="portion-servings-quantity"
-                id="portion-size"
+                id="meal-size"
                 defaultValue={recipeServingSize.quantity}
                 type="number"
                 variant="outlined"
                 size="small"
                 fullWidth
-                required
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       {recipeServingSize.unit}
                     </InputAdornment>
                   ),
-                  // inputProps: { min: minQuantity, max: maxQuantity },
                 }}
+                {...register("meal-servings-quantity", {
+                  validate: RecipeValidator.getServingsErrMsg,
+                })}
+                error={Boolean(errors && errors["meal-servings-quantity"])}
+                helperText={
+                  errors && errors["meal-servings-quantity"]
+                    ? errors["meal-servings-quantity"].message
+                    : ""
+                }
               />
             </div>
           )}
@@ -129,9 +157,9 @@ export default function MealPrepCalculatorForm({
       </form>
       <Popper open={popperOpen} anchorEl={popperAnchorEl} disablePortal>
         <div id="mpc-info-tip">
-          The meal prep calculator will update the recipe&apos;s ingredient
-          quantities and nutrient quantities to reflect the number of portions
-          and the portion size provided.
+          The meal prep calculator will update this recipe&apos;s ingredient
+          quantities and nutrient quantities to reflect the number of meals and
+          meal size provided.
         </div>
       </Popper>
     </>
@@ -142,5 +170,4 @@ MealPrepCalculatorForm.propTypes = {
   recipeServingsCount: PropTypes.number.isRequired,
   recipeCaloriesCount: PropTypes.number.isRequired,
   recipeServingSize: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };

@@ -115,10 +115,12 @@ export default class RecipeValidator {
     return msg || true;
   }
 
-  static getNutrientErrMsg(str) {
+  static getNutrientErrMsg(str, required = false) {
     return RecipeValidator.getNumberErrMsg(
       str,
-      RecipeValidator.nutrientQuantityMaxValue
+      RecipeValidator.nutrientQuantityMaxValue,
+      0,
+      required
     );
   }
 

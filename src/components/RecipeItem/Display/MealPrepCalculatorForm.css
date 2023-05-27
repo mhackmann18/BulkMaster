@@ -20,20 +20,11 @@
   margin-bottom: .75rem;
 }
 
-#mpc-info-btn {
-  border: none;
-  background: none;
-}
-
-#mpc-info-btn:hover {
-  color: var(--slate-gray);
-}
-
-#portions-quantity-container, #portion-size-container {
+#meals-quantity-container, #meal-size-container {
   margin-bottom: 1rem;
 }
 
-#portion-size-buttons-container {
+#meal-size-buttons-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,7 +33,7 @@
   margin-bottom: .3rem;
 }
 
-#portion-size-buttons-container button {
+#meal-size-buttons-container button {
   background: none;
   border: none;
   color: var(--french-gray-2);
@@ -53,17 +44,17 @@
   margin-left: 8px;
 }
 
-#portion-size-buttons-container button:hover {
+#meal-size-buttons-container button:hover {
   color: var(--slate-gray);
   background-color: var(--seasalt);
 }
 
-#portion-size-buttons-container button.active {
+#meal-size-buttons-container button.active {
   background-color: var(--antiflash-white);
   color: var(--outer-space);
 }
 
-#portion-size-header > * {
+#meal-size-header > * {
   display: inline-block;
 }
 
