@@ -7,13 +7,16 @@ import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { InputAdornment, TextField, Popper } from "@mui/material";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import "./MealPrepCalculatorForm.css";
+import Recipe from "../../../utils/Recipe";
 
-export default function MealPrepCalculatorForm({
-  recipeServingsCount,
-  recipeCaloriesCount,
-  recipeServingSize,
-  // updateRecipe
-}) {
+export default function MealPrepCalculatorForm({ recipe, updateRecipe }) {
+  const existingCaloriesCount =
+    recipe.nutrients &&
+    recipe.nutrients.calories &&
+    recipe.nutrients.calories.quantity;
+  const existingServingsCount = recipe.servings;
+  const existingServingSize = recipe.servingSize;
+
   const [mealSizeInput, setMealSize] = useState("servings");
   const [popperAnchorEl, setPopperAnchorEl] = useState(null);
   const popperOpen = Boolean(popperAnchorEl);
@@ -35,14 +38,19 @@ export default function MealPrepCalculatorForm({
     const servingsPerMeal = data["meal-servings-quantity"];
 
     const nutrientsMult = caloriesPerMeal
-      ? caloriesPerMeal / recipeCaloriesCount
-      : servingsPerMeal / recipeServingSize.quantity;
+      ? caloriesPerMeal / existingCaloriesCount
+      : servingsPerMeal / existingServingSize.quantity;
 
-    const ingredientsMult = (mealsCount / recipeServingsCount) * nutrientsMult;
+    const ingredientsMult =
+      (mealsCount / existingServingsCount) * nutrientsMult;
 
-    console.log(`Set servings to ${mealsCount}`);
-    console.log(`Multiply ingredients by ${ingredientsMult}`);
-    console.log(`Multiply nutrients by ${nutrientsMult}`);
+    const newRecipe = new Recipe({ ...recipe })
+      .multiplyIngredients(ingredientsMult)
+      .multiplyNutrients(nutrientsMult);
+
+    newRecipe.servings = Number(mealsCount);
+
+    updateRecipe(newRecipe);
   };
 
   return (
@@ -65,7 +73,7 @@ export default function MealPrepCalculatorForm({
           <div className="meal-input-wrapper">
             <TextField
               id="meals-quantity"
-              defaultValue={recipeServingsCount}
+              defaultValue={existingServingsCount}
               type="number"
               variant="outlined"
               size="small"
@@ -98,7 +106,7 @@ export default function MealPrepCalculatorForm({
               >
                 By servings count
               </button>
-              {recipeCaloriesCount && (
+              {existingCaloriesCount && (
                 <button
                   onClick={() => {
                     unregister("meal-servings-quantity");
@@ -116,7 +124,7 @@ export default function MealPrepCalculatorForm({
             <div className="meal-input-wrapper" key={1}>
               <TextField
                 id="meal-size"
-                defaultValue={recipeCaloriesCount}
+                defaultValue={existingCaloriesCount}
                 type="number"
                 variant="outlined"
                 size="small"
@@ -147,7 +155,7 @@ export default function MealPrepCalculatorForm({
             <div className="meal-input-wrapper" key={2}>
               <TextField
                 id="meal-size"
-                defaultValue={recipeServingSize.quantity}
+                defaultValue={existingServingSize.quantity}
                 type="number"
                 variant="outlined"
                 size="small"
@@ -155,7 +163,7 @@ export default function MealPrepCalculatorForm({
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {recipeServingSize.unit}
+                      {existingServingSize.unit}
                     </InputAdornment>
                   ),
                 }}
@@ -189,15 +197,6 @@ export default function MealPrepCalculatorForm({
 }
 
 MealPrepCalculatorForm.propTypes = {
-  recipeServingsCount: PropTypes.number.isRequired,
-  recipeCaloriesCount: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.oneOf([null]),
-  ]),
-  recipeServingSize: PropTypes.object.isRequired,
-  // updateRecipe: PropTypes.func.isRequired
-};
-
-MealPrepCalculatorForm.defaultProps = {
-  recipeCaloriesCount: null,
+  recipe: PropTypes.instanceOf(Recipe).isRequired,
+  updateRecipe: PropTypes.func.isRequired,
 };

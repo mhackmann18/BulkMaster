@@ -5,13 +5,9 @@ import { faCalculator } from "@fortawesome/free-solid-svg-icons";
 import StandardModal from "../../common/StandardModal";
 import MealPrepCalculatorForm from "./MealPrepCalculatorForm";
 import "./OpenCalculatorButton.css";
+import Recipe from "../../../utils/Recipe";
 
-export default function OpenCalculatorButton({
-  recipeServingsCount,
-  recipeCaloriesCount,
-  recipeServingSize,
-  onSubmit,
-}) {
+export default function OpenCalculatorButton({ recipe, updateRecipe }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -31,13 +27,11 @@ export default function OpenCalculatorButton({
       </button>
       <StandardModal open={modalOpen} handleClose={() => setModalOpen(false)}>
         <MealPrepCalculatorForm
-          recipeServingsCount={recipeServingsCount}
-          recipeCaloriesCount={recipeCaloriesCount}
-          recipeServingSize={recipeServingSize}
+          recipe={recipe}
           onCancelClick={() => setModalOpen(false)}
-          onSubmit={(multiplier) => {
-            onSubmit(multiplier);
-            setModalOpen(false);
+          updateRecipe={(newRecipe) => {
+            updateRecipe(newRecipe);
+            // setModalOpen(false);
           }}
         />
       </StandardModal>
@@ -46,15 +40,6 @@ export default function OpenCalculatorButton({
 }
 
 OpenCalculatorButton.propTypes = {
-  recipeServingsCount: PropTypes.number.isRequired,
-  recipeCaloriesCount: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.oneOf([null]),
-  ]),
-  recipeServingSize: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-OpenCalculatorButton.defaultProps = {
-  recipeCaloriesCount: null,
+  recipe: PropTypes.instanceOf(Recipe).isRequired,
+  updateRecipe: PropTypes.func.isRequired,
 };

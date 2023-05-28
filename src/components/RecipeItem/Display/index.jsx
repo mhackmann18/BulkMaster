@@ -49,11 +49,9 @@ export default function RecipeDisplay({
             onSliderChange={(newServings) => {
               setRecipe(
                 new Recipe({
-                  ...startRecipe.getMultipliedRecipe(
-                    newServings / startRecipe.servings
-                  ),
+                  ...startRecipe,
                   servings: newServings,
-                })
+                }).multiplyIngredients(newServings / startRecipe.servings)
               );
             }}
             onSliderBlur={async (newServings) => {
@@ -88,12 +86,8 @@ export default function RecipeDisplay({
               Back
             </button>
             <OpenCalculatorButton
-              recipeServingsCount={servings}
-              recipeCaloriesCount={
-                nutrients && nutrients.calories && nutrients.calories.quantity
-              }
-              recipeServingSize={servingSize}
-              onSubmit={(val) => console.log(`${val}`)}
+              recipe={recipe}
+              updateRecipe={(newRecipe) => console.log(newRecipe)}
             />
             <button
               className="btn-default"

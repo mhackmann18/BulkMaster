@@ -63,14 +63,14 @@ export default class Recipe {
       ? ingredients.map((ingredient) => new Ingredient(ingredient))
       : [];
     this.instructions = instructions.map((el) =>
-      typeof el === "string" ? { text: el, id: uuidv4() } : el
+      typeof el === "string" ? { text: el, id: uuidv4() } : { ...el }
     );
     this.nutrients = Recipe.formatNutrientObj(nutrients);
     this.servings =
       typeof servings === "number" ? servings : Number(servings.split(" ")[0]);
-    this.servingSize =
-      servingSize ||
-      Recipe.servingSizeStringToObject(nutrients && nutrients.servingSize);
+    this.servingSize = servingSize
+      ? JSON.parse(JSON.stringify(servingSize))
+      : Recipe.servingSizeStringToObject(nutrients && nutrients.servingSize);
     this.prepTime = prepTime || null;
     this.cookTime = cookTime || null;
     this.id = id || null;
@@ -237,20 +237,36 @@ export default class Recipe {
     return true;
   }
 
-  getMultipliedRecipe(multiplier) {
+  multiplyIngredients(multiplier) {
     if (multiplier < 0) {
       return null;
     }
 
-    const newRecipe = new Recipe({ ...this });
-
-    for (const ingredient of newRecipe.ingredients) {
+    for (const ingredient of this.ingredients) {
       if (ingredient.quantity) {
         ingredient.quantity *= multiplier;
       }
     }
 
-    return newRecipe;
+    return this;
+  }
+
+  multiplyNutrients(multiplier) {
+    if (
+      multiplier < 0 ||
+      !this.nutrients ||
+      !Object.keys(this.nutrients).length
+    ) {
+      return null;
+    }
+
+    for (const [name] of Object.entries(this.nutrients)) {
+      if (this.nutrients[name].quantity) {
+        this.nutrients[name].quantity *= multiplier;
+      }
+    }
+
+    return this;
   }
 
   static formatNutrientObj(obj) {
@@ -263,7 +279,7 @@ export default class Recipe {
 
     for (const [key, val] of Object.entries(obj)) {
       // Object has already been formatted
-      if (val.unit || val.quantity) return obj;
+      if (val.unit || val.quantity) return JSON.parse(JSON.stringify(obj));
       if (!val || key === "servingSize") continue;
 
       const quantity = val.match(numRE);

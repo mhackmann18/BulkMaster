@@ -129,7 +129,6 @@ export default class RecipeValidator {
   }
 
   static getNumberErrMsg(str, maxValue, minValue = 0, required = false) {
-    console.log(required);
     let msg = "";
     const number = Number(str);
 
