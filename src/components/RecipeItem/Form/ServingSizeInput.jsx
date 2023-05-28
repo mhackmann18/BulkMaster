@@ -16,7 +16,8 @@ export default function ServingSizeInput({
       <div className="serving-size-quantity-wrapper">
         <TextField
           {...register("servingSize.quantity", {
-            validate: RecipeValidator.getServingSizeQuantityErrMsg,
+            validate: (str) =>
+              RecipeValidator.getServingSizeQuantityErrMsg(str, false),
           })}
           className="nowrap"
           type="number"

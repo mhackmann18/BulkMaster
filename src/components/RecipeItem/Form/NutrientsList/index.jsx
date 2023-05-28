@@ -20,7 +20,7 @@ export default function NutrientsList({ nutrients, register, errors }) {
               errors.nutrients[name].message
             }
             {...register(`nutrients.${name}`, {
-              validate: RecipeValidator.getNutrientErrMsg,
+              validate: (str) => RecipeValidator.getNutrientErrMsg(str, false),
             })}
           />
         </li>
