@@ -314,5 +314,36 @@
         "title": "Homemade Spaghetti Sauce",
         "servings": 5,
         "servingSize": { "quantity": 1, "unit": "serving" }
+    },
+    {
+        "id": 6,
+        "ingredients": [
+            "1 pound ground beef ((or 0.5 pound ground Italian sausage and 0.5 pound ground beef))",
+            "salt and freshly ground black pepper (, to taste)",
+            "1 medium onion (, chopped)",
+            "15 ounces tomato sauce",
+            "6 ounces tomato paste",
+            "0.5 teaspoon Italian seasoning",
+            "1 tablespoon dried parsley flakes",
+            "1 teaspoon garlic powder",
+            "crushed red pepper flakes (, to taste)",
+            "1 tablespoon Worcestershire sauce",
+            "1 tablespoon granulated sugar",
+            "1 cup water",
+            "0.25 cup fresh basil leaves ((optional))",
+            "spaghetti noodles (, for serving)"
+        ],
+        "instructions": [
+            "Season ground beef with salt and pepper.",
+            "In a large skillet, add the beef and chopped onion and brown. Drain excess grease.",
+            "Add tomato sauce, tomato paste, Italian seasoning, parsley, garlic powder, crushed red pepper, worcestershire, and sugar to the skillet.",
+            "Stir well to combine and bring to a boil. Add water and stir well.",
+            "Reduce heat and simmer for 30 minutes. Add chopped basil before serving, if desired.",
+            "This sauce tastes great in Spaghetti Pie, Million Dollar Spaghetti, Slow Cooker Lasagna and Instant Pot Spaghetti."
+        ],
+        "nutrients": null,
+        "title": "Homemade Spaghetti Sauce",
+        "servings": 5,
+        "servingSize": { "quantity": 1, "unit": "serving" }
     }
 ]

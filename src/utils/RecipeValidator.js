@@ -25,6 +25,8 @@ export default class RecipeValidator {
 
   static instructionMaxLength = 9999;
 
+  static servingSizeQuantityMinValue = 0.01;
+
   static servingSizeQuantityMaxValue = 9999;
 
   static servingSizeUnitMaxLength = 69;
@@ -95,10 +97,12 @@ export default class RecipeValidator {
     return msg || true;
   }
 
-  static getServingSizeQuantityErrMsg(str) {
-    return RecipeValidator.getIntegerErrMsg(
+  static getServingSizeQuantityErrMsg(str, required = false) {
+    return RecipeValidator.getNumberErrMsg(
       str,
-      RecipeValidator.servingSizeQuantityMaxValue
+      RecipeValidator.servingSizeQuantityMaxValue,
+      RecipeValidator.servingSizeQuantityMinValue,
+      required
     );
   }
 
@@ -125,6 +129,7 @@ export default class RecipeValidator {
   }
 
   static getNumberErrMsg(str, maxValue, minValue = 0, required = false) {
+    console.log(required);
     let msg = "";
     const number = Number(str);
 

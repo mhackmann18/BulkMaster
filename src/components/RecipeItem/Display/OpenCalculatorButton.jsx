@@ -47,7 +47,14 @@ export default function OpenCalculatorButton({
 
 OpenCalculatorButton.propTypes = {
   recipeServingsCount: PropTypes.number.isRequired,
-  recipeCaloriesCount: PropTypes.number.isRequired,
+  recipeCaloriesCount: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.oneOf([null]),
+  ]),
   recipeServingSize: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
+};
+
+OpenCalculatorButton.defaultProps = {
+  recipeCaloriesCount: null,
 };

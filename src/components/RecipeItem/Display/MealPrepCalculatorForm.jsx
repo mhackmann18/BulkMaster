@@ -12,6 +12,7 @@ export default function MealPrepCalculatorForm({
   recipeServingsCount,
   recipeCaloriesCount,
   recipeServingSize,
+  // updateRecipe
 }) {
   const [mealSizeInput, setMealSize] = useState("servings");
   const [popperAnchorEl, setPopperAnchorEl] = useState(null);
@@ -29,7 +30,19 @@ export default function MealPrepCalculatorForm({
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    const mealsCount = data["meals-quantity"];
+    const caloriesPerMeal = data["meal-calories-quantity"];
+    const servingsPerMeal = data["meal-servings-quantity"];
+
+    const nutrientsMult = caloriesPerMeal
+      ? caloriesPerMeal / recipeCaloriesCount
+      : servingsPerMeal / recipeServingSize.quantity;
+
+    const ingredientsMult = (mealsCount / recipeServingsCount) * nutrientsMult;
+
+    console.log(`Set servings to ${mealsCount}`);
+    console.log(`Multiply ingredients by ${ingredientsMult}`);
+    console.log(`Multiply nutrients by ${nutrientsMult}`);
   };
 
   return (
@@ -38,6 +51,7 @@ export default function MealPrepCalculatorForm({
         <header>
           <h2>Meal Prep Calculator</h2>
           <FontAwesomeIcon
+            id="mpc-help-icon"
             icon={faCircleQuestion}
             size="lg"
             onMouseEnter={handleInfoClick}
@@ -84,16 +98,18 @@ export default function MealPrepCalculatorForm({
               >
                 By servings count
               </button>
-              <button
-                onClick={() => {
-                  unregister("meal-servings-quantity");
-                  setMealSize("calories");
-                }}
-                className={mealSizeInput === "calories" ? "active" : ""}
-                type="button"
-              >
-                By calorie content
-              </button>
+              {recipeCaloriesCount && (
+                <button
+                  onClick={() => {
+                    unregister("meal-servings-quantity");
+                    setMealSize("calories");
+                  }}
+                  className={mealSizeInput === "calories" ? "active" : ""}
+                  type="button"
+                >
+                  By calorie content
+                </button>
+              )}
             </div>
           </div>
           {mealSizeInput === "calories" ? (
@@ -112,7 +128,12 @@ export default function MealPrepCalculatorForm({
                 }}
                 {...register("meal-calories-quantity", {
                   validate: (str) =>
-                    RecipeValidator.getNutrientErrMsg(str, true),
+                    RecipeValidator.getNumberErrMsg(
+                      str,
+                      RecipeValidator.nutrientQuantityMaxValue,
+                      1,
+                      true
+                    ),
                 })}
                 error={Boolean(errors && errors["meal-calories-quantity"])}
                 helperText={
@@ -139,7 +160,8 @@ export default function MealPrepCalculatorForm({
                   ),
                 }}
                 {...register("meal-servings-quantity", {
-                  validate: RecipeValidator.getServingsErrMsg,
+                  validate: (str) =>
+                    RecipeValidator.getServingSizeQuantityErrMsg(str, true),
                 })}
                 error={Boolean(errors && errors["meal-servings-quantity"])}
                 helperText={
@@ -157,9 +179,9 @@ export default function MealPrepCalculatorForm({
       </form>
       <Popper open={popperOpen} anchorEl={popperAnchorEl} disablePortal>
         <div id="mpc-info-tip">
-          The meal prep calculator will update this recipe&apos;s ingredient
-          quantities and nutrient quantities to reflect the number of meals and
-          meal size provided.
+          The meal prep calculator will update this recipe&apos;s ingredients
+          and nutrition facts to reflect the number of meals and meal size
+          provided.
         </div>
       </Popper>
     </>
@@ -168,6 +190,14 @@ export default function MealPrepCalculatorForm({
 
 MealPrepCalculatorForm.propTypes = {
   recipeServingsCount: PropTypes.number.isRequired,
-  recipeCaloriesCount: PropTypes.number.isRequired,
+  recipeCaloriesCount: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.oneOf([null]),
+  ]),
   recipeServingSize: PropTypes.object.isRequired,
+  // updateRecipe: PropTypes.func.isRequired
+};
+
+MealPrepCalculatorForm.defaultProps = {
+  recipeCaloriesCount: null,
 };
