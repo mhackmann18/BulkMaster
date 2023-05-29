@@ -20,6 +20,7 @@ const UnitInput = forwardRef(
     <div className="ingredient-unit-select-wrapper">
       <TextField
         name={name}
+        // id={name}
         onChange={onChange}
         onBlur={onBlur}
         select
@@ -33,9 +34,6 @@ const UnitInput = forwardRef(
           <MenuItem key={el} value={el}>
             {el}
           </MenuItem>
-          // <option value={el} key={uuidv4()}>
-          //   {el}
-          // </option>
         ))}
       </TextField>
     </div>

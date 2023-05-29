@@ -186,21 +186,23 @@ export default class Recipe {
       console.log(this.nutrients, obj.nutrients);
       return false;
     }
-    if (
-      Object.keys(this.nutrients).length !== Object.keys(obj.nutrients).length
-    ) {
-      console.log(obj.nutrients, this.nutrients);
-
-      return false;
-    }
-    for (const [name, value] of Object.entries(this.nutrients)) {
+    if (this.nutrients && obj.nutrients) {
       if (
-        formatAmount(obj.nutrients[name].quantity, 3) !==
-        formatAmount(value.quantity, 3)
+        Object.keys(this.nutrients).length !== Object.keys(obj.nutrients).length
       ) {
-        console.log("C");
+        console.log(obj.nutrients, this.nutrients);
 
         return false;
+      }
+      for (const [name, value] of Object.entries(this.nutrients)) {
+        if (
+          formatAmount(obj.nutrients[name].quantity, 3) !==
+          formatAmount(value.quantity, 3)
+        ) {
+          console.log("C");
+
+          return false;
+        }
       }
     }
 
