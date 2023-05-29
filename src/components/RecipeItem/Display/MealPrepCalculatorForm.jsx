@@ -49,9 +49,12 @@ export default function MealPrepCalculatorForm({ recipe, updateRecipe }) {
       .multiplyNutrients(nutrientsMult);
 
     newRecipe.servings = Number(mealsCount);
-    newRecipe.servingSize.quantity = Number(
-      servingsPerMeal || existingServingSize.quantity
-    );
+
+    if (existingServingSize.unit !== "serving") {
+      newRecipe.servingSize.quantity = Number(
+        servingsPerMeal || existingServingSize.quantity
+      );
+    }
 
     updateRecipe(newRecipe);
   };
