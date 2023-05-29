@@ -30,6 +30,8 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
     if (res.status === 200) {
       const data = await res.json();
 
+      console.log(data);
+
       const {
         cook_time,
         ingredients,
@@ -40,15 +42,19 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
         yields,
       } = data;
 
-      handleResponse({
-        title,
-        ingredients,
-        instructions: instructions_list,
-        nutrients,
-        servings: yields,
-        prepTime: prep_time,
-        cookTime: cook_time,
-      });
+      if (!yields) {
+        setSubmitError("Unable to find recipe from url");
+      } else {
+        handleResponse({
+          title,
+          ingredients,
+          instructions: instructions_list,
+          nutrients,
+          servings: yields,
+          prepTime: prep_time,
+          cookTime: cook_time,
+        });
+      }
     } else if (res.status === 400) {
       const errText = await res.text();
       setInputError(errText);
