@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import Spinner from "./Spinner";
 import { isValidHttpURL } from "../../utils/validation";
 import "./RecipeScrapingForm.css";
+// import getLinks from "../../utils/getLinks";
 
 export default function RecipeScrapingForm({ handleResponse, variant }) {
   const [inputError, setInputError] = useState("");
@@ -12,6 +13,7 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
+    // getLinks();
     e.preventDefault();
     setSubmitError("");
     document.activeElement.blur();
