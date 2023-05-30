@@ -1,11 +1,9 @@
-/* eslint-disable camelcase */
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Alert from "@mui/material/Alert";
 import Spinner from "./Spinner";
-import { isValidHttpURL } from "../../utils/validation";
+import getRecipeFromUrl from "../../utils/getRecipeFromUrl";
 import "./RecipeScrapingForm.css";
-// import getLinks from "../../utils/getLinks";
 
 export default function RecipeScrapingForm({ handleResponse, variant }) {
   const [inputError, setInputError] = useState("");
@@ -13,63 +11,26 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
-    // getLinks();
     e.preventDefault();
     setSubmitError("");
     document.activeElement.blur();
-    const inputString = e.target.querySelector("input").value;
-
-    if (!isValidHttpURL(inputString)) {
-      setInputError("Please paste a valid recipe URL");
-      return false;
-    }
+    const urlInput = e.target.querySelector("input").value;
 
     setIsLoading(true);
-    const res = await fetch(
-      `http://localhost:8000/recipe-data?url=${inputString}`
-    );
 
-    if (res.status === 200) {
-      const data = await res.json();
+    const recipe = await getRecipeFromUrl(urlInput);
 
-      console.log(data);
-
-      const {
-        cook_time,
-        ingredients,
-        instructions_list,
-        nutrients,
-        prep_time,
-        title,
-        yields,
-      } = data;
-
-      if (!yields || !title || !ingredients) {
-        setSubmitError("Unable to get recipe from url");
-      } else {
-        handleResponse({
-          title,
-          ingredients,
-          instructions: instructions_list,
-          nutrients,
-          servings: yields,
-          prepTime: prep_time,
-          cookTime: cook_time,
-        });
-      }
-    } else if (res.status === 400) {
-      const errText = await res.text();
-      setInputError(errText);
+    if (typeof recipe === "string") {
+      setSubmitError(recipe);
     } else {
-      const errText = await res.text();
-      setSubmitError(errText);
+      handleResponse(recipe);
     }
+
     setIsLoading(false);
   }
 
   return (
     <form id="recipe-scraping-form" className={variant} onSubmit={handleSubmit}>
-      {/* <div id="rsf-input-wrapper"> */}
       <input
         type="text"
         id="url-input"
@@ -84,8 +45,6 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
           {inputError}
         </Alert>
       )}
-      {/* {inputError.isShowing && <ErrBubble msg={inputError.msg} />} */}
-      {/* </div> */}
       <button className="btn-main" type="submit">
         Get Recipe
       </button>
