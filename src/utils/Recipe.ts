@@ -141,7 +141,6 @@ export default class Recipe {
     }
 
     if (removedIngredientIndex === -1) return null;
-    console.log("cat");
 
     return this.ingredients.splice(removedIngredientIndex, 1);
   }
