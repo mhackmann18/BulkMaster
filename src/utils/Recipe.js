@@ -20,41 +20,17 @@ export const nutrientUnits = {
   sodium: "mg",
   fiber: "g",
 };
-/*
-Eventually, this module should be refactored to typescript, but until then, here's the expected values
-for every field in Recipe.
-
-title: string (required, maxLength: see RecipeValidator)
-
-ingredients: array({
-  name: string (required, maxLength: see RecipeValidator),
-  unit: cookingUnit OR null,
-  quantity: number (maxValue: see RecipeValidator) OR null,
-  id: string
-})
-
-instructions: array({
-  text: string (required, maxLength: see RecipeValidator),
-  id: string
-})
-
-nutrients: {
-  calories: { quantity: number (maxValue: see RecipeValidator), unit: nutrientUnit }
-  ...
-} OR null
-
-*/
 export default class Recipe {
   constructor({
-    title, // string
-    ingredients, // array of objects or strings
-    instructions, // array of strings
-    nutrients, // object or array of objects
-    servings, // number or string with the first token being a number
-    servingSize, // object of shape: { quantity: number, unit: string } or a falsy
-    prepTime, // number
-    cookTime, // number
-    id, // a number greater than 0 or a fasly
+    title,
+    ingredients,
+    instructions,
+    nutrients,
+    servings,
+    servingSize,
+    prepTime,
+    cookTime,
+    id,
   }) {
     this.title = title;
     this.ingredients = ingredients.length
@@ -72,16 +48,6 @@ export default class Recipe {
     this.prepTime = prepTime || null;
     this.cookTime = cookTime || null;
     this.id = id || null;
-  }
-
-  getNutrientByName(name) {
-    const nameUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
-    for (const nutrient of this.nutrients) {
-      if (nutrient.name === nameUpperCase) {
-        return nutrient;
-      }
-    }
-    return null;
   }
 
   addIngredient(name, unit, quantity) {
@@ -102,6 +68,7 @@ export default class Recipe {
       }
     }
     if (removedIngredientIndex === -1) return null;
+    console.log("cat");
     return this.ingredients.splice(removedIngredientIndex, 1);
   }
 
@@ -248,8 +215,9 @@ export default class Recipe {
       if (val.unit || val.quantity) return JSON.parse(JSON.stringify(obj));
       if (!val || key === "servingSize") continue;
       const quantity = val.match(numRE);
+      // console.log(quantity);
       if (quantity && quantity[0].includes("/")) {
-        quantity[0] = fraction(quantity[0]);
+        quantity[0] = fraction(quantity[0].trim());
       }
       const name = key.replace("Content", "");
       formattedObj[name] = {

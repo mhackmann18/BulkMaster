@@ -7,7 +7,7 @@ import {
   isStringPositiveNumber,
 } from "./helperFunctions";
 
-export const nutrientUnits = { 
+export const nutrientUnits = {
   calories: "kcal",
   fat: "g",
   saturatedFat: "g",
@@ -22,15 +22,15 @@ export const nutrientUnits = {
 };
 
 interface RecipeInterface {
-  readonly id: string | null
-  title: string
-  ingredients: IngredientInterface[] | string[]
-  instructions: InstructionInterface[] | string[]
-  nutrients: NutrientInterface | ScrapedNutrientInterface | null
-  servings: number | string
-  servingSize: ServingSizeInterface | string
-  prepTime: number | null
-  cookTime: number | null
+  readonly id: string | null;
+  title: string;
+  ingredients: IngredientInterface[] | string[];
+  instructions: InstructionInterface[] | string[];
+  nutrients: NutrientInterface | ScrapedNutrientInterface | null;
+  servings: number | string;
+  servingSize: ServingSizeInterface | string;
+  prepTime: number | null;
+  cookTime: number | null;
 }
 
 interface IngredientInterface {
@@ -40,41 +40,41 @@ interface IngredientInterface {
   name: string;
 }
 
-interface InstructionInterface  {
+interface InstructionInterface {
   readonly id: string;
   text: string;
 }
 
-interface NutrientInterface { 
-  calories?: { quantity: number | null, unit: string };
-  fat?: { quantity: number | null, unit: string };
-  saturatedFat?: { quantity: number | null, unit: string };
-  unsaturatedFat?: { quantity: number | null, unit: string };
-  transFat?: { quantity: number | null, unit: string };
-  carbohydrate?: { quantity: number | null, unit: string };
-  protein?: { quantity: number | null, unit: string };
-  sugar?: { quantity: number | null, unit: string };
-  cholesterol?: { quantity: number | null, unit: string };
-  sodium?: { quantity: number | null, unit: string };
-  fiber?: { quantity: number | null, unit: string };
-  servingSize?: string
-}  
+interface NutrientInterface {
+  calories?: { quantity: number | null; unit: string };
+  fat?: { quantity: number | null; unit: string };
+  saturatedFat?: { quantity: number | null; unit: string };
+  unsaturatedFat?: { quantity: number | null; unit: string };
+  transFat?: { quantity: number | null; unit: string };
+  carbohydrate?: { quantity: number | null; unit: string };
+  protein?: { quantity: number | null; unit: string };
+  sugar?: { quantity: number | null; unit: string };
+  cholesterol?: { quantity: number | null; unit: string };
+  sodium?: { quantity: number | null; unit: string };
+  fiber?: { quantity: number | null; unit: string };
+  servingSize?: string;
+}
 
 interface ScrapedNutrientInterface {
-  servingSize?: string
-  calories?: string
-  fat?: string
-  saturatedFat?: string
-  unsaturatedFat?: string
-  transFat?: string
-  carbohydrate?: string
-  protein?: string
-  sugar?: string
-  cholesterol?: string
-  sodium?: string
-  fiber?: string
+  servingSize?: string;
+  calories?: string;
+  fat?: string;
+  saturatedFat?: string;
+  unsaturatedFat?: string;
+  transFat?: string;
+  carbohydrate?: string;
+  protein?: string;
+  sugar?: string;
+  cholesterol?: string;
+  sodium?: string;
+  fiber?: string;
 }
-  
+
 interface ServingSizeInterface {
   quantity: number;
   unit: string;
@@ -92,7 +92,7 @@ export default class Recipe {
   id: string | null;
 
   constructor({
-    title, 
+    title,
     ingredients,
     instructions,
     nutrients,
@@ -141,6 +141,7 @@ export default class Recipe {
     }
 
     if (removedIngredientIndex === -1) return null;
+    console.log("cat");
 
     return this.ingredients.splice(removedIngredientIndex, 1);
   }
@@ -303,7 +304,9 @@ export default class Recipe {
     return this;
   }
 
-  static formatNutrientObj(obj: NutrientInterface | ScrapedNutrientInterface | null): NutrientInterface | null {
+  static formatNutrientObj(
+    obj: NutrientInterface | ScrapedNutrientInterface | null
+  ): NutrientInterface | null {
     if (!obj || !Object.keys(obj).length) return null;
 
     const formattedObj = {};
@@ -317,9 +320,10 @@ export default class Recipe {
       if (!val || key === "servingSize") continue;
 
       const quantity = val.match(numRE);
+      // console.log(quantity);
 
       if (quantity && quantity[0].includes("/")) {
-        quantity[0] = fraction(quantity[0]);
+        quantity[0] = fraction(quantity[0].trim());
       }
 
       const name = key.replace("Content", "");
@@ -354,7 +358,7 @@ export default class Recipe {
   }
 
   static getValidNutrientsArr() {
-    const arr: { name: string, unit: string}[] = [];
+    const arr: { name: string; unit: string }[] = [];
     for (const [name, unit] of Object.entries(nutrientUnits)) {
       arr.push({ name, unit });
     }

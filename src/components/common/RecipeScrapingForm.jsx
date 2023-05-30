@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -43,8 +42,8 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
         yields,
       } = data;
 
-      if (!yields) {
-        setSubmitError("Unable to find recipe from url");
+      if (!yields || !title || !ingredients) {
+        setSubmitError("Unable to get recipe from url");
       } else {
         handleResponse({
           title,
