@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import { useState } from "react";
 import PropTypes from "prop-types";

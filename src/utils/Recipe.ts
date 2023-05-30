@@ -7,7 +7,7 @@ import {
   isStringPositiveNumber,
 } from "./helperFunctions";
 
-export const nutrientUnits = {
+export const nutrientUnits = { 
   calories: "kcal",
   fat: "g",
   saturatedFat: "g",
@@ -20,42 +20,88 @@ export const nutrientUnits = {
   sodium: "mg",
   fiber: "g",
 };
-/*
-Eventually, this module should be refactored to typescript, but until then, here's the expected values
-for every field in Recipe.
 
-title: string (required, maxLength: see RecipeValidator)
+interface RecipeInterface {
+  readonly id: string | null
+  title: string
+  ingredients: IngredientInterface[] | string[]
+  instructions: InstructionInterface[] | string[]
+  nutrients: NutrientInterface | ScrapedNutrientInterface | null
+  servings: number | string
+  servingSize: ServingSizeInterface | string
+  prepTime: number | null
+  cookTime: number | null
+}
 
-ingredients: array({
-  name: string (required, maxLength: see RecipeValidator),
-  unit: cookingUnit OR null,
-  quantity: number (maxValue: see RecipeValidator) OR null,
-  id: string
-})
+interface IngredientInterface {
+  readonly id: string;
+  quantity: number | null;
+  unit: string;
+  name: string;
+}
 
-instructions: array({
-  text: string (required, maxLength: see RecipeValidator),
-  id: string
-})
+interface InstructionInterface  {
+  readonly id: string;
+  text: string;
+}
 
-nutrients: {
-  calories: { quantity: number (maxValue: see RecipeValidator), unit: nutrientUnit }
-  ...
-} OR null
+interface NutrientInterface { 
+  calories?: { quantity: number | null, unit: string };
+  fat?: { quantity: number | null, unit: string };
+  saturatedFat?: { quantity: number | null, unit: string };
+  unsaturatedFat?: { quantity: number | null, unit: string };
+  transFat?: { quantity: number | null, unit: string };
+  carbohydrate?: { quantity: number | null, unit: string };
+  protein?: { quantity: number | null, unit: string };
+  sugar?: { quantity: number | null, unit: string };
+  cholesterol?: { quantity: number | null, unit: string };
+  sodium?: { quantity: number | null, unit: string };
+  fiber?: { quantity: number | null, unit: string };
+  servingSize?: string
+}  
 
-*/
+interface ScrapedNutrientInterface {
+  servingSize?: string
+  calories?: string
+  fat?: string
+  saturatedFat?: string
+  unsaturatedFat?: string
+  transFat?: string
+  carbohydrate?: string
+  protein?: string
+  sugar?: string
+  cholesterol?: string
+  sodium?: string
+  fiber?: string
+}
+  
+interface ServingSizeInterface {
+  quantity: number;
+  unit: string;
+}
+
 export default class Recipe {
+  title: string;
+  ingredients: IngredientInterface[];
+  instructions: InstructionInterface[];
+  nutrients: NutrientInterface | null;
+  servings: number;
+  servingSize: ServingSizeInterface;
+  prepTime: number | null;
+  cookTime: number | null;
+  id: string | null;
+
   constructor({
-    title, // string
-    ingredients, // array of objects or strings
-    instructions, // array of strings
-    nutrients, // object or array of objects
-    servings, // number or string with the first token being a number
-    servingSize, // object of shape: { quantity: number, unit: string } or a falsy
-    prepTime, // number
-    cookTime, // number
-    id, // a number greater than 0 or a fasly
-  }) {
+    title, 
+    ingredients,
+    instructions,
+    nutrients,
+    servings,
+    servingSize,
+    prepTime,
+    cookTime,
+    id,
+  }: RecipeInterface) {
     this.title = title;
     this.ingredients = ingredients.length
       ? ingredients.map((ingredient) => new Ingredient(ingredient))
@@ -74,16 +120,6 @@ export default class Recipe {
     this.id = id || null;
   }
 
-  getNutrientByName(name) {
-    const nameUpperCase = name.charAt(0).toUpperCase() + name.slice(1);
-    for (const nutrient of this.nutrients) {
-      if (nutrient.name === nameUpperCase) {
-        return nutrient;
-      }
-    }
-    return null;
-  }
-
   addIngredient(name, unit, quantity) {
     this.ingredients.push(new Ingredient({ name, unit, quantity }));
   }
@@ -94,27 +130,35 @@ export default class Recipe {
 
   removeIngredientById(id) {
     if (!id) return null;
+
     let removedIngredientIndex = -1;
+
     for (let i = 0; i < this.ingredients.length; i++) {
       if (this.ingredients[i].id === id) {
         removedIngredientIndex = i;
         break;
       }
     }
+
     if (removedIngredientIndex === -1) return null;
+
     return this.ingredients.splice(removedIngredientIndex, 1);
   }
 
   removeInstructionById(id) {
     if (!id) return null;
+
     let removeInstructionIndex = -1;
+
     for (let i = 0; i < this.instructions.length; i++) {
       if (this.instructions[i].id === id) {
         removeInstructionIndex = i;
         break;
       }
     }
+
     if (removeInstructionIndex === -1) return null;
+
     return this.instructions.splice(removeInstructionIndex, 1);
   }
 
@@ -122,16 +166,21 @@ export default class Recipe {
   isEquivalent(obj) {
     if (!(obj instanceof Recipe)) {
       console.log("Instance");
+
       return false;
     }
+
     // Title
     if (obj.title !== this.title) {
       console.log("title");
+
       return false;
     }
+
     // Ingredients
     if (this.ingredients.length !== obj.ingredients.length) {
       console.log("Ingredients length");
+
       return false;
     }
     for (let i = 0; i < this.ingredients.length; i++) {
@@ -148,6 +197,7 @@ export default class Recipe {
         return false;
       }
     }
+
     // Instructions
     if (this.instructions.length !== obj.instructions.length) {
       console.log("Instructions");
@@ -159,6 +209,7 @@ export default class Recipe {
         return false;
       }
     }
+
     // Nutrients
     if (
       (!this.nutrients || !obj.nutrients) &&
@@ -172,6 +223,7 @@ export default class Recipe {
         Object.keys(this.nutrients).length !== Object.keys(obj.nutrients).length
       ) {
         console.log(obj.nutrients, this.nutrients);
+
         return false;
       }
       for (const [name, value] of Object.entries(this.nutrients)) {
@@ -180,15 +232,19 @@ export default class Recipe {
           formatAmount(value.quantity, 3)
         ) {
           console.log("C");
+
           return false;
         }
       }
     }
+
     // Servings
     if (this.servings !== obj.servings) {
       console.log("servings");
+
       return false;
     }
+
     // Serving Size
     if (
       this.servingSize.quantity !== obj.servingSize.quantity ||
@@ -197,16 +253,21 @@ export default class Recipe {
       console.log("Serving size");
       return false;
     }
+
     // Prep Time
     if (this.prepTime !== obj.prepTime) {
       console.log("Prep time");
+
       return false;
     }
+
     // Cook Time
     if (this.cookTime !== obj.cookTime) {
       console.log("cook time");
+
       return false;
     }
+
     return true;
   }
 
@@ -214,11 +275,13 @@ export default class Recipe {
     if (multiplier < 0) {
       return null;
     }
+
     for (const ingredient of this.ingredients) {
       if (ingredient.quantity) {
         ingredient.quantity *= multiplier;
       }
     }
+
     return this;
   }
 
@@ -230,33 +293,43 @@ export default class Recipe {
     ) {
       return null;
     }
+
     for (const [name] of Object.entries(this.nutrients)) {
       if (this.nutrients[name].quantity) {
         this.nutrients[name].quantity *= multiplier;
       }
     }
+
     return this;
   }
 
-  static formatNutrientObj(obj) {
+  static formatNutrientObj(obj: NutrientInterface | ScrapedNutrientInterface | null): NutrientInterface | null {
     if (!obj || !Object.keys(obj).length) return null;
+
     const formattedObj = {};
+
     // Match numbers and vulgar fractions at start
     const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?($|\s)/;
+
     for (const [key, val] of Object.entries(obj)) {
       // Object has already been formatted
       if (val.unit || val.quantity) return JSON.parse(JSON.stringify(obj));
       if (!val || key === "servingSize") continue;
+
       const quantity = val.match(numRE);
+
       if (quantity && quantity[0].includes("/")) {
         quantity[0] = fraction(quantity[0]);
       }
+
       const name = key.replace("Content", "");
+
       formattedObj[name] = {
         quantity: quantity ? Number(quantity[0]) : null,
         unit: nutrientUnits[name],
       };
     }
+
     return formattedObj;
   }
 
@@ -267,11 +340,12 @@ export default class Recipe {
       (acc, el, i) => (i + 1 !== nameWords.length ? `${acc + el} ` : acc + el),
       ""
     );
+
     return nameStr;
   }
 
-  static getNutrientsStrings(nutrients) {
-    const strArr = [];
+  static getNutrientsStrings(nutrients: NutrientInterface) {
+    const strArr: string[] = [];
     for (const [key, val] of Object.entries(nutrients)) {
       const nameStr = Recipe.getNutrientNameStringFromKey(key);
       strArr.push(`${nameStr}: ${val.quantity} ${val.unit}`);
@@ -280,7 +354,7 @@ export default class Recipe {
   }
 
   static getValidNutrientsArr() {
-    const arr = [];
+    const arr: { name: string, unit: string}[] = [];
     for (const [name, unit] of Object.entries(nutrientUnits)) {
       arr.push({ name, unit });
     }
@@ -295,13 +369,16 @@ export default class Recipe {
         unit: "serving",
       };
     }
+
     const tokens = str.split(" ");
+
     if (!tokens.length) {
       return {
         quantity: 1,
         unit: "serving",
       };
     }
+
     if (isStringPositiveNumber(tokens[0])) {
       if (tokens.length === 1) {
         return {
@@ -314,6 +391,7 @@ export default class Recipe {
         unit: tokens.slice(1).join(" ").trim(),
       };
     }
+
     return {
       quantity: 1,
       unit: tokens.join(" ").trim(),
@@ -322,12 +400,18 @@ export default class Recipe {
 
   static getRecipeMultiplier(recipe, newServingsCount, newCaloriesCount) {
     if (!recipe || !newServingsCount) return 1;
+
     const oldServingsCount = recipe.servings;
+
     if (!newCaloriesCount) return newServingsCount / oldServingsCount;
+
     if (!oldServingsCount) return null;
+
     const oldCalorieCount =
       recipe.nutrients && recipe.nutrients.calories.quantity;
+
     if (!oldCalorieCount) return newServingsCount / oldServingsCount;
+
     return (
       ((newCaloriesCount / oldCalorieCount) * newServingsCount) /
       oldServingsCount

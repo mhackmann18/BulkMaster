@@ -7,8 +7,10 @@
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "airbnb-base",
+    "airbnb-typescript/base",
     "airbnb/rules/react",
     "prettier"
   ],
@@ -18,7 +20,8 @@
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "plugins": ["react"],
   "rules": {
