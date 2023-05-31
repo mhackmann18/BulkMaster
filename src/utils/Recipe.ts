@@ -327,10 +327,12 @@ export default class Recipe {
 
       const name = key.replace("Content", "");
 
-      formattedObj[name] = {
-        quantity: quantity ? Number(quantity[0]) : null,
-        unit: nutrientUnits[name],
-      };
+      if (quantity) {
+        formattedObj[name] = {
+          quantity: Number(quantity[0]),
+          unit: nutrientUnits[name],
+        };
+      }
     }
 
     return formattedObj;

@@ -219,10 +219,12 @@ export default class Recipe {
         quantity[0] = fraction(quantity[0].trim());
       }
       const name = key.replace("Content", "");
-      formattedObj[name] = {
-        quantity: quantity ? Number(quantity[0]) : null,
-        unit: nutrientUnits[name],
-      };
+      if (quantity) {
+        formattedObj[name] = {
+          quantity: Number(quantity[0]),
+          unit: nutrientUnits[name],
+        };
+      }
     }
     return formattedObj;
   }
