@@ -50,7 +50,10 @@ export default function MealPrepCalculatorForm({ recipe, updateRecipe }) {
 
     newRecipe.servings = Number(mealsCount);
 
-    if (existingServingSize.unit !== "serving") {
+    if (
+      existingServingSize.unit !== "serving" &&
+      existingServingSize.unit !== "servings"
+    ) {
       newRecipe.servingSize.quantity = Number(
         servingsPerMeal || existingServingSize.quantity
       );
