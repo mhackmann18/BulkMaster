@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import UserController from "../../controllers/User";
-import useToken from "../../hooks/useToken";
+import useUser from "../../hooks/useUser";
+// import useToken from "../../hooks/useToken";
 import "../SignupForm/account-form.css";
 
 export default function LoginForm() {
   const [formSubmitError, setFormSubmitError] = useState("");
-  const { setToken } = useToken();
+  // const { setToken } = useToken();
+  const { setUser } = useUser();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -21,12 +23,16 @@ export default function LoginForm() {
     } else {
       const user = await UserController.login({ username, password });
 
-      const { token } = user;
+      console.log(user);
 
-      if (!token) {
+      // const { token } = user;
+
+      delete user.password;
+
+      if (!user.token) {
         setFormSubmitError(user.message || "An unexpected error occurred");
       } else {
-        setToken(token);
+        setUser({ ...user });
         navigate(`/dashboard`);
       }
     }
