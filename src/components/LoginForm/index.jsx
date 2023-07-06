@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import { UserContext } from "../../UserContextProvider";
+// import { UserContext } from "../../UserContextProvider";
 import UserController from "../../controllers/User";
 import "../SignupForm/account-form.css";
 
 export default function LoginForm() {
   const [formSubmitError, setFormSubmitError] = useState("");
-  const { setUser } = useContext(UserContext);
+  // const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -24,7 +24,7 @@ export default function LoginForm() {
       if (!user.username) {
         setFormSubmitError(user.message || "An unexpected error occurred");
       } else {
-        setUser(user);
+        sessionStorage.setItem("user", JSON.stringify(user));
         navigate(`/dashboard`);
       }
     }

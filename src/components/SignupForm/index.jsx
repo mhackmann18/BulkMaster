@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import UserController from "../../controllers/User";
-import { UserContext } from "../../UserContextProvider";
+// import { UserContext } from "../../UserContextProvider";
 import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
 import "./account-form.css";
 
@@ -13,8 +13,8 @@ export default function SignupForm() {
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
-  const userContext = useContext(UserContext);
-  const { setUser } = userContext;
+  // const userContext = useContext(UserContext);
+  // const { setUser } = userContext;
   const navigate = useNavigate();
 
   async function handleUsernameInputBlur(e) {
@@ -101,7 +101,7 @@ export default function SignupForm() {
       if (!newUser.username) {
         setFormSubmitError(newUser.message || "An unexpected error occurred");
       } else {
-        setUser(newUser);
+        sessionStorage.setItem("user", JSON.stringify(newUser));
         navigate(`/dashboard/recipe-library`);
       }
     }
