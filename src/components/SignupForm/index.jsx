@@ -1,15 +1,21 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
+import UserController from "../../controllers/User";
+import { UserContext } from "../../UserContextProvider";
 import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
 import "./account-form.css";
 
+// TODO: Refactor to react-hook-form
 export default function SignupForm() {
   const [usernameInputError, setUsernameInputError] = useState("");
   const [passwordInputError, setPasswordInputError] = useState("");
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
+  const userContext = useContext(UserContext);
+  const { setUser } = userContext;
+  const navigate = useNavigate();
 
   async function handleUsernameInputBlur(e) {
     if (e.target.value) {
@@ -64,7 +70,9 @@ export default function SignupForm() {
     const [usernameIsValid, usernameErrMsg] = await checkUsernameInput(
       username
     );
-    const [passwordIsValid, passwordErrMsg] = checkPasswordInput(password);
+    const [passwordIsValid, passwordErrMsg] = await checkPasswordInput(
+      password
+    );
 
     if (!usernameIsValid) {
       setUsernameInputError(usernameErrMsg);
@@ -87,7 +95,18 @@ export default function SignupForm() {
       setConfirmPasswordInputError("");
     }
 
-    if (isValid) console.log("Create new account");
+    if (isValid) {
+      const newUser = await UserController.create({ username, password });
+
+      if (!newUser.username) {
+        setFormSubmitError(newUser.message || "An unexpected error occurred");
+      } else {
+        // Store user in context
+        console.log(newUser);
+        setUser(newUser);
+        navigate(`/dashboard/recipe-library`);
+      }
+    }
   }
 
   return (
