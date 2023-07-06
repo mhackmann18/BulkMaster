@@ -1,8 +1,10 @@
-import dsd from "../utils/config";
+import config from "../utils/config";
+
+const { ADDRESS } = config;
 
 export default class User {
   static async create(user) {
-    const res = await fetch(`${dsd.ADDRESS}/users/register`, {
+    const res = await fetch(`${ADDRESS}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +18,7 @@ export default class User {
   }
 
   static async login(user) {
-    const res = await fetch(`${dsd.ADDRESS}/users/login`, {
+    const res = await fetch(`${ADDRESS}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,5 +29,15 @@ export default class User {
     const data = await res.json();
 
     return data;
+  }
+
+  static async checkToken(token) {
+    const res = await fetch(`${ADDRESS}/recipes`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+
+    return res.status === 200;
   }
 }

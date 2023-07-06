@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import UserController from "../../controllers/User";
-// import { UserContext } from "../../UserContextProvider";
 import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
+import useToken from "../../hooks/useToken";
 import "./account-form.css";
 
 // TODO: Refactor to react-hook-form
@@ -13,8 +13,7 @@ export default function SignupForm() {
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
-  // const userContext = useContext(UserContext);
-  // const { setUser } = userContext;
+  const { setToken } = useToken();
   const navigate = useNavigate();
 
   async function handleUsernameInputBlur(e) {
@@ -98,11 +97,13 @@ export default function SignupForm() {
     if (isValid) {
       const newUser = await UserController.create({ username, password });
 
-      if (!newUser.username) {
+      const { token } = newUser;
+
+      if (!token) {
         setFormSubmitError(newUser.message || "An unexpected error occurred");
       } else {
-        sessionStorage.setItem("user", JSON.stringify(newUser));
-        navigate(`/dashboard/recipe-library`);
+        setToken(token);
+        navigate(`/dashboard`);
       }
     }
   }

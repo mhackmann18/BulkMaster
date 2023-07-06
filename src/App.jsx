@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import RequireAuth from "./RequireAuth";
+import AuthenticateBeforeRender from "./AuthenticateBeforeRender";
 import UserContextProvider from "./UserContextProvider";
 import ThemeContextProvider from "./ThemeContextProvider";
 import Splash from "./routes/Splash";
@@ -55,9 +55,9 @@ export default function App() {
               <Route
                 path="/dashboard"
                 element={
-                  <RequireAuth>
+                  <AuthenticateBeforeRender>
                     <Dashboard />
-                  </RequireAuth>
+                  </AuthenticateBeforeRender>
                 }
               >
                 <Route path="import-recipe" element={<Import />} />
