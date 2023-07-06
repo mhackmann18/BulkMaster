@@ -14,4 +14,18 @@ export default class User {
 
     return data;
   }
+
+  static async login(user) {
+    const res = await fetch(`${dsd.ADDRESS}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
 }

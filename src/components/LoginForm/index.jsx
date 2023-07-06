@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import { validateUserCredentials } from "../../utils/user";
+import { UserContext } from "../../UserContextProvider";
+import UserController from "../../controllers/User";
 import "../SignupForm/account-form.css";
 
 export default function LoginForm() {
   const [formSubmitError, setFormSubmitError] = useState("");
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -15,10 +18,15 @@ export default function LoginForm() {
 
     if (!username || !password) {
       setFormSubmitError("Please fill in all fields");
-    } else if (!(await validateUserCredentials(username, password))) {
-      setFormSubmitError("No account found with that username and password");
     } else {
-      console.log("Login user");
+      const user = await UserController.login({ username, password });
+
+      if (!user.username) {
+        setFormSubmitError(user.message || "An unexpected error occurred");
+      } else {
+        setUser(user);
+        navigate(`/dashboard`);
+      }
     }
   }
 

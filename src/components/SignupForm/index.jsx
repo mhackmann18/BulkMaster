@@ -101,8 +101,6 @@ export default function SignupForm() {
       if (!newUser.username) {
         setFormSubmitError(newUser.message || "An unexpected error occurred");
       } else {
-        // Store user in context
-        console.log(newUser);
         setUser(newUser);
         navigate(`/dashboard/recipe-library`);
       }
