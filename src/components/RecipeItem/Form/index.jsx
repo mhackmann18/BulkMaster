@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { Snackbar, Alert } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
@@ -23,6 +22,8 @@ import RecipeValidator from "../../../utils/RecipeValidator";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 import { updateRecipeById } from "../../../utils/user";
+import Toast from "../../common/Toast";
+import useToast from "../../../hooks/useToast";
 
 export default function RecipeForm({ startRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -42,45 +43,8 @@ export default function RecipeForm({ startRecipe, onCancel }) {
 
   // Toast
 
-  const [toast, setToast] = useState({
-    open: false,
-    messages: [],
-    activeMessage: "",
-    severity: "success",
-  });
-
-  const addSuccessToastMessage = (message) => {
-    setToast({
-      ...toast,
-      messages: [...toast.messages, message],
-      severity: "success",
-    });
-  };
-
-  const addErrorToastMessage = (message) => {
-    setToast({
-      ...toast,
-      messages: [...toast.messages, message],
-      severity: "error",
-    });
-  };
-
-  const closeToast = () => {
-    setToast({ ...toast, open: false });
-  };
-
-  useEffect(() => {
-    if (!toast.open && toast.messages.length) {
-      setToast({
-        ...toast,
-        open: true,
-        activeMessage: toast.messages[0],
-        messages: toast.messages.slice(1),
-      });
-    } else if (toast.open && toast.messages.length) {
-      setToast({ ...toast, open: false });
-    }
-  }, [toast]);
+  const { toast, addSuccessToastMessage, addErrorToastMessage, closeToast } =
+    useToast();
 
   // Modal
 
@@ -289,20 +253,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
           }}
         />
       </StandardModal>
-      <Snackbar
-        open={toast.open}
-        autoHideDuration={6000}
-        onClose={closeToast}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert
-          onClose={closeToast}
-          severity={toast.severity}
-          sx={{ width: "100%", border: 1 }}
-        >
-          {toast.activeMessage}
-        </Alert>
-      </Snackbar>
+      <Toast state={toast} onClose={closeToast} />
     </form>
   );
 }

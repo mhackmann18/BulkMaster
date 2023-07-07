@@ -57,10 +57,6 @@ export default class User {
 
     const formattedRecipe = Recipe.prepareForExport(recipe, userId);
 
-    // console.log(formattedRecipe);
-
-    // console.log(JSON.stringify(formattedRecipe));
-
     const res = await fetch(`${ADDRESS}/recipes`, {
       method: "POST",
       headers: {

@@ -16,6 +16,8 @@ import Recipe from "../../../utils/Recipe";
 import { updateRecipeById } from "../../../utils/user";
 import User from "../../../controllers/User";
 import useUser from "../../../hooks/useUser";
+import Toast from "../../common/Toast";
+import useToast from "../../../hooks/useToast";
 
 export default function RecipeDisplay({
   startRecipe,
@@ -39,8 +41,21 @@ export default function RecipeDisplay({
   const navigate = useNavigate();
   const recipeStatus = id ? "saved" : "imported";
 
-  const handleSaveButtonClick = () => {
-    User.saveRecipe(recipe, user).then((data) => console.log(data));
+  const { addSuccessToastMessage, addErrorToastMessage, closeToast, toast } =
+    useToast();
+
+  const handleSaveButtonClick = async () => {
+    // TODO: add loading indicator
+    const data = await User.saveRecipe(recipe, user);
+
+    // Error
+    if (data.message) {
+      addErrorToastMessage(data.message);
+    }
+    // Success
+    else {
+      addSuccessToastMessage("Recipe added to library");
+    }
   };
 
   return (
@@ -143,6 +158,7 @@ export default function RecipeDisplay({
           )
         }
       />
+      <Toast state={toast} onClose={closeToast} />
     </div>
   );
 }
