@@ -41,7 +41,7 @@ export default function SubHeading({
         anchorEl={sliderAnchorEl}
         startingValue={defaultServings}
         handleChange={onSliderChange}
-        onBlur={onSliderBlur}
+        onRelease={onSliderBlur}
         close={() => setAnchorEl(null)}
       />
     </p>

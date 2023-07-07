@@ -9,7 +9,7 @@ export default function SliderPopper({
   minValue,
   maxValue,
   handleChange,
-  onBlur,
+  onRelease,
   close,
 }) {
   return (
@@ -23,7 +23,7 @@ export default function SliderPopper({
             min={minValue}
             max={maxValue}
             onChange={(e) => handleChange(Number(e.target.value))}
-            onBlur={(e) => onBlur(Number(e.target.value))}
+            onMouseUp={(e) => onRelease(Number(e.target.value))}
           />
         </div>
       </ClickAwayListener>
@@ -38,8 +38,8 @@ SliderPopper.propTypes = {
   minValue: PropTypes.number,
   maxValue: PropTypes.number,
   handleChange: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
   close: PropTypes.func,
+  onRelease: PropTypes.func,
 };
 
 SliderPopper.defaultProps = {
@@ -47,5 +47,6 @@ SliderPopper.defaultProps = {
   startingValue: 1,
   minValue: 1,
   maxValue: 30,
+  onRelease: () => null,
   close: () => false,
 };
