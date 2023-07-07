@@ -14,6 +14,8 @@ import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
 import { updateRecipeById } from "../../../utils/user";
+import User from "../../../controllers/User";
+import useUser from "../../../hooks/useUser";
 
 export default function RecipeDisplay({
   startRecipe,
@@ -21,6 +23,7 @@ export default function RecipeDisplay({
   setStartRecipe,
 }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
+  const { user } = useUser();
 
   const {
     cookTime,
@@ -35,6 +38,10 @@ export default function RecipeDisplay({
   } = recipe;
   const navigate = useNavigate();
   const recipeStatus = id ? "saved" : "imported";
+
+  const handleSaveButtonClick = () => {
+    User.saveRecipe(recipe, user).then((data) => console.log(data));
+  };
 
   return (
     <div id="recipe">
@@ -103,7 +110,11 @@ export default function RecipeDisplay({
             </button>
             {/* <Button text="Edit" type="button" handleClick={switchToForm} /> */}
             {recipeStatus === "imported" && (
-              <button type="button" onClick={() => {}} className="btn-default">
+              <button
+                type="button"
+                onClick={handleSaveButtonClick}
+                className="btn-default"
+              >
                 <FontAwesomeIcon
                   className="button-panel-icon"
                   icon={faBook}

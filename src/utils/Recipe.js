@@ -302,4 +302,64 @@ export default class Recipe {
       oldServingsCount
     );
   }
+
+  static prepareForExport(recipe, userId) {
+    const { title, servings, servingSize, prepTime, cookTime } = recipe;
+
+    const ingredients = (() => {
+      const formattedIngredients = [];
+      for (const i of recipe.ingredients) {
+        formattedIngredients.push({
+          quantity: i.quantity,
+          unit: i.unit,
+          name: i.name,
+        });
+      }
+      return formattedIngredients;
+    })();
+
+    const nutrients = (() => {
+      const formattedNutrients = {};
+      if (recipe.nutrients) {
+        for (const [key, value] of Object.entries(recipe.nutrients)) {
+          const tokens = key.split(/(?=[A-Z])/);
+          const named = tokens.reduce(
+            (acc, curr) => `${acc}_${curr.toLowerCase()}`,
+            ""
+          );
+          const name = named.slice(1);
+          formattedNutrients[name] = value.quantity;
+        }
+        return formattedNutrients;
+      }
+      return null;
+    })();
+
+    const instructions = (() => {
+      const formattedInstructions = [];
+      const unformattedInstructions = recipe.instructions;
+      if (unformattedInstructions && unformattedInstructions.length) {
+        for (let i = 0; i < unformattedInstructions.length; i++) {
+          formattedInstructions.push({
+            step: i + 1,
+            text: unformattedInstructions[i].text,
+          });
+        }
+        return formattedInstructions;
+      }
+      return null;
+    })();
+
+    return {
+      user_id: userId,
+      title,
+      servings,
+      serving_size: `${servingSize.quantity} ${servingSize.unit}`,
+      prep_time: prepTime,
+      cook_time: cookTime,
+      ingredients,
+      instructions,
+      nutrients,
+    };
+  }
 }

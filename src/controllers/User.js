@@ -1,4 +1,5 @@
 import config from "../utils/config";
+import Recipe from "../utils/Recipe";
 
 const { ADDRESS } = config;
 
@@ -44,6 +45,29 @@ export default class User {
       headers: {
         "x-access-token": token,
       },
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  static async saveRecipe(recipe, user) {
+    const { id: userId, token } = user;
+
+    const formattedRecipe = Recipe.prepareForExport(recipe, userId);
+
+    // console.log(formattedRecipe);
+
+    // console.log(JSON.stringify(formattedRecipe));
+
+    const res = await fetch(`${ADDRESS}/recipes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      },
+      body: JSON.stringify(formattedRecipe),
     });
 
     const data = await res.json();

@@ -323,8 +323,10 @@ function getRecipeFromFormData(data, recipeId) {
   }
 
   const newInstructions = [];
-  for (const [key, value] of Object.entries(data.instructions)) {
-    newInstructions.push({ id: key, text: value });
+  if (data.instructions && data.instructions.length) {
+    for (const [key, value] of Object.entries(data.instructions)) {
+      newInstructions.push({ id: key, text: value });
+    }
   }
 
   const newNutrients = {};
