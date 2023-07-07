@@ -21,7 +21,7 @@ export default function AuthenticateBeforeRender({ children }) {
     }
   }, []);
 
-  return isAuthenticated ? children : null;
+  return isAuthenticated ? children : "Permission denied";
 }
 
 AuthenticateBeforeRender.propTypes = {
