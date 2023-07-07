@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <header id="navbar" className={scrollPosition === 0 ? "" : "border"}>
       <Link id="navbar-logo" to="">
-        PREPMASTER
+        CROOKBOOK
       </Link>
       <ul className={mobileMenuVisible ? "" : "hide"}>
         <li>

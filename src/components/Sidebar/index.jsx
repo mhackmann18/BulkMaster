@@ -29,7 +29,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
     <div id="sidebar" className={collapsed ? "collapsed" : ""}>
       <div className="upper">
         <h1>
-          {!collapsed && "PREPMASTER"}{" "}
+          {!collapsed && "CROOKBOOK"}{" "}
           <FontAwesomeIcon
             icon={faBars}
             onClick={() => setCollapsed(!collapsed)}

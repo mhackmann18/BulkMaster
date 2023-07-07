@@ -31,7 +31,7 @@ export default function OpenCalculatorButton({ recipe, updateRecipe }) {
           onCancelClick={() => setModalOpen(false)}
           updateRecipe={(newRecipe) => {
             updateRecipe(newRecipe);
-            // setModalOpen(false);
+            setModalOpen(false);
           }}
         />
       </StandardModal>

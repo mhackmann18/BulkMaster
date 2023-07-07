@@ -7,7 +7,6 @@ import {
   faPenToSquare,
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
-import OpenCalculatorButton from "./OpenCalculatorButton";
 import RecipeContainer from "../RecipeContainer";
 import SubHeading from "./SubHeading";
 import IngredientsList from "./IngredientsList";
@@ -25,8 +24,6 @@ export default function RecipeDisplay({
   setStartRecipe,
 }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
-  const { user } = useUser();
-
   const {
     cookTime,
     ingredients,
@@ -38,11 +35,12 @@ export default function RecipeDisplay({
     servingSize,
     id,
   } = recipe;
+  const { user } = useUser();
   const navigate = useNavigate();
-  const recipeStatus = id ? "saved" : "imported";
-
   const { addSuccessToastMessage, addErrorToastMessage, closeToast, toast } =
     useToast();
+
+  const recipeStatus = id ? "saved" : "imported";
 
   const handleSaveButtonClick = async () => {
     // TODO: add loading indicator
@@ -107,10 +105,12 @@ export default function RecipeDisplay({
               />
               Back
             </button>
-            <OpenCalculatorButton
+            {/* <OpenCalculatorButton
               recipe={recipe}
-              updateRecipe={(newRecipe) => console.log(newRecipe)}
-            />
+              updateRecipe={(newRecipe) =>
+                setRecipe(new Recipe({ ...newRecipe }))
+              }
+            /> */}
             <button
               className="btn-default"
               onClick={switchToForm}
@@ -123,7 +123,6 @@ export default function RecipeDisplay({
               />
               Edit
             </button>
-            {/* <Button text="Edit" type="button" handleClick={switchToForm} /> */}
             {recipeStatus === "imported" && (
               <button
                 type="button"
