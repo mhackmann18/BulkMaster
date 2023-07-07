@@ -31,13 +31,15 @@ export default class User {
     return data;
   }
 
-  static async checkToken(token) {
-    const res = await fetch(`${ADDRESS}/recipes`, {
+  static async getFromToken(token) {
+    const res = await fetch(`${ADDRESS}/users/self`, {
       headers: {
         "x-access-token": token,
       },
     });
 
-    return res.status === 200;
+    const data = await res.json();
+
+    return data;
   }
 }

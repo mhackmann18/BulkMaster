@@ -1,16 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-restricted-globals */
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import { UserContext } from "../UserContextProvider";
 import "./Dashboard.css";
+import useUser from "../hooks/useUser";
 
 export default function Dashboard() {
   const deviceWidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
   const [sidebarCollapsed, setSidebarCollapsed] = useState(deviceWidth <= 992);
-  const userContext = useContext(UserContext);
-  const { username } = userContext;
+  const { user } = useUser();
 
   return (
     <div
@@ -18,7 +17,7 @@ export default function Dashboard() {
       className={sidebarCollapsed ? "sidebar-collapsed" : ""}
     >
       <Sidebar
-        username={username}
+        username={user.username}
         collapsed={sidebarCollapsed}
         setCollapsed={setSidebarCollapsed}
       />

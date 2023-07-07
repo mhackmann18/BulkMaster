@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import User from "./controllers/User";
-import useToken from "./hooks/useToken";
+import useUser from "./hooks/useUser";
 
 export default function AuthenticateBeforeRender({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { token } = useToken();
+  const { user, setUser } = useUser();
+  const { token } = user;
 
   useEffect(() => {
     if (token) {
-      User.checkToken(token).then((authenticated) => {
-        setIsAuthenticated(authenticated);
+      User.getFromToken(token).then((data) => {
+        if (data.username) {
+          setUser({ ...data, token });
+          setIsAuthenticated(true);
+        } else {
+          setUser(null);
+        }
       });
     }
   }, []);
