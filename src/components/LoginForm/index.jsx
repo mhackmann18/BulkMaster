@@ -23,12 +23,6 @@ export default function LoginForm() {
     } else {
       const user = await UserController.login({ username, password });
 
-      console.log(user);
-
-      // const { token } = user;
-
-      delete user.password;
-
       if (!user.token) {
         setFormSubmitError(user.message || "An unexpected error occurred");
       } else {

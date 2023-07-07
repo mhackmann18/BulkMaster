@@ -99,8 +99,6 @@ export default function SignupForm() {
     if (isValid) {
       const newUser = await UserController.create({ username, password });
 
-      delete newUser.password;
-
       if (!newUser.token) {
         setFormSubmitError(newUser.message || "An unexpected error occurred");
       } else {

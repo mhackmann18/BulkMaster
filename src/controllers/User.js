@@ -14,6 +14,10 @@ export default class User {
 
     const data = await res.json();
 
+    if (res.username) {
+      delete data.password;
+    }
+
     return data;
   }
 
@@ -27,6 +31,10 @@ export default class User {
     });
 
     const data = await res.json();
+
+    if (res.username) {
+      delete data.password;
+    }
 
     return data;
   }
