@@ -12,9 +12,15 @@ export default function useUser() {
       Cookies.set("token", token);
       setUser({ username, id, theme });
     } else {
+      Cookies.remove("token");
       setUser(null);
     }
   };
 
-  return { user: { ...user, token: Cookies.get("token") }, setUser: saveUser };
+  return {
+    user: user
+      ? { ...user, token: Cookies.get("token") }
+      : { token: Cookies.get("token") },
+    setUser: saveUser,
+  };
 }

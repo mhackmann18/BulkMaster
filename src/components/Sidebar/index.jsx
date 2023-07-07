@@ -11,9 +11,11 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import ToggleTheme from "../common/ToggleTheme";
+import useUser from "../../hooks/useUser";
 import "./index.css";
 
 export default function Sidebar({ username, collapsed, setCollapsed }) {
+  const { setUser } = useUser();
   const currentPath = useLocation().pathname;
 
   const dashboardRouteNames = {
@@ -102,7 +104,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
         <ToggleTheme />
         <div className="logout-container">
           <span>{username} </span>
-          <Link to="" title="logout">
+          <Link to="/" title="logout" onClick={() => setUser(null)}>
             <FontAwesomeIcon
               className="icon"
               icon={faArrowRightFromBracket}
