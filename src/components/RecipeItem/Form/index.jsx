@@ -21,7 +21,6 @@ import Recipe from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
-import { updateRecipeById } from "../../../utils/userd";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
 import User from "../../../utils/UserController";
@@ -98,13 +97,18 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
       // Recipe is being edited
     } else if (recipeData.id) {
       if (!startRecipe.isEquivalent(recipeData)) {
-        // Update recipe
-        const res = await updateRecipeById(recipeData, id);
+        const res = await User.updateRecipe(recipeData, id, user.token);
 
-        if (res.success) {
-          addSuccessToastMessage(res.message);
-        } else {
-          addErrorToastMessage(res.message);
+        // Success
+        if (res.id) {
+          addSuccessToastMessage("Recipe updated");
+          setStartRecipe(new Recipe({ ...recipeData }));
+        }
+        // Error
+        else {
+          addErrorToastMessage(
+            `Unable to update recipe. ${res.message || "Something went wrong"}`
+          );
         }
       } else {
         addSuccessToastMessage("No changes to save");

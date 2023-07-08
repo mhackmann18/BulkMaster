@@ -382,8 +382,7 @@ export default class Recipe {
       return null;
     })();
 
-    return {
-      user_id: userId,
+    const preparedRecipe = {
       title,
       servings,
       serving_size: `${servingSize.quantity} ${servingSize.unit}`,
@@ -393,6 +392,10 @@ export default class Recipe {
       instructions,
       nutrients,
     };
+
+    if (userId) preparedRecipe.user_id = userId;
+
+    return preparedRecipe;
   }
 
   static parseFormData(data, recipeId) {

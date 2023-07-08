@@ -95,6 +95,25 @@ export default class UserController {
     return data;
   }
 
+  static async updateRecipe(recipe, recipeId, token) {
+    const formattedRecipe = Recipe.prepareForExport(recipe);
+
+    console.log(formattedRecipe);
+
+    const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      },
+      body: JSON.stringify(formattedRecipe),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
   static async deleteRecipe(recipeId, token) {
     const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
       method: "DELETE",

@@ -50,7 +50,8 @@ function DeleteStepButton({ instructionId, onClick, watch }) {
 }
 
 DeleteStepButton.propTypes = {
-  instructionId: PropTypes.string.isRequired,
+  instructionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   onClick: PropTypes.func.isRequired,
   watch: PropTypes.func.isRequired,
 };
