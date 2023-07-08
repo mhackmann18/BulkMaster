@@ -34,6 +34,20 @@ export default function Library() {
     addSuccessToastMessage("Recipe deleted successfully");
   };
 
+  const onItemDuplicate = () => {
+    if (user.token) {
+      User.getRecipes(user.token).then((data) => {
+        if (data.length) {
+          const fr = data.map((r) => new Recipe({ ...r }));
+          setRecipes(fr);
+          addSuccessToastMessage("Recipe duplicated successfully");
+        } else {
+          console.log(data.message);
+        }
+      });
+    }
+  };
+
   return (
     <>
       <div id="library-page">
@@ -41,6 +55,7 @@ export default function Library() {
           ? recipes.map((recipe) => (
               <LibraryItem
                 key={recipe.id}
+                recipe={recipe}
                 recipeTitle={recipe.title}
                 recipeServings={recipe.servings}
                 caloriesPerRecipeServing={
@@ -50,10 +65,8 @@ export default function Library() {
                 }
                 recipeId={recipe.id}
                 addErrorToastMessage={addErrorToastMessage}
-                onDeleteSuccess={onItemRemoval}
-                onDeleteFailure={(errorMessage) =>
-                  addErrorToastMessage(errorMessage)
-                }
+                onDelete={onItemRemoval}
+                onDuplicate={onItemDuplicate}
               />
             ))
           : null}

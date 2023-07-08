@@ -10,16 +10,19 @@ import {
 import StandardModal from "../common/StandardModal";
 import ConfirmationDisplay from "../common/ConfirmationDisplay";
 import useUser from "../../hooks/useUser";
+import Recipe from "../../utils/Recipe";
 import User from "../../utils/UserController";
 import "./index.css";
 
 export default function LibraryItem({
+  recipe,
   recipeId,
   recipeTitle,
   recipeServings,
   caloriesPerRecipeServing,
-  onDeleteSuccess,
-  onDeleteFailure,
+  onDelete,
+  onDuplicate,
+  addErrorToastMessage,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -27,15 +30,32 @@ export default function LibraryItem({
 
   const handleDeleteRecipe = () => {
     if (user.token) {
-      // TODO: add feedback via toasts
       User.deleteRecipe(recipeId, user.token).then((data) => {
         // Success
         if (data.id) {
-          onDeleteSuccess(recipeId);
+          onDelete(recipeId);
 
           // Failure
         } else {
-          onDeleteFailure(data.message);
+          addErrorToastMessage(
+            data.message ||
+              "Unable to delete recipe. An unexpected error occurred"
+          );
+        }
+      });
+    }
+  };
+
+  const handleDuplicateRecipe = () => {
+    if (user.token) {
+      User.saveRecipe(recipe, user).then((data) => {
+        if (data.id) {
+          onDuplicate(data);
+        } else {
+          addErrorToastMessage(
+            data.message ||
+              "Unable to duplicate recipe. An unexpected error occurred"
+          );
         }
       });
     }
@@ -74,10 +94,10 @@ export default function LibraryItem({
             className="option-btn btn"
             title="Duplicate"
             size="1x"
-            onClick={(e) =>
-              console.log(`Duplicate recipe with id: ${recipeId}`) ||
-              e.stopPropagation()
-            }
+            onClick={(e) => {
+              handleDuplicateRecipe();
+              e.stopPropagation();
+            }}
           />
           <FontAwesomeIcon
             icon={faPenToSquare}
@@ -108,12 +128,14 @@ export default function LibraryItem({
 }
 
 LibraryItem.propTypes = {
+  recipe: PropTypes.instanceOf(Recipe).isRequired,
   recipeId: PropTypes.number.isRequired,
   recipeTitle: PropTypes.string.isRequired,
   recipeServings: PropTypes.number.isRequired,
   caloriesPerRecipeServing: PropTypes.number,
-  onDeleteFailure: PropTypes.func.isRequired,
-  onDeleteSuccess: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onDuplicate: PropTypes.func.isRequired,
+  addErrorToastMessage: PropTypes.func.isRequired,
 };
 
 LibraryItem.defaultProps = {
