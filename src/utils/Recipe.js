@@ -362,4 +362,64 @@ export default class Recipe {
       nutrients,
     };
   }
+
+  static parseFormData(data, recipeId) {
+    if (!data.ingredients) {
+      return { error: "Recipe must have at least one ingredient" };
+    }
+
+    const newIngredients = [];
+    for (const [key, value] of Object.entries(data.ingredients)) {
+      newIngredients.push({
+        id: key,
+        quantity: Number(value.quantity) || null,
+        unit: value.unit || null,
+        name: value.name,
+      });
+    }
+
+    const newInstructions = [];
+    if (data.instructions && Object.keys(data.instructions).length) {
+      let step = 1;
+      for (const [key, value] of Object.entries(data.instructions)) {
+        newInstructions.push({ id: key, step, text: value });
+        step++;
+      }
+    }
+
+    const newNutrients = {};
+    // console.log(data.nutrients);
+    for (const [name, value] of Object.entries(data.nutrients)) {
+      if (value || value === "0") {
+        newNutrients[name] = {
+          quantity: Number(value),
+          unit: nutrientUnits[name],
+        };
+      }
+    }
+
+    // console.log(newNutrients);
+
+    let newServingSize;
+    if (data.servingSize.quantity || data.servingSize.unit) {
+      newServingSize = {
+        quantity: Number(data.servingSize.quantity) || null,
+        unit: data.servingSize.unit || null,
+      };
+    } else {
+      newServingSize = null;
+    }
+
+    return new Recipe({
+      id: recipeId,
+      title: data.title,
+      servings: Number(data.servings),
+      prepTime: Number(data.prepTime) || null,
+      cookTime: Number(data.cookTime) || null,
+      ingredients: newIngredients,
+      instructions: newInstructions,
+      nutrients: Object.keys(newNutrients).length ? newNutrients : null,
+      servingSize: newServingSize,
+    });
+  }
 }

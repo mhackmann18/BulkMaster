@@ -27,7 +27,11 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
       setStartRecipe={setRecipe}
     />
   ) : (
-    <RecipeForm startRecipe={recipe} onCancel={handleCancelButtonClick} />
+    <RecipeForm
+      startRecipe={recipe}
+      onCancel={handleCancelButtonClick}
+      setStartRecipe={setRecipe}
+    />
   );
 }
 

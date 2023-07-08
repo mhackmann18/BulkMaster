@@ -17,7 +17,7 @@ import InstructionsList from "./InstructionsList";
 import IngredientInputsList from "./IngredientsList";
 import ServingSizeInput from "./ServingSizeInput";
 import NutrientsList from "./NutrientsList";
-import Recipe, { nutrientUnits } from "../../../utils/Recipe";
+import Recipe from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
@@ -25,7 +25,7 @@ import { updateRecipeById } from "../../../utils/user";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
 
-export default function RecipeForm({ startRecipe, onCancel }) {
+export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
   const {
     cookTime,
@@ -65,7 +65,7 @@ export default function RecipeForm({ startRecipe, onCancel }) {
   } = useForm();
 
   const handleCloseButtonClick = () => {
-    const recipeData = getRecipeFromFormData(watch(), id);
+    const recipeData = Recipe.parseFormData(watch(), id);
 
     if (!startRecipe.isEquivalent(recipeData)) {
       setCloseFormModalOpen(true);
@@ -75,10 +75,12 @@ export default function RecipeForm({ startRecipe, onCancel }) {
   };
 
   const onSubmit = async (data) => {
-    const recipeData = getRecipeFromFormData(data, id);
+    const recipeData = Recipe.parseFormData(data, id);
     if (recipeData.error) {
       // Show error in ui
       addErrorToastMessage(recipeData.error);
+    } else if (recipeStatus === "new") {
+      console.log("CREATE NEW RECIPE", recipeData);
     } else if (recipeData.id) {
       if (!startRecipe.isEquivalent(recipeData)) {
         // Update recipe
@@ -92,9 +94,14 @@ export default function RecipeForm({ startRecipe, onCancel }) {
       } else {
         addSuccessToastMessage("No changes to save");
       }
+      // Recipe is imported
     } else if (!recipeData.id) {
-      // Create recipe
-      console.log(`Create new recipe`, recipeData);
+      if (!startRecipe.isEquivalent(recipeData)) {
+        setStartRecipe(new Recipe({ ...recipeData }));
+        addSuccessToastMessage("Changes saved");
+      } else {
+        addSuccessToastMessage("No changes to save");
+      }
     }
   };
 
@@ -258,67 +265,10 @@ export default function RecipeForm({ startRecipe, onCancel }) {
   );
 }
 
-function getRecipeFromFormData(data, recipeId) {
-  if (!data.ingredients) {
-    return { error: "Recipe must have at least one ingredient" };
-  }
-
-  const newIngredients = [];
-  for (const [key, value] of Object.entries(data.ingredients)) {
-    newIngredients.push({
-      id: key,
-      quantity: Number(value.quantity) || null,
-      unit: value.unit || null,
-      name: value.name,
-    });
-  }
-
-  const newInstructions = [];
-  if (data.instructions && data.instructions.length) {
-    for (const [key, value] of Object.entries(data.instructions)) {
-      newInstructions.push({ id: key, text: value });
-    }
-  }
-
-  const newNutrients = {};
-  // console.log(data.nutrients);
-  for (const [name, value] of Object.entries(data.nutrients)) {
-    if (value || value === "0") {
-      newNutrients[name] = {
-        quantity: Number(value),
-        unit: nutrientUnits[name],
-      };
-    }
-  }
-
-  // console.log(newNutrients);
-
-  let newServingSize;
-  if (data.servingSize.quantity || data.servingSize.unit) {
-    newServingSize = {
-      quantity: Number(data.servingSize.quantity) || null,
-      unit: data.servingSize.unit || null,
-    };
-  } else {
-    newServingSize = null;
-  }
-
-  return new Recipe({
-    id: recipeId,
-    title: data.title,
-    servings: Number(data.servings),
-    prepTime: Number(data.prepTime) || null,
-    cookTime: Number(data.cookTime) || null,
-    ingredients: newIngredients,
-    instructions: newInstructions,
-    nutrients: Object.keys(newNutrients).length ? newNutrients : null,
-    servingSize: newServingSize,
-  });
-}
-
 RecipeForm.propTypes = {
   startRecipe: PropTypes.instanceOf(Recipe).isRequired,
   onCancel: PropTypes.func,
+  setStartRecipe: PropTypes.func.isRequired,
 };
 
 RecipeForm.defaultProps = {
