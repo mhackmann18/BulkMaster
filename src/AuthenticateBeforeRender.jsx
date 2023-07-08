@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import User from "./controllers/User";
+import User from "./utils/UserController";
 import useUser from "./hooks/useUser";
 
 export default function AuthenticateBeforeRender({ children }) {

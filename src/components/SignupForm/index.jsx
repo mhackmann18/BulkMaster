@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import UserController from "../../controllers/User";
+import User from "../../utils/UserController";
 import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
 // import useToken from "../../hooks/useToken";
 import useUser from "../../hooks/useUser";
@@ -97,7 +97,7 @@ export default function SignupForm() {
     }
 
     if (isValid) {
-      const newUser = await UserController.create({ username, password });
+      const newUser = await User.create({ username, password });
 
       if (!newUser.token) {
         setFormSubmitError(newUser.message || "An unexpected error occurred");

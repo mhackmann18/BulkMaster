@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import UserController from "../../controllers/User";
+import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
 // import useToken from "../../hooks/useToken";
 import "../SignupForm/account-form.css";
@@ -21,7 +21,7 @@ export default function LoginForm() {
     if (!username || !password) {
       setFormSubmitError("Please fill in all fields");
     } else {
-      const user = await UserController.login({ username, password });
+      const user = await User.login({ username, password });
 
       if (!user.token) {
         setFormSubmitError(user.message || "An unexpected error occurred");

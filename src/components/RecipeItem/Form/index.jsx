@@ -21,9 +21,11 @@ import Recipe from "../../../utils/Recipe";
 import RecipeValidator from "../../../utils/RecipeValidator";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
-import { updateRecipeById } from "../../../utils/user";
+import { updateRecipeById } from "../../../utils/userd";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
+import User from "../../../utils/UserController";
+import useUser from "../../../hooks/useUser";
 
 export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -40,6 +42,8 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   } = recipe;
 
   const recipeStatus = title ? "existing" : "new";
+
+  const { user } = useUser();
 
   // Toast
 
@@ -79,8 +83,19 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     if (recipeData.error) {
       // Show error in ui
       addErrorToastMessage(recipeData.error);
+      // Recipe is custom
     } else if (recipeStatus === "new") {
-      console.log("CREATE NEW RECIPE", recipeData);
+      const res = await User.saveRecipe(recipeData, user);
+
+      // Success
+      if (res.id) {
+        addSuccessToastMessage("New recipe added to library");
+      }
+      // Error
+      else {
+        addErrorToastMessage(res.message || "Something went wrong");
+      }
+      // Recipe is being edited
     } else if (recipeData.id) {
       if (!startRecipe.isEquivalent(recipeData)) {
         // Update recipe

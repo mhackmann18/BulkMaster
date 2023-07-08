@@ -1,9 +1,9 @@
-import config from "../utils/config";
-import Recipe from "../utils/Recipe";
+import config from "./config";
+import Recipe from "./Recipe";
 
 const { ADDRESS } = config;
 
-export default class User {
+export default class UserController {
   static async create(user) {
     const res = await fetch(`${ADDRESS}/users/register`, {
       method: "POST",
