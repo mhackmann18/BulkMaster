@@ -9,6 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import StandardModal from "../common/StandardModal";
 import ConfirmationDisplay from "../common/ConfirmationDisplay";
+import useUser from "../../hooks/useUser";
+import User from "../../utils/UserController";
 import "./index.css";
 
 export default function LibraryItem({
@@ -16,9 +18,27 @@ export default function LibraryItem({
   recipeTitle,
   recipeServings,
   caloriesPerRecipeServing,
+  removeLibraryItemById,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useUser();
+
+  const handleDeleteRecipe = () => {
+    if (user.token) {
+      // TODO: add feedback via toasts
+      User.deleteRecipe(recipeId, user.token).then((data) => {
+        // Success
+        if (data.id) {
+          removeLibraryItemById(recipeId);
+
+          // Failure
+        } else {
+          console.log(`Error: ${data.message}`);
+        }
+      });
+    }
+  };
 
   return (
     <>
@@ -79,7 +99,7 @@ export default function LibraryItem({
           cancelBtnText="Cancel"
           confirmBtnText="Delete"
           onCancel={() => setModalOpen(false)}
-          onConfirm={() => console.log(`Delete item with id: ${recipeId}`)}
+          onConfirm={handleDeleteRecipe}
         />
       </StandardModal>
     </>
@@ -91,6 +111,7 @@ LibraryItem.propTypes = {
   recipeTitle: PropTypes.string.isRequired,
   recipeServings: PropTypes.number.isRequired,
   caloriesPerRecipeServing: PropTypes.number,
+  removeLibraryItemById: PropTypes.func.isRequired,
 };
 
 LibraryItem.defaultProps = {

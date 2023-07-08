@@ -94,4 +94,17 @@ export default class UserController {
 
     return data;
   }
+
+  static async deleteRecipe(recipeId, token) {
+    const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
+      method: "DELETE",
+      headers: {
+        "x-access-token": token,
+      },
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
 }
