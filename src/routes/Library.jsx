@@ -20,7 +20,11 @@ export default function Library() {
           const fr = data.map((r) => new Recipe({ ...r }));
           setRecipes(fr);
         } else {
-          console.log(data.message);
+          addErrorToastMessage(
+            `Unable to load recipes. ${
+              data.message || "An unexpected error occurred"
+            }`
+          );
         }
       });
     }
@@ -42,7 +46,11 @@ export default function Library() {
           setRecipes(fr);
           addSuccessToastMessage("Recipe duplicated successfully");
         } else {
-          console.log(data.message);
+          addErrorToastMessage(
+            `Unable to load updated recipe list. ${
+              data.message || "An unexpected error occurred"
+            }`
+          );
         }
       });
     }

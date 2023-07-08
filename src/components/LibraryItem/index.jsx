@@ -38,8 +38,9 @@ export default function LibraryItem({
           // Failure
         } else {
           addErrorToastMessage(
-            data.message ||
-              "Unable to delete recipe. An unexpected error occurred"
+            `Unable to delete recipe. ${
+              data.message || "An unexpected error occurred"
+            }`
           );
         }
       });
@@ -53,8 +54,9 @@ export default function LibraryItem({
           onDuplicate(data);
         } else {
           addErrorToastMessage(
-            data.message ||
-              "Unable to duplicate recipe. An unexpected error occurred"
+            `Unable to duplicate recipe. ${
+              data.message || "An unexpected error occurred"
+            }`
           );
         }
       });
