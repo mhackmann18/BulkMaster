@@ -20,6 +20,20 @@ export const nutrientUnits = {
   sodium: "mg",
   fiber: "g",
 };
+
+function transformString(inputString) {
+  return inputString
+    .split("_") // Split the string at each underscore
+    .map((word, index) => {
+      if (index !== 0) {
+        // Capitalize the first letter of each word except the first one
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }
+      return word;
+    })
+    .join(""); // Join the words back together without underscores
+}
+
 export default class Recipe {
   constructor({
     title,
@@ -36,9 +50,11 @@ export default class Recipe {
     this.ingredients = ingredients.length
       ? ingredients.map((ingredient) => new Ingredient(ingredient))
       : [];
-    this.instructions = instructions.map((el) =>
-      typeof el === "string" ? { text: el, id: uuidv4() } : { ...el }
-    );
+    this.instructions = instructions?.length
+      ? instructions.map((el) =>
+          typeof el === "string" ? { text: el, id: uuidv4() } : { ...el }
+        )
+      : [];
     this.nutrients = Recipe.formatNutrientObj(nutrients);
     this.servings =
       typeof servings === "number" ? servings : Number(servings.split(" ")[0]);
@@ -210,8 +226,24 @@ export default class Recipe {
     // Match numbers and vulgar fractions at start
     const numRE = /^([1-9][0-9]*|0)((\/[1-9][0-9]*)|(\.[0-9]*))?($|\s)/;
     for (const [key, val] of Object.entries(obj)) {
+      if (!val) {
+        continue;
+      }
       // Object has already been formatted
       if (val.unit || val.quantity) return JSON.parse(JSON.stringify(obj));
+
+      // Nutrient is from database
+      if (typeof val === "number") {
+        const name = transformString(key);
+
+        formattedObj[name] = {
+          quantity: val,
+          unit: nutrientUnits[name],
+        };
+
+        continue;
+      }
+
       if (!val || key === "servingSize") continue;
       const quantity = val.match(numRE);
       // console.log(quantity);

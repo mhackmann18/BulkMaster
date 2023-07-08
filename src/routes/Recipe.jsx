@@ -1,21 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import recipes from "../assets/data.json";
 import RecipeItem from "../components/RecipeItem";
 import Recipe from "../utils/Recipe";
+import useUser from "../hooks/useUser";
+import User from "../utils/UserController";
 import "./Import.css";
 
 export default function RecipePage({ edit }) {
   const [recipe, setRecipe] = useState(null);
   const { state } = useLocation();
-  const { id } = useParams();
+  const { id: recipeId } = useParams();
+  const { user } = useUser();
 
-  for (const el of recipes) {
-    if (!recipe && el.id === Number(id)) {
-      setRecipe(el);
+  useEffect(() => {
+    if (recipeId && user.token) {
+      User.getRecipe(recipeId, user.token).then((data) => {
+        if (data.id) {
+          console.log(data);
+          // setRecipes(data);
+          const fr = new Recipe({ ...data });
+          console.log(fr);
+          setRecipe(fr);
+        } else {
+          console.log(`Error: ${data.message}`);
+        }
+      });
     }
-  }
+  }, []);
 
   return (
     <div id="import-page">

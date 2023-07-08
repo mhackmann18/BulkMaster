@@ -3,12 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
-// import useToken from "../../hooks/useToken";
 import "../SignupForm/account-form.css";
 
 export default function LoginForm() {
   const [formSubmitError, setFormSubmitError] = useState("");
-  // const { setToken } = useToken();
   const { setUser } = useUser();
   const navigate = useNavigate();
 

@@ -40,6 +40,30 @@ export default class UserController {
     return data;
   }
 
+  static async getRecipes(token) {
+    const res = await fetch(`${ADDRESS}/recipes`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
+  static async getRecipe(recipeId, token) {
+    const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
   static async getFromToken(token) {
     const res = await fetch(`${ADDRESS}/users/self`, {
       headers: {
