@@ -18,7 +18,8 @@ export default function LibraryItem({
   recipeTitle,
   recipeServings,
   caloriesPerRecipeServing,
-  removeLibraryItemById,
+  onDeleteSuccess,
+  onDeleteFailure,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -30,11 +31,11 @@ export default function LibraryItem({
       User.deleteRecipe(recipeId, user.token).then((data) => {
         // Success
         if (data.id) {
-          removeLibraryItemById(recipeId);
+          onDeleteSuccess(recipeId);
 
           // Failure
         } else {
-          console.log(`Error: ${data.message}`);
+          onDeleteFailure(data.message);
         }
       });
     }
@@ -111,7 +112,8 @@ LibraryItem.propTypes = {
   recipeTitle: PropTypes.string.isRequired,
   recipeServings: PropTypes.number.isRequired,
   caloriesPerRecipeServing: PropTypes.number,
-  removeLibraryItemById: PropTypes.func.isRequired,
+  onDeleteFailure: PropTypes.func.isRequired,
+  onDeleteSuccess: PropTypes.func.isRequired,
 };
 
 LibraryItem.defaultProps = {
