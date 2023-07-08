@@ -12,7 +12,6 @@ import SubHeading from "./SubHeading";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
-import { updateRecipeById } from "../../../utils/userd";
 import User from "../../../utils/UserController";
 import useUser from "../../../hooks/useUser";
 import Toast from "../../common/Toast";
@@ -81,11 +80,16 @@ export default function RecipeDisplay({
               if (recipeStatus === "imported") {
                 setStartRecipe(recipe);
               } else if (recipeStatus === "saved") {
-                const res = await updateRecipeById(recipe, id);
-                if (!res.success) {
+                const res = await User.updateRecipe(recipe, id, user.token);
+                setStartRecipe(new Recipe({ ...recipe }));
+                if (!res.id) {
                   // Show error modal here
-                  console.log(res.message);
-                  setRecipe({ ...startRecipe });
+                  addErrorToastMessage(
+                    `Unable to update recipe servings. ${
+                      res.message || "An unexpected error occurred"
+                    }`
+                  );
+                  setStartRecipe(new Recipe({ ...startRecipe }));
                 }
               }
             }}
