@@ -1,13 +1,14 @@
-import { useContext } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import "./ToggleTheme.css";
-import { ThemeContext } from "../../ThemeContextProvider";
+import useUser from "../../hooks/useUser";
+import User from "../../utils/UserController";
 
-export default function ToggleTheme({ onChange, variant }) {
-  const themeContext = useContext(ThemeContext);
-  const { theme, setTheme } = themeContext;
+export default function ToggleTheme({ variant }) {
+  const { user, setUser } = useUser();
+
+  const { theme } = user;
 
   if (theme === "dark") {
     document.querySelector("body").classList.add("dark-mode");
@@ -15,13 +16,18 @@ export default function ToggleTheme({ onChange, variant }) {
     document.querySelector("body").classList.remove("dark-mode");
   }
 
-  const style1 = {
-    cursor: "pointer",
-    left: 42,
-  };
-  const style2 = {
-    cursor: "pointer",
-    left: 2,
+  const handleClick = () => {
+    User.updateTheme(theme === "light" ? "dark" : "light", user).then(
+      (data) => {
+        // Success
+        if (data.id) {
+          setUser({ ...user, theme: theme === "light" ? "dark" : "light" });
+          return;
+        }
+        // Error
+        console.log(`Unable to change theme. ${data.message}`);
+      }
+    );
   };
 
   return (
@@ -30,15 +36,20 @@ export default function ToggleTheme({ onChange, variant }) {
         title="toggle theme"
         id="theme-toggle"
         className={variant}
-        onClick={() => {
-          setTheme(theme === "light" ? "dark" : "light");
-          onChange(theme === "light" ? "dark" : "light");
-        }}
+        onClick={handleClick}
       >
         <FontAwesomeIcon icon={faSun} className="icon sun" />
         <div
           className="round-slider"
-          style={theme === "light" ? style1 : style2}
+          style={
+            theme === "light"
+              ? {
+                  left: 42,
+                }
+              : {
+                  left: 2,
+                }
+          }
         />
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
       </div>
@@ -47,11 +58,9 @@ export default function ToggleTheme({ onChange, variant }) {
 }
 
 ToggleTheme.propTypes = {
-  onChange: PropTypes.func,
   variant: PropTypes.string,
 };
 
 ToggleTheme.defaultProps = {
-  onChange: () => false,
   variant: "",
 };

@@ -40,6 +40,21 @@ export default class UserController {
     return data;
   }
 
+  static async updateTheme(theme, user) {
+    const res = await fetch(`${ADDRESS}/users/${user.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": user.token,
+      },
+      body: JSON.stringify({ theme }),
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
   static async getRecipes(token) {
     const res = await fetch(`${ADDRESS}/recipes`, {
       headers: {
@@ -97,8 +112,6 @@ export default class UserController {
 
   static async updateRecipe(recipe, recipeId, token) {
     const formattedRecipe = Recipe.prepareForExport(recipe);
-
-    console.log(formattedRecipe);
 
     const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
       method: "PUT",
