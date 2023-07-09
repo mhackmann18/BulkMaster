@@ -40,14 +40,14 @@ export default class UserController {
     return data;
   }
 
-  static async updateTheme(theme, user) {
+  static async update(userData, user) {
     const res = await fetch(`${ADDRESS}/users/${user.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "x-access-token": user.token,
       },
-      body: JSON.stringify({ theme }),
+      body: JSON.stringify({ ...userData }),
     });
 
     const data = await res.json();

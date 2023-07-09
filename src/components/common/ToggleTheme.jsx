@@ -17,7 +17,7 @@ export default function ToggleTheme({ variant }) {
   }
 
   const handleClick = () => {
-    User.updateTheme(theme === "light" ? "dark" : "light", user).then(
+    User.update({ theme: theme === "light" ? "dark" : "light" }, user).then(
       (data) => {
         // Success
         if (data.id) {

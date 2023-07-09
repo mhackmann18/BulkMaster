@@ -3,26 +3,34 @@ import PropTypes from "prop-types";
 import { Alert } from "@mui/material";
 import Button from "../common/Button";
 import { checkUsernameInput } from "../../utils/validation";
+import User from "../../utils/UserController";
+import useUser from "../../hooks/useUser";
 import "./ChangeSettingForm.css";
 
 export default function ChangeUsernameForm({ onCancel, onSubmit }) {
   const [inputError, setInputError] = useState("");
-  // Get username from context here
-  const oldUsername = "johndoe18";
+  const { user, setUser } = useUser();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const newUsername = e.target.username.value;
 
-    const [isValid, errorMessage] = await checkUsernameInput(
-      e.target.username.value
-    );
+    const [isValid, errorMessage] = checkUsernameInput(newUsername);
 
     if (!isValid) {
       setInputError(errorMessage);
     } else {
-      setInputError("");
-      console.log(`Change username to ${e.target.username.value}`);
-      onSubmit();
+      User.update({ username: newUsername }, user).then((data) => {
+        if (data.id) {
+          const { username, token } = data;
+          setUser({ ...user, username, token });
+          setInputError("");
+          onSubmit();
+          return;
+        }
+
+        setInputError(data.message);
+      });
     }
   }
 
@@ -30,12 +38,7 @@ export default function ChangeUsernameForm({ onCancel, onSubmit }) {
     <form className="settings-change-form" onSubmit={handleSubmit}>
       <div className="row">
         <label htmlFor="username">New Username:</label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          defaultValue={oldUsername}
-        />
+        <input id="username" name="username" type="text" />
       </div>
       {inputError && (
         <Alert className="settings-change-error" severity="error">

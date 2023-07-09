@@ -1,9 +1,13 @@
 import { useState } from "react";
 import SettingsListItem from "./SettingsListItem";
 import ChangeUsernameForm from "./ChangeUsernameForm";
+import useUser from "../../hooks/useUser";
 
 export default function Username() {
   const [editing, setEditing] = useState(false);
+  const {
+    user: { username },
+  } = useUser();
 
   return (
     <SettingsListItem headerText="Username">
@@ -14,7 +18,7 @@ export default function Username() {
         />
       ) : (
         <div className="settings-list-item-content">
-          <span>johndoe18</span>
+          <span>{username}</span>
           <button
             onClick={() => setEditing(true)}
             className="btn-link"

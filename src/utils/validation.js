@@ -1,5 +1,3 @@
-import { usernameExists } from "./userd";
-
 // Form validation
 
 export function isValidNumberInput(input, maxValue = Infinity, minValue = 0) {
@@ -27,7 +25,7 @@ export function isValidHttpURL(string) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 
-export async function checkUsernameInput(username) {
+export function checkUsernameInput(username) {
   let isValid = false;
   let msg = "";
 
@@ -38,8 +36,6 @@ export async function checkUsernameInput(username) {
     msg = "Username must be at least 6 characters in length";
   } else if (username.length > 30) {
     msg = "Username must be no more than 30 character in length";
-  } else if (await usernameExists(username)) {
-    msg = "Username is already taken. Please choose a different username";
   } else {
     isValid = true;
   }
