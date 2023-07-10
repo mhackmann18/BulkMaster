@@ -1,7 +1,7 @@
 import RecipeItem from "../components/RecipeItem";
 import Recipe from "../utils/Recipe";
 import Ingredient from "../utils/Ingredient";
-import "./Import.css";
+import "./Create.css";
 
 export default function Create() {
   return (
