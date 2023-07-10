@@ -7,7 +7,7 @@ import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
 import "./ChangeSettingForm.css";
 
-export default function ChangeUsernameForm({ onCancel, onSubmit }) {
+export default function ChangeUsernameForm({ onCancel, onSuccess }) {
   const [inputError, setInputError] = useState("");
   const { user, setUser } = useUser();
 
@@ -25,7 +25,7 @@ export default function ChangeUsernameForm({ onCancel, onSubmit }) {
           const { username, token } = data;
           setUser({ ...user, username, token });
           setInputError("");
-          onSubmit();
+          onSuccess("Username updated");
           return;
         }
 
@@ -55,5 +55,5 @@ export default function ChangeUsernameForm({ onCancel, onSubmit }) {
 
 ChangeUsernameForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };

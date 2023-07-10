@@ -1,20 +1,26 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import SettingsListItem from "./SettingsListItem";
 import ChangeUsernameForm from "./ChangeUsernameForm";
 import useUser from "../../hooks/useUser";
 
-export default function Username() {
+export default function Username({ onChangeSuccess }) {
   const [editing, setEditing] = useState(false);
   const {
     user: { username },
   } = useUser();
 
+  const handleChangeSuccess = (successMessage) => {
+    onChangeSuccess(successMessage);
+    setEditing(false);
+  };
+
   return (
     <SettingsListItem headerText="Username">
       {editing ? (
         <ChangeUsernameForm
+          onSuccess={handleChangeSuccess}
           onCancel={() => setEditing(false)}
-          onSubmit={() => setEditing(false)}
         />
       ) : (
         <div className="settings-list-item-content">
@@ -31,3 +37,7 @@ export default function Username() {
     </SettingsListItem>
   );
 }
+
+Username.propTypes = {
+  onChangeSuccess: PropTypes.func.isRequired,
+};
