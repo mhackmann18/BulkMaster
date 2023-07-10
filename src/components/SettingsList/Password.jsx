@@ -1,16 +1,22 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import SettingsListItem from "./SettingsListItem";
 import ChangePasswordForm from "./ChangePasswordForm";
 
-export default function Password() {
+export default function Password({ onChangeSuccess }) {
   const [editing, setEditing] = useState(false);
+
+  const onSuccess = () => {
+    onChangeSuccess("Password updated");
+    setEditing(false);
+  };
 
   return (
     <SettingsListItem headerText="Password">
       {editing ? (
         <ChangePasswordForm
           onCancel={() => setEditing(false)}
-          onSuccessfulSubmit={() => setEditing(false)}
+          onSuccessfulSubmit={onSuccess}
         />
       ) : (
         <div className="settings-list-item-content">
@@ -27,3 +33,7 @@ export default function Password() {
     </SettingsListItem>
   );
 }
+
+Password.propTypes = {
+  onChangeSuccess: PropTypes.func.isRequired,
+};

@@ -3,11 +3,15 @@ import PropTypes from "prop-types";
 import { Alert } from "@mui/material";
 import Button from "../common/Button";
 import { checkPasswordInput } from "../../utils/validation";
+import User from "../../utils/UserController";
+import useUser from "../../hooks/useUser";
 import "./ChangeSettingForm.css";
 
 export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
   const [inputError, setInputError] = useState("");
-  async function handleSubmit(e) {
+  const { user } = useUser();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newPassword = e.target["new-password"].value;
     const confirmNewPassword = e.target["confirm-new-password"].value;
@@ -19,11 +23,23 @@ export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
     } else if (confirmNewPassword !== newPassword) {
       setInputError("Passwords don't match");
     } else {
-      setInputError("");
-      console.log(`Change password to ${newPassword}`);
-      onSuccessfulSubmit();
+      const data = await User.update({ password: newPassword }, user);
+
+      // Success
+      if (data.id) {
+        setInputError("");
+        onSuccessfulSubmit();
+
+        // Failure
+      } else {
+        setInputError(
+          `Failed to update password. ${
+            data.message || "An unknown error occurred"
+          }`
+        );
+      }
     }
-  }
+  };
 
   return (
     <form

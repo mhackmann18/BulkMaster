@@ -13,7 +13,7 @@ export default function SettingsList() {
       <ul id="settings-list">
         <Theme />
         <Username onChangeSuccess={addSuccessToastMessage} />
-        <Password />
+        <Password onChangeSuccess={addSuccessToastMessage} />
       </ul>
       <Toast state={toast} onClose={closeToast} />
     </>
