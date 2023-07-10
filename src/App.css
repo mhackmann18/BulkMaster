@@ -111,6 +111,15 @@ input.no-spinner-wheel {
   background-color: var(--outer-space);
 }
 
+.btn-default.inactive {
+  opacity: 70%;
+}
+
+.btn-default.inactive:hover {
+  background-color: var(--eerie-black);
+  cursor: default;
+}
+
 .btn-small {
   font-size: .75rem;
   padding: 8px 10px;

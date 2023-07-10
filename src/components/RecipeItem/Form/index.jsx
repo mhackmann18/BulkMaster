@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -67,6 +67,19 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     formState: { errors },
   } = useForm();
 
+  // Should update ???
+  const [saveButtonActive, setSaveButtonActive] = useState(false);
+
+  useEffect(() => {
+    const recipeData = Recipe.parseFormData(watch(), id);
+    if (!startRecipe.isEquivalent(recipeData) && !saveButtonActive) {
+      setSaveButtonActive(true);
+    }
+    if (startRecipe.isEquivalent(recipeData) && saveButtonActive) {
+      setSaveButtonActive(false);
+    }
+  }, [watch()]);
+
   const handleCloseButtonClick = () => {
     const recipeData = Recipe.parseFormData(watch(), id);
 
@@ -95,7 +108,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
         addErrorToastMessage(res.message || "Something went wrong");
       }
       // Recipe is being edited
-    } else if (recipeData.id) {
+    } else if (recipeData.id && saveButtonActive) {
       if (!startRecipe.isEquivalent(recipeData)) {
         const res = await User.updateRecipe(recipeData, id, user.token);
 
@@ -114,7 +127,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
         addSuccessToastMessage("No changes to save");
       }
       // Recipe is imported
-    } else if (!recipeData.id) {
+    } else if (!recipeData.id && saveButtonActive) {
       if (!startRecipe.isEquivalent(recipeData)) {
         setStartRecipe(new Recipe({ ...recipeData }));
         addSuccessToastMessage("Changes saved");
@@ -185,7 +198,10 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
                 />
                 Back
               </button>
-              <button type="submit" className="btn-default">
+              <button
+                type="submit"
+                className={`btn-default${saveButtonActive ? "" : " inactive"}`}
+              >
                 <FontAwesomeIcon
                   icon={faCheck}
                   className="button-panel-icon"
