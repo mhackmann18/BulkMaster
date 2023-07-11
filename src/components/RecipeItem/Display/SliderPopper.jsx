@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { ClickAwayListener, Popper, Slider } from "@mui/material";
 import "./SliderPopper.css";
@@ -12,17 +13,22 @@ export default function SliderPopper({
   onRelease,
   close,
 }) {
+  const [value, setValue] = useState(startingValue);
+
   return (
     <Popper open={open} anchorEl={anchorEl}>
       <ClickAwayListener onClickAway={close}>
         <div className="slider-wrapper">
           <Slider
             className="slider"
-            defaultValue={startingValue}
+            value={value}
             step={1}
             min={minValue}
             max={maxValue}
-            onChange={(e) => handleChange(Number(e.target.value))}
+            onChange={(e) => {
+              handleChange(Number(e.target.value));
+              setValue(e.target.value);
+            }}
             onMouseUp={(e) => onRelease(Number(e.target.value))}
           />
         </div>

@@ -105,7 +105,11 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
       }
       // Error
       else {
-        addErrorToastMessage(res.message || "Something went wrong");
+        addErrorToastMessage(
+          `Unable to save recipe. ${
+            res.message || "An unexpected error occurred"
+          }`
+        );
       }
       // Recipe is being edited
     } else if (recipeData.id && saveButtonActive) {
@@ -120,7 +124,9 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
         // Error
         else {
           addErrorToastMessage(
-            `Unable to update recipe. ${res.message || "Something went wrong"}`
+            `Unable to update recipe. ${
+              res.message || "An unexpected error occurred"
+            }`
           );
         }
       } else {
