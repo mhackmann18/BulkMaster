@@ -13,7 +13,7 @@ export default class RecipeValidator {
   // Field requirements
   static titleMaxLength = 99;
 
-  static servingsMaxValue = 99;
+  static servingsMaxValue = 30;
 
   static servingsMinValue = 1;
 
@@ -32,6 +32,10 @@ export default class RecipeValidator {
   static servingSizeUnitMaxLength = 69;
 
   static nutrientQuantityMaxValue = 9999;
+
+  static getServingsMaxValue() {
+    return RecipeValidator.servingsMaxValue;
+  }
 
   static getTitleErrMsg(str) {
     let msg = "";

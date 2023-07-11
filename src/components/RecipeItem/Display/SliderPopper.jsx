@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { ClickAwayListener, Popper, Slider } from "@mui/material";
+import RecipeValidator from "../../../utils/RecipeValidator";
 import "./SliderPopper.css";
 
 export default function SliderPopper({
@@ -52,7 +53,7 @@ SliderPopper.defaultProps = {
   anchorEl: null,
   startingValue: 1,
   minValue: 1,
-  maxValue: 30,
+  maxValue: RecipeValidator.getServingsMaxValue(),
   onRelease: () => null,
   close: () => false,
 };
