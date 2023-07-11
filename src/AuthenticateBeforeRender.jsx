@@ -5,23 +5,20 @@ import useUser from "./hooks/useUser";
 
 export default function AuthenticateBeforeRender({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { user, setUser } = useUser();
-  const { token } = user;
+  const { setUser } = useUser();
 
   useEffect(() => {
-    if (token) {
-      User.getFromToken(token).then((data) => {
-        if (data.username) {
-          setUser({ ...data, token });
-          setIsAuthenticated(true);
-        } else {
-          setUser(null);
-        }
-      });
-    }
+    User.getFromToken().then((data) => {
+      if (data.username) {
+        setUser({ ...data });
+        setIsAuthenticated(true);
+      } else {
+        setUser(null);
+      }
+    });
   }, []);
 
-  return isAuthenticated ? children : "Permission denied";
+  return isAuthenticated ? children : "Unauthorized";
 }
 
 AuthenticateBeforeRender.propTypes = {

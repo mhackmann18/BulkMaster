@@ -22,8 +22,8 @@ export default function ChangeUsernameForm({ onCancel, onSuccess }) {
     } else {
       User.update({ username: newUsername }, user).then((data) => {
         if (data.id) {
-          const { username, token } = data;
-          setUser({ ...user, username, token });
+          const { username } = data;
+          setUser({ ...user, username });
           setInputError("");
           onSuccess("Username updated");
           return;

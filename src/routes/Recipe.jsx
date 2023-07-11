@@ -3,7 +3,6 @@ import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import RecipeItem from "../components/RecipeItem";
 import Recipe from "../utils/Recipe";
-import useUser from "../hooks/useUser";
 import User from "../utils/UserController";
 import "./Import.css";
 
@@ -11,11 +10,10 @@ export default function RecipePage({ edit }) {
   const [recipe, setRecipe] = useState(null);
   const { state } = useLocation();
   const { id: recipeId } = useParams();
-  const { user } = useUser();
 
   useEffect(() => {
-    if (recipeId && user.token) {
-      User.getRecipe(recipeId, user.token).then((data) => {
+    if (recipeId) {
+      User.getRecipe(recipeId).then((data) => {
         if (data.id) {
           console.log(data);
           // setRecipes(data);

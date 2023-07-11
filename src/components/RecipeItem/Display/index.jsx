@@ -66,7 +66,7 @@ export default function RecipeDisplay({
     if (recipeStatus === "imported") {
       setStartRecipe(recipe);
     } else if (recipeStatus === "saved") {
-      const res = await User.updateRecipe(recipe, id, user.token);
+      const res = await User.updateRecipe(recipe, id);
       setStartRecipe(new Recipe({ ...recipe }));
       if (!res.id) {
         // Show error modal here

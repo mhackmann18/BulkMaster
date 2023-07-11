@@ -99,7 +99,7 @@ export default function SignupForm() {
     if (isValid) {
       const newUser = await User.create({ username, password });
 
-      if (!newUser.token) {
+      if (!newUser.id) {
         setFormSubmitError(newUser.message || "An unexpected error occurred");
       } else {
         setUser({ ...newUser });

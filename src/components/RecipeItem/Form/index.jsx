@@ -115,7 +115,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
       }
       // Recipe is being edited
     } else if (recipeStatus === "existing" && isFormDirty) {
-      const res = await User.updateRecipe(recipeData, id, user.token);
+      const res = await User.updateRecipe(recipeData, id);
 
       // Success
       if (res.id) {

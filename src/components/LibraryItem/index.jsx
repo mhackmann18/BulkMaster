@@ -29,38 +29,34 @@ export default function LibraryItem({
   const { user } = useUser();
 
   const handleDeleteRecipe = () => {
-    if (user.token) {
-      User.deleteRecipe(recipeId, user.token).then((data) => {
-        // Success
-        if (data.id) {
-          onDelete(recipeId);
+    User.deleteRecipe(recipeId).then((data) => {
+      // Success
+      if (data.id) {
+        onDelete(recipeId);
 
-          // Failure
-        } else {
-          addErrorToastMessage(
-            `Unable to delete recipe. ${
-              data.message || "An unexpected error occurred"
-            }`
-          );
-        }
-      });
-    }
+        // Failure
+      } else {
+        addErrorToastMessage(
+          `Unable to delete recipe. ${
+            data.message || "An unexpected error occurred"
+          }`
+        );
+      }
+    });
   };
 
   const handleDuplicateRecipe = () => {
-    if (user.token) {
-      User.saveRecipe(recipe, user).then((data) => {
-        if (data.id) {
-          onDuplicate(data);
-        } else {
-          addErrorToastMessage(
-            `Unable to duplicate recipe. ${
-              data.message || "An unexpected error occurred"
-            }`
-          );
-        }
-      });
-    }
+    User.saveRecipe(recipe, user).then((data) => {
+      if (data.id) {
+        onDuplicate(data);
+      } else {
+        addErrorToastMessage(
+          `Unable to duplicate recipe. ${
+            data.message || "An unexpected error occurred"
+          }`
+        );
+      }
+    });
   };
 
   return (

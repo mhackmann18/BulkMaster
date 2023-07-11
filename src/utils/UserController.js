@@ -10,6 +10,7 @@ export default class UserController {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(user),
     });
 
@@ -28,6 +29,7 @@ export default class UserController {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(user),
     });
 
@@ -45,8 +47,8 @@ export default class UserController {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": user.token,
       },
+      credentials: "include",
       body: JSON.stringify({ ...userData }),
     });
 
@@ -55,11 +57,9 @@ export default class UserController {
     return data;
   }
 
-  static async getRecipes(token) {
+  static async getRecipes() {
     const res = await fetch(`${ADDRESS}/recipes`, {
-      headers: {
-        "x-access-token": token,
-      },
+      credentials: "include",
     });
 
     const data = await res.json();
@@ -67,11 +67,9 @@ export default class UserController {
     return data;
   }
 
-  static async getRecipe(recipeId, token) {
+  static async getRecipe(recipeId) {
     const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
-      headers: {
-        "x-access-token": token,
-      },
+      credentials: "include",
     });
 
     const data = await res.json();
@@ -79,11 +77,9 @@ export default class UserController {
     return data;
   }
 
-  static async getFromToken(token) {
+  static async getFromToken() {
     const res = await fetch(`${ADDRESS}/users/self`, {
-      headers: {
-        "x-access-token": token,
-      },
+      credentials: "include",
     });
 
     const data = await res.json();
@@ -92,7 +88,7 @@ export default class UserController {
   }
 
   static async saveRecipe(recipe, user) {
-    const { id: userId, token } = user;
+    const { id: userId } = user;
 
     const formattedRecipe = Recipe.prepareForExport(recipe, userId);
 
@@ -100,9 +96,9 @@ export default class UserController {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,
       },
       body: JSON.stringify(formattedRecipe),
+      credentials: "include",
     });
 
     const data = await res.json();
@@ -110,16 +106,16 @@ export default class UserController {
     return data;
   }
 
-  static async updateRecipe(recipe, recipeId, token) {
+  static async updateRecipe(recipe, recipeId) {
     const formattedRecipe = Recipe.prepareForExport(recipe);
 
     const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,
       },
       body: JSON.stringify(formattedRecipe),
+      credentials: "include",
     });
 
     const data = await res.json();
@@ -127,12 +123,10 @@ export default class UserController {
     return data;
   }
 
-  static async deleteRecipe(recipeId, token) {
+  static async deleteRecipe(recipeId) {
     const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
       method: "DELETE",
-      headers: {
-        "x-access-token": token,
-      },
+      credentials: "include",
     });
 
     const data = await res.json();

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import Cookies from "js-cookie";
 import { UserContext } from "../UserContextProvider";
 
 export default function useUser() {
@@ -8,19 +7,15 @@ export default function useUser() {
 
   const saveUser = (userData) => {
     if (userData) {
-      const { username, id, token, theme } = userData;
-      Cookies.set("token", token);
+      const { username, id, theme } = userData;
       setUser({ username, id, theme });
     } else {
-      Cookies.remove("token");
       setUser(null);
     }
   };
 
   return {
-    user: user
-      ? { ...user, token: Cookies.get("token") }
-      : { token: Cookies.get("token") },
+    user,
     setUser: saveUser,
   };
 }

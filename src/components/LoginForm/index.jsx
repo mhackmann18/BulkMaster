@@ -21,7 +21,7 @@ export default function LoginForm() {
     } else {
       const user = await User.login({ username, password });
 
-      if (!user.token) {
+      if (!user.id) {
         setFormSubmitError(user.message || "An unexpected error occurred");
       } else {
         setUser({ ...user });

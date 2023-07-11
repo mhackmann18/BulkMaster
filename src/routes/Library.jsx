@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import LibraryItem from "../components/LibraryItem";
-import useUser from "../hooks/useUser";
 import Recipe from "../utils/Recipe";
 import User from "../utils/UserController";
 import Toast from "../components/common/Toast";
@@ -11,23 +10,20 @@ export default function Library() {
   const [recipes, setRecipes] = useState(null);
   const { addErrorToastMessage, addSuccessToastMessage, closeToast, toast } =
     useToast();
-  const { user } = useUser();
 
   useEffect(() => {
-    if (user.token) {
-      User.getRecipes(user.token).then((data) => {
-        if (data.length) {
-          const fr = data.map((r) => new Recipe({ ...r }));
-          setRecipes(fr);
-        } else {
-          addErrorToastMessage(
-            `Unable to load recipes. ${
-              data.message || "An unexpected error occurred"
-            }`
-          );
-        }
-      });
-    }
+    User.getRecipes().then((data) => {
+      if (data.length) {
+        const fr = data.map((r) => new Recipe({ ...r }));
+        setRecipes(fr);
+      } else {
+        addErrorToastMessage(
+          `Unable to load recipes. ${
+            data.message || "An unexpected error occurred"
+          }`
+        );
+      }
+    });
   }, []);
 
   const removeRecipeById = (recipeId) =>
@@ -39,21 +35,19 @@ export default function Library() {
   };
 
   const onItemDuplicate = () => {
-    if (user.token) {
-      User.getRecipes(user.token).then((data) => {
-        if (data.length) {
-          const fr = data.map((r) => new Recipe({ ...r }));
-          setRecipes(fr);
-          addSuccessToastMessage("Recipe duplicated");
-        } else {
-          addErrorToastMessage(
-            `Unable to refresh recipe list. ${
-              data.message || "An unexpected error occurred"
-            }`
-          );
-        }
-      });
-    }
+    User.getRecipes().then((data) => {
+      if (data.length) {
+        const fr = data.map((r) => new Recipe({ ...r }));
+        setRecipes(fr);
+        addSuccessToastMessage("Recipe duplicated");
+      } else {
+        addErrorToastMessage(
+          `Unable to refresh recipe list. ${
+            data.message || "An unexpected error occurred"
+          }`
+        );
+      }
+    });
   };
 
   return (
