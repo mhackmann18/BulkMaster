@@ -33,8 +33,8 @@ export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
         // Failure
       } else {
         setInputError(
-          `Failed to update password. ${
-            data.message || "An unknown error occurred"
+          `Unable to update password. ${
+            data.message || "An unexpected error occurred"
           }`
         );
       }

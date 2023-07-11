@@ -47,12 +47,46 @@ export default function RecipeDisplay({
 
     // Error
     if (data.message) {
-      addErrorToastMessage(data.message);
+      addErrorToastMessage(
+        `Unable to save recipe. ${
+          data.message || "An unexpected error occurred"
+        }`
+      );
     }
     // Success
     else {
       addSuccessToastMessage("Recipe added to library");
     }
+  };
+
+  const handleBlur = async (newServings) => {
+    if (newServings === startRecipe.servings) {
+      return false;
+    }
+    if (recipeStatus === "imported") {
+      setStartRecipe(recipe);
+    } else if (recipeStatus === "saved") {
+      const res = await User.updateRecipe(recipe, id, user.token);
+      setStartRecipe(new Recipe({ ...recipe }));
+      if (!res.id) {
+        // Show error modal here
+        addErrorToastMessage(
+          `Unable to update recipe servings. ${
+            res.message || "An unexpected error occurred"
+          }`
+        );
+        setStartRecipe(new Recipe({ ...startRecipe }));
+      }
+    }
+  };
+
+  const handleChange = (newServings) => {
+    setRecipe(
+      new Recipe({
+        ...startRecipe,
+        servings: newServings,
+      }).multiplyIngredients(newServings / startRecipe.servings)
+    );
   };
 
   return (
@@ -65,34 +99,8 @@ export default function RecipeDisplay({
             servings={servings}
             prepTime={prepTime}
             cookTime={cookTime}
-            onSliderChange={(newServings) => {
-              setRecipe(
-                new Recipe({
-                  ...startRecipe,
-                  servings: newServings,
-                }).multiplyIngredients(newServings / startRecipe.servings)
-              );
-            }}
-            onSliderBlur={async (newServings) => {
-              if (newServings === startRecipe.servings) {
-                return false;
-              }
-              if (recipeStatus === "imported") {
-                setStartRecipe(recipe);
-              } else if (recipeStatus === "saved") {
-                const res = await User.updateRecipe(recipe, id, user.token);
-                setStartRecipe(new Recipe({ ...recipe }));
-                if (!res.id) {
-                  // Show error modal here
-                  addErrorToastMessage(
-                    `Unable to update recipe servings. ${
-                      res.message || "An unexpected error occurred"
-                    }`
-                  );
-                  setStartRecipe(new Recipe({ ...startRecipe }));
-                }
-              }
-            }}
+            onSliderChange={handleChange}
+            onSliderBlur={handleBlur}
           />
         }
         buttonsComponent={

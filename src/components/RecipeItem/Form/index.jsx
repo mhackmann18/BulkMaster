@@ -40,7 +40,8 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     id,
   } = recipe;
 
-  const recipeStatus = title ? "existing" : "new";
+  // eslint-disable-next-line no-nested-ternary
+  const recipeStatus = title ? (id ? "existing" : "imported") : "new";
 
   const { user } = useUser();
 
@@ -68,15 +69,15 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   } = useForm();
 
   // Should update ???
-  const [saveButtonActive, setSaveButtonActive] = useState(false);
+  const [isFormDirty, setIsFormDirty] = useState(false);
 
   useEffect(() => {
     const recipeData = Recipe.parseFormData(watch(), id);
-    if (!startRecipe.isEquivalent(recipeData) && !saveButtonActive) {
-      setSaveButtonActive(true);
+    if (!startRecipe.isEquivalent(recipeData) && !isFormDirty) {
+      setIsFormDirty(true);
     }
-    if (startRecipe.isEquivalent(recipeData) && saveButtonActive) {
-      setSaveButtonActive(false);
+    if (startRecipe.isEquivalent(recipeData) && isFormDirty) {
+      setIsFormDirty(false);
     }
   }, [watch()]);
 
@@ -92,9 +93,10 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
 
   const onSubmit = async (data) => {
     const recipeData = Recipe.parseFormData(data, id);
+
     if (recipeData.error) {
-      // Show error in ui
       addErrorToastMessage(recipeData.error);
+
       // Recipe is custom
     } else if (recipeStatus === "new") {
       const res = await User.saveRecipe(recipeData, user);
@@ -112,34 +114,27 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
         );
       }
       // Recipe is being edited
-    } else if (recipeData.id && saveButtonActive) {
-      if (!startRecipe.isEquivalent(recipeData)) {
-        const res = await User.updateRecipe(recipeData, id, user.token);
+    } else if (recipeStatus === "existing" && isFormDirty) {
+      const res = await User.updateRecipe(recipeData, id, user.token);
 
-        // Success
-        if (res.id) {
-          addSuccessToastMessage("Recipe updated");
-          setStartRecipe(new Recipe({ ...recipeData }));
-        }
-        // Error
-        else {
-          addErrorToastMessage(
-            `Unable to update recipe. ${
-              res.message || "An unexpected error occurred"
-            }`
-          );
-        }
-      } else {
-        addSuccessToastMessage("No changes to save");
-      }
-      // Recipe is imported
-    } else if (!recipeData.id && saveButtonActive) {
-      if (!startRecipe.isEquivalent(recipeData)) {
+      // Success
+      if (res.id) {
+        addSuccessToastMessage("Recipe updated");
         setStartRecipe(new Recipe({ ...recipeData }));
-        addSuccessToastMessage("Changes saved");
-      } else {
-        addSuccessToastMessage("No changes to save");
       }
+      // Error
+      else {
+        addErrorToastMessage(
+          `Unable to update recipe. ${
+            res.message || "An unexpected error occurred"
+          }`
+        );
+      }
+
+      // Recipe is imported
+    } else if (recipeStatus === "imported" && isFormDirty) {
+      setStartRecipe(new Recipe({ ...recipeData }));
+      addSuccessToastMessage("Changes saved");
     }
   };
 
@@ -206,7 +201,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
               </button>
               <button
                 type="submit"
-                className={`btn-default${saveButtonActive ? "" : " inactive"}`}
+                className={`btn-default${isFormDirty ? "" : " inactive"}`}
               >
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -266,7 +261,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
               unregister(`instructions.${instructionId}`);
               recipe.removeInstructionById(instructionId);
               setRecipe(new Recipe({ ...recipe }));
-              addSuccessToastMessage("Instruction step deleted successfully");
+              addSuccessToastMessage("Instructions step deleted");
             }}
             register={register}
             watch={watch}

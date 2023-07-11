@@ -35,7 +35,7 @@ export default function Library() {
 
   const onItemRemoval = (recipeId) => {
     removeRecipeById(recipeId);
-    addSuccessToastMessage("Recipe deleted successfully");
+    addSuccessToastMessage("Recipe deleted");
   };
 
   const onItemDuplicate = () => {
@@ -44,10 +44,10 @@ export default function Library() {
         if (data.length) {
           const fr = data.map((r) => new Recipe({ ...r }));
           setRecipes(fr);
-          addSuccessToastMessage("Recipe duplicated successfully");
+          addSuccessToastMessage("Recipe duplicated");
         } else {
           addErrorToastMessage(
-            `Unable to load updated recipe list. ${
+            `Unable to refresh recipe list. ${
               data.message || "An unexpected error occurred"
             }`
           );
