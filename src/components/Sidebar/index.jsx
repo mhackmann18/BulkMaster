@@ -10,12 +10,11 @@ import {
   faGear,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 import ToggleTheme from "../common/ToggleTheme";
-import useUser from "../../hooks/useUser";
 import "./index.css";
 
 export default function Sidebar({ username, collapsed, setCollapsed }) {
-  const { setUser } = useUser();
   const currentPath = useLocation().pathname;
 
   const dashboardRouteNames = {
@@ -23,6 +22,10 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
     create: "create-recipe",
     library: "recipe-library",
     settings: "settings",
+  };
+
+  const handleLogout = async () => {
+    Cookies.remove("access_token");
   };
 
   return (
@@ -104,7 +107,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
         <ToggleTheme />
         <div className="logout-container">
           <span>{username} </span>
-          <Link to="/" title="logout" onClick={() => setUser(null)}>
+          <Link to="/" title="logout" onClick={handleLogout}>
             <FontAwesomeIcon
               className="icon"
               icon={faArrowRightFromBracket}

@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import AuthenticateBeforeRender from "./AuthenticateBeforeRender";
+import NotAllowedIfLoggedIn from "./NotAllowedIfLoggedIn";
 import UserContextProvider from "./UserContextProvider";
 import ThemeContextProvider from "./ThemeContextProvider";
 import Splash from "./routes/Splash";
@@ -42,7 +43,14 @@ export default function App() {
         <UserContextProvider>
           <ThemeContextProvider>
             <Routes>
-              <Route path="/" element={<Splash />}>
+              <Route
+                path="/"
+                element={
+                  <NotAllowedIfLoggedIn>
+                    <Splash />
+                  </NotAllowedIfLoggedIn>
+                }
+              >
                 <Route path="" element={<Home />} />
                 <Route
                   path="search"
@@ -67,11 +75,9 @@ export default function App() {
                     <ImportedRecipe redirectTo="/dashboard/import-recipe" />
                   }
                 />
-                {/* <Route path="import-recipe/:url" element={<Recipe />} /> */}
                 <Route path="create-recipe" element={<Create />} />
                 <Route path="recipe-library" element={<Library />} />
                 <Route path="recipe-library/:id/" element={<Recipe />} />
-                {/* <Route path="recipe-library/:id/edit" element={<RecipeEdit />} /> */}
                 <Route path="settings" element={<Settings />} />
               </Route>
             </Routes>

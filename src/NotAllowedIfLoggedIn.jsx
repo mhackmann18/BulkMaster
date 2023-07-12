@@ -24,11 +24,11 @@ export default function AuthenticateBeforeRender({ children }) {
 
   // eslint-disable-next-line no-nested-ternary
   return isAuthenticated ? (
-    children
+    <Navigate to="/dashboard" />
   ) : isLoading ? (
     <Spinner />
   ) : (
-    <Navigate to="/login" />
+    children
   );
 }
 
