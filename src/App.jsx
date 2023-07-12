@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import AuthenticateBeforeRender from "./AuthenticateBeforeRender";
 import NotAllowedIfLoggedIn from "./NotAllowedIfLoggedIn";
 import UserContextProvider from "./UserContextProvider";
-import ThemeContextProvider from "./ThemeContextProvider";
 import Splash from "./routes/Splash";
 import Dashboard from "./routes/Dashboard";
 import Import from "./routes/Import";
@@ -41,47 +40,45 @@ export default function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <UserContextProvider>
-          <ThemeContextProvider>
-            <Routes>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <NotAllowedIfLoggedIn>
+                  <Splash />
+                </NotAllowedIfLoggedIn>
+              }
+            >
+              <Route path="" element={<Home />} />
               <Route
-                path="/"
-                element={
-                  <NotAllowedIfLoggedIn>
-                    <Splash />
-                  </NotAllowedIfLoggedIn>
-                }
-              >
-                <Route path="" element={<Home />} />
-                <Route
-                  path="search"
-                  element={<ImportedRecipe redirectTo="/" />}
-                />
-                <Route path="features" element={<Features />} />
-                <Route path="signup" element={<Signup />} />
-                <Route path="login" element={<Login />} />
-              </Route>
+                path="search"
+                element={<ImportedRecipe redirectTo="/" />}
+              />
+              <Route path="features" element={<Features />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="login" element={<Login />} />
+            </Route>
+            <Route
+              path="/dashboard"
+              element={
+                <AuthenticateBeforeRender>
+                  <Dashboard />
+                </AuthenticateBeforeRender>
+              }
+            >
+              <Route path="import-recipe" element={<Import />} />
               <Route
-                path="/dashboard"
+                path="import-recipe/search"
                 element={
-                  <AuthenticateBeforeRender>
-                    <Dashboard />
-                  </AuthenticateBeforeRender>
+                  <ImportedRecipe redirectTo="/dashboard/import-recipe" />
                 }
-              >
-                <Route path="import-recipe" element={<Import />} />
-                <Route
-                  path="import-recipe/search"
-                  element={
-                    <ImportedRecipe redirectTo="/dashboard/import-recipe" />
-                  }
-                />
-                <Route path="create-recipe" element={<Create />} />
-                <Route path="recipe-library" element={<Library />} />
-                <Route path="recipe-library/:id/" element={<Recipe />} />
-                <Route path="settings" element={<Settings />} />
-              </Route>
-            </Routes>
-          </ThemeContextProvider>
+              />
+              <Route path="create-recipe" element={<Create />} />
+              <Route path="recipe-library" element={<Library />} />
+              <Route path="recipe-library/:id/" element={<Recipe />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          </Routes>
         </UserContextProvider>
       </ThemeProvider>
     </div>
