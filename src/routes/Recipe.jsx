@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 import RecipeItem from "../components/RecipeItem";
 import Recipe from "../utils/Recipe";
 import User from "../utils/UserController";
-import "./Import.css";
+import Spinner from "../components/common/Spinner";
+import "./Recipe.css";
 
 export default function RecipePage({ edit }) {
   const [recipe, setRecipe] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { state } = useLocation();
   const { id: recipeId } = useParams();
 
@@ -16,20 +18,22 @@ export default function RecipePage({ edit }) {
       User.getRecipe(recipeId).then((data) => {
         if (data.id) {
           console.log(data);
-          // setRecipes(data);
-          const fr = new Recipe({ ...data });
-          console.log(fr);
-          setRecipe(fr);
+          setRecipe(new Recipe({ ...data }));
         } else {
           console.log(`Error: ${data.message}`);
         }
+        setIsLoading(false);
       });
     }
   }, []);
 
   return (
-    <div id="import-page">
-      {recipe && (
+    <div id="recipe-page">
+      {isLoading ? (
+        <div className="spinner-wrapper">
+          <Spinner />
+        </div>
+      ) : (
         <RecipeItem
           startRecipe={recipe ? new Recipe(recipe) : undefined}
           startingDisplayType={

@@ -19,8 +19,8 @@ export default function Library() {
   useEffect(() => {
     User.getRecipes().then((data) => {
       if (data.length) {
-        const fr = data.map((r) => new Recipe({ ...r }));
-        setRecipes(fr);
+        const userRecipes = data.map((r) => new Recipe({ ...r }));
+        setRecipes(userRecipes);
       } else if (data.message) {
         addErrorToastMessage(
           `Unable to load recipes. ${
