@@ -185,7 +185,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
           </>
         }
         buttonsComponent={
-          recipeStatus === "existing" ? (
+          recipeStatus === "existing" || recipeStatus === "imported" ? (
             <>
               <button
                 onClick={handleCloseButtonClick}

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import User from "./utils/UserController";
 import useUser from "./hooks/useUser";
-import Spinner from "./components/common/Spinner";
+import LoadingScreen from "./components/common/LoadingScreen";
 
 export default function AuthenticateBeforeRender({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,7 +26,7 @@ export default function AuthenticateBeforeRender({ children }) {
   return isAuthenticated ? (
     <Navigate to="/dashboard" />
   ) : isLoading ? (
-    <Spinner />
+    <LoadingScreen />
   ) : (
     children
   );

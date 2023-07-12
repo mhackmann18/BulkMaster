@@ -24,7 +24,7 @@ export default function IngredientsListItem({
   const [removeIngredientModalOpen, setRemoveIngredientModalOpen] =
     useState(false);
 
-  const ingredientDeletedMessage = "Ingredient deleted successfully";
+  const ingredientDeletedMessage = "Ingredient deleted";
 
   const handleRemoveClick = () => {
     if (watch(`ingredients.${id}.name`)) {
