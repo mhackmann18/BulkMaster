@@ -1,13 +1,16 @@
+/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
 import LibraryItem from "../components/LibraryItem";
 import Recipe from "../utils/Recipe";
 import User from "../utils/UserController";
 import Toast from "../components/common/Toast";
 import useToast from "../hooks/useToast";
+import Spinner from "../components/common/Spinner";
 import "./Library.css";
 
 export default function Library() {
   const [recipes, setRecipes] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { addErrorToastMessage, addSuccessToastMessage, closeToast, toast } =
     useToast();
 
@@ -23,6 +26,7 @@ export default function Library() {
           }`
         );
       }
+      setIsLoading(false);
     });
   }, []);
 
@@ -53,25 +57,31 @@ export default function Library() {
   return (
     <>
       <div id="library-page">
-        {recipes
-          ? recipes.map((recipe) => (
-              <LibraryItem
-                key={recipe.id}
-                recipe={recipe}
-                recipeTitle={recipe.title}
-                recipeServings={recipe.servings}
-                caloriesPerRecipeServing={
-                  recipe.nutrients &&
-                  recipe.nutrients.calories &&
-                  recipe.nutrients.calories.quantity
-                }
-                recipeId={recipe.id}
-                addErrorToastMessage={addErrorToastMessage}
-                onDelete={onItemRemoval}
-                onDuplicate={onItemDuplicate}
-              />
-            ))
-          : null}
+        {recipes ? (
+          recipes.map((recipe) => (
+            <LibraryItem
+              key={recipe.id}
+              recipe={recipe}
+              recipeTitle={recipe.title}
+              recipeServings={recipe.servings}
+              caloriesPerRecipeServing={
+                recipe.nutrients &&
+                recipe.nutrients.calories &&
+                recipe.nutrients.calories.quantity
+              }
+              recipeId={recipe.id}
+              addErrorToastMessage={addErrorToastMessage}
+              onDelete={onItemRemoval}
+              onDuplicate={onItemDuplicate}
+            />
+          ))
+        ) : isLoading ? (
+          <div className="spinner-wrapper">
+            <Spinner />
+          </div>
+        ) : (
+          "no recipes"
+        )}
       </div>
       <Toast state={toast} onClose={closeToast} />
     </>
