@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import SettingsList from "../components/SettingsList";
 import Button from "../components/common/Button";
 import useUser from "../hooks/useUser";
@@ -17,6 +18,7 @@ export default function Settings() {
           <Button
             text="Sign Out"
             handleClick={() => {
+              Cookies.remove("access_token");
               setUser(null);
               navigate("/");
             }}
