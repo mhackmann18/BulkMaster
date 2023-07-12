@@ -12,6 +12,7 @@ import "./Library.css";
 export default function Library() {
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { addErrorToastMessage, addSuccessToastMessage, closeToast, toast } =
     useToast();
 
@@ -26,6 +27,7 @@ export default function Library() {
             data.message || "An unexpected error occurred"
           }`
         );
+        setError(true);
       }
       setIsLoading(false);
     });
@@ -83,13 +85,21 @@ export default function Library() {
         ) : (
           <div className="center-content">
             <div id="empty-library-message">
-              <h3>You haven&apos;t added any recipes yet.</h3>
-              <p>
-                Recipes that you{" "}
-                <Link to="/dashboard/import-recipe">import</Link> or{" "}
-                <Link to="/dashboard/create-recipe">create</Link> will show up
-                here.
-              </p>
+              <h3>
+                {error
+                  ? "There was a problem loading your recipes."
+                  : "You haven't added any recipes yet."}
+              </h3>
+              {error ? (
+                <p>Please try refreshing the page.</p>
+              ) : (
+                <p>
+                  Recipes that you{" "}
+                  <Link to="/dashboard/import-recipe">import</Link> or{" "}
+                  <Link to="/dashboard/create-recipe">create</Link> will show up
+                  here.
+                </p>
+              )}
             </div>
           </div>
         )}
