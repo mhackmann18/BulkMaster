@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import User from "../../utils/UserController";
 import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
-// import useToken from "../../hooks/useToken";
 import useUser from "../../hooks/useUser";
 import "./account-form.css";
 
@@ -15,7 +14,6 @@ export default function SignupForm() {
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
   const { setUser } = useUser();
-  // const { setToken } = useToken();
   const navigate = useNavigate();
 
   async function handleUsernameInputBlur(e) {
@@ -97,13 +95,16 @@ export default function SignupForm() {
     }
 
     if (isValid) {
-      const newUser = await User.create({ username, password });
+      const { data, message, error } = await User.create({
+        username,
+        password,
+      });
 
-      if (!newUser.id) {
-        setFormSubmitError(newUser.message || "An unexpected error occurred");
-      } else {
-        setUser({ ...newUser });
+      if (data) {
+        setUser({ ...data });
         navigate(`/dashboard`);
+      } else if (error) {
+        setFormSubmitError(message || "An unexpected error occurred");
       }
     }
   }

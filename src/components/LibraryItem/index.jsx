@@ -12,6 +12,7 @@ import ConfirmationDisplay from "../common/ConfirmationDisplay";
 import useUser from "../../hooks/useUser";
 import Recipe from "../../utils/Recipe";
 import User from "../../utils/UserController";
+import useHandleAuthError from "../../hooks/useHandleAuthError";
 import "./index.css";
 
 export default function LibraryItem({
@@ -24,19 +25,22 @@ export default function LibraryItem({
   const caloriesPerRecipeServing = recipe.nutrients?.calories?.quantity;
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const handleAuthError = useHandleAuthError();
   const { user } = useUser();
 
   const handleDeleteRecipe = () => {
-    User.deleteRecipe(id).then((data) => {
+    User.deleteRecipe(id).then(({ data, message, error }) => {
+      handleAuthError(error);
+
       // Success
-      if (data.id) {
+      if (data) {
         onDelete(id);
 
         // Failure
-      } else if (data.message) {
+      } else if (message) {
         addErrorToastMessage(
           `Unable to delete recipe. ${
-            data.message || "An unexpected error occurred"
+            message || "An unexpected error occurred"
           }`
         );
       }
@@ -44,13 +48,15 @@ export default function LibraryItem({
   };
 
   const handleDuplicateRecipe = () => {
-    User.saveRecipe(recipe, user).then((data) => {
-      if (data.id) {
+    User.saveRecipe(recipe, user).then(({ data, message, error }) => {
+      handleAuthError(error);
+
+      if (data) {
         onDuplicate(data);
-      } else {
+      } else if (error) {
         addErrorToastMessage(
           `Unable to duplicate recipe. ${
-            data.message || "An unexpected error occurred"
+            message || "An unexpected error occurred"
           }`
         );
       }

@@ -5,10 +5,12 @@ import Button from "../common/Button";
 import { checkPasswordInput } from "../../utils/validation";
 import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
+import useHandleAuthError from "../../hooks/useHandleAuthError";
 import "./ChangeSettingForm.css";
 
 export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
   const [inputError, setInputError] = useState("");
+  const handleAuthError = useHandleAuthError();
   const { user } = useUser();
 
   const handleSubmit = async (e) => {
@@ -23,18 +25,20 @@ export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
     } else if (confirmNewPassword !== newPassword) {
       setInputError("Passwords don't match");
     } else {
-      const data = await User.update({ password: newPassword }, user);
+      const { data, message, error } = await User.update(
+        { password: newPassword },
+        user
+      );
 
-      // Success
-      if (data.id) {
+      handleAuthError(error);
+
+      if (data) {
         setInputError("");
         onSuccessfulSubmit();
-
-        // Failure
-      } else {
+      } else if (error) {
         setInputError(
           `Unable to update password. ${
-            data.message || "An unexpected error occurred"
+            message || "An unexpected error occurred"
           }`
         );
       }

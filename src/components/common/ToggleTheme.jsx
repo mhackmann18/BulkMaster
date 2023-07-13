@@ -4,9 +4,11 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import "./ToggleTheme.css";
 import useUser from "../../hooks/useUser";
 import User from "../../utils/UserController";
+import useHandleAuthError from "../../hooks/useHandleAuthError";
 
 export default function ToggleTheme({ variant }) {
   const { user, setUser } = useUser();
+  const handleAuthError = useHandleAuthError();
 
   const { theme } = user;
 
@@ -18,14 +20,16 @@ export default function ToggleTheme({ variant }) {
 
   const handleClick = () => {
     User.update({ theme: theme === "light" ? "dark" : "light" }, user).then(
-      (data) => {
+      ({ data, message, error }) => {
+        handleAuthError(error);
+
         // Success
-        if (data.id) {
+        if (data) {
           setUser({ ...user, theme: theme === "light" ? "dark" : "light" });
           return;
         }
         // Error
-        console.log(`Unable to change theme. ${data.message}`);
+        console.log(`Unable to change theme. ${message}`);
       }
     );
   };

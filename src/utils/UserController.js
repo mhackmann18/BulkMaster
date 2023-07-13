@@ -17,13 +17,13 @@ export default class UserController {
       body: JSON.stringify(user),
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    if (res.username) {
-      delete data.password;
+    if (json.data?.password) {
+      delete json.data.password;
     }
 
-    return data;
+    return json;
   }
 
   static async login(user) {
@@ -36,13 +36,13 @@ export default class UserController {
       body: JSON.stringify(user),
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    if (res.username) {
-      delete data.password;
+    if (json.data?.password) {
+      delete json.data.password;
     }
 
-    return data;
+    return json;
   }
 
   static async update(userData, user) {
@@ -55,9 +55,9 @@ export default class UserController {
       body: JSON.stringify({ ...userData }),
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    return json;
   }
 
   static async getRecipes() {
@@ -65,9 +65,9 @@ export default class UserController {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    return json;
   }
 
   static async getRecipe(recipeId) {
@@ -75,9 +75,9 @@ export default class UserController {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    return json;
   }
 
   static async getFromToken() {
@@ -85,9 +85,11 @@ export default class UserController {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    if (json.data?.password) delete json.data.password;
+
+    return json;
   }
 
   static async saveRecipe(recipe, user) {
@@ -104,9 +106,9 @@ export default class UserController {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    return json;
   }
 
   static async updateRecipe(recipe, recipeId) {
@@ -121,9 +123,9 @@ export default class UserController {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    return json;
   }
 
   static async deleteRecipe(recipeId) {
@@ -132,8 +134,8 @@ export default class UserController {
       credentials: "include",
     });
 
-    const data = await res.json();
+    const json = await res.json();
 
-    return data;
+    return json;
   }
 }

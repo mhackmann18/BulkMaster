@@ -11,11 +11,11 @@ export default function AuthenticateBeforeRender({ children }) {
   const { setUser } = useUser();
 
   useEffect(() => {
-    User.getFromToken().then((data) => {
-      if (data.username) {
+    User.getFromToken().then(({ data, error }) => {
+      if (data) {
         setUser({ ...data });
         setIsAuthenticated(true);
-      } else {
+      } else if (error) {
         setUser(null);
       }
       setIsLoading(false);

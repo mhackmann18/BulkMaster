@@ -5,10 +5,12 @@ import Button from "../common/Button";
 import { checkUsernameInput } from "../../utils/validation";
 import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
+import useHandleAuthError from "../../hooks/useHandleAuthError";
 import "./ChangeSettingForm.css";
 
 export default function ChangeUsernameForm({ onCancel, onSuccess }) {
   const [inputError, setInputError] = useState("");
+  const handleAuthError = useHandleAuthError();
   const { user, setUser } = useUser();
 
   async function handleSubmit(e) {
@@ -20,17 +22,21 @@ export default function ChangeUsernameForm({ onCancel, onSuccess }) {
     if (!isValid) {
       setInputError(errorMessage);
     } else {
-      User.update({ username: newUsername }, user).then((data) => {
-        if (data.id) {
-          const { username } = data;
-          setUser({ ...user, username });
-          setInputError("");
-          onSuccess("Username updated");
-          return;
-        }
+      User.update({ username: newUsername }, user).then(
+        ({ data, message, error }) => {
+          handleAuthError(error);
 
-        setInputError(data.message);
-      });
+          if (data) {
+            const { username } = data;
+            setUser({ ...user, username });
+            setInputError("");
+            onSuccess("Username updated");
+            return;
+          }
+
+          setInputError(message);
+        }
+      );
     }
   }
 

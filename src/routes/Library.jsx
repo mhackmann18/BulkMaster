@@ -6,30 +6,30 @@ import Toast from "../components/common/Toast";
 import useToast from "../hooks/useToast";
 import Spinner from "../components/common/Spinner";
 import NoContentMessage from "../components/common/NoContentMessage";
+import useHandleAuthError from "../hooks/useHandleAuthError";
 import "./Library.css";
 
 export default function Library() {
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
+  const handleAuthError = useHandleAuthError();
   const { addErrorToastMessage, addSuccessToastMessage, closeToast, toast } =
     useToast();
 
   // Load recipes
   useEffect(() => {
-    User.getRecipes().then((data) => {
-      if (data.length) {
-        const userRecipes = data.map((r) => new Recipe({ ...r }));
-        setRecipes(userRecipes);
-      } else if (data.message) {
-        addErrorToastMessage(
-          `Unable to load recipes. ${
-            data.message || "An unexpected error occurred"
-          }`
-        );
-        setError(true);
-      }
+    User.getRecipes().then(({ data, message, error: fetchError }) => {
+      handleAuthError(fetchError);
 
+      if (data.length) {
+        setRecipes(data.map((r) => new Recipe({ ...r })));
+      } else if (fetchError) {
+        setError(true);
+        addErrorToastMessage(
+          `Unable to load recipes. ${message || "An unexpected error occurred"}`
+        );
+      }
       setIsLoading(false);
     });
   }, []);
@@ -41,14 +41,15 @@ export default function Library() {
 
   const onRecipeDuplication = () => {
     // Refresh recipes
-    User.getRecipes().then((data) => {
+    User.getRecipes().then(({ data, message, error: fetchError }) => {
+      handleAuthError(fetchError);
       if (data.length) {
         setRecipes(data.map((r) => new Recipe({ ...r })));
         addSuccessToastMessage("Recipe duplicated");
-      } else if (data.message) {
+      } else if (fetchError) {
         addErrorToastMessage(
           `Unable to refresh recipe list. ${
-            data.message || "An unexpected error occurred"
+            message || "An unexpected error occurred"
           }`
         );
       }

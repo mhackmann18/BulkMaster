@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
+import useRedirectOnTokenError from "../../hooks/useHandleAuthError";
 import "../SignupForm/account-form.css";
 
 export default function LoginForm() {
@@ -10,25 +11,25 @@ export default function LoginForm() {
   const { setUser } = useUser();
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitError("");
     const username = e.target.username.value;
     const password = e.target.password.value;
 
     if (!username || !password) {
-      setFormSubmitError("Please fill in all fields");
-    } else {
-      const user = await User.login({ username, password });
-
-      if (!user.id) {
-        setFormSubmitError(user.message || "An unexpected error occurred");
-      } else {
-        setUser({ ...user });
-        navigate(`/dashboard`);
-      }
+      return setFormSubmitError("Please fill in all fields");
     }
-  }
+
+    const { data, error, message } = await User.login({ username, password });
+
+    if (error) {
+      useRedirectOnTokenError(error);
+      setFormSubmitError(message || "An unexpected error occurred");
+    } else {
+      setUser({ ...data });
+      navigate(`/dashboard`);
+    }
+  };
 
   return (
     <form id="login-form" className="account-form" onSubmit={handleSubmit}>

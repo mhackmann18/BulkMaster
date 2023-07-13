@@ -25,6 +25,7 @@ import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
 import User from "../../../utils/UserController";
 import useUser from "../../../hooks/useUser";
+import useHandleAuthError from "../../../hooks/useHandleAuthError";
 
 export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -39,6 +40,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     servingSize,
     id,
   } = recipe;
+  const handleAuthError = useHandleAuthError();
 
   // eslint-disable-next-line no-nested-ternary
   const recipeStatus = title ? (id ? "existing" : "imported") : "new";
@@ -68,7 +70,6 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     formState: { errors },
   } = useForm();
 
-  // Should update ???
   const [isFormDirty, setIsFormDirty] = useState(false);
 
   useEffect(() => {
@@ -91,42 +92,38 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     }
   };
 
-  const onSubmit = async (data) => {
-    const recipeData = Recipe.parseFormData(data, id);
+  const onSubmit = async (formData) => {
+    const recipeData = Recipe.parseFormData(formData, id);
 
     if (recipeData.error) {
       addErrorToastMessage(recipeData.error);
 
       // Recipe is custom
     } else if (recipeStatus === "new") {
-      const res = await User.saveRecipe(recipeData, user);
+      const { data, error, message } = await User.saveRecipe(recipeData, user);
 
-      // Success
-      if (res.id) {
+      handleAuthError(error);
+
+      if (data) {
         addSuccessToastMessage("New recipe added to library");
-      }
-      // Error
-      else {
+      } else if (error) {
         addErrorToastMessage(
-          `Unable to save recipe. ${
-            res.message || "An unexpected error occurred"
-          }`
+          `Unable to save recipe. ${message || "An unexpected error occurred"}`
         );
       }
       // Recipe is being edited
     } else if (recipeStatus === "existing" && isFormDirty) {
-      const res = await User.updateRecipe(recipeData, id);
+      const { data, error, message } = await User.updateRecipe(recipeData, id);
 
-      // Success
-      if (res.id) {
+      handleAuthError(error);
+
+      if (data) {
         addSuccessToastMessage("Recipe updated");
         setStartRecipe(new Recipe({ ...recipeData }));
-      }
-      // Error
-      else {
+      } else if (error) {
         addErrorToastMessage(
           `Unable to update recipe. ${
-            res.message || "An unexpected error occurred"
+            message || "An unexpected error occurred"
           }`
         );
       }

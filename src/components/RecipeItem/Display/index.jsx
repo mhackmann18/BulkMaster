@@ -16,6 +16,7 @@ import User from "../../../utils/UserController";
 import useUser from "../../../hooks/useUser";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
+import useHandleAuthError from "../../../hooks/useHandleAuthError";
 
 export default function RecipeDisplay({
   startRecipe,
@@ -36,6 +37,7 @@ export default function RecipeDisplay({
   } = recipe;
   const { user } = useUser();
   const navigate = useNavigate();
+  const handleAuthError = useHandleAuthError();
   const { addSuccessToastMessage, addErrorToastMessage, closeToast, toast } =
     useToast();
 
@@ -43,18 +45,18 @@ export default function RecipeDisplay({
 
   const handleSaveButtonClick = async () => {
     // TODO: add loading indicator
-    const data = await User.saveRecipe(recipe, user);
+    const { data, message, error } = await User.saveRecipe(recipe, user);
+
+    handleAuthError(error);
 
     // Error
-    if (data.message) {
+    if (message) {
       addErrorToastMessage(
-        `Unable to save recipe. ${
-          data.message || "An unexpected error occurred"
-        }`
+        `Unable to save recipe. ${message || "An unexpected error occurred"}`
       );
     }
     // Success
-    else {
+    else if (data) {
       addSuccessToastMessage("Recipe added to library");
     }
   };
@@ -66,13 +68,14 @@ export default function RecipeDisplay({
     if (recipeStatus === "imported") {
       setStartRecipe(recipe);
     } else if (recipeStatus === "saved") {
-      const res = await User.updateRecipe(recipe, id);
+      const { error, message } = await User.updateRecipe(recipe, id);
+      handleAuthError(error);
       setStartRecipe(new Recipe({ ...recipe }));
-      if (!res.id) {
+      if (error) {
         // Show error modal here
         addErrorToastMessage(
           `Unable to update recipe servings. ${
-            res.message || "An unexpected error occurred"
+            message || "An unexpected error occurred"
           }`
         );
         setStartRecipe(new Recipe({ ...startRecipe }));
