@@ -16,26 +16,24 @@ import "./index.css";
 
 export default function LibraryItem({
   recipe,
-  recipeId,
-  recipeTitle,
-  recipeServings,
-  caloriesPerRecipeServing,
   onDelete,
   onDuplicate,
   addErrorToastMessage,
 }) {
+  const { id, title, servings } = recipe;
+  const caloriesPerRecipeServing = recipe.nutrients?.calories?.quantity;
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useUser();
 
   const handleDeleteRecipe = () => {
-    User.deleteRecipe(recipeId).then((data) => {
+    User.deleteRecipe(id).then((data) => {
       // Success
       if (data.id) {
-        onDelete(recipeId);
+        onDelete(id);
 
         // Failure
-      } else {
+      } else if (data.message) {
         addErrorToastMessage(
           `Unable to delete recipe. ${
             data.message || "An unexpected error occurred"
@@ -63,12 +61,12 @@ export default function LibraryItem({
     <>
       <div
         className="library-item"
-        onClick={() => navigate(`/dashboard/recipe-library/${recipeId}`)}
+        onClick={() => navigate(`/dashboard/recipe-library/${id}`)}
       >
         <div className="left">
-          <h2>{recipeTitle}</h2>
+          <h2>{title}</h2>
           <div className="row">
-            <span>Servings: {recipeServings}</span>
+            <span>Servings: {servings}</span>
             {caloriesPerRecipeServing ? (
               <span>Calories per Serving: {caloriesPerRecipeServing}</span>
             ) : (
@@ -103,7 +101,7 @@ export default function LibraryItem({
             title="Edit"
             size="1x"
             onClick={(e) => {
-              navigate(`/dashboard/recipe-library/${recipeId}`, {
+              navigate(`/dashboard/recipe-library/${id}`, {
                 state: { startAsForm: true },
               });
               e.stopPropagation();
@@ -114,7 +112,7 @@ export default function LibraryItem({
       <StandardModal open={modalOpen} handleClose={() => setModalOpen(false)}>
         <ConfirmationDisplay
           headerText="Delete Recipe"
-          messageText={`Are you sure you want to delete the recipe '${recipeTitle}'?`}
+          messageText={`Are you sure you want to delete the recipe '${title}'?`}
           cancelBtnText="Cancel"
           confirmBtnText="Delete"
           onCancel={() => setModalOpen(false)}
@@ -127,15 +125,7 @@ export default function LibraryItem({
 
 LibraryItem.propTypes = {
   recipe: PropTypes.instanceOf(Recipe).isRequired,
-  recipeId: PropTypes.number.isRequired,
-  recipeTitle: PropTypes.string.isRequired,
-  recipeServings: PropTypes.number.isRequired,
-  caloriesPerRecipeServing: PropTypes.number,
   onDelete: PropTypes.func.isRequired,
   onDuplicate: PropTypes.func.isRequired,
   addErrorToastMessage: PropTypes.func.isRequired,
-};
-
-LibraryItem.defaultProps = {
-  caloriesPerRecipeServing: 0,
 };

@@ -60,14 +60,6 @@ export default function Library() {
       <LibraryItem
         key={recipe.id}
         recipe={recipe}
-        recipeTitle={recipe.title}
-        recipeServings={recipe.servings}
-        caloriesPerRecipeServing={
-          recipe.nutrients &&
-          recipe.nutrients.calories &&
-          recipe.nutrients.calories.quantity
-        }
-        recipeId={recipe.id}
         addErrorToastMessage={addErrorToastMessage}
         onDelete={onRecipeDeletion}
         onDuplicate={onRecipeDuplication}
@@ -83,7 +75,7 @@ export default function Library() {
       subText={
         error
           ? "Please try refreshing the page."
-          : "Recipes that you import or create will show up here"
+          : "Recipes that you import or create will show up here."
       }
     />
   );
