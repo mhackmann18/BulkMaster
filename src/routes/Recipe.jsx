@@ -8,6 +8,7 @@ import Spinner from "../components/common/Spinner";
 import useToast from "../hooks/useToast";
 import Toast from "../components/common/Toast";
 import NoContentMessage from "../components/common/NoContentMessage";
+import useRedirectOnTokenError from "../hooks/useRedirectOnTokenError";
 import "./Recipe.css";
 
 export default function RecipePage({ edit }) {
@@ -16,11 +17,14 @@ export default function RecipePage({ edit }) {
   const { state } = useLocation();
   const { id: recipeId } = useParams();
   const { toast, closeToast, addErrorToastMessage } = useToast();
+  const redirectOnTokenError = useRedirectOnTokenError();
 
   // Load recipe
   useEffect(() => {
     if (recipeId) {
       User.getRecipe(recipeId).then((data) => {
+        redirectOnTokenError(data.error);
+
         if (data.id) {
           console.log(data);
           setRecipe(new Recipe({ ...data }));
