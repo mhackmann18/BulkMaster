@@ -5,6 +5,9 @@ import RecipeItem from "../components/RecipeItem";
 import Recipe from "../utils/Recipe";
 import User from "../utils/UserController";
 import Spinner from "../components/common/Spinner";
+import useToast from "../hooks/useToast";
+import Toast from "../components/common/Toast";
+import NoContentMessage from "../components/common/NoContentMessage";
 import "./Recipe.css";
 
 export default function RecipePage({ edit }) {
@@ -12,36 +15,53 @@ export default function RecipePage({ edit }) {
   const [isLoading, setIsLoading] = useState(true);
   const { state } = useLocation();
   const { id: recipeId } = useParams();
+  const { toast, closeToast, addErrorToastMessage } = useToast();
 
+  // Load recipe
   useEffect(() => {
     if (recipeId) {
       User.getRecipe(recipeId).then((data) => {
         if (data.id) {
           console.log(data);
           setRecipe(new Recipe({ ...data }));
-        } else {
-          console.log(`Error: ${data.message}`);
+        } else if (data.message) {
+          addErrorToastMessage(
+            `Unable to load recipe. ${
+              data.message || "An unknown error occurred"
+            }`
+          );
         }
+
         setIsLoading(false);
       });
     }
   }, []);
 
+  const content = recipe ? (
+    <RecipeItem
+      startRecipe={recipe}
+      startingDisplayType={state?.startAsForm || edit ? "form" : "div"}
+    />
+  ) : (
+    <NoContentMessage
+      headerText="There was a problem loading your recipe."
+      subText="Please try refreshing the page."
+    />
+  );
+
   return (
-    <div id="recipe-page">
-      {isLoading ? (
-        <div className="spinner-wrapper">
-          <Spinner />
-        </div>
-      ) : (
-        <RecipeItem
-          startRecipe={recipe ? new Recipe(recipe) : undefined}
-          startingDisplayType={
-            (state && state.startAsForm) || edit ? "form" : "div"
-          }
-        />
-      )}
-    </div>
+    <>
+      <div id="recipe-page">
+        {isLoading ? (
+          <div className="spinner-wrapper">
+            <Spinner />
+          </div>
+        ) : (
+          content
+        )}
+      </div>
+      <Toast state={toast} onClose={closeToast} />
+    </>
   );
 }
 

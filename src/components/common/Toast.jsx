@@ -8,7 +8,7 @@ export default function Toast({ state, onClose }) {
       open={open}
       autoHideDuration={6000}
       onClose={onClose}
-      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >
       <Alert
         onClose={onClose}

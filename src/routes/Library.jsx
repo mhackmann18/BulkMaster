@@ -1,12 +1,11 @@
-/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import LibraryItem from "../components/LibraryItem";
 import Recipe from "../utils/Recipe";
 import User from "../utils/UserController";
 import Toast from "../components/common/Toast";
 import useToast from "../hooks/useToast";
 import Spinner from "../components/common/Spinner";
+import NoContentMessage from "../components/common/NoContentMessage";
 import "./Library.css";
 
 export default function Library() {
@@ -16,6 +15,7 @@ export default function Library() {
   const { addErrorToastMessage, addSuccessToastMessage, closeToast, toast } =
     useToast();
 
+  // Load recipes
   useEffect(() => {
     User.getRecipes().then((data) => {
       if (data.length) {
@@ -29,25 +29,23 @@ export default function Library() {
         );
         setError(true);
       }
+
       setIsLoading(false);
     });
   }, []);
 
-  const removeRecipeById = (recipeId) =>
+  const onRecipeDeletion = (recipeId) => {
     setRecipes(recipes.filter((r) => r.id !== recipeId));
-
-  const onItemRemoval = (recipeId) => {
-    removeRecipeById(recipeId);
     addSuccessToastMessage("Recipe deleted");
   };
 
-  const onItemDuplicate = () => {
+  const onRecipeDuplication = () => {
+    // Refresh recipes
     User.getRecipes().then((data) => {
       if (data.length) {
-        const fr = data.map((r) => new Recipe({ ...r }));
-        setRecipes(fr);
+        setRecipes(data.map((r) => new Recipe({ ...r })));
         addSuccessToastMessage("Recipe duplicated");
-      } else {
+      } else if (data.message) {
         addErrorToastMessage(
           `Unable to refresh recipe list. ${
             data.message || "An unexpected error occurred"
@@ -57,51 +55,48 @@ export default function Library() {
     });
   };
 
+  const content = recipes ? (
+    recipes.map((recipe) => (
+      <LibraryItem
+        key={recipe.id}
+        recipe={recipe}
+        recipeTitle={recipe.title}
+        recipeServings={recipe.servings}
+        caloriesPerRecipeServing={
+          recipe.nutrients &&
+          recipe.nutrients.calories &&
+          recipe.nutrients.calories.quantity
+        }
+        recipeId={recipe.id}
+        addErrorToastMessage={addErrorToastMessage}
+        onDelete={onRecipeDeletion}
+        onDuplicate={onRecipeDuplication}
+      />
+    ))
+  ) : (
+    <NoContentMessage
+      headerText={
+        error
+          ? "There was a problem loading your recipes."
+          : "You haven't added any recipes yet."
+      }
+      subText={
+        error
+          ? "Please try refreshing the page."
+          : "Recipes that you import or create will show up here"
+      }
+    />
+  );
+
   return (
     <>
       <div id="library-page">
-        {recipes ? (
-          recipes.map((recipe) => (
-            <LibraryItem
-              key={recipe.id}
-              recipe={recipe}
-              recipeTitle={recipe.title}
-              recipeServings={recipe.servings}
-              caloriesPerRecipeServing={
-                recipe.nutrients &&
-                recipe.nutrients.calories &&
-                recipe.nutrients.calories.quantity
-              }
-              recipeId={recipe.id}
-              addErrorToastMessage={addErrorToastMessage}
-              onDelete={onItemRemoval}
-              onDuplicate={onItemDuplicate}
-            />
-          ))
-        ) : isLoading ? (
+        {isLoading ? (
           <div className="center-content">
             <Spinner />
           </div>
         ) : (
-          <div className="center-content">
-            <div id="empty-library-message">
-              <h3>
-                {error
-                  ? "There was a problem loading your recipes."
-                  : "You haven't added any recipes yet."}
-              </h3>
-              {error ? (
-                <p>Please try refreshing the page.</p>
-              ) : (
-                <p>
-                  Recipes that you{" "}
-                  <Link to="/dashboard/import-recipe">import</Link> or{" "}
-                  <Link to="/dashboard/create-recipe">create</Link> will show up
-                  here.
-                </p>
-              )}
-            </div>
-          </div>
+          content
         )}
       </div>
       <Toast state={toast} onClose={closeToast} />
