@@ -1,5 +1,6 @@
 export default {
-  ADDRESS: "http://localhost:8080/api",
+  ORIGIN: "http://localhost:8080",
+
   // ERROR CODES
   INVALID_TOKEN_ERR: "invalid-token",
   NO_TOKEN_ERR: "no-token",

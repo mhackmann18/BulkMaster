@@ -1,4 +1,6 @@
-const apiUrl = `https://api.spoonacular.com/recipes/random?number=100&apiKey=${apiKey}`;
+import config from "./config";
+
+const apiUrl = `https://api.spoonacular.com/recipes/random?number=100&apiKey=${config.API_KEY}`;
 
 // Make an API request to get 100 random recipes
 export default function getRandomRecipeUrls() {

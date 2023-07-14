@@ -1,11 +1,11 @@
 import config from "./config";
 import Recipe from "./Recipe";
 
-const { ADDRESS } = config;
+const { ORIGIN } = config;
 
 export default class UserController {
   static async create(user) {
-    const res = await fetch(`${ADDRESS}/users/register`, {
+    const res = await fetch(`${ORIGIN}/api/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export default class UserController {
   }
 
   static async login(user) {
-    const res = await fetch(`${ADDRESS}/users/login`, {
+    const res = await fetch(`${ORIGIN}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default class UserController {
   }
 
   static async update(userData, user) {
-    const res = await fetch(`${ADDRESS}/users/${user.id}`, {
+    const res = await fetch(`${ORIGIN}/api/users/${user.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default class UserController {
   }
 
   static async getRecipes() {
-    const res = await fetch(`${ADDRESS}/recipes`, {
+    const res = await fetch(`${ORIGIN}/api/recipes`, {
       credentials: "include",
     });
 
@@ -68,7 +68,7 @@ export default class UserController {
   }
 
   static async getRecipe(recipeId) {
-    const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
+    const res = await fetch(`${ORIGIN}/api/recipes/${recipeId}`, {
       credentials: "include",
     });
 
@@ -78,7 +78,7 @@ export default class UserController {
   }
 
   static async getFromToken() {
-    const res = await fetch(`${ADDRESS}/users/self`, {
+    const res = await fetch(`${ORIGIN}/api/users/self`, {
       credentials: "include",
     });
 
@@ -94,7 +94,7 @@ export default class UserController {
 
     const formattedRecipe = Recipe.prepareForExport(recipe, userId);
 
-    const res = await fetch(`${ADDRESS}/recipes`, {
+    const res = await fetch(`${ORIGIN}/api/recipes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export default class UserController {
   static async updateRecipe(recipe, recipeId) {
     const formattedRecipe = Recipe.prepareForExport(recipe);
 
-    const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
+    const res = await fetch(`${ORIGIN}/api/recipes/${recipeId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export default class UserController {
   }
 
   static async deleteRecipe(recipeId) {
-    const res = await fetch(`${ADDRESS}/recipes/${recipeId}`, {
+    const res = await fetch(`${ORIGIN}/api/recipes/${recipeId}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -137,7 +137,7 @@ export default class UserController {
   }
 
   static async deleteUser(userId) {
-    const res = await fetch(`${ADDRESS}/users/${userId}`, {
+    const res = await fetch(`${ORIGIN}/api/users/${userId}`, {
       method: "DELETE",
       credentials: "include",
     });
