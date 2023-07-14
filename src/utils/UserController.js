@@ -138,4 +138,15 @@ export default class UserController {
 
     return json;
   }
+
+  static async deleteUser(userId) {
+    const res = await fetch(`${ADDRESS}/users/${userId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    const json = await res.json();
+
+    return json;
+  }
 }

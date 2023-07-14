@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import User from "../../utils/UserController";
 import useUser from "../../hooks/useUser";
-import useRedirectOnTokenError from "../../hooks/useHandleAuthError";
 import "../SignupForm/account-form.css";
 
 export default function LoginForm() {
@@ -23,7 +22,6 @@ export default function LoginForm() {
     const { data, error, message } = await User.login({ username, password });
 
     if (error) {
-      useRedirectOnTokenError(error);
       setFormSubmitError(message || "An unexpected error occurred");
     } else {
       setUser({ ...data });

@@ -6,12 +6,15 @@ import useToast from "../hooks/useToast";
 import "./account-page.css";
 
 export default function Login() {
-  const { toast, closeToast, addErrorToastMessage } = useToast();
+  const { toast, closeToast, addErrorToastMessage, addSuccessToastMessage } =
+    useToast();
   const { state } = useLocation();
 
   useEffect(() => {
     if (state?.errorMessage) {
       addErrorToastMessage(state.errorMessage);
+    } else if (state?.successMessage) {
+      addSuccessToastMessage(state.successMessage);
     }
   }, []);
 
