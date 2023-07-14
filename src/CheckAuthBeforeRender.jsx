@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -6,7 +6,10 @@ import User from "./utils/UserController";
 import useUser from "./hooks/useUser";
 import LoadingScreen from "./components/common/LoadingScreen";
 
-export default function NotAllowedIfLoggedIn({ children }) {
+export default function CheckAuthBeforeRender({
+  renderIfAuthenticated,
+  children,
+}) {
   const accessToken = Cookies.get("access_token");
   const [isLoading, setIsLoading] = useState(!!accessToken);
   const { setUser, user } = useUser();
@@ -21,20 +24,33 @@ export default function NotAllowedIfLoggedIn({ children }) {
         }
         setIsLoading(false);
       });
-    } else if (user) setUser(null);
+    } else {
+      setUser(null);
+    }
   }, []);
 
   const isAuthenticated = !!accessToken && !!user;
 
-  const contentToLoad = isAuthenticated ? (
+  const elementOnAuthSuccess = renderIfAuthenticated ? (
+    children
+  ) : (
     <Navigate to="/dashboard" />
+  );
+
+  const elementOnAuthFailure = renderIfAuthenticated ? (
+    <Navigate to="/login" />
   ) : (
     children
   );
 
-  return isLoading ? <LoadingScreen /> : contentToLoad;
+  const contentToRender = isAuthenticated
+    ? elementOnAuthSuccess
+    : elementOnAuthFailure;
+
+  return isLoading ? <LoadingScreen /> : contentToRender;
 }
 
-NotAllowedIfLoggedIn.propTypes = {
+CheckAuthBeforeRender.propTypes = {
   children: PropTypes.element.isRequired,
+  renderIfAuthenticated: PropTypes.bool.isRequired,
 };
