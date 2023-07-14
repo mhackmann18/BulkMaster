@@ -1,10 +1,7 @@
-/* eslint-disable no-promise-executor-return */
 import config from "./config";
 import Recipe from "./Recipe";
 
 const { ADDRESS } = config;
-
-// const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export default class UserController {
   static async create(user) {

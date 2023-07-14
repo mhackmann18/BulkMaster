@@ -61,7 +61,7 @@ export default function Settings() {
         <StandardModal open={modalOpen} handleClose={() => setModalOpen(false)}>
           <ConfirmationDisplay
             headerText="Confirm Account Deletion"
-            messageText="Your account info and all recipes in your library will be permanently deleted."
+            messageText="Your account information and all recipes in your library will be permanently deleted."
             cancelBtnText="Cancel"
             confirmBtnText="Delete"
             onCancel={() => setModalOpen(false)}
