@@ -19,6 +19,10 @@
   color: var(--eerie-black);
 }
 
+#navbar-logo span {
+  color: var(--slate-gray);
+}
+
 #navbar ul {
   display: flex;
   align-items: center;

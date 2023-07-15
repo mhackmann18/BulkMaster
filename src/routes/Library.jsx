@@ -22,7 +22,7 @@ export default function Library() {
     User.getRecipes().then(({ data, message, error: fetchError }) => {
       handleAuthError(fetchError);
 
-      if (data.length) {
+      if (data?.length) {
         setRecipes(data.map((r) => new Recipe({ ...r })));
       } else if (fetchError) {
         setError(true);

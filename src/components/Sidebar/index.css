@@ -13,6 +13,10 @@
   overflow-x: hidden;
 }
 
+#sidebar-logo span {
+  color: var(--outer-space);
+}
+
 #sidebar.collapsed {
   padding: 0 .5rem;
 }
