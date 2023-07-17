@@ -38,14 +38,6 @@ export default function Navbar() {
         </li>
         <li>
           <Link
-            to="features"
-            className={location.pathname === "/features" ? "active" : ""}
-          >
-            Features
-          </Link>
-        </li>
-        <li>
-          <Link
             to="signup"
             className={location.pathname === "/signup" ? "active" : ""}
           >

@@ -11,7 +11,6 @@ import Settings from "./routes/Settings";
 import Recipe from "./routes/Recipe";
 import ImportedRecipe from "./routes/ImportedRecipe";
 import Home from "./routes/Home";
-import Features from "./routes/Features";
 import Signup from "./routes/Signup";
 import Login from "./routes/Login";
 import theme from "./theme/theme";
@@ -49,7 +48,6 @@ export default function App() {
                 path="search"
                 element={<ImportedRecipe redirectTo="/" />}
               />
-              <Route path="features" element={<Features />} />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
             </Route>

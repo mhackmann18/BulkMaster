@@ -1,18 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
 import "./Home.css";
+import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
+import reaper from "../assets/reaper-color.png";
 
 export default function Home() {
-  const navigate = useNavigate();
-
   return (
-    <div id="rsf-wrapper">
-      <p id="main-msg">Meal prepping your favorite recipes just got easier.</p>
-      <RecipeScrapingForm
-        handleResponse={(res) => {
-          navigate("search", { state: { data: res } });
-        }}
-      />
+    <div id="home-page">
+      <div id="home-window-1">
+        <div className="left-content">
+          <img className="reaper-img" src={reaper} alt="mascot" />
+        </div>
+        <div className="right-content">
+          <h2 className="title">
+            Harvest deathly good recipes from across the web
+          </h2>
+          <p>
+            No need to scroll through ads and walls of text to reach the recipe.
+            RecipeReaper will find it for you.
+          </p>
+          <RecipeScrapingForm />
+        </div>
+      </div>
     </div>
   );
 }
