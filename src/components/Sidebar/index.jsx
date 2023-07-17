@@ -34,7 +34,7 @@ export default function Sidebar({ username, collapsed, setCollapsed }) {
         <h1>
           {!collapsed && (
             <span id="sidebar-logo">
-              RECIPE<span>REAPER</span>
+              RECIPE<span>REPO</span>
             </span>
           )}{" "}
           <FontAwesomeIcon
