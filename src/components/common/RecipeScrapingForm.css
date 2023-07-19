@@ -5,15 +5,20 @@
   width: 100%;
 }
 
+#recipe-scraping-form.inline {
+  flex-direction: row;
+  justify-content: center;
+}
+
 #recipe-scraping-form input {
   width: 100%;
   max-width: 480px;
-  padding: 8px;
+  padding: .8rem;
   font-size: 18px;
   font-weight: 200;
   color: var(--onyx);
   border: 2px solid var(--french-gray-2);
-  border-radius: 10px;
+  border-radius: 1rem;
   background-color: var(--seasalt);
 }
 
@@ -42,6 +47,11 @@
   font-size: 18px;
   padding: 20px 22px;
   border-radius: 50px;
+  white-space: nowrap;
+}
+
+#recipe-scraping-form.inline .btn-main {
+  margin: 0 0 0 .5rem;
 }
 
 .btn-main:hover {

@@ -17,7 +17,7 @@ export default function Home() {
             No need to scroll through ads and walls of text to reach the recipe.
             RecipeReaper will find it for you.
           </p>
-          <RecipeScrapingForm />
+          <RecipeScrapingForm variant="inline" />
         </div>
       </div>
     </div>

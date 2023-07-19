@@ -4,11 +4,14 @@ justify-content: center;
 }
 
 #home-window-1 {
-  width: 90%;
   display: flex;
   height: 60vh;
   margin-top: 20vh;
   justify-content: space-between;
+}
+
+#home-window-1 .left-content {
+  margin-right: 5rem;
 }
 
 #home-window-1 .right-content {
