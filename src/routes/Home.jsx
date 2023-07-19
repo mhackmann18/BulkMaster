@@ -1,6 +1,6 @@
 import "./Home.css";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
-import reaper from "../assets/reaper-color.png";
+import reaper from "../assets/reaper.png";
 
 export default function Home() {
   return (
