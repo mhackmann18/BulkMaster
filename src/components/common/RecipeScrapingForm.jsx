@@ -41,7 +41,7 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
                 setSubmitError("");
               }}
             />
-            <button className="btn-main" type="submit">
+            <button className="btn-default" type="submit">
               Get Recipe
             </button>
           </div>
