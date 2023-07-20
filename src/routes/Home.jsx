@@ -61,7 +61,7 @@ export default function Home() {
         <div className="h-box">
           <div className="left-content text-box">
             <h2 className="title">Start building your online cookbook</h2>
-            <p>Manage recipes from your personal library.</p>
+            <p>Save recipes to your personal library.</p>
             <ul>
               <li>
                 <FontAwesomeIcon className="icon" icon={faCircle} /> Save

@@ -17,7 +17,7 @@ export default function SliderPopper({
   const [value, setValue] = useState(startingValue);
 
   return (
-    <Popper open={open} anchorEl={anchorEl}>
+    <Popper id="slider-popper" open={open} anchorEl={anchorEl}>
       <ClickAwayListener onClickAway={close}>
         <div className="slider-wrapper">
           <Slider
