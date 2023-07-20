@@ -32,17 +32,19 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
     <form id="recipe-scraping-form" className={variant} onSubmit={handleSubmit}>
       {!isLoading ? (
         <>
-          <input
-            type="text"
-            id="url-input"
-            placeholder="Paste a recipe's URL"
-            onFocus={() => {
-              setSubmitError("");
-            }}
-          />
-          <button className="btn-main" type="submit">
-            Get Recipe
-          </button>
+          <div className="main">
+            <input
+              type="text"
+              id="url-input"
+              placeholder="Paste a recipe's URL"
+              onFocus={() => {
+                setSubmitError("");
+              }}
+            />
+            <button className="btn-main" type="submit">
+              Get Recipe
+            </button>
+          </div>
           {submitError && (
             <Alert id="rsf-submit-error" severity="error">
               {submitError}
@@ -50,7 +52,9 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
           )}{" "}
         </>
       ) : (
-        <Spinner />
+        <div className="spinner-wrapper">
+          <Spinner />
+        </div>
       )}
     </form>
   );
