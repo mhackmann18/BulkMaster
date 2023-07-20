@@ -15,5 +15,9 @@ export default function StandardModal({ open, handleClose, children }) {
 StandardModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+StandardModal.defaultProps = {
+  children: null,
 };

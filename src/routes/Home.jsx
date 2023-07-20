@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
-import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { Modal, Fade } from "@mui/material";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
 import reaper from "../assets/reaper.png";
 import reaperReading from "../assets/reaper-reading.png";
 import reaperCooking from "../assets/reaper-cooking.png";
 import mouseScroll from "../assets/mouse-scroll.gif";
 import SignupForm from "../components/SignupForm";
+import RecipeItem from "../components/RecipeItem";
+import Recipe from "../utils/Recipe";
+import "./Home.css";
 
 export default function Home() {
   const [mouseScrollActive, setMouseScrollActive] = useState(true);
+  const [recipe, setRecipe] = useState(null);
 
   const handleScroll = (e) => {
     setMouseScrollActive(e.target.scrollingElement.scrollTop === 0);
@@ -20,6 +24,11 @@ export default function Home() {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   });
+
+  const handleRSFSubmit = (data) => {
+    console.log(data);
+    setRecipe(new Recipe({ ...data }));
+  };
 
   return (
     <div id="home-page">
@@ -36,7 +45,10 @@ export default function Home() {
               No need to scroll through ads and walls of text to reach a recipe.
               RecipeReaper will find it for you.
             </p>
-            <RecipeScrapingForm variant="inline" />
+            <RecipeScrapingForm
+              variant="inline"
+              handleResponse={handleRSFSubmit}
+            />
           </div>
         </div>
         <img
@@ -105,6 +117,13 @@ export default function Home() {
           }
         />
       </div>
+      <Modal id="recipe-modal" open={!!recipe} onClose={() => setRecipe(null)}>
+        <Fade in={!!recipe}>
+          <div className="modal-box">
+            {recipe && <RecipeItem startRecipe={recipe} />}
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }

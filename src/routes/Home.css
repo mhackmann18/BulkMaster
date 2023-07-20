@@ -80,3 +80,15 @@
 #home-page #signup-form h2 {
   font-size: 1.8rem;
 }
+
+#recipe-modal {
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+#recipe-modal .modal-box {
+  width: 80vw;
+  margin: 2rem 0;
+  height: fit-content;
+}
