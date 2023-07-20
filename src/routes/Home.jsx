@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
 import reaper from "../assets/reaper.png";
 import reaperReading from "../assets/reaper-reading.png";
@@ -22,7 +24,7 @@ export default function Home() {
       <div id="home-window-1">
         <div className="h-box">
           <div className="left-content">
-            <img className="reaper-img" src={reaper} alt="mascot" />
+            <img className="mascot" src={reaper} alt="mascot" />
           </div>
           <div className="right-content text-box">
             <h2 className="title">
@@ -45,20 +47,31 @@ export default function Home() {
         <div className="h-box">
           <div className="left-content text-box">
             <h2 className="title">Start building your personal cookbook</h2>
-            <p>Save recipes to your library to access them anywhere.</p>
-            <button className="btn-default" type="button">
-              dasdfs
-            </button>
+            <p>Manage recipes from your personal library.</p>
+            <ul>
+              <li>
+                <FontAwesomeIcon className="icon" icon={faCircle} /> Save
+                imported recipes and custom recipes
+              </li>
+              <li>
+                <FontAwesomeIcon className="icon" icon={faCircle} /> Access
+                saved recipes across devices
+              </li>
+              <li>
+                <FontAwesomeIcon className="icon" icon={faCircle} /> Export
+                recipe pdfs for printing and sharing
+              </li>
+            </ul>
           </div>
           <div className="right-content">
-            <img src={reaperReading} alt="" />
+            <img className="mascot" src={reaperReading} alt="" />
           </div>
         </div>
       </div>
       <div id="home-window-3">
         <div className="h-box">
           <div className="left-content">
-            <img src={reaperCooking} alt="reaper-cooking" />
+            <img className="mascot" src={reaperCooking} alt="reaper-cooking" />
           </div>
           <div className="right-content text-box">
             <h2 className="title">
