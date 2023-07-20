@@ -6,7 +6,6 @@ import getRecipeFromUrl from "../../utils/getRecipeFromUrl";
 import "./RecipeScrapingForm.css";
 
 export default function RecipeScrapingForm({ handleResponse, variant }) {
-  const [inputError, setInputError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,15 +37,9 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
             id="url-input"
             placeholder="Paste a recipe's URL"
             onFocus={() => {
-              setInputError("");
               setSubmitError("");
             }}
           />
-          {inputError && (
-            <Alert id="rsf-input-error" severity="error">
-              {inputError}
-            </Alert>
-          )}
           <button className="btn-main" type="submit">
             Get Recipe
           </button>
