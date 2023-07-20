@@ -46,7 +46,7 @@
 }
 
 #home-page li, #home-page li .icon {
-  color: var(--onyx);
+  color: var(--slate-gray);
   margin-right: .8rem;
 }
 
@@ -61,9 +61,9 @@
 }
 
 #home-window-1 .mouse-scroll-gif {
-  height: 2.5rem;
+  height: 2rem;
   opacity: 60%;
-  margin-bottom: .75rem;
+  margin-bottom: .5rem;
   transition: opacity .35s ease-in-out;
 }
 
@@ -71,6 +71,8 @@
   opacity: 0%;
 }
 
-/* Page 2 */
+#home-page #signup-form {
+  margin-top: -40vh;
+}
 
 

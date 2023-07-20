@@ -7,6 +7,7 @@ import reaper from "../assets/reaper.png";
 import reaperReading from "../assets/reaper-reading.png";
 import reaperCooking from "../assets/reaper-cooking.png";
 import mouseScroll from "../assets/mouse-scroll.gif";
+import Signup from "./Signup";
 
 export default function Home() {
   const [mouseScrollActive, setMouseScrollActive] = useState(true);
@@ -46,7 +47,7 @@ export default function Home() {
       <div id="home-window-2">
         <div className="h-box">
           <div className="left-content text-box">
-            <h2 className="title">Start building your personal cookbook</h2>
+            <h2 className="title">Start building your online cookbook</h2>
             <p>Manage recipes from your personal library.</p>
             <ul>
               <li>
@@ -74,17 +75,26 @@ export default function Home() {
             <img className="mascot" src={reaperCooking} alt="reaper-cooking" />
           </div>
           <div className="right-content text-box">
-            <h2 className="title">
-              Create and customize recipes to make them yours
-            </h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
-              quasi harum temporibus!
-            </p>
-            <button className="btn-default" type="button" />
+            <h2 className="title">Create and customize</h2>
+            <p>Add a personal touch to classic recipes.</p>
+            <ul>
+              <li>
+                <FontAwesomeIcon className="icon" icon={faCircle} /> Edit recipe
+                ingredients, instructions and more
+              </li>
+              <li>
+                <FontAwesomeIcon className="icon" icon={faCircle} /> Adjust
+                recipe yields
+              </li>
+              <li>
+                <FontAwesomeIcon className="icon" icon={faCircle} /> Create new
+                recipes from scratch
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+      <Signup />
     </div>
   );
 }
