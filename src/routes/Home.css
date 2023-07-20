@@ -35,7 +35,7 @@
   margin-top: 10vh;
 }
 
-#home-page p {
+#home-page .text-box p {
   margin-bottom: 2rem;
   color: var(--french-gray-2);
 }
@@ -54,7 +54,7 @@
   height: 100%;
 }
 
-#home-page h2 {
+#home-page .text-box h2 {
   font-size: 3.3rem;
   font-weight: 900;
   margin-bottom: .8rem;
@@ -71,8 +71,12 @@
   opacity: 0%;
 }
 
-#home-page #signup-form {
-  margin-top: -40vh;
+#home-page .form-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 25vh;
 }
 
-
+#home-page #signup-form h2 {
+  font-size: 1.8rem;
+}

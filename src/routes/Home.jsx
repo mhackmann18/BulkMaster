@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
 import reaper from "../assets/reaper.png";
 import reaperReading from "../assets/reaper-reading.png";
 import reaperCooking from "../assets/reaper-cooking.png";
 import mouseScroll from "../assets/mouse-scroll.gif";
-import Signup from "./Signup";
+import SignupForm from "../components/SignupForm";
 
 export default function Home() {
   const [mouseScrollActive, setMouseScrollActive] = useState(true);
@@ -80,7 +81,7 @@ export default function Home() {
             <ul>
               <li>
                 <FontAwesomeIcon className="icon" icon={faCircle} /> Edit recipe
-                ingredients, instructions and more
+                ingredients, instructions, and more
               </li>
               <li>
                 <FontAwesomeIcon className="icon" icon={faCircle} /> Adjust
@@ -94,7 +95,16 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Signup />
+      <div className="form-wrapper">
+        <SignupForm
+          headerText="Get started"
+          headerElement={
+            <p id="signup-msg">
+              Already have an account? <Link to="/login">Log in</Link>
+            </p>
+          }
+        />
+      </div>
     </div>
   );
 }

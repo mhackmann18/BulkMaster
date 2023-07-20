@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
+import PropTypes from "prop-types";
 import User from "../../utils/UserController";
 import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
 import useUser from "../../hooks/useUser";
 import "./account-form.css";
 
 // TODO: Refactor to react-hook-form
-export default function SignupForm() {
+export default function SignupForm({ headerText, headerElement }) {
   const [usernameInputError, setUsernameInputError] = useState("");
   const [passwordInputError, setPasswordInputError] = useState("");
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
@@ -111,12 +112,8 @@ export default function SignupForm() {
 
   return (
     <form id="signup-form" className="account-form" onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-      <p id="signup-msg">
-        Import and customize your favorite recipes. Create your own recipes.
-        Save it all in one place. Already have an account?{" "}
-        <Link to="/login">Log in</Link>
-      </p>
+      <h2>{headerText}</h2>
+      {headerElement}
       <label htmlFor="username">Username</label>
       <input
         name="username"
@@ -158,3 +155,13 @@ export default function SignupForm() {
     </form>
   );
 }
+
+SignupForm.propTypes = {
+  headerText: PropTypes.string,
+  headerElement: PropTypes.element,
+};
+
+SignupForm.defaultProps = {
+  headerText: "Sign up",
+  headerElement: null,
+};
