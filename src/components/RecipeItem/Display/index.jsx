@@ -22,6 +22,7 @@ export default function RecipeDisplay({
   startRecipe,
   switchToForm,
   setStartRecipe,
+  buttonsComponent,
 }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
   const {
@@ -107,52 +108,54 @@ export default function RecipeDisplay({
           />
         }
         buttonsComponent={
-          <>
-            <button
-              className="btn-default"
-              onClick={() => navigate(-1)}
-              type="button"
-            >
-              <FontAwesomeIcon
-                className="button-panel-icon"
-                icon={faArrowLeft}
-                size="sm"
-              />
-              Back
-            </button>
-            {/* <OpenCalculatorButton
+          buttonsComponent || (
+            <>
+              <button
+                className="btn-default"
+                onClick={() => navigate(-1)}
+                type="button"
+              >
+                <FontAwesomeIcon
+                  className="button-panel-icon"
+                  icon={faArrowLeft}
+                  size="sm"
+                />
+                Back
+              </button>
+              {/* <OpenCalculatorButton
               recipe={recipe}
               updateRecipe={(newRecipe) =>
                 setRecipe(new Recipe({ ...newRecipe }))
               }
             /> */}
-            <button
-              className="btn-default"
-              onClick={switchToForm}
-              type="button"
-            >
-              <FontAwesomeIcon
-                className="button-panel-icon"
-                icon={faPenToSquare}
-                size="sm"
-              />
-              Edit
-            </button>
-            {recipeStatus === "imported" && (
               <button
-                type="button"
-                onClick={handleSaveButtonClick}
                 className="btn-default"
+                onClick={switchToForm}
+                type="button"
               >
                 <FontAwesomeIcon
                   className="button-panel-icon"
-                  icon={faBook}
+                  icon={faPenToSquare}
                   size="sm"
                 />
-                Save
+                Edit
               </button>
-            )}
-          </>
+              {recipeStatus === "imported" && (
+                <button
+                  type="button"
+                  onClick={handleSaveButtonClick}
+                  className="btn-default"
+                >
+                  <FontAwesomeIcon
+                    className="button-panel-icon"
+                    icon={faBook}
+                    size="sm"
+                  />
+                  Save
+                </button>
+              )}
+            </>
+          )
         }
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
@@ -179,6 +182,13 @@ export default function RecipeDisplay({
 
 RecipeDisplay.propTypes = {
   startRecipe: PropTypes.instanceOf(Recipe).isRequired,
-  switchToForm: PropTypes.func.isRequired,
-  setStartRecipe: PropTypes.func.isRequired,
+  switchToForm: PropTypes.func,
+  setStartRecipe: PropTypes.func,
+  buttonsComponent: PropTypes.element,
+};
+
+RecipeDisplay.defaultProps = {
+  switchToForm: () => null,
+  setStartRecipe: () => null,
+  buttonsComponent: null,
 };

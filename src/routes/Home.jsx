@@ -9,7 +9,7 @@ import reaperReading from "../assets/reaper-reading.png";
 import reaperCooking from "../assets/reaper-cooking.png";
 import mouseScroll from "../assets/mouse-scroll.gif";
 import SignupForm from "../components/SignupForm";
-import RecipeItem from "../components/RecipeItem";
+import HomeRecipeItem from "../components/HomeRecipeItem";
 import Recipe from "../utils/Recipe";
 import "./Home.css";
 
@@ -26,7 +26,6 @@ export default function Home() {
   });
 
   const handleRSFSubmit = (data) => {
-    console.log(data);
     setRecipe(new Recipe({ ...data }));
   };
 
@@ -137,7 +136,13 @@ export default function Home() {
       <Modal id="recipe-modal" open={!!recipe} onClose={() => setRecipe(null)}>
         <Fade in={!!recipe}>
           <div className="modal-box">
-            {recipe && <RecipeItem startRecipe={recipe} />}
+            {recipe && (
+              <HomeRecipeItem
+                recipe={recipe}
+                onBackClick={() => setRecipe(null)}
+                openLoginModal={() => null}
+              />
+            )}
           </div>
         </Fade>
       </Modal>
