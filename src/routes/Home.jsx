@@ -39,10 +39,14 @@ export default function Home() {
           </div>
           <div className="right-content text-box">
             <div>
-              <h2 className="title">Harvest recipes from across the web</h2>
+              <h2 className="title">
+                Harvest recipes from <br />
+                across the web
+              </h2>
               <p>
                 No need to scroll through ads and walls of text to reach a
-                recipe. RecipeReaper will find it for you.
+                recipe. <br />
+                RecipeReaper will find it for you.
               </p>
               <RecipeScrapingForm
                 variant="inline"
@@ -56,6 +60,9 @@ export default function Home() {
           src={mouseScroll}
           alt="mouse-gif"
         />
+      </div>
+      <div className="divider-wrapper">
+        <div className="divider" />
       </div>
       <div id="home-window-2" className="home-window">
         <div className="h-box">
@@ -84,6 +91,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="divider-wrapper">
+        <div className="divider" />
+      </div>
       <div id="home-window-3" className="home-window">
         <div className="h-box">
           <div className="left-content">
@@ -110,6 +120,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="divider-wrapper">
+        <div className="divider" />
       </div>
       <div className="form-wrapper">
         <SignupForm
