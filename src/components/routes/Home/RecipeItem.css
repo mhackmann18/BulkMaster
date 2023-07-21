@@ -1,0 +1,9 @@
+#recipe-item-signup-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#recipe-item-signup-modal .signup-form-wrapper {
+  background-color: var(--white);
+}

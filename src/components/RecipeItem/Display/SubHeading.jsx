@@ -10,6 +10,7 @@ export default function SubHeading({
   cookTime,
   onSliderChange,
   onSliderBlur,
+  onServingsClick,
 }) {
   if (!prepTime && !cookTime && !servings) {
     return false;
@@ -29,7 +30,7 @@ export default function SubHeading({
         <button
           type="button"
           className={`btn-link servings-btn${sliderAnchorEl ? " active" : ""}`}
-          onClick={handleServingsButtonClick}
+          onClick={onServingsClick || handleServingsButtonClick}
         >
           {servings}
         </button>
@@ -55,10 +56,15 @@ SubHeading.propTypes = {
   cookTime: PropTypes.number,
   onSliderChange: PropTypes.func.isRequired,
   onSliderBlur: PropTypes.func.isRequired,
+  onServingsClick: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.oneOf([null]),
+  ]),
 };
 
 SubHeading.defaultProps = {
   servings: 0,
   prepTime: 0,
   cookTime: 0,
+  onServingsClick: null,
 };

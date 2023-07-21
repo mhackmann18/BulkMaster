@@ -23,6 +23,7 @@ export default function RecipeDisplay({
   switchToForm,
   setStartRecipe,
   buttonsComponent,
+  onServingsClick,
 }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
   const {
@@ -105,6 +106,7 @@ export default function RecipeDisplay({
             cookTime={cookTime}
             onSliderChange={handleChange}
             onSliderBlur={handleBlur}
+            onServingsClick={onServingsClick}
           />
         }
         buttonsComponent={
@@ -185,10 +187,15 @@ RecipeDisplay.propTypes = {
   switchToForm: PropTypes.func,
   setStartRecipe: PropTypes.func,
   buttonsComponent: PropTypes.element,
+  onServingsClick: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.oneOf([null]),
+  ]),
 };
 
 RecipeDisplay.defaultProps = {
   switchToForm: () => null,
   setStartRecipe: () => null,
   buttonsComponent: null,
+  onServingsClick: null,
 };

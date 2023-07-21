@@ -140,7 +140,6 @@ export default function Home() {
               <HomeRecipeItem
                 recipe={recipe}
                 onBackClick={() => setRecipe(null)}
-                openLoginModal={() => null}
               />
             )}
           </div>
