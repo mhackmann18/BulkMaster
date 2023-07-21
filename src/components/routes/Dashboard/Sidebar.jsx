@@ -11,8 +11,8 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
-import ToggleTheme from "../common/ToggleTheme";
-import "./index.css";
+import ToggleTheme from "../../common/ToggleTheme";
+import "./Sidebar.css";
 
 export default function Sidebar({ username, collapsed, setCollapsed }) {
   const currentPath = useLocation().pathname;

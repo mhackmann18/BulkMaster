@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { Modal, Fade } from "@mui/material";
-import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
-import reaper from "../assets/reaper.png";
-import reaperReading from "../assets/reaper-reading.png";
-import reaperCooking from "../assets/reaper-cooking.png";
-import mouseScroll from "../assets/mouse-scroll.gif";
-import SignupForm from "../components/SignupForm";
-import HomeRecipeItem from "../components/HomeRecipeItem";
-import Recipe from "../utils/Recipe";
-import "./Home.css";
+import RecipeScrapingForm from "../../common/RecipeScrapingForm";
+import reaper from "../../../assets/reaper.png";
+import reaperReading from "../../../assets/reaper-reading.png";
+import reaperCooking from "../../../assets/reaper-cooking.png";
+import mouseScroll from "../../../assets/mouse-scroll.gif";
+import SignupForm from "../Signup/Form";
+import HomeRecipeItem from "./RecipeItem";
+import Recipe from "../../../utils/Recipe";
+import "./index.css";
 
 export default function Home() {
   const [mouseScrollActive, setMouseScrollActive] = useState(true);

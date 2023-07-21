@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import PropTypes from "prop-types";
-import User from "../../utils/UserController";
-import { checkUsernameInput, checkPasswordInput } from "../../utils/validation";
-import useUser from "../../hooks/useUser";
-import "./account-form.css";
+import User from "../../../utils/UserController";
+import {
+  checkUsernameInput,
+  checkPasswordInput,
+} from "../../../utils/validation";
+import useUser from "../../../hooks/useUser";
+import "./Form.css";
 
 // TODO: Refactor to react-hook-form
 export default function SignupForm({ headerText, headerElement }) {

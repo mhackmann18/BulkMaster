@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import RecipeItem from "../components/RecipeItem";
-import Recipe from "../utils/Recipe";
-import User from "../utils/UserController";
-import Spinner from "../components/common/Spinner";
-import useToast from "../hooks/useToast";
-import Toast from "../components/common/Toast";
-import NoContentMessage from "../components/common/NoContentMessage";
-import useHandleAuthError from "../hooks/useHandleAuthError";
+import RecipeItem from "../RecipeItem";
+import Recipe from "../../utils/Recipe";
+import User from "../../utils/UserController";
+import Spinner from "../common/Spinner";
+import useToast from "../../hooks/useToast";
+import Toast from "../common/Toast";
+import NoContentMessage from "../common/NoContentMessage";
+import useHandleAuthError from "../../hooks/useHandleAuthError";
 import "./Recipe.css";
 
 export default function RecipePage({ edit }) {

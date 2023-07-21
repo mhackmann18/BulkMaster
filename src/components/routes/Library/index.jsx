@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import LibraryItem from "../components/LibraryItem";
-import Recipe from "../utils/Recipe";
-import User from "../utils/UserController";
-import Toast from "../components/common/Toast";
-import useToast from "../hooks/useToast";
-import Spinner from "../components/common/Spinner";
-import NoContentMessage from "../components/common/NoContentMessage";
-import useHandleAuthError from "../hooks/useHandleAuthError";
-import "./Library.css";
+import LibraryItem from "./Item";
+import Recipe from "../../../utils/Recipe";
+import User from "../../../utils/UserController";
+import Toast from "../../common/Toast";
+import useToast from "../../../hooks/useToast";
+import Spinner from "../../common/Spinner";
+import NoContentMessage from "../../common/NoContentMessage";
+import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import "./index.css";
 
 export default function Library() {
   const [recipes, setRecipes] = useState(null);

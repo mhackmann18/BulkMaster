@@ -1,6 +1,6 @@
-import ToggleTheme from "../common/ToggleTheme";
+import ToggleTheme from "../../common/ToggleTheme";
 import SettingsListItem from "./SettingsListItem";
-import useUser from "../../hooks/useUser";
+import useUser from "../../../hooks/useUser";
 
 export default function Theme() {
   const {

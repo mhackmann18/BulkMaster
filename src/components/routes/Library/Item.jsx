@@ -7,13 +7,13 @@ import {
   faTrashCan,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import StandardModal from "../common/StandardModal";
-import ConfirmationDisplay from "../common/ConfirmationDisplay";
-import useUser from "../../hooks/useUser";
-import Recipe from "../../utils/Recipe";
-import User from "../../utils/UserController";
-import useHandleAuthError from "../../hooks/useHandleAuthError";
-import "./index.css";
+import StandardModal from "../../common/StandardModal";
+import ConfirmationDisplay from "../../common/ConfirmationDisplay";
+import useUser from "../../../hooks/useUser";
+import Recipe from "../../../utils/Recipe";
+import User from "../../../utils/UserController";
+import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import "./Item.css";
 
 export default function LibraryItem({
   recipe,

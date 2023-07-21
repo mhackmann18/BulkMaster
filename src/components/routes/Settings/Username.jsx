@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import SettingsListItem from "./SettingsListItem";
 import ChangeUsernameForm from "./ChangeUsernameForm";
-import useUser from "../../hooks/useUser";
+import useUser from "../../../hooks/useUser";
 
 export default function Username({ onChangeSuccess }) {
   const [editing, setEditing] = useState(false);

@@ -1,7 +1,7 @@
 import { useLocation, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import RecipeItem from "../components/RecipeItem";
-import Recipe from "../utils/Recipe";
+import RecipeItem from "../RecipeItem";
+import Recipe from "../../utils/Recipe";
 import "./Import.css";
 import "./ImportedRecipe.css";
 

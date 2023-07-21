@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import SignupForm from "../components/SignupForm";
-import "./account-page.css";
+import SignupForm from "./Form";
+import "./index.css";
 
 export default function Signup() {
   return (

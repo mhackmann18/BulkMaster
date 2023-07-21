@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import SettingsList from "../components/SettingsList";
-import Button from "../components/common/Button";
-import useUser from "../hooks/useUser";
-import StandardModal from "../components/common/StandardModal";
-import ConfirmationDisplay from "../components/common/ConfirmationDisplay";
-import User from "../utils/UserController";
-import useHandleAuthError from "../hooks/useHandleAuthError";
-import Toast from "../components/common/Toast";
-import useToast from "../hooks/useToast";
-import "./Settings.css";
+import SettingsList from "./List";
+import Button from "../../common/Button";
+import useUser from "../../../hooks/useUser";
+import StandardModal from "../../common/StandardModal";
+import ConfirmationDisplay from "../../common/ConfirmationDisplay";
+import User from "../../../utils/UserController";
+import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import Toast from "../../common/Toast";
+import useToast from "../../../hooks/useToast";
+import "./index.css";
 
 export default function Settings() {
   const [modalOpen, setModalOpen] = useState(false);

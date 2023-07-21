@@ -1,11 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Alert } from "@mui/material";
-import Button from "../common/Button";
-import { checkUsernameInput } from "../../utils/validation";
-import User from "../../utils/UserController";
-import useUser from "../../hooks/useUser";
-import useHandleAuthError from "../../hooks/useHandleAuthError";
+import Button from "../../common/Button";
+import { checkUsernameInput } from "../../../utils/validation";
+import User from "../../../utils/UserController";
+import useUser from "../../../hooks/useUser";
+import useHandleAuthError from "../../../hooks/useHandleAuthError";
 import "./ChangeSettingForm.css";
 
 export default function ChangeUsernameForm({ onCancel, onSuccess }) {

@@ -1,6 +1,6 @@
-import RecipeItem from "../components/RecipeItem";
-import Recipe from "../utils/Recipe";
-import Ingredient from "../utils/Ingredient";
+import RecipeItem from "../RecipeItem";
+import Recipe from "../../utils/Recipe";
+import Ingredient from "../../utils/Ingredient";
 import "./Create.css";
 
 export default function Create() {

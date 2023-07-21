@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Recipe from "../utils/Recipe";
-import RecipeDisplay from "./RecipeItem/Display";
-import RecipeItemButtons from "./RecipeItem/Buttons";
+import Recipe from "../../../utils/Recipe";
+import RecipeDisplay from "../../RecipeItem/Display";
+import RecipeItemButtons from "../../RecipeItem/Buttons";
 
 // Component is intended to be used when no user is logged in
 export default function HomeRecipeItem({

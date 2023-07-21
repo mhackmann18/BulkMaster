@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import "./Splash.css";
+import Navbar from "./Navbar";
+import "./index.css";
 
 export default function Splash() {
   return (

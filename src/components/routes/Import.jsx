@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import RecipeScrapingForm from "../components/common/RecipeScrapingForm";
+import RecipeScrapingForm from "../common/RecipeScrapingForm";
 import "./Import.css";
 
 export default function Import() {
