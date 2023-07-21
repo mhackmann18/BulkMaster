@@ -13,18 +13,6 @@
   --error-color: #d32f2f;
 }
 
-/* :root {
-  --eerie-black: #03045eff;
-  --onyx: #023e8aff;
-  --outer-space: #0077b6ff;
-  --slate-gray: #0096c7ff;
-  --french-gray-2: #00b4d8ff;
-  --french-gray: #48cae4ff;
-  --platinum: #90e0efff;
-  --antiflash-white: #ade8f4ff;
-  --seasalt: #caf0f8ff;
-} */
-
 * {
   padding: 0;
   margin: 0;
@@ -33,7 +21,6 @@
 
 html {
   overflow-y: scroll;
-  /* overflow-x: hidden; */
 }
 
 body, input, select, textarea {

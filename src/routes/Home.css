@@ -86,16 +86,20 @@
 }
 
 #recipe-modal {
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* height: fit-content; */
   overflow-y: scroll;
   padding: 2rem 0;
 }
 
 #recipe-modal .modal-box {
   width: 90vw;
+  /* overflow-y: scroll; */
   max-width: 1280px;
   height: fit-content;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 992px) {
@@ -185,7 +189,7 @@
   .divider-wrapper {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
   }
 
   .divider-wrapper .divider {
