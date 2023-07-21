@@ -32,23 +32,23 @@ export default function Home() {
 
   return (
     <div id="home-page">
-      <div id="home-window-1">
+      <div id="home-window-1" className="home-window">
         <div className="h-box">
           <div className="left-content">
             <img className="mascot" src={reaper} alt="mascot" />
           </div>
           <div className="right-content text-box">
-            <h2 className="title">
-              Harvest deathly good recipes from across the web
-            </h2>
-            <p>
-              No need to scroll through ads and walls of text to reach a recipe.
-              RecipeReaper will find it for you.
-            </p>
-            <RecipeScrapingForm
-              variant="inline"
-              handleResponse={handleRSFSubmit}
-            />
+            <div>
+              <h2 className="title">Harvest recipes from across the web</h2>
+              <p>
+                No need to scroll through ads and walls of text to reach a
+                recipe. RecipeReaper will find it for you.
+              </p>
+              <RecipeScrapingForm
+                variant="inline"
+                handleResponse={handleRSFSubmit}
+              />
+            </div>
           </div>
         </div>
         <img
@@ -57,53 +57,57 @@ export default function Home() {
           alt="mouse-gif"
         />
       </div>
-      <div id="home-window-2">
+      <div id="home-window-2" className="home-window">
         <div className="h-box">
           <div className="left-content text-box">
-            <h2 className="title">Start building your online cookbook</h2>
-            <p>Save recipes to your personal library.</p>
-            <ul>
-              <li>
-                <FontAwesomeIcon className="icon" icon={faCircle} /> Save
-                imported recipes and custom recipes
-              </li>
-              <li>
-                <FontAwesomeIcon className="icon" icon={faCircle} /> Access
-                saved recipes across devices
-              </li>
-              <li>
-                <FontAwesomeIcon className="icon" icon={faCircle} /> Export
-                recipe pdfs for printing and sharing
-              </li>
-            </ul>
+            <div>
+              <h2 className="title">Start building your online cookbook</h2>
+              <p>Save recipes to your personal library.</p>
+              <ul>
+                <li>
+                  <FontAwesomeIcon className="icon" icon={faCircle} />
+                  Save imported recipes and custom recipes
+                </li>
+                <li>
+                  <FontAwesomeIcon className="icon" icon={faCircle} />
+                  Access saved recipes across devices
+                </li>
+                <li>
+                  <FontAwesomeIcon className="icon" icon={faCircle} />
+                  Export recipe pdfs for printing and sharing
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="right-content">
             <img className="mascot" src={reaperReading} alt="" />
           </div>
         </div>
       </div>
-      <div id="home-window-3">
+      <div id="home-window-3" className="home-window">
         <div className="h-box">
           <div className="left-content">
             <img className="mascot" src={reaperCooking} alt="reaper-cooking" />
           </div>
           <div className="right-content text-box">
-            <h2 className="title">Create and customize</h2>
-            <p>Add a personal touch to classic recipes.</p>
-            <ul>
-              <li>
-                <FontAwesomeIcon className="icon" icon={faCircle} /> Edit recipe
-                ingredients, instructions, and more
-              </li>
-              <li>
-                <FontAwesomeIcon className="icon" icon={faCircle} /> Adjust
-                recipe yields
-              </li>
-              <li>
-                <FontAwesomeIcon className="icon" icon={faCircle} /> Create new
-                recipes from scratch
-              </li>
-            </ul>
+            <div>
+              <h2 className="title">Create and customize</h2>
+              <p>Add a personal touch to classic recipes.</p>
+              <ul>
+                <li>
+                  <FontAwesomeIcon className="icon" icon={faCircle} />
+                  Edit ingredients, instructions, and more
+                </li>
+                <li>
+                  <FontAwesomeIcon className="icon" icon={faCircle} />
+                  Adjust recipe yields
+                </li>
+                <li>
+                  <FontAwesomeIcon className="icon" icon={faCircle} />
+                  Create new recipes from scratch
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
