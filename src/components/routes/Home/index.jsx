@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Modal, Fade } from "@mui/material";
 import RecipeScrapingForm from "../../common/RecipeScrapingForm";
 import reaper from "../../../assets/reaper.png";
@@ -16,6 +16,8 @@ import "./index.css";
 export default function Home() {
   const [mouseScrollActive, setMouseScrollActive] = useState(true);
   const [recipe, setRecipe] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleScroll = (e) => {
     setMouseScrollActive(e.target.scrollingElement.scrollTop === 0);
@@ -131,6 +133,7 @@ export default function Home() {
               Already have an account? <Link to="/login">Log in</Link>
             </p>
           }
+          onSubmitSuccess={() => navigate("/dashboard")}
         />
       </div>
       <Modal id="recipe-modal" open={!!recipe} onClose={() => setRecipe(null)}>

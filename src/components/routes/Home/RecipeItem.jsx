@@ -22,7 +22,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
   };
 
   const handleSignupFormSubmitSuccess = () => {
-    navigate("/dashboard/import-recipe");
+    navigate("/dashboard/import-recipe/search", { state: { data: recipe } });
   };
 
   return (

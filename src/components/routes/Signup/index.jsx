@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignupForm from "./Form";
 import "./index.css";
 
 export default function Signup() {
+  const navigate = useNavigate();
   return (
     <div id="signup-page" className="account-page">
       <SignupForm
@@ -13,6 +14,7 @@ export default function Signup() {
             Already have an account? <Link to="/login">Log in</Link>
           </p>
         }
+        onSubmitSuccess={() => navigate("/dashboard")}
       />
     </div>
   );
