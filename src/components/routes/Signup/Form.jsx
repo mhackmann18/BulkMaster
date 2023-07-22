@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import PropTypes from "prop-types";
 import User from "../../../utils/UserController";
@@ -11,14 +10,17 @@ import useUser from "../../../hooks/useUser";
 import "./Form.css";
 
 // TODO: Refactor to react-hook-form
-export default function SignupForm({ headerText, headerElement }) {
+export default function SignupForm({
+  headerText,
+  headerElement,
+  onSubmitSuccess,
+}) {
   const [usernameInputError, setUsernameInputError] = useState("");
   const [passwordInputError, setPasswordInputError] = useState("");
   const [confirmPasswordInputError, setConfirmPasswordInputError] =
     useState("");
   const [formSubmitError, setFormSubmitError] = useState("");
   const { setUser } = useUser();
-  const navigate = useNavigate();
 
   async function handleUsernameInputBlur(e) {
     if (e.target.value) {
@@ -106,7 +108,7 @@ export default function SignupForm({ headerText, headerElement }) {
 
       if (data) {
         setUser({ ...data });
-        navigate(`/dashboard`);
+        onSubmitSuccess();
       } else if (error) {
         setFormSubmitError(message || "An unexpected error occurred");
       }
@@ -162,9 +164,11 @@ export default function SignupForm({ headerText, headerElement }) {
 SignupForm.propTypes = {
   headerText: PropTypes.string,
   headerElement: PropTypes.element,
+  onSubmitSuccess: PropTypes.func,
 };
 
 SignupForm.defaultProps = {
   headerText: "Sign up",
   headerElement: null,
+  onSubmitSuccess: () => null,
 };

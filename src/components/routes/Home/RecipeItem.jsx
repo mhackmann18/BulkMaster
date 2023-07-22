@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Modal, Fade } from "@mui/material";
 import Recipe from "../../../utils/Recipe";
 import RecipeDisplay from "../../RecipeItem/Display";
@@ -10,6 +11,7 @@ import "./RecipeItem.css";
 // Component is intended to be used when no user is logged in
 export default function HomeRecipeItem({ recipe, onBackClick }) {
   const [signupModalMessage, setSignupModalMessage] = useState(null);
+  const navigate = useNavigate();
 
   const buttonActions = {
     onBackClick,
@@ -17,6 +19,10 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
       setSignupModalMessage("Create an account to edit recipes."),
     onSaveRecipeClick: () =>
       setSignupModalMessage("Create an account to save recipes."),
+  };
+
+  const handleSignupFormSubmitSuccess = () => {
+    navigate("/dashboard/import-recipe");
   };
 
   return (
@@ -37,6 +43,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
           <div className="signup-form-wrapper">
             <SignupForm
               headerElement={<p id="signup-msg">{signupModalMessage}</p>}
+              onSubmitSuccess={handleSignupFormSubmitSuccess}
             />
           </div>
         </Fade>
