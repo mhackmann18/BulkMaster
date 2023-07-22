@@ -6,4 +6,22 @@
 
 #recipe-item-signup-modal .signup-form-wrapper {
   background-color: var(--white);
+  width: 440px;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+#recipe-item-signup-modal #signup-form {
+  margin-top: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  #recipe-item-signup-modal .signup-form-wrapper {
+    width: 90vw;
+  }
 }

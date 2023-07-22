@@ -86,20 +86,14 @@
 }
 
 #recipe-modal {
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* height: fit-content; */
   overflow-y: scroll;
-  padding: 2rem 0;
 }
 
 #recipe-modal .modal-box {
   width: 90vw;
-  /* overflow-y: scroll; */
-  max-width: 1280px;
+  max-width: 1000px;
   height: fit-content;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 @media screen and (max-width: 992px) {

@@ -35,7 +35,9 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
       >
         <Fade in={!!signupModalMessage}>
           <div className="signup-form-wrapper">
-            <SignupForm headerElement={<p>{signupModalMessage}</p>} />
+            <SignupForm
+              headerElement={<p id="signup-msg">{signupModalMessage}</p>}
+            />
           </div>
         </Fade>
       </Modal>
