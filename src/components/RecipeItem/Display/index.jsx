@@ -1,31 +1,18 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faPenToSquare,
-  faBook,
-} from "@fortawesome/free-solid-svg-icons";
 import RecipeContainer from "../RecipeContainer";
 import SubHeading from "./SubHeading";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
-import User from "../../../utils/UserController";
-import useUser from "../../../hooks/useUser";
-import Toast from "../../common/Toast";
-import useToast from "../../../hooks/useToast";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
 
 export default function RecipeDisplay({
-  startRecipe,
-  switchToForm,
-  setStartRecipe,
+  rootRecipe,
+  setRootRecipe,
   buttonsComponent,
   onServingsClick,
 }) {
-  const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
+  const [recipe, setRecipe] = useState(new Recipe({ ...rootRecipe }));
   const {
     cookTime,
     ingredients,
@@ -35,62 +22,21 @@ export default function RecipeDisplay({
     title,
     servings,
     servingSize,
-    id,
   } = recipe;
-  const { user } = useUser();
-  const navigate = useNavigate();
-  const handleAuthError = useHandleAuthError();
-  const { addSuccessToastMessage, addErrorToastMessage, closeToast, toast } =
-    useToast();
 
-  const recipeStatus = id ? "saved" : "imported";
-
-  const handleSaveButtonClick = async () => {
-    // TODO: add loading indicator
-    const { data, message, error } = await User.saveRecipe(recipe, user);
-
-    handleAuthError(error);
-
-    // Error
-    if (message) {
-      addErrorToastMessage(
-        `Unable to save recipe. ${message || "An unexpected error occurred"}`
-      );
-    }
-    // Success
-    else if (data) {
-      addSuccessToastMessage("Recipe added to library");
-    }
-  };
-
-  const handleBlur = async (newServings) => {
-    if (newServings === startRecipe.servings) {
+  const handleSliderBlur = async (newServings) => {
+    if (newServings === rootRecipe.servings) {
       return false;
     }
-    if (recipeStatus === "imported") {
-      setStartRecipe(recipe);
-    } else if (recipeStatus === "saved") {
-      const { error, message } = await User.updateRecipe(recipe, id);
-      handleAuthError(error);
-      setStartRecipe(new Recipe({ ...recipe }));
-      if (error) {
-        // Show error modal here
-        addErrorToastMessage(
-          `Unable to update recipe servings. ${
-            message || "An unexpected error occurred"
-          }`
-        );
-        setStartRecipe(new Recipe({ ...startRecipe }));
-      }
-    }
+    setRootRecipe(recipe);
   };
 
-  const handleChange = (newServings) => {
+  const handleSliderChange = (newServings) => {
     setRecipe(
       new Recipe({
-        ...startRecipe,
+        ...rootRecipe,
         servings: newServings,
-      }).multiplyIngredients(newServings / startRecipe.servings)
+      }).multiplyIngredients(newServings / rootRecipe.servings)
     );
   };
 
@@ -100,65 +46,16 @@ export default function RecipeDisplay({
         titleComponent={<h2>{title}</h2>}
         subHeadingComponent={
           <SubHeading
-            defaultServings={startRecipe.servings}
+            defaultServings={rootRecipe.servings}
             servings={servings}
             prepTime={prepTime}
             cookTime={cookTime}
-            onSliderChange={handleChange}
-            onSliderBlur={handleBlur}
+            onSliderChange={handleSliderChange}
+            onSliderBlur={handleSliderBlur}
             onServingsClick={onServingsClick}
           />
         }
-        buttonsComponent={
-          buttonsComponent || (
-            <>
-              <button
-                className="btn-default"
-                onClick={() => navigate(-1)}
-                type="button"
-              >
-                <FontAwesomeIcon
-                  className="button-panel-icon"
-                  icon={faArrowLeft}
-                  size="sm"
-                />
-                Back
-              </button>
-              {/* <OpenCalculatorButton
-              recipe={recipe}
-              updateRecipe={(newRecipe) =>
-                setRecipe(new Recipe({ ...newRecipe }))
-              }
-            /> */}
-              <button
-                className="btn-default"
-                onClick={switchToForm}
-                type="button"
-              >
-                <FontAwesomeIcon
-                  className="button-panel-icon"
-                  icon={faPenToSquare}
-                  size="sm"
-                />
-                Edit
-              </button>
-              {recipeStatus === "imported" && (
-                <button
-                  type="button"
-                  onClick={handleSaveButtonClick}
-                  className="btn-default"
-                >
-                  <FontAwesomeIcon
-                    className="button-panel-icon"
-                    icon={faBook}
-                    size="sm"
-                  />
-                  Save
-                </button>
-              )}
-            </>
-          )
-        }
+        buttonsComponent={buttonsComponent}
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
           <ol id="instructions-list">
@@ -177,15 +74,13 @@ export default function RecipeDisplay({
           )
         }
       />
-      <Toast state={toast} onClose={closeToast} />
     </div>
   );
 }
 
 RecipeDisplay.propTypes = {
-  startRecipe: PropTypes.instanceOf(Recipe).isRequired,
-  switchToForm: PropTypes.func,
-  setStartRecipe: PropTypes.func,
+  rootRecipe: PropTypes.instanceOf(Recipe).isRequired,
+  setRootRecipe: PropTypes.func.isRequired,
   buttonsComponent: PropTypes.element,
   onServingsClick: PropTypes.oneOfType([
     PropTypes.func,
@@ -194,8 +89,6 @@ RecipeDisplay.propTypes = {
 };
 
 RecipeDisplay.defaultProps = {
-  switchToForm: () => null,
-  setStartRecipe: () => null,
   buttonsComponent: null,
   onServingsClick: null,
 };

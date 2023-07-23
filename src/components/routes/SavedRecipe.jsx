@@ -9,7 +9,7 @@ import useToast from "../../hooks/useToast";
 import Toast from "../common/Toast";
 import NoContentMessage from "../common/NoContentMessage";
 import useHandleAuthError from "../../hooks/useHandleAuthError";
-import "./Recipe.css";
+import "./SavedRecipe.css";
 
 export default function RecipePage({ edit }) {
   const [recipe, setRecipe] = useState(null);

@@ -8,7 +8,7 @@ import Import from "./components/routes/Import";
 import Create from "./components/routes/Create";
 import Library from "./components/routes/Library";
 import Settings from "./components/routes/Settings";
-import Recipe from "./components/routes/Recipe";
+import SavedRecipe from "./components/routes/SavedRecipe";
 import ImportedRecipe from "./components/routes/ImportedRecipe";
 import Home from "./components/routes/Home";
 import Signup from "./components/routes/Signup";
@@ -68,7 +68,7 @@ export default function App() {
               />
               <Route path="create-recipe" element={<Create />} />
               <Route path="recipe-library" element={<Library />} />
-              <Route path="recipe-library/:id/" element={<Recipe />} />
+              <Route path="recipe-library/:id/" element={<SavedRecipe />} />
               <Route path="settings" element={<Settings />} />
             </Route>
           </Routes>
