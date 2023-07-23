@@ -8,14 +8,15 @@ import Recipe from "../../utils/Recipe";
 import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
 import useToast from "../../hooks/useToast";
 import Toast from "../common/Toast";
-import Buttons from "./Buttons";
+import RecipeButtons from "./Buttons";
 
-export default function RecipeItem({ startRecipe, startingDisplayType }) {
+export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
   const [displayType, setDisplayType] = useState(startingDisplayType);
   const navigate = useNavigate();
   const redirectOnAuthError = useRedirectOnAuthError();
-  const { addErrorToastMessage, toast, closeToast } = useToast();
+  const { addErrorToastMessage, toast, closeToast, addSuccessToastMessage } =
+    useToast();
 
   console.log(recipe);
 
@@ -33,14 +34,29 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
     if (error) {
       redirectOnAuthError(error);
       addErrorToastMessage(
-        `Unable to update recipe servings. ${
-          message || "An unexpected error occurred"
-        }`
+        `Unable to update recipe. ${message || "An unexpected error occurred"}`
       );
       return;
     }
 
     setRecipe(new Recipe({ ...newRecipe }));
+  };
+
+  const handleFormSubmit = async (recipeData) => {
+    const { data, error, message } = await User.updateRecipe(
+      recipeData,
+      recipe.id
+    );
+
+    if (data) {
+      addSuccessToastMessage("Recipe updated");
+      setRecipe(new Recipe({ ...recipeData }));
+    } else if (error) {
+      redirectOnAuthError(error);
+      addErrorToastMessage(
+        `Unable to update recipe. ${message || "An unexpected error occurred"}`
+      );
+    }
   };
 
   return (
@@ -50,7 +66,7 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
           rootRecipe={recipe}
           setRootRecipe={updateRecipe}
           buttonsComponent={
-            <Buttons
+            <RecipeButtons
               buttonActions={{
                 onBackClick: () => navigate(-1),
                 onEditClick: () => setDisplayType("form"),
@@ -60,9 +76,9 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
         />
       ) : (
         <RecipeForm
-          startRecipe={recipe}
+          rootRecipe={recipe}
           onCancel={handleCancelButtonClick}
-          setStartRecipe={setRecipe}
+          onSubmit={handleFormSubmit}
         />
       )}
       <Toast state={toast} onClose={closeToast} />
@@ -70,11 +86,11 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
   );
 }
 
-RecipeItem.propTypes = {
+SavedRecipeItem.propTypes = {
   startRecipe: PropTypes.instanceOf(Recipe).isRequired,
   startingDisplayType: PropTypes.oneOf(["form", "div"]),
 };
 
-RecipeItem.defaultProps = {
+SavedRecipeItem.defaultProps = {
   startingDisplayType: "div",
 };

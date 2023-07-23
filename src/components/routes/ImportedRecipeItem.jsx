@@ -39,6 +39,11 @@ export default function ImportedRecipeItem({ startRecipe }) {
     }
   };
 
+  const handleFormSubmit = (updateRecipe) => {
+    setRecipe(new Recipe({ ...updateRecipe }));
+    addSuccessToastMessage("Changes saved");
+  };
+
   return (
     <>
       {displayType === "div" ? (
@@ -57,9 +62,9 @@ export default function ImportedRecipeItem({ startRecipe }) {
         />
       ) : (
         <RecipeForm
-          startRecipe={recipe}
+          rootRecipe={recipe}
           onCancel={() => setDisplayType("div")}
-          setStartRecipe={setRecipe}
+          onSubmit={handleFormSubmit}
         />
       )}
       <Toast state={toast} onClose={closeToast} />

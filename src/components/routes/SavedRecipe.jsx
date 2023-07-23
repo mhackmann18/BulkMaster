@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import RecipeItem from "../RecipeItem";
+import SavedRecipeItem from "../RecipeItem/SavedRecipeItem";
 import Recipe from "../../utils/Recipe";
 import User from "../../utils/UserController";
 import Spinner from "../common/Spinner";
@@ -40,7 +40,7 @@ export default function RecipePage({ edit }) {
   }, []);
 
   const content = recipe ? (
-    <RecipeItem
+    <SavedRecipeItem
       startRecipe={recipe}
       startingDisplayType={state?.startAsForm || edit ? "form" : "div"}
     />

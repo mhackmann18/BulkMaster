@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faArrowLeft,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import RecipeContainer from "../RecipeContainer";
 import TitleInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
@@ -23,12 +19,14 @@ import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
-import User from "../../../utils/UserController";
-import useUser from "../../../hooks/useUser";
-import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 
-export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
-  const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
+export default function RecipeForm({
+  rootRecipe,
+  buttonsComponent,
+  onCancel,
+  onSubmit,
+}) {
+  const [recipe, setRecipe] = useState(new Recipe({ ...rootRecipe }));
   const {
     cookTime,
     ingredients,
@@ -40,12 +38,6 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     servingSize,
     id,
   } = recipe;
-  const redirectOnAuthError = useRedirectOnAuthError();
-
-  // eslint-disable-next-line no-nested-ternary
-  const recipeStatus = title ? (id ? "existing" : "imported") : "new";
-
-  const { user } = useUser();
 
   // Toast
 
@@ -74,10 +66,10 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
 
   useEffect(() => {
     const recipeData = Recipe.parseFormData(watch(), id);
-    if (!startRecipe.isEquivalent(recipeData) && !isFormDirty) {
+    if (!rootRecipe.isEquivalent(recipeData) && !isFormDirty) {
       setIsFormDirty(true);
     }
-    if (startRecipe.isEquivalent(recipeData) && isFormDirty) {
+    if (rootRecipe.isEquivalent(recipeData) && isFormDirty) {
       setIsFormDirty(false);
     }
   }, [watch()]);
@@ -85,53 +77,23 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   const handleCloseButtonClick = () => {
     const recipeData = Recipe.parseFormData(watch(), id);
 
-    if (!startRecipe.isEquivalent(recipeData)) {
+    if (!rootRecipe.isEquivalent(recipeData)) {
       setCloseFormModalOpen(true);
     } else {
       onCancel();
     }
   };
 
-  const onSubmit = async (formData) => {
-    const recipeData = Recipe.parseFormData(formData, id);
+  const onFormSubmit = (formData) => {
+    if (isFormDirty) {
+      const recipeData = Recipe.parseFormData(formData, id);
 
-    if (recipeData.error) {
-      addErrorToastMessage(recipeData.error);
-
-      // Recipe is custom
-    } else if (recipeStatus === "new") {
-      const { data, error, message } = await User.saveRecipe(recipeData, user);
-
-      redirectOnAuthError(error);
-
-      if (data) {
-        addSuccessToastMessage("New recipe added to library");
-      } else if (error) {
-        addErrorToastMessage(
-          `Unable to save recipe. ${message || "An unexpected error occurred"}`
-        );
-      }
-      // Recipe is being edited
-    } else if (recipeStatus === "existing" && isFormDirty) {
-      const { data, error, message } = await User.updateRecipe(recipeData, id);
-
-      redirectOnAuthError(error);
-
-      if (data) {
-        addSuccessToastMessage("Recipe updated");
-        setStartRecipe(new Recipe({ ...recipeData }));
-      } else if (error) {
-        addErrorToastMessage(
-          `Unable to update recipe. ${
-            message || "An unexpected error occurred"
-          }`
-        );
+      if (recipeData.error) {
+        addErrorToastMessage(recipeData.error);
+        return false;
       }
 
-      // Recipe is imported
-    } else if (recipeStatus === "imported" && isFormDirty) {
-      setStartRecipe(new Recipe({ ...recipeData }));
-      addSuccessToastMessage("Changes saved");
+      onSubmit(recipeData);
     }
   };
 
@@ -139,13 +101,13 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     <form
       id="recipe"
       className="form-style"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onFormSubmit)}
       noValidate
     >
       <RecipeContainer
         titleComponent={
           <TitleInput
-            errorMessage={errors.title && errors.title.message}
+            errorMessage={errors.title?.message}
             startValue={title}
             {...register("title", {
               validate: RecipeValidator.getTitleErrMsg,
@@ -156,7 +118,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
           <>
             <ServingsInput
               startValue={servings}
-              errorMessage={errors.servings && errors.servings.message}
+              errorMessage={errors.servings?.message}
               {...register("servings", {
                 validate: RecipeValidator.getServingsErrMsg,
               })}
@@ -164,7 +126,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
             <TimeInput
               labelText="Prep Time"
               startValue={prepTime}
-              errorMessage={errors.prepTime && errors.prepTime.message}
+              errorMessage={errors.prepTime?.message}
               {...register("prepTime", {
                 validate: RecipeValidator.getTimeErrMsg,
                 required: false,
@@ -173,7 +135,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
             <TimeInput
               labelText="Cook Time"
               startValue={cookTime}
-              errorMessage={errors.cookTime && errors.cookTime.message}
+              errorMessage={errors.cookTime?.message}
               {...register("cookTime", {
                 validate: RecipeValidator.getTimeErrMsg,
                 required: false,
@@ -182,7 +144,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
           </>
         }
         buttonsComponent={
-          recipeStatus === "existing" || recipeStatus === "imported" ? (
+          buttonsComponent || (
             <>
               <button
                 onClick={handleCloseButtonClick}
@@ -208,15 +170,6 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
                 Save Changes
               </button>
             </>
-          ) : (
-            <button type="submit" className="btn-default">
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="button-panel-icon"
-                size="sm"
-              />
-              Create Recipe
-            </button>
           )
         }
         ingredientsHeaderButtonComponent={
@@ -262,7 +215,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
             }}
             register={register}
             watch={watch}
-            errors={errors && errors.instructions}
+            errors={errors.instructions}
           />
         }
         nutrientsComponent={
@@ -270,7 +223,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
             <ServingSizeInput
               servingSize={servingSize}
               register={register}
-              servingSizeErrors={errors && errors.servingSize}
+              servingSizeErrors={errors.servingSize}
             />
             <NutrientsList
               nutrients={nutrients}
@@ -280,7 +233,6 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
           </>
         }
       />
-
       <StandardModal open={closeFormModalOpen} handleClose={closeFormModal}>
         <ConfirmationDisplay
           headerText="Unsaved Changes"
@@ -299,11 +251,13 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
 }
 
 RecipeForm.propTypes = {
-  startRecipe: PropTypes.instanceOf(Recipe).isRequired,
+  rootRecipe: PropTypes.instanceOf(Recipe).isRequired,
   onCancel: PropTypes.func,
-  setStartRecipe: PropTypes.func.isRequired,
+  buttonsComponent: PropTypes.element,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 RecipeForm.defaultProps = {
   onCancel: () => null,
+  buttonsComponent: null,
 };
