@@ -5,12 +5,12 @@ import Button from "../../common/Button";
 import { checkPasswordInput } from "../../../utils/validation";
 import User from "../../../utils/UserController";
 import useUser from "../../../hooks/useUser";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import "./ChangeSettingForm.css";
 
 export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
   const [inputError, setInputError] = useState("");
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
   const { user } = useUser();
 
   const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ export default function ChangePasswordForm({ onCancel, onSuccessfulSubmit }) {
         user
       );
 
-      handleAuthError(error);
+      redirectOnAuthError(error);
 
       if (data) {
         setInputError("");

@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import config from "../utils/config";
 
-export default function useHandleAuthError() {
+export default function useRedirectOnAuthError() {
   const navigate = useNavigate();
 
-  const handleAuthError = (error) => {
+  const redirectOnAuthError = (error) => {
     if (error === config.INVALID_TOKEN_ERR || error === config.NO_TOKEN_ERR) {
       navigate("/login", {
         state: {
@@ -14,5 +14,5 @@ export default function useHandleAuthError() {
     }
   };
 
-  return handleAuthError;
+  return redirectOnAuthError;
 }

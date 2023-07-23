@@ -5,12 +5,12 @@ import Button from "../../common/Button";
 import { checkUsernameInput } from "../../../utils/validation";
 import User from "../../../utils/UserController";
 import useUser from "../../../hooks/useUser";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import "./ChangeSettingForm.css";
 
 export default function ChangeUsernameForm({ onCancel, onSuccess }) {
   const [inputError, setInputError] = useState("");
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
   const { user, setUser } = useUser();
 
   async function handleSubmit(e) {
@@ -24,7 +24,7 @@ export default function ChangeUsernameForm({ onCancel, onSuccess }) {
     } else {
       User.update({ username: newUsername }, user).then(
         ({ data, message, error }) => {
-          handleAuthError(error);
+          redirectOnAuthError(error);
 
           if (data) {
             const { username } = data;

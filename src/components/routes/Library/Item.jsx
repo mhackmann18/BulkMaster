@@ -12,7 +12,7 @@ import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 import useUser from "../../../hooks/useUser";
 import Recipe from "../../../utils/Recipe";
 import User from "../../../utils/UserController";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import "./Item.css";
 
 export default function LibraryItem({
@@ -25,12 +25,12 @@ export default function LibraryItem({
   const caloriesPerRecipeServing = recipe.nutrients?.calories?.quantity;
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
   const { user } = useUser();
 
   const handleDeleteRecipe = () => {
     User.deleteRecipe(id).then(({ data, message, error }) => {
-      handleAuthError(error);
+      redirectOnAuthError(error);
 
       // Success
       if (data) {
@@ -49,7 +49,7 @@ export default function LibraryItem({
 
   const handleDuplicateRecipe = () => {
     User.saveRecipe(recipe, user).then(({ data, message, error }) => {
-      handleAuthError(error);
+      redirectOnAuthError(error);
 
       if (data) {
         onDuplicate(data);

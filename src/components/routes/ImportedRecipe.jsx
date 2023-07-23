@@ -1,6 +1,6 @@
 import { useLocation, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import RecipeItem from "../RecipeItem";
+import ImportedRecipeItem from "./ImportedRecipeItem";
 import Recipe from "../../utils/Recipe";
 import "./Import.css";
 import "./ImportedRecipe.css";
@@ -11,7 +11,7 @@ export default function ImportedRecipe({ redirectTo }) {
   return (
     <div id="import-recipe">
       {state && state.data ? (
-        <RecipeItem startRecipe={new Recipe(state.data)} />
+        <ImportedRecipeItem startRecipe={new Recipe(state.data)} />
       ) : (
         <Navigate to={redirectTo} />
       )}

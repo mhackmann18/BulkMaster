@@ -1,46 +1,42 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import RecipeDisplay from "./Display";
+import RecipeDisplay from "../RecipeItem/Display";
 import User from "../../utils/UserController";
-import RecipeForm from "./Form";
+import RecipeForm from "../RecipeItem/Form";
 import Recipe from "../../utils/Recipe";
 import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
+import useUser from "../../hooks/useUser";
 import useToast from "../../hooks/useToast";
 import Toast from "../common/Toast";
-import Buttons from "./Buttons";
+import Buttons from "../RecipeItem/Buttons";
 
-export default function RecipeItem({ startRecipe, startingDisplayType }) {
+export default function ImportedRecipeItem({ startRecipe }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
-  const [displayType, setDisplayType] = useState(startingDisplayType);
+  const [displayType, setDisplayType] = useState("div");
   const navigate = useNavigate();
   const redirectOnAuthError = useRedirectOnAuthError();
-  const { addErrorToastMessage, toast, closeToast } = useToast();
+  const { user } = useUser();
+  const { addErrorToastMessage, addSuccessToastMessage, toast, closeToast } =
+    useToast();
 
   console.log(recipe);
 
-  const handleCancelButtonClick = () => {
-    if (startingDisplayType === "form") {
-      navigate(-1);
-    } else {
-      setDisplayType("div");
-    }
-  };
+  const handleSaveRecipeButtonClick = async () => {
+    const { data, message, error } = await User.saveRecipe(recipe, user);
 
-  const updateRecipe = async (newRecipe) => {
-    const { error, message } = await User.updateRecipe(newRecipe, recipe.id);
+    redirectOnAuthError(error);
 
-    if (error) {
-      redirectOnAuthError(error);
+    // Error
+    if (message) {
       addErrorToastMessage(
-        `Unable to update recipe servings. ${
-          message || "An unexpected error occurred"
-        }`
+        `Unable to save recipe. ${message || "An unexpected error occurred"}`
       );
-      return;
     }
-
-    setRecipe(new Recipe({ ...newRecipe }));
+    // Success
+    else if (data) {
+      addSuccessToastMessage("Recipe added to library");
+    }
   };
 
   return (
@@ -48,12 +44,13 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
       {displayType === "div" ? (
         <RecipeDisplay
           rootRecipe={recipe}
-          setRootRecipe={updateRecipe}
+          setRootRecipe={(newRecipe) => setRecipe(new Recipe({ ...newRecipe }))}
           buttonsComponent={
             <Buttons
               buttonActions={{
                 onBackClick: () => navigate(-1),
                 onEditClick: () => setDisplayType("form"),
+                onSaveRecipeClick: handleSaveRecipeButtonClick,
               }}
             />
           }
@@ -61,7 +58,7 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
       ) : (
         <RecipeForm
           startRecipe={recipe}
-          onCancel={handleCancelButtonClick}
+          onCancel={() => setDisplayType("div")}
           setStartRecipe={setRecipe}
         />
       )}
@@ -70,11 +67,6 @@ export default function RecipeItem({ startRecipe, startingDisplayType }) {
   );
 }
 
-RecipeItem.propTypes = {
+ImportedRecipeItem.propTypes = {
   startRecipe: PropTypes.instanceOf(Recipe).isRequired,
-  startingDisplayType: PropTypes.oneOf(["form", "div"]),
-};
-
-RecipeItem.defaultProps = {
-  startingDisplayType: "div",
 };

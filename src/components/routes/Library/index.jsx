@@ -6,21 +6,21 @@ import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
 import Spinner from "../../common/Spinner";
 import NoContentMessage from "../../common/NoContentMessage";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import "./index.css";
 
 export default function Library() {
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
   const { addErrorToastMessage, addSuccessToastMessage, closeToast, toast } =
     useToast();
 
   // Load recipes
   useEffect(() => {
     User.getRecipes().then(({ data, message, error: fetchError }) => {
-      handleAuthError(fetchError);
+      redirectOnAuthError(fetchError);
 
       if (data?.length) {
         setRecipes(data.map((r) => new Recipe({ ...r })));
@@ -42,7 +42,7 @@ export default function Library() {
   const onRecipeDuplication = () => {
     // Refresh recipes
     User.getRecipes().then(({ data, message, error: fetchError }) => {
-      handleAuthError(fetchError);
+      redirectOnAuthError(fetchError);
       if (data.length) {
         setRecipes(data.map((r) => new Recipe({ ...r })));
         addSuccessToastMessage("Recipe duplicated");

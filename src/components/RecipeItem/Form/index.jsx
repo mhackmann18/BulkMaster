@@ -25,7 +25,7 @@ import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
 import User from "../../../utils/UserController";
 import useUser from "../../../hooks/useUser";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 
 export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -40,7 +40,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     servingSize,
     id,
   } = recipe;
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
 
   // eslint-disable-next-line no-nested-ternary
   const recipeStatus = title ? (id ? "existing" : "imported") : "new";
@@ -102,7 +102,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     } else if (recipeStatus === "new") {
       const { data, error, message } = await User.saveRecipe(recipeData, user);
 
-      handleAuthError(error);
+      redirectOnAuthError(error);
 
       if (data) {
         addSuccessToastMessage("New recipe added to library");
@@ -115,7 +115,7 @@ export default function RecipeForm({ startRecipe, setStartRecipe, onCancel }) {
     } else if (recipeStatus === "existing" && isFormDirty) {
       const { data, error, message } = await User.updateRecipe(recipeData, id);
 
-      handleAuthError(error);
+      redirectOnAuthError(error);
 
       if (data) {
         addSuccessToastMessage("Recipe updated");

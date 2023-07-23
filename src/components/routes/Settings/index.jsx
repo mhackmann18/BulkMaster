@@ -7,7 +7,7 @@ import useUser from "../../../hooks/useUser";
 import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 import User from "../../../utils/UserController";
-import useHandleAuthError from "../../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
 import "./index.css";
@@ -15,14 +15,14 @@ import "./index.css";
 export default function Settings() {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
   const { setUser, user } = useUser();
   const { addErrorToastMessage, toast, closeToast } = useToast();
 
   const handleAccountDeletion = async () => {
     const { data, error, message } = await User.deleteUser(user?.id);
 
-    handleAuthError(error);
+    redirectOnAuthError(error);
 
     if (data) {
       navigate("/login", {

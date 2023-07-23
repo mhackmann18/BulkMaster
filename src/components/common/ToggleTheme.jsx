@@ -4,11 +4,11 @@ import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import "./ToggleTheme.css";
 import useUser from "../../hooks/useUser";
 import User from "../../utils/UserController";
-import useHandleAuthError from "../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
 
 export default function ToggleTheme({ variant }) {
   const { user, setUser } = useUser();
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
 
   const { theme } = user;
 
@@ -21,7 +21,7 @@ export default function ToggleTheme({ variant }) {
   const handleClick = () => {
     User.update({ theme: theme === "light" ? "dark" : "light" }, user).then(
       ({ data, message, error }) => {
-        handleAuthError(error);
+        redirectOnAuthError(error);
 
         // Success
         if (data) {

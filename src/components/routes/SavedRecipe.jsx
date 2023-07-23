@@ -8,7 +8,7 @@ import Spinner from "../common/Spinner";
 import useToast from "../../hooks/useToast";
 import Toast from "../common/Toast";
 import NoContentMessage from "../common/NoContentMessage";
-import useHandleAuthError from "../../hooks/useHandleAuthError";
+import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
 import "./SavedRecipe.css";
 
 export default function RecipePage({ edit }) {
@@ -17,13 +17,13 @@ export default function RecipePage({ edit }) {
   const { state } = useLocation();
   const { id: recipeId } = useParams();
   const { toast, closeToast, addErrorToastMessage } = useToast();
-  const handleAuthError = useHandleAuthError();
+  const redirectOnAuthError = useRedirectOnAuthError();
 
   // Load recipe
   useEffect(() => {
     if (recipeId) {
       User.getRecipe(recipeId).then(({ data, message, error }) => {
-        handleAuthError(error);
+        redirectOnAuthError(error);
 
         if (data) {
           console.log(data);
