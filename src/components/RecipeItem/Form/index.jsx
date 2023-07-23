@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import RecipeContainer from "../RecipeContainer";
 import TitleInput from "./TitleInput";
 import ServingsInput from "./ServingsInput";
@@ -19,11 +17,12 @@ import StandardModal from "../../common/StandardModal";
 import ConfirmationDisplay from "../../common/ConfirmationDisplay";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
+import Buttons from "../Buttons";
 
 export default function RecipeForm({
   rootRecipe,
-  buttonsComponent,
-  onCancel,
+  buttonActions,
+  closeForm,
   onSubmit,
 }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...rootRecipe }));
@@ -39,21 +38,9 @@ export default function RecipeForm({
     id,
   } = recipe;
 
-  // Toast
-
+  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
   const { toast, addSuccessToastMessage, addErrorToastMessage, closeToast } =
     useToast();
-
-  // Modal
-
-  const [closeFormModalOpen, setCloseFormModalOpen] = useState(false);
-
-  const closeFormModal = () => {
-    setCloseFormModalOpen(false);
-  };
-
-  // Form
-
   const {
     handleSubmit,
     register,
@@ -74,13 +61,13 @@ export default function RecipeForm({
     }
   }, [watch()]);
 
-  const handleCloseButtonClick = () => {
+  const handleBackButtonClick = () => {
     const recipeData = Recipe.parseFormData(watch(), id);
 
     if (!rootRecipe.isEquivalent(recipeData)) {
       setCloseFormModalOpen(true);
     } else {
-      onCancel();
+      closeForm();
     }
   };
 
@@ -144,33 +131,14 @@ export default function RecipeForm({
           </>
         }
         buttonsComponent={
-          buttonsComponent || (
-            <>
-              <button
-                onClick={handleCloseButtonClick}
-                className="btn-default"
-                type="button"
-              >
-                <FontAwesomeIcon
-                  icon={faArrowLeft}
-                  size="sm"
-                  className="button-panel-icon"
-                />
-                Back
-              </button>
-              <button
-                type="submit"
-                className={`btn-default${isFormDirty ? "" : " inactive"}`}
-              >
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="button-panel-icon"
-                  size="sm"
-                />
-                Save Changes
-              </button>
-            </>
-          )
+          <Buttons
+            buttonActions={
+              buttonActions || {
+                onBackClick: handleBackButtonClick,
+                onSaveChangesClick: () => null,
+              }
+            }
+          />
         }
         ingredientsHeaderButtonComponent={
           <AddButton
@@ -233,15 +201,18 @@ export default function RecipeForm({
           </>
         }
       />
-      <StandardModal open={closeFormModalOpen} handleClose={closeFormModal}>
+      <StandardModal
+        open={closeFormModalOpen}
+        handleClose={() => setCloseFormModalOpen(false)}
+      >
         <ConfirmationDisplay
           headerText="Unsaved Changes"
           messageText="Are you sure you want to leave this page? Changes you made will not be saved."
           cancelBtnText="Cancel"
-          onCancel={closeFormModal}
+          onCancel={() => setCloseFormModalOpen(false)}
           confirmBtnText="Leave Page"
           onConfirm={() => {
-            onCancel();
+            closeForm();
           }}
         />
       </StandardModal>
@@ -252,12 +223,12 @@ export default function RecipeForm({
 
 RecipeForm.propTypes = {
   rootRecipe: PropTypes.instanceOf(Recipe).isRequired,
-  onCancel: PropTypes.func,
-  buttonsComponent: PropTypes.element,
+  closeForm: PropTypes.func,
+  buttonActions: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
 };
 
 RecipeForm.defaultProps = {
-  onCancel: () => null,
-  buttonsComponent: null,
+  closeForm: () => null,
+  buttonActions: null,
 };

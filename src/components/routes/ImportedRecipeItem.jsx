@@ -63,7 +63,7 @@ export default function ImportedRecipeItem({ startRecipe }) {
       ) : (
         <RecipeForm
           rootRecipe={recipe}
-          onCancel={() => setDisplayType("div")}
+          closeForm={() => setDisplayType("div")}
           onSubmit={handleFormSubmit}
         />
       )}

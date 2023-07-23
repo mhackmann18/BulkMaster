@@ -5,7 +5,6 @@ import Ingredient from "../../../utils/Ingredient";
 import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import useToast from "../../../hooks/useToast";
 import Toast from "../../common/Toast";
-import RecipeButtons from "../../RecipeItem/Buttons";
 import useUser from "../../../hooks/useUser";
 
 export default function NewRecipeItem() {
@@ -45,9 +44,7 @@ export default function NewRecipeItem() {
       <RecipeForm
         rootRecipe={recipe}
         onSubmit={createRecipe}
-        buttonsComponent={
-          <RecipeButtons buttonActions={{ onCreateRecipeClick: () => null }} />
-        }
+        buttonActions={{ onCreateRecipeClick: () => null }}
       />
       <Toast state={toast} onClose={closeToast} />
     </>

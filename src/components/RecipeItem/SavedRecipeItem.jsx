@@ -20,7 +20,7 @@ export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
 
   console.log(recipe);
 
-  const handleCancelButtonClick = () => {
+  const closeForm = () => {
     if (startingDisplayType === "form") {
       navigate(-1);
     } else {
@@ -77,7 +77,7 @@ export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
       ) : (
         <RecipeForm
           rootRecipe={recipe}
-          onCancel={handleCancelButtonClick}
+          closeForm={closeForm}
           onSubmit={handleFormSubmit}
         />
       )}
