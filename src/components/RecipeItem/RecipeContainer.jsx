@@ -11,6 +11,7 @@ export default function RecipeContainer({
   instructionsComponent,
   nutrientsHeaderButtonComponent,
   nutrientsComponent,
+  originalRecipeUrl,
 }) {
   return (
     <div className="recipe-container">
@@ -45,6 +46,11 @@ export default function RecipeContainer({
           </div>
         </div>
       </div>
+      {originalRecipeUrl && (
+        <p className="original-recipe">
+          Original recipe from {originalRecipeUrl}
+        </p>
+      )}
     </div>
   );
 }
@@ -74,6 +80,7 @@ RecipeContainer.propTypes = {
     PropTypes.element,
     PropTypes.oneOf([null]),
   ]),
+  originalRecipeUrl: PropTypes.string,
 };
 
 RecipeContainer.defaultProps = {
@@ -82,4 +89,6 @@ RecipeContainer.defaultProps = {
   instructionsHeaderButtonComponent: null,
   nutrientsHeaderButtonComponent: null,
   nutrientsComponent: null,
+  originalRecipeUrl:
+    "https://www.dinneratthezoo.com/slow-cooker-teriyaki-chicken/",
 };

@@ -135,12 +135,24 @@ form .nutrients-container {
   margin-right: .5rem;
 }
 
+.recipe-container .original-recipe {
+  color: var(--french-gray-2);
+  text-align: right;
+  margin-top: .5rem;
+  font-size: .8rem;
+}
+
 @media screen and (max-width: 480px) {
   #recipe-content {
     background-color: var(--white);
     border: none;
     padding: 0;
     margin-top: 1rem;
+  }
+
+  .recipe-container .original-recipe {
+    margin-top: 1rem;
+    text-align: left;
   }
 }
 
