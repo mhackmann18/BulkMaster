@@ -35,6 +35,7 @@ export default function RecipeForm({
     title,
     servings,
     servingSize,
+    originalUrl,
     id,
   } = recipe;
 
@@ -200,6 +201,7 @@ export default function RecipeForm({
             />
           </>
         }
+        originalRecipeUrl={originalUrl}
       />
       <StandardModal
         open={closeFormModalOpen}

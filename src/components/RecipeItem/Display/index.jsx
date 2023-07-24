@@ -22,6 +22,7 @@ export default function RecipeDisplay({
     title,
     servings,
     servingSize,
+    originalUrl,
   } = recipe;
 
   const handleSliderBlur = async (newServings) => {
@@ -73,6 +74,7 @@ export default function RecipeDisplay({
             />
           )
         }
+        originalRecipeUrl={originalUrl}
       />
     </div>
   );

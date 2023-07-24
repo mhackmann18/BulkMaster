@@ -29,6 +29,7 @@ export default async function getRecipeFromUrl(url) {
       prep_time,
       title,
       yields,
+      canonical_url,
     } = data;
 
     // These three fields are required in recipe
@@ -44,6 +45,7 @@ export default async function getRecipeFromUrl(url) {
       servings: yields,
       prepTime: prep_time,
       cookTime: cook_time,
+      originalUrl: canonical_url,
     });
   }
 

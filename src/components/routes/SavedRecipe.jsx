@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -27,7 +28,16 @@ export default function RecipePage({ edit }) {
 
         if (data) {
           console.log(data);
-          setRecipe(new Recipe({ ...data }));
+          const { serving_size, prep_time, cook_time, original_url } = data;
+          setRecipe(
+            new Recipe({
+              ...data,
+              servingSize: serving_size,
+              prepTime: prep_time,
+              cookTime: cook_time,
+              originalUrl: original_url,
+            })
+          );
         } else if (message) {
           addErrorToastMessage(
             `Unable to load recipe. ${message || "An unknown error occurred"}`

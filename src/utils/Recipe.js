@@ -44,6 +44,7 @@ export default class Recipe {
     servingSize,
     prepTime,
     cookTime,
+    originalUrl,
     id,
   }) {
     this.title = title;
@@ -58,11 +59,15 @@ export default class Recipe {
     this.nutrients = Recipe.formatNutrientObj(nutrients);
     this.servings =
       typeof servings === "number" ? servings : Number(servings.split(" ")[0]);
+    // eslint-disable-next-line no-nested-ternary
     this.servingSize = servingSize
-      ? JSON.parse(JSON.stringify(servingSize))
+      ? typeof servingSize === "object"
+        ? JSON.parse(JSON.stringify(servingSize))
+        : Recipe.servingSizeStringToObject(servingSize)
       : Recipe.servingSizeStringToObject(nutrients && nutrients.servingSize);
     this.prepTime = prepTime || null;
     this.cookTime = cookTime || null;
+    this.originalUrl = originalUrl || null;
     this.id = id || null;
   }
 
@@ -336,7 +341,8 @@ export default class Recipe {
   }
 
   static prepareForExport(recipe, userId) {
-    const { title, servings, servingSize, prepTime, cookTime } = recipe;
+    const { title, servings, servingSize, prepTime, cookTime, originalUrl } =
+      recipe;
 
     const ingredients = (() => {
       const formattedIngredients = [];
@@ -391,6 +397,7 @@ export default class Recipe {
       ingredients,
       instructions,
       nutrients,
+      original_url: originalUrl,
     };
 
     if (userId) preparedRecipe.user_id = userId;

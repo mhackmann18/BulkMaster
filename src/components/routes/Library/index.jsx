@@ -23,7 +23,18 @@ export default function Library() {
       redirectOnAuthError(fetchError);
 
       if (data?.length) {
-        setRecipes(data.map((r) => new Recipe({ ...r })));
+        setRecipes(
+          data.map(
+            (r) =>
+              new Recipe({
+                ...r,
+                servingSize: r.serving_size,
+                prepTime: r.prep_time,
+                cookTime: r.cook_time,
+                originalUrl: r.original_url,
+              })
+          )
+        );
       } else if (fetchError) {
         setError(true);
         addErrorToastMessage(

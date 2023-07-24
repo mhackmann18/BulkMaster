@@ -89,6 +89,5 @@ RecipeContainer.defaultProps = {
   instructionsHeaderButtonComponent: null,
   nutrientsHeaderButtonComponent: null,
   nutrientsComponent: null,
-  originalRecipeUrl:
-    "https://www.dinneratthezoo.com/slow-cooker-teriyaki-chicken/",
+  originalRecipeUrl: "",
 };
