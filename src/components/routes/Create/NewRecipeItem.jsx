@@ -44,7 +44,7 @@ export default function NewRecipeItem() {
       <RecipeForm
         rootRecipe={recipe}
         onSubmit={createRecipe}
-        buttonSettings={{ createRecipe: () => null }}
+        buttonSettings={{ createRecipe: { onClick: () => null } }}
       />
       <Toast state={toast} onClose={closeToast} />
     </>
