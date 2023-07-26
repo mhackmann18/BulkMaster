@@ -1,6 +1,7 @@
 #splash-page {
   display: flex;
   justify-content: center;
+  font-family: 'Work Sans', sans-serif;
 }
 
 #splash-page .content-wrapper {

@@ -28,7 +28,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
   return (
     <>
       <RecipeDisplay
-        startRecipe={recipe}
+        rootRecipe={recipe}
         buttonsComponent={<RecipeItemButtons buttonActions={buttonActions} />}
         onServingsClick={() =>
           setSignupModalMessage("Create an account to adjust recipe servings.")

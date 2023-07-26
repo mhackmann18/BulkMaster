@@ -82,7 +82,7 @@ export default function RecipeDisplay({
 
 RecipeDisplay.propTypes = {
   rootRecipe: PropTypes.instanceOf(Recipe).isRequired,
-  setRootRecipe: PropTypes.func.isRequired,
+  setRootRecipe: PropTypes.func,
   buttonsComponent: PropTypes.element,
   onServingsClick: PropTypes.oneOfType([
     PropTypes.func,
@@ -93,4 +93,5 @@ RecipeDisplay.propTypes = {
 RecipeDisplay.defaultProps = {
   buttonsComponent: null,
   onServingsClick: null,
+  setRootRecipe: () => null,
 };
