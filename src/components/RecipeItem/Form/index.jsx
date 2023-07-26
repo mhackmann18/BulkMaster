@@ -136,7 +136,10 @@ export default function RecipeForm({
             buttonSettings={
               buttonSettings || {
                 back: { onClick: handleBackButtonClick },
-                saveChanges: { onClick: () => null },
+                saveChanges: {
+                  onClick: () => null,
+                  ...(!isFormDirty && { variant: "inactive" }),
+                },
               }
             }
           />
