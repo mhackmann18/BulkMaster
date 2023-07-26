@@ -25,6 +25,7 @@ export default function Settings() {
     redirectOnAuthError(error);
 
     if (data) {
+      Cookies.remove("access_token");
       navigate("/login", {
         state: { successMessage: "Your account has been deleted" },
       });
