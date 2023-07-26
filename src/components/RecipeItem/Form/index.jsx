@@ -21,7 +21,7 @@ import Buttons from "../Buttons";
 
 export default function RecipeForm({
   rootRecipe,
-  buttonActions,
+  buttonSettings,
   closeForm,
   onSubmit,
 }) {
@@ -133,10 +133,10 @@ export default function RecipeForm({
         }
         buttonsComponent={
           <Buttons
-            buttonActions={
-              buttonActions || {
-                onBackClick: handleBackButtonClick,
-                onSaveChangesClick: () => null,
+            buttonSettings={
+              buttonSettings || {
+                back: { onClick: handleBackButtonClick },
+                saveChanges: { onClick: () => null },
               }
             }
           />
@@ -226,11 +226,11 @@ export default function RecipeForm({
 RecipeForm.propTypes = {
   rootRecipe: PropTypes.instanceOf(Recipe).isRequired,
   closeForm: PropTypes.func,
-  buttonActions: PropTypes.object,
+  buttonSettings: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
 };
 
 RecipeForm.defaultProps = {
   closeForm: () => null,
-  buttonActions: null,
+  buttonSettings: null,
 };

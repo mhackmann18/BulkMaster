@@ -8,26 +8,20 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function RecipeItemButtons({ buttonActions }) {
-  if (!Object.keys(buttonActions).length) {
+export default function RecipeItemButtons({ buttonSettings }) {
+  if (!Object.keys(buttonSettings).length) {
     return null;
   }
 
-  const {
-    onBackClick,
-    onEditClick,
-    onSaveRecipeClick,
-    onSaveChangesClick,
-    onCreateRecipeClick,
-  } = buttonActions;
+  const { back, edit, save, saveChanges, createRecipe } = buttonSettings;
 
   const buttons = [];
 
-  if (onBackClick) {
+  if (back) {
     buttons.push(
       <button
-        className="btn-default"
-        onClick={onBackClick}
+        className={`btn-default${back.variant ? ` ${back.variant}` : ""}`}
+        onClick={back.onClick}
         type="button"
         key="Back"
       >
@@ -41,11 +35,11 @@ export default function RecipeItemButtons({ buttonActions }) {
     );
   }
 
-  if (onEditClick) {
+  if (edit) {
     buttons.push(
       <button
-        className="btn-default"
-        onClick={onEditClick}
+        className={`btn-default${edit.variant ? ` ${edit.variant}` : ""}`}
+        onClick={edit.onClick}
         type="button"
         key="Edit"
       >
@@ -59,12 +53,12 @@ export default function RecipeItemButtons({ buttonActions }) {
     );
   }
 
-  if (onSaveRecipeClick) {
+  if (save) {
     buttons.push(
       <button
         type="button"
-        onClick={onSaveRecipeClick}
-        className="btn-default"
+        onClick={save.onClick}
+        className={`btn-default${save.variant ? ` ${save.variant}` : ""}`}
         key="Save"
       >
         <FontAwesomeIcon
@@ -77,12 +71,13 @@ export default function RecipeItemButtons({ buttonActions }) {
     );
   }
 
-  if (onSaveChangesClick) {
+  if (saveChanges) {
     buttons.push(
       <button
         type="submit"
-        className="btn-default"
-        onClick={onSaveChangesClick}
+        // eslint-disable-next-line prettier/prettier
+        className={`btn-default${saveChanges.variant ? ` ${saveChanges.variant}` : ""}`}
+        onClick={saveChanges.onClick}
         key="Save Changes"
       >
         <FontAwesomeIcon
@@ -95,12 +90,13 @@ export default function RecipeItemButtons({ buttonActions }) {
     );
   }
 
-  if (onCreateRecipeClick) {
+  if (createRecipe) {
     buttons.push(
       <button
         type="submit"
-        className="btn-default"
-        onClick={onCreateRecipeClick}
+        // eslint-disable-next-line prettier/prettier
+        className={`btn-default${createRecipe.variant ? ` ${createRecipe.variant}` : ""}`}
+        onClick={createRecipe.onClick}
         key="Create Recipe"
       >
         <FontAwesomeIcon
@@ -116,14 +112,17 @@ export default function RecipeItemButtons({ buttonActions }) {
   return buttons;
 }
 
-const buttonAction = PropTypes.func;
+const button = PropTypes.exact({
+  onClick: PropTypes.func.isRequired,
+  variant: PropTypes.string,
+});
 
 RecipeItemButtons.propTypes = {
-  buttonActions: PropTypes.exact({
-    onBackClick: buttonAction,
-    onEditClick: buttonAction,
-    onSaveRecipeClick: buttonAction,
-    onSaveChangesClick: buttonAction,
-    onCreateRecipeClick: buttonAction,
+  buttonSettings: PropTypes.exact({
+    back: button,
+    edit: button,
+    save: button,
+    saveChanges: button,
+    createRecipe: button,
   }).isRequired,
 };

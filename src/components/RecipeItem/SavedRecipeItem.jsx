@@ -67,9 +67,9 @@ export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
           setRootRecipe={updateRecipe}
           buttonsComponent={
             <RecipeButtons
-              buttonActions={{
-                onBackClick: () => navigate(-1),
-                onEditClick: () => setDisplayType("form"),
+              buttonSettings={{
+                back: { onClick: () => navigate(-1) },
+                edit: { onClick: () => setDisplayType("form") },
               }}
             />
           }

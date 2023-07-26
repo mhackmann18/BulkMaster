@@ -52,10 +52,10 @@ export default function ImportedRecipeItem({ startRecipe }) {
           setRootRecipe={(newRecipe) => setRecipe(new Recipe({ ...newRecipe }))}
           buttonsComponent={
             <Buttons
-              buttonActions={{
-                onBackClick: () => navigate(-1),
-                onEditClick: () => setDisplayType("form"),
-                onSaveRecipeClick: handleSaveRecipeButtonClick,
+              buttonSettings={{
+                back: { onClick: () => navigate(-1) },
+                edit: { onClick: () => setDisplayType("form") },
+                save: { onClick: handleSaveRecipeButtonClick },
               }}
             />
           }

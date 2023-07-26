@@ -14,11 +14,15 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
   const navigate = useNavigate();
 
   const buttonActions = {
-    onBackClick,
-    onEditClick: () =>
-      setSignupModalMessage("Create an account to edit recipes."),
-    onSaveRecipeClick: () =>
-      setSignupModalMessage("Create an account to save recipes."),
+    back: { onClick: onBackClick },
+    edit: {
+      onClick: () =>
+        setSignupModalMessage("Create an account to edit recipes."),
+    },
+    saveRecipe: {
+      onClick: () =>
+        setSignupModalMessage("Create an account to save recipes."),
+    },
   };
 
   const handleSignupFormSubmitSuccess = () => {
@@ -29,7 +33,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
     <>
       <RecipeDisplay
         rootRecipe={recipe}
-        buttonsComponent={<RecipeItemButtons buttonActions={buttonActions} />}
+        buttonsComponent={<RecipeItemButtons buttonSettings={buttonActions} />}
         onServingsClick={() =>
           setSignupModalMessage("Create an account to adjust recipe servings.")
         }
