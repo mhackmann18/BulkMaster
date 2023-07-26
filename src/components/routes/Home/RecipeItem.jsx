@@ -19,7 +19,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
       onClick: () =>
         setSignupModalMessage("Create an account to edit recipes."),
     },
-    saveRecipe: {
+    save: {
       onClick: () =>
         setSignupModalMessage("Create an account to save recipes."),
     },
