@@ -38,7 +38,7 @@ export default function LoginForm() {
       <label htmlFor="username">Username</label>
       <input name="username" id="username" type="text" />
       <label htmlFor="password">Password</label>
-      <input name="password" id="password" type="text" />
+      <input name="password" id="password" type="password" />
       <button type="submit" className="btn-default bg-eerie-black">
         Log in
       </button>
