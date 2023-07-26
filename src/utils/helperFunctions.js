@@ -79,7 +79,7 @@ export function getNumberFromNumericalString(str) {
 }
 
 export function formatAmount(num, precision) {
-  let multiplier = precision * 10;
+  let multiplier = 10 ** precision;
   if (!precision || precision < 0) multiplier = 1;
   return `${Math.round(num * multiplier) / multiplier}`;
 }
