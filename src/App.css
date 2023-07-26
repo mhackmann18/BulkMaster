@@ -23,10 +23,13 @@ html {
   overflow-y: scroll;
 }
 
-body, input, select, textarea {
+body,
+input,
+select,
+textarea {
   background-color: var(--white);
-  /* font-family: 'Open Sans', sans-serif; */
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
   /* font-family: 'Work Sans', sans-serif; */
   color: var(--font-color-default);
   font-size: 16px;
@@ -157,7 +160,9 @@ input.no-spinner-wheel {
   padding: 3px;
 }
 
-.bold {font-weight: 600;}
+.bold {
+  font-weight: 600;
+}
 
 @media screen and (min-width: 600px) {
   .viewport-small {
