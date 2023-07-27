@@ -1,9 +1,9 @@
 import { useLocation, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import ImportedRecipeItem from "./ImportedRecipeItem";
-import Recipe from "../../utils/Recipe";
-import "./Import.css";
-import "./ImportedRecipe.css";
+import ImportedRecipeItem from "./RecipeItem";
+import Recipe from "../../../utils/Recipe";
+import "../Import.css";
+import "./index.css";
 
 export default function ImportedRecipe({ redirectTo }) {
   const { state } = useLocation();

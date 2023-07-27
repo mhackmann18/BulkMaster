@@ -9,7 +9,7 @@ import Create from "./components/routes/Create";
 import Library from "./components/routes/Library";
 import Settings from "./components/routes/Settings";
 import SavedRecipe from "./components/routes/SavedRecipe";
-import ImportedRecipe from "./components/routes/ImportedRecipe";
+import Search from "./components/routes/Search";
 import Home from "./components/routes/Home";
 import Signup from "./components/routes/Signup";
 import Login from "./components/routes/Login";
@@ -44,10 +44,6 @@ export default function App() {
               }
             >
               <Route path="" element={<Home />} />
-              <Route
-                path="search"
-                element={<ImportedRecipe redirectTo="/" />}
-              />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
             </Route>
@@ -62,9 +58,7 @@ export default function App() {
               <Route path="import-recipe" element={<Import />} />
               <Route
                 path="import-recipe/search"
-                element={
-                  <ImportedRecipe redirectTo="/dashboard/import-recipe" />
-                }
+                element={<Search redirectTo="/dashboard/import-recipe" />}
               />
               <Route path="create-recipe" element={<Create />} />
               <Route path="recipe-library" element={<Library />} />
