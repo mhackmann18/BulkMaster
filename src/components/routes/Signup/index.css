@@ -1,16 +1,12 @@
+#signup-page {
+  display: flex;
+}
+
 .account-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
 }
 
 #signup-msg {
   text-align: center;
 }
-
-/* @media screen and (min-width: 600px) {
-  .account-page {
-    align-items: center;
-  }
-} */
