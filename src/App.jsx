@@ -56,6 +56,7 @@ export default function App() {
               }
             >
               <Route path="import-recipe" element={<Import />} />
+              <Route path="" element={<Import />} />
               <Route
                 path="import-recipe/search"
                 element={<Search redirectTo="/dashboard/import-recipe" />}
