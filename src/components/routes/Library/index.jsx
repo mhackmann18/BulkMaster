@@ -45,12 +45,12 @@ export default function Library() {
     });
   }, []);
 
-  const onRecipeDeletion = (recipeId) => {
+  const handleRecipeDelete = (recipeId) => {
     setRecipes(recipes.filter((r) => r.id !== recipeId));
     addSuccessToastMessage("Recipe deleted");
   };
 
-  const onRecipeDuplication = () => {
+  const handleRecipeDuplicate = () => {
     // Refresh recipes
     User.getRecipes().then(({ data, message, error: fetchError }) => {
       redirectOnAuthError(fetchError);
@@ -73,8 +73,8 @@ export default function Library() {
         key={recipe.id}
         recipe={recipe}
         addErrorToastMessage={addErrorToastMessage}
-        onDelete={onRecipeDeletion}
-        onDuplicate={onRecipeDuplication}
+        onDelete={handleRecipeDelete}
+        onDuplicate={handleRecipeDuplicate}
       />
     ))
   ) : (
