@@ -8,7 +8,6 @@ import Recipe from "../../utils/Recipe";
 import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
 import useToast from "../../hooks/useToast";
 import Toast from "../common/Toast";
-import RecipeButtons from "./Buttons";
 
 export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -65,14 +64,10 @@ export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
         <RecipeDisplay
           rootRecipe={recipe}
           setRootRecipe={updateRecipe}
-          buttonsComponent={
-            <RecipeButtons
-              buttonSettings={{
-                back: { onClick: () => navigate(-1) },
-                edit: { onClick: () => setDisplayType("form") },
-              }}
-            />
-          }
+          buttonSettings={{
+            back: { onClick: () => navigate(-1) },
+            edit: { onClick: () => setDisplayType("form") },
+          }}
         />
       ) : (
         <RecipeForm

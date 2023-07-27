@@ -5,11 +5,12 @@ import SubHeading from "./SubHeading";
 import IngredientsList from "./IngredientsList";
 import NutrientsList from "./NutrientsList";
 import Recipe from "../../../utils/Recipe";
+import RecipeButtons from "../Buttons";
 
 export default function RecipeDisplay({
   rootRecipe,
   setRootRecipe,
-  buttonsComponent,
+  buttonSettings,
   onServingsClick,
 }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...rootRecipe }));
@@ -56,7 +57,7 @@ export default function RecipeDisplay({
             onServingsClick={onServingsClick}
           />
         }
-        buttonsComponent={buttonsComponent}
+        buttonsComponent={<RecipeButtons buttonSettings={buttonSettings} />}
         ingredientsComponent={<IngredientsList ingredients={ingredients} />}
         instructionsComponent={
           <ol id="instructions-list">
@@ -83,7 +84,7 @@ export default function RecipeDisplay({
 RecipeDisplay.propTypes = {
   rootRecipe: PropTypes.instanceOf(Recipe).isRequired,
   setRootRecipe: PropTypes.func,
-  buttonsComponent: PropTypes.element,
+  buttonSettings: PropTypes.object,
   onServingsClick: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.oneOf([null]),
@@ -91,7 +92,7 @@ RecipeDisplay.propTypes = {
 };
 
 RecipeDisplay.defaultProps = {
-  buttonsComponent: null,
+  buttonSettings: {},
   onServingsClick: null,
   setRootRecipe: () => null,
 };

@@ -9,7 +9,6 @@ import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
 import useUser from "../../hooks/useUser";
 import useToast from "../../hooks/useToast";
 import Toast from "../common/Toast";
-import Buttons from "../RecipeItem/Buttons";
 
 export default function ImportedRecipeItem({ startRecipe }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
@@ -50,15 +49,11 @@ export default function ImportedRecipeItem({ startRecipe }) {
         <RecipeDisplay
           rootRecipe={recipe}
           setRootRecipe={(newRecipe) => setRecipe(new Recipe({ ...newRecipe }))}
-          buttonsComponent={
-            <Buttons
-              buttonSettings={{
-                back: { onClick: () => navigate(-1) },
-                edit: { onClick: () => setDisplayType("form") },
-                save: { onClick: handleSaveRecipeButtonClick },
-              }}
-            />
-          }
+          buttonSettings={{
+            back: { onClick: () => navigate(-1) },
+            edit: { onClick: () => setDisplayType("form") },
+            save: { onClick: handleSaveRecipeButtonClick },
+          }}
         />
       ) : (
         <RecipeForm

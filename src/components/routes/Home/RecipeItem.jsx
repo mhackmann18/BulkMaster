@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Modal, Fade } from "@mui/material";
 import Recipe from "../../../utils/Recipe";
 import RecipeDisplay from "../../RecipeItem/Display";
-import RecipeItemButtons from "../../RecipeItem/Buttons";
 import SignupForm from "../Signup/Form";
 import "./RecipeItem.css";
 
@@ -13,7 +12,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
   const [signupModalMessage, setSignupModalMessage] = useState(null);
   const navigate = useNavigate();
 
-  const buttonActions = {
+  const buttonSettings = {
     back: { onClick: onBackClick },
     edit: {
       onClick: () =>
@@ -33,7 +32,7 @@ export default function HomeRecipeItem({ recipe, onBackClick }) {
     <>
       <RecipeDisplay
         rootRecipe={recipe}
-        buttonsComponent={<RecipeItemButtons buttonSettings={buttonActions} />}
+        buttonSettings={buttonSettings}
         onServingsClick={() =>
           setSignupModalMessage("Create an account to adjust recipe servings.")
         }
