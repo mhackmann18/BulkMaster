@@ -46,7 +46,8 @@ export default function Library() {
   }, []);
 
   const handleRecipeDelete = (recipeId) => {
-    setRecipes(recipes.filter((r) => r.id !== recipeId));
+    const updatedRecipes = recipes.filter((r) => r.id !== recipeId);
+    setRecipes(updatedRecipes.length ? updatedRecipes : null);
     addSuccessToastMessage("Recipe deleted");
   };
 
