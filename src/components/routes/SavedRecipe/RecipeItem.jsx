@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import RecipeDisplay from "./Display";
-import User from "../../utils/UserController";
-import RecipeForm from "./Form";
-import Recipe from "../../utils/Recipe";
-import useRedirectOnAuthError from "../../hooks/useRedirectOnAuthError";
-import useToast from "../../hooks/useToast";
-import Toast from "../common/Toast";
+import RecipeDisplay from "../../RecipeItem/Display";
+import User from "../../../utils/UserController";
+import RecipeForm from "../../RecipeItem/Form";
+import Recipe from "../../../utils/Recipe";
+import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
+import useToast from "../../../hooks/useToast";
+import Toast from "../../common/Toast";
 
 export default function SavedRecipeItem({ startRecipe, startingDisplayType }) {
   const [recipe, setRecipe] = useState(new Recipe({ ...startRecipe }));
