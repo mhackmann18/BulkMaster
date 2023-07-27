@@ -209,3 +209,8 @@ input[type=number] {
   color: var(--error-color);
   font-size: .75rem;
 }
+
+.btn-none {
+  background-color: transparent;
+  border: none;
+}

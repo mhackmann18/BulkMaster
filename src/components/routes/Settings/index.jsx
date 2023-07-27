@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import SettingsList from "./List";
 import Button from "../../common/Button";
 import useUser from "../../../hooks/useUser";
@@ -10,14 +8,15 @@ import User from "../../../utils/UserController";
 import useRedirectOnAuthError from "../../../hooks/useRedirectOnAuthError";
 import Toast from "../../common/Toast";
 import useToast from "../../../hooks/useToast";
+import useLogout from "../../../hooks/useLogout";
 import "./index.css";
 
 export default function Settings() {
   const [modalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
   const redirectOnAuthError = useRedirectOnAuthError();
-  const { setUser, user } = useUser();
+  const { user } = useUser();
   const { addErrorToastMessage, toast, closeToast } = useToast();
+  const logout = useLogout();
 
   const handleAccountDeletion = async () => {
     const { data, error, message } = await User.deleteUser(user?.id);
@@ -25,10 +24,7 @@ export default function Settings() {
     redirectOnAuthError(error);
 
     if (data) {
-      Cookies.remove("access_token");
-      navigate("/login", {
-        state: { successMessage: "Your account has been deleted" },
-      });
+      logout("Your account has been deleted");
     } else if (error) {
       addErrorToastMessage(
         `Unable to delete account. ${message || "An unexpected error occurred"}`
@@ -46,9 +42,7 @@ export default function Settings() {
             <Button
               text="Sign Out"
               handleClick={() => {
-                Cookies.remove("access_token");
-                setUser(null);
-                navigate("/");
+                logout();
               }}
               variant="default wide"
             />
