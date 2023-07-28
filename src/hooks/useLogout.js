@@ -7,7 +7,7 @@ export default function useLogout() {
   const navigate = useNavigate();
 
   const logout = (message) => {
-    Cookies.remove("access_token");
+    Cookies.remove("access_token", { path: "/", domain: "localhost" });
     setUser(null);
     if (message) {
       navigate("/login", { state: { successMessage: message } });
