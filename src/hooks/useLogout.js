@@ -11,8 +11,6 @@ export default function useLogout() {
     setUser(null);
     if (message) {
       navigate("/login", { state: { successMessage: message } });
-    } else {
-      navigate("/login");
     }
   };
 

@@ -40,11 +40,7 @@ export default function IngredientsListItem({
         <div className="inputs-container">
           <QuantityInput
             ingredientQuantity={quantity}
-            errorMessage={
-              ingredientErrors &&
-              ingredientErrors.quantity &&
-              ingredientErrors.quantity.message
-            }
+            errorMessage={ingredientErrors?.quantity?.message}
             {...register(`ingredients.${id}.quantity`, {
               validate: RecipeValidator.getIngredientQuantityErrMsg,
             })}
@@ -55,11 +51,7 @@ export default function IngredientsListItem({
           />
           <NameInput
             ingredientName={name}
-            errorMessage={
-              ingredientErrors &&
-              ingredientErrors.name &&
-              ingredientErrors.name.message
-            }
+            errorMessage={ingredientErrors?.name?.message}
             {...register(`ingredients.${id}.name`, {
               validate: RecipeValidator.getIngredientNameErrMsg,
             })}

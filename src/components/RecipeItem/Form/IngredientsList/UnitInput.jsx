@@ -2,7 +2,6 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-// import { v4 as uuidv4 } from "uuid";
 import {
   standardFormUnits,
   standardFormUnitsPlural,
@@ -11,16 +10,9 @@ import "./UnitInput.css";
 
 const UnitInput = forwardRef(
   ({ ingredientUnit, name, onChange, onBlur }, ref) => (
-    // <select
-    //   className="ingredient-unit-select"
-    //   name="ingredient-unit"
-    //   title="Unit"
-    //   defaultValue={unit}
-    // >
     <div className="ingredient-unit-select-wrapper">
       <TextField
         name={name}
-        // id={name}
         onChange={onChange}
         onBlur={onBlur}
         select
@@ -28,6 +20,12 @@ const UnitInput = forwardRef(
         label="Unit"
         defaultValue={ingredientUnit || ""}
         fullWidth
+        InputProps={{
+          inputProps: { id: name },
+        }}
+        InputLabelProps={{
+          htmlFor: name,
+        }}
         inputRef={ref}
       >
         {["", ...standardFormUnits].map((el) => (
@@ -37,7 +35,6 @@ const UnitInput = forwardRef(
         ))}
       </TextField>
     </div>
-    // </select>
   )
 );
 
