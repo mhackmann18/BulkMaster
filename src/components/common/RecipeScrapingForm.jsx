@@ -42,7 +42,7 @@ export default function RecipeScrapingForm({ handleResponse, variant }) {
               }}
             />
             <button className="btn-default" type="submit">
-              Harvest Recipe
+              Get Recipe
             </button>
           </div>
           {submitError && (
