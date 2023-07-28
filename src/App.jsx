@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import CheckAuthBeforeRender from "./CheckAuthBeforeRender";
 import UserContextProvider from "./UserContextProvider";
 import Splash from "./components/routes/Splash";
@@ -55,8 +55,11 @@ export default function App() {
                 </CheckAuthBeforeRender>
               }
             >
+              <Route
+                path=""
+                element={<Navigate to="/dashboard/import-recipe" replace />}
+              />
               <Route path="import-recipe" element={<Import />} />
-              <Route path="" element={<Import />} />
               <Route
                 path="import-recipe/search"
                 element={<Search redirectTo="/dashboard/import-recipe" />}
