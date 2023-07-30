@@ -1,5 +1,5 @@
 export default {
-  ORIGIN: "http://localhost:8080",
+  ORIGIN: "http://3.19.72.154:8080",
 
   // ERROR CODES
   INVALID_TOKEN_ERR: "invalid-token",
