@@ -1,4 +1,4 @@
-import config from "../../config";
+import config from "../config";
 
 const apiUrl = `https://api.spoonacular.com/recipes/random?number=100&apiKey=${config.API_KEY}`;
 
