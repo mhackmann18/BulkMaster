@@ -1,5 +1,6 @@
 export default {
-  ORIGIN: "https://api.recipereaper.com:8080",
+  API_ORIGIN: "https://api.recipereaper.com:8080",
+  DOMAIN: "www.recipereaper.com",
 
   // ERROR CODES
   INVALID_TOKEN_ERR: "invalid-token",

@@ -1,7 +1,7 @@
 import config from "./config";
 import Recipe from "./Recipe";
 
-const { ORIGIN } = config;
+const { API_ORIGIN: ORIGIN } = config;
 
 export default class UserController {
   static async create(user) {
