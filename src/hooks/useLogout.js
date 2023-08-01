@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import useUser from "./useUser";
-import config from "../../config";
+import config from "../config";
 
 export default function useLogout() {
   const { setUser } = useUser();
