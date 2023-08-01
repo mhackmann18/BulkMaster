@@ -1,4 +1,4 @@
-import config from "./config";
+import config from "../../config";
 import Recipe from "./Recipe";
 
 const { API_ORIGIN: ORIGIN } = config;

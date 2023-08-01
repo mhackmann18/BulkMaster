@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import config from "../utils/config";
+import config from "../../config";
 
 export default function useRedirectOnAuthError() {
   const navigate = useNavigate();
