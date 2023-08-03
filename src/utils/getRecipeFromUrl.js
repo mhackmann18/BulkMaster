@@ -11,7 +11,9 @@ export default async function getRecipeFromUrl(url) {
   let response;
 
   try {
-    response = await fetch(`http://localhost:8000/recipe-data?url=${url}`);
+    response = await fetch(
+      `https://api.recipereaper.com/recipe-data?url=${url}`
+    );
   } catch (error) {
     return error;
   }
