@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import config from "../config";
 
 export default function useRedirectOnAuthError() {
   const navigate = useNavigate();
 
   const redirectOnAuthError = (error) => {
-    if (error === config.INVALID_TOKEN_ERR || error === config.NO_TOKEN_ERR) {
+    if (error === "invalid-token" || error === "no-token") {
       navigate("/login", {
         state: {
           errorMessage: "Your token has expired. Please re-login",
