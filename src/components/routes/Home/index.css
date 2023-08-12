@@ -1,5 +1,5 @@
 #home-page {
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .home-window {
@@ -98,24 +98,24 @@
   margin: auto;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 998px) {
   #home-window-1 .mouse-scroll-gif {
     opacity: 0%;
   }
 
   #home-page .home-window {
-    height: auto;
+    /* height: auto; */
     margin-bottom: 10vh;
   }
 
   #home-page .h-box {
     flex-direction: column;
-    margin-top: 0;
+    margin-top: 18vh;
     height: auto;
   }
 
   #home-window-1 .h-box {
-    margin-top: 10vh;
+    margin-top: 18vh;
   }
 
   #home-page .left-content {
@@ -131,7 +131,8 @@
   }
 
   #home-page .mascot {
-    max-height: 50vh;
+    max-height: 340px;
+    margin-bottom: 1.5rem;
   }
 
   #home-page ul {
@@ -168,10 +169,6 @@
     order: 2;
   }
 
-  #home-page .mascot {
-    margin-bottom: 1rem;
-  }
-
   #home-page #home-window-3 {
     margin-bottom: 0;
   }
@@ -182,17 +179,8 @@
 }
 
 @media screen and (max-width: 480px) {
-  .divider-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .divider-wrapper .divider {
-    background-color: var(--platinum);
-    height: 1px;
-    width: 80%;
-    margin: 8vh 0;
+  #home-page .text-box p {
+    margin-bottom: .75rem;
   }
 
   #home-page br {
@@ -205,14 +193,7 @@
 
   #home-page .home-window {
     margin-bottom: 0;
-  }
-
-  #home-window-1 {
     height: 100vh;
-  }
-
-  #home-page #home-window-1 .text-box {
-    margin-top: 10vh;
   }
 
   #home-page .text-box {
@@ -220,7 +201,9 @@
   }
 
   #home-page .mascot {
-    display: none;
+    /* display: none; */
+    min-height: 200px;
+    height: 30vh;
   }
 
   #home-page .text-box h2 {
@@ -233,11 +216,12 @@
   }
 
   #home-page li .icon {
-    display: none;
+    font-size: small;
   }
 
   #home-page .form-wrapper {
-    padding-bottom: 5vh;
+    margin-top: 10vh;
+    padding-bottom: 10vh;
   }
 
   #home-page #signup-form {

@@ -62,14 +62,14 @@ export default function Home() {
           alt="mouse-gif"
         />
       </div>
-      <div className="divider-wrapper">
-        <div className="divider" />
-      </div>
       <div id="home-window-2" className="home-window">
         <div className="h-box">
           <div className="left-content text-box">
             <div>
-              <h2 className="title">Start building your online cookbook</h2>
+              <h2 className="title">
+                Start building your
+                <br /> online cookbook
+              </h2>
               <p>Save recipes to your personal library.</p>
               <ul>
                 <li>
@@ -91,9 +91,6 @@ export default function Home() {
             <img className="mascot" src={reaperReading} alt="" />
           </div>
         </div>
-      </div>
-      <div className="divider-wrapper">
-        <div className="divider" />
       </div>
       <div id="home-window-3" className="home-window">
         <div className="h-box">
@@ -121,9 +118,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="divider-wrapper">
-        <div className="divider" />
       </div>
       <div className="form-wrapper">
         <SignupForm
